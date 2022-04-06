@@ -1,42 +1,45 @@
+using Model;
+using Service;
 using System;
 
 namespace Repository
 {
-   public class RoomRepo
+   public class ExaminationRepo
    {
       private String dbPath;
       
-      public bool NewRoom(Room room)
+      public bool NewExamination(Examination examination)
       {
          throw new NotImplementedException();
       }
       
-      public Room GetRoom(String roomId)
+      public Examination GetExamination(String examId)
       {
          throw new NotImplementedException();
       }
       
-      public void SetRoom(String roomId, Room newRoom)
+      public void SetExamination(String examId, Examination newExam)
       {
          throw new NotImplementedException();
       }
       
-      public bool DeleteRoom(String roomId)
+      public bool DeleteExamination(String examId)
       {
          throw new NotImplementedException();
       }
       
-      public bool LoadRoom()
+      public bool LoadExamination()
       {
          throw new NotImplementedException();
       }
       
-      public bool SaveRoom()
+      public bool SaveExamination()
       {
          throw new NotImplementedException();
       }
       
-      public RoomService roomService;
+      public PatientService patientService;
+      public DoctorService doctorService;
    
    }
 }

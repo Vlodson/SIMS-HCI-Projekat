@@ -1,10 +1,12 @@
+using Model;
 using System;
+using System.Collections.Generic;
 
 namespace Controller
 {
    public class ExamController
    {
-      public bool PatientCreateExam(Model.Patient patient, DateTime date, Enumerate examType)
+      public bool PatientCreateExam(Model.Patient patient, DateTime date, DoctorType examType)
       {
          throw new NotImplementedException();
       }
