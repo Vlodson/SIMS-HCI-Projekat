@@ -1,4 +1,5 @@
 using Model;
+using Service;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,24 @@ namespace Controller
 {
    public class ExamController
    {
-      public bool PatientCreateExam(Model.Patient patient, DateTime date, DoctorType examType)
+
+        private readonly PatientService _patientService;
+        //private readonly DoctorService _doctorService;
+
+        /*
+        public ExamController(PatientService patientService, DoctorService doctorService)
+        {
+            _patientService = patientService;
+            _doctorService = doctorService;
+        }
+        */
+        public ExamController(PatientService patientService)
+        {
+            _patientService = patientService;
+        }
+
+
+        public bool PatientCreateExam(Model.Patient patient, DateTime date, DoctorType examType)
       {
          throw new NotImplementedException();
       }
@@ -21,9 +39,9 @@ namespace Controller
          throw new NotImplementedException();
       }
       
-      public List<Examination> ReadPatientExams()
+      public List<Examination> ReadPatientExams(string id)
       {
-         throw new NotImplementedException();
+          return  _patientService.ReadMyExams(id);
       }
       
       public void DoctorEditExam()
@@ -36,9 +54,10 @@ namespace Controller
          throw new NotImplementedException();
       }
       
-      public System.Collections.ArrayList doctorService;
+      //public System.Collections.ArrayList doctorService;
       
       
+        /*
       public System.Collections.ArrayList DoctorService
       {
          get
@@ -57,37 +76,45 @@ namespace Controller
             }
          }
       }
+        */
       
       
       public void AddDoctorService(Service.DoctorService newDoctorService)
       {
+            /*
          if (newDoctorService == null)
             return;
          if (this.doctorService == null)
             this.doctorService = new System.Collections.ArrayList();
          if (!this.doctorService.Contains(newDoctorService))
             this.doctorService.Add(newDoctorService);
+            */
       }
       
       
       public void RemoveDoctorService(Service.DoctorService oldDoctorService)
       {
+            /*
          if (oldDoctorService == null)
             return;
          if (this.doctorService != null)
             if (this.doctorService.Contains(oldDoctorService))
                this.doctorService.Remove(oldDoctorService);
+            */
       }
       
       
       public void RemoveAllDoctorService()
       {
+            /*
          if (doctorService != null)
             doctorService.Clear();
+            */
       }
-      public System.Collections.ArrayList patientService;
+      //public System.Collections.ArrayList patientService;
       
       
+        /*
       public System.Collections.ArrayList PatientService
       {
          get
@@ -106,33 +133,40 @@ namespace Controller
             }
          }
       }
+        */
       
       
       public void AddPatientService(Service.PatientService newPatientService)
       {
+            /*
          if (newPatientService == null)
             return;
          if (this.patientService == null)
             this.patientService = new System.Collections.ArrayList();
          if (!this.patientService.Contains(newPatientService))
             this.patientService.Add(newPatientService);
+            */
       }
       
       
       public void RemovePatientService(Service.PatientService oldPatientService)
       {
+            /*
          if (oldPatientService == null)
             return;
          if (this.patientService != null)
             if (this.patientService.Contains(oldPatientService))
                this.patientService.Remove(oldPatientService);
+            */
       }
       
       
       public void RemoveAllPatientService()
       {
+            /*
          if (patientService != null)
             patientService.Clear();
+            */
       }
    
    }

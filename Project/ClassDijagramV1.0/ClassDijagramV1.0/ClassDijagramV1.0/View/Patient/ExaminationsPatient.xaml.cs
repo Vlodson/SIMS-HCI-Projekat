@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Controller;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -22,6 +23,9 @@ namespace ClassDijagramV1._0.View.Patient
     public partial class ExaminationsPatient : Window
     {
 
+        private ExamController _examController;
+        private PatientController _patientController;
+
         public ObservableCollection<Examination> Examinations
         {
             get;
@@ -33,7 +37,7 @@ namespace ClassDijagramV1._0.View.Patient
             this.DataContext = this;
 
             Examinations = new ObservableCollection<Examination>();
-
+            /*
             Equipment equipment1 = new Equipment("typeEquipment1", 2);
             List<Equipment> equipmentList1 = new List<Equipment>();
             equipmentList1.Add(equipment1);
@@ -50,6 +54,21 @@ namespace ClassDijagramV1._0.View.Patient
             DateTime dtExam1 = DateTime.Now;
             Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, patient, doctor);
             Examinations.Add(exam1);
+            */
+
+            //zakucana vrednost posto nema logovanja jos
+            string idPatient = "idPatient1";
+
+            var app = Application.Current as App;
+            _examController = app.ExamController;
+            Examinations = new ObservableCollection<Examination>(FindAllExaminationsFromPatient(idPatient));
+            
+        }
+
+        private IList<Examination> FindAllExaminationsFromPatient(string id)
+        {
+            return _examController.ReadPatientExams(id)
+                .ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,17 @@ namespace Service
 {
    public class PatientService
    {
-      private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
+        //dodato
+        private readonly PatientRepo _patientRepo;
+        private readonly ExaminationRepo _examinationRepo;
+
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo)
+        {
+            _patientRepo = patientRepo;
+            _examinationRepo = examinationRepo;
+        }
+
+        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
       {
          throw new NotImplementedException();
       }
@@ -26,9 +37,9 @@ namespace Service
          throw new NotImplementedException();
       }
       
-      public List<Examination> ReadMyExams()
+      public List<Examination> ReadMyExams(string id)
       {
-         throw new NotImplementedException();
+            return _examinationRepo.ExaminationsForPatient(id);
       }
    
    }

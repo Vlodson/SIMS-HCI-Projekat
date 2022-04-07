@@ -7,8 +7,13 @@ namespace Repository
    public class PatientRepo
    {
       private String dbPath;
-      
-      public bool NewPatient(Patient patient)
+
+        public PatientRepo(string dbPath)
+        {
+            this.dbPath = dbPath;
+        }
+
+        public bool NewPatient(Patient patient)
       {
          throw new NotImplementedException();
       }
@@ -38,7 +43,7 @@ namespace Repository
          throw new NotImplementedException();
       }
       
-      public PatientAccountService patientAccountService;
+      //public PatientAccountService patientAccountService;
    
    }
 }

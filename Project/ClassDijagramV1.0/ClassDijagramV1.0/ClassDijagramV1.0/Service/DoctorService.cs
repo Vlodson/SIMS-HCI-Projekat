@@ -6,6 +6,8 @@ namespace Service
 {
    public class DoctorService
    {
+
+        
       private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
       {
          throw new NotImplementedException();
