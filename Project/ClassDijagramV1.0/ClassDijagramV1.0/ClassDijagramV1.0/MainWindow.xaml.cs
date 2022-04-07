@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using ClassDijagramV1._0.View.Patient;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,6 +30,10 @@ namespace ClassDijagramV1._0
             
         }
 
-        
+        private void PatientCRUD(object sender, RoutedEventArgs e)
+        {
+            ExaminationsPatient examinationPatient = new ExaminationsPatient();
+            examinationPatient.Show();
+        }
     }
 }
