@@ -19,10 +19,11 @@
         <Grid Grid.Column="0" Grid.Row="1">
             <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Vrsta" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Lekar" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Room.id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Soba"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Vrsta" Binding="{Binding Doctor.Type}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="" Binding="{Binding Doctor.Surname}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Soba" Binding="{Binding Room.Id}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
