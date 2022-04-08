@@ -38,5 +38,19 @@ namespace Repository
             //foreach(Doctor doctor in listDoctor) Console.WriteLine(doctor.Name);
             return listDoctor;
         }
+
+        public Doctor GetDoctor(string id)
+        {
+            foreach(Doctor doctor in this.listDoctor)
+            {
+                if (doctor.getId().Equals(id))
+                {
+                    return doctor;
+                }
+            }
+            return null;
+        }
+
+        
     }
 }

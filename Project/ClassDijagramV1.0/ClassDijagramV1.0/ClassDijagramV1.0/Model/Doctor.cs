@@ -15,14 +15,32 @@ namespace Model
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        private String id { get; set; }
-        private String name;
+        private String id;
+        private String name { get; set; }
       private String surname { get; set; }
       private DateTime doB { get; set; }
       private DoctorType type { get; set; }
 
+
+        public String getId()
+        {
+            return id;
+        }
+        public void setId(String newId)
+        {
+            this.id = newId;
+        }
       //public Examination[] examination;
-      private List<Examination> examination;
+      private List<Examination> examinations;
+
+        public List<Examination> getExaminations()
+        {
+            return examinations;
+        }
+        public void setExaminations(List<Examination> newExaminations)
+        {
+            this.examinations = newExaminations;
+        }
 
         public String Name
         {
@@ -79,7 +97,7 @@ namespace Model
             this.surname = surname;
             this.doB = doB;
             this.type = type;
-            this.examination = examination;
+            this.examinations = examination;
         }
     }
 }

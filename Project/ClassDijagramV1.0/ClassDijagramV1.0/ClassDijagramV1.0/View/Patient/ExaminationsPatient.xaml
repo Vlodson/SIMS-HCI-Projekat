@@ -17,7 +17,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0">Zakazani pregledi</TextBlock>
         <Grid Grid.Column="0" Grid.Row="1">
-            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Vrsta" Binding="{Binding Doctor.Type}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}"></DataGridTextColumn>

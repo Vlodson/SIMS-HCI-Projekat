@@ -24,6 +24,14 @@ namespace Model
         public Patient patient;
         public Doctor doctor;
 
+        public DateTime getDate()
+        {
+            return date;
+        }
+        public void setDate(DateTime newDate)
+        {
+            this.date = newDate;
+        }
         public Room Room
         {
             get

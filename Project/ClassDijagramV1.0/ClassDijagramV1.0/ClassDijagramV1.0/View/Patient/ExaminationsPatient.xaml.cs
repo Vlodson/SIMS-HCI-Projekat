@@ -61,15 +61,18 @@ namespace ClassDijagramV1._0.View.Patient
 
             var app = Application.Current as App;
             _examController = app.ExamController;
-            Examinations = new ObservableCollection<Examination>(FindAllExaminationsFromPatient(idPatient));
+            //Examinations = new ObservableCollection<Examination>(FindAllExaminationsFromPatient(idPatient));
+            Examinations = _examController.ReadPatientExams(idPatient);
             
         }
 
+        /*
         private IList<Examination> FindAllExaminationsFromPatient(string id)
         {
             return _examController.ReadPatientExams(id)
                 .ToList();
         }
+        */
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

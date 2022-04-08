@@ -2,6 +2,7 @@ using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Service
 {
@@ -21,10 +22,15 @@ namespace Service
       {
          throw new NotImplementedException();
       }
+
+        public Patient GetPatient(String id)
+        {
+            return _patientRepo.GetPatient(id);
+        }
       
-      public bool CreateExam(Model.Patient patient, DateTime date, DoctorType examType)
+      public void CreateExam(Examination examination)
       {
-         throw new NotImplementedException();
+             _examinationRepo.SetExamination(examination);
       }
       
       public bool RemoveExam(String examId)
@@ -37,7 +43,7 @@ namespace Service
          throw new NotImplementedException();
       }
       
-      public List<Examination> ReadMyExams(string id)
+      public ObservableCollection<Examination> ReadMyExams(string id)
       {
             return _examinationRepo.ExaminationsForPatient(id);
       }

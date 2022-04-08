@@ -11,10 +11,12 @@ namespace Service
 
 
         private readonly DoctorRepo _doctorRepo;
+        private readonly ExaminationRepo _examinationRepo;
 
-        public DoctorService(DoctorRepo doctorRepo)
+        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo)
         {
             _doctorRepo = doctorRepo;
+            _examinationRepo = examinationRepo;
         }
 
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
@@ -47,6 +49,16 @@ namespace Service
         public List<Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
+        }
+
+        public Doctor GetDoctor(string id)
+        {
+            return _doctorRepo.GetDoctor(id);
+        }
+
+        public List<DateTime> GetFreeExaminations(Doctor doctor)
+        {
+            return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
         }
    
    }

@@ -21,5 +21,15 @@ namespace ClassDijagramV1._0.Controller
         {
             return _doctorService.GetDoctors();
         }
+
+        public Doctor GetDoctor(string id)
+        {
+            return _doctorService.GetDoctor(id);
+        }
+
+        public List<DateTime> GetFreeGetFreeExaminations(Doctor doctor)
+        {
+            return _doctorService.GetFreeExaminations(doctor);
+        }
     }
 }

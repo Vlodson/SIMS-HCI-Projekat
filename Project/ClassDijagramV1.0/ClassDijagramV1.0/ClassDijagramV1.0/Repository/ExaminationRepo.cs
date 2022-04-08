@@ -2,6 +2,7 @@ using Model;
 using Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Repository
 {
@@ -10,6 +11,7 @@ namespace Repository
       private String dbPath;
       //lista pregleda
       private List<Examination> examinationList;
+        
 
         public ExaminationRepo(string dbPath, List<Examination> examinationList)
         {
@@ -38,7 +40,8 @@ namespace Repository
 
         public bool NewExamination(Examination examination)
       {
-         throw new NotImplementedException();
+            //examinationList.Add(examination);
+            return true;
       }
       
       public Examination GetExamination(String examId)
@@ -46,10 +49,10 @@ namespace Repository
          throw new NotImplementedException();
       }
       
-      public void SetExamination(String examId, Examination newExam)
+      public void SetExamination(Examination examination)
       {
-         throw new NotImplementedException();
-      }
+            examinationList.Add(examination);
+        }
       
       public bool DeleteExamination(String examId)
       {
@@ -66,9 +69,9 @@ namespace Repository
          throw new NotImplementedException();
       }
 
-        public List<Examination> ExaminationsForPatient(string id)
+        public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
-            List<Examination> examsForPatient = new List<Examination>();
+            ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
             foreach(Examination exam in examinationList)
             {
                 if(exam.patient.getId().Equals(id)) examsForPatient.Add(exam);
@@ -78,6 +81,35 @@ namespace Repository
       
       //public PatientService patientService;
       //public DoctorService doctorService;
+
+        
+        public List<DateTime> GetFreeExaminationsForDoctor(Doctor doctor)
+        {
+            List<DateTime> examinationsTime = new List<DateTime>();
+            List<Examination> doctorsExaminations = doctor.getExaminations();
+            //sutra
+            DateTime today = DateTime.Now;
+
+            //moze se zakazati 7 dana unapred
+            DateTime startTime = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
+            for(int i = 1; i < 7; ++i)
+            {
+                today = today.AddDays(i);
+                for(int j = 0; j < 24; ++j)
+                {
+                    foreach(Examination exam in doctorsExaminations)
+                    {
+                        if(exam.getDate().CompareTo(today.AddMinutes(j*30)) != 0)
+                        {
+                            examinationsTime.Add(today.AddMinutes(j * 30));
+                        }
+                    }
+                }
+            }
+            return examinationsTime;
+            
+        }
+        
    
    }
 }

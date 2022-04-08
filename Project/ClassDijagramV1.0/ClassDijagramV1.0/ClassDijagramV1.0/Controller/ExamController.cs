@@ -2,6 +2,7 @@ using Model;
 using Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Controller
 {
@@ -24,9 +25,9 @@ namespace Controller
         }
 
 
-        public bool PatientCreateExam(Model.Patient patient, DateTime date, DoctorType examType)
+        public void PatientCreateExam(Examination examination)
       {
-         throw new NotImplementedException();
+         _patientService.CreateExam(examination);
       }
       
       public bool DoctorCreateExam(Model.Patient patient, Doctor doctor, Model.Room examRoom, DateTime date)
@@ -39,7 +40,7 @@ namespace Controller
          throw new NotImplementedException();
       }
       
-      public List<Examination> ReadPatientExams(string id)
+      public ObservableCollection<Examination> ReadPatientExams(string id)
       {
           return  _patientService.ReadMyExams(id);
       }

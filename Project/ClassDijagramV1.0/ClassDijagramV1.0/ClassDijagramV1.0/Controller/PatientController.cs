@@ -1,10 +1,18 @@
+using Service;
 using System;
 
 namespace Controller
 {
    public class PatientController
    {
-      public bool CreatePatient(String id, String name, String surname, DateTime doB)
+        private PatientService _patientService;
+
+        public PatientController(PatientService patientService)
+        {
+            _patientService = patientService;
+        }
+
+        public bool CreatePatient(String id, String name, String surname, DateTime doB)
       {
          throw new NotImplementedException();
       }
@@ -21,7 +29,7 @@ namespace Controller
       
       public Model.Patient ReadPatient(String patientId)
       {
-         throw new NotImplementedException();
+         return _patientService.GetPatient(patientId);
       }
       
       public bool UpgradeGuest(String guestId, String name, String surname, DateTime doB)
