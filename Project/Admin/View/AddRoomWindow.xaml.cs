@@ -19,9 +19,20 @@ namespace Admin.View
     /// </summary>
     public partial class AddRoomWindow : Window
     {
+        public int room_nb { get; set; }
+        public int floor_nb { get; set; }
+        public string room_type { get; set; }
+
         public AddRoomWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+        }
+
+        private void addRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string message = room_nb.ToString() + "\n" + floor_nb.ToString() + "\n" + room_type;
+            MessageBox.Show(message);
         }
     }
 }

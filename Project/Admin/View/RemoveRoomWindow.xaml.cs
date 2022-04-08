@@ -19,9 +19,19 @@ namespace Admin.View
     /// </summary>
     public partial class RemoveRoomWindow : Window
     {
+        public string Room_id { get; set; }
+
         public RemoveRoomWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
+
+        private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string message = Room_id;
+            MessageBox.Show(message);
+        }
+
     }
 }

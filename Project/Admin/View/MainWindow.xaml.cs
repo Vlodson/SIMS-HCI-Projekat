@@ -29,21 +29,18 @@ namespace Admin
 
         private void addRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             AddRoomWindow addRoomWindow = new AddRoomWindow();
             addRoomWindow.Show();
         }
 
         private void editRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             EditRoomWindow editRoomWindow = new EditRoomWindow();
             editRoomWindow.Show();
         }
 
         private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             RemoveRoomWindow removeRoomWindow = new RemoveRoomWindow();
             removeRoomWindow.Show();
         }
