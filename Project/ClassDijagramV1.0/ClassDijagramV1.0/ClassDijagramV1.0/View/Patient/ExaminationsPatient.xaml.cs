@@ -70,5 +70,11 @@ namespace ClassDijagramV1._0.View.Patient
             return _examController.ReadPatientExams(id)
                 .ToList();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddExaminationPatient addExaminationPatient = new AddExaminationPatient();
+            addExaminationPatient.Show();
+        }
     }
 }

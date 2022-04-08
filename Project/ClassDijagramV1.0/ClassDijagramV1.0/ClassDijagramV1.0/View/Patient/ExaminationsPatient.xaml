@@ -28,7 +28,7 @@
             </DataGrid>
         </Grid>
         <TextBlock Grid.Column="0" Grid.Row="2">
-            <Button>Zakazi</Button>
+            <Button Click="Button_Click">Zakazi</Button>
             <Button>Izmeni</Button>
             <Button>Otkazi</Button>
         </TextBlock>

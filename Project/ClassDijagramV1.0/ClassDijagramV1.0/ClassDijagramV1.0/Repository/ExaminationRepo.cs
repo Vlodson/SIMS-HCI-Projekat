@@ -9,7 +9,7 @@ namespace Repository
    {
       private String dbPath;
       //lista pregleda
-      List<Examination> examinationList;
+      private List<Examination> examinationList;
 
         public ExaminationRepo(string dbPath, List<Examination> examinationList)
         {

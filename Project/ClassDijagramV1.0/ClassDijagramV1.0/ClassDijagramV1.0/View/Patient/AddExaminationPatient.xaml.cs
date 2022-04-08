@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ClassDijagramV1._0.Controller;
+using Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +22,39 @@ namespace ClassDijagramV1._0.View.Patient
     /// </summary>
     public partial class AddExaminationPatient : Window
     {
+
+        private DoctorController _doctorController;
+        private Doctor _sdoctor;
+        public Doctor SDoctor
+        {
+            get { return _sdoctor; }
+            set { _sdoctor = value; }
+        }
+
+        public ObservableCollection<Doctor> DoctorsObs
+        {
+            get;
+            set;
+        }
+
         public AddExaminationPatient()
         {
             InitializeComponent();
+            this.DataContext = this;
+
+            //DoctorsObs = new ObservableCollection<Doctor>();
+
+            var app = Application.Current as App;
+            _doctorController = app.DoctorController;
+            DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
+
+
+        }
+
+        private IList<Doctor> FindAllDoctors()
+        {
+            return _doctorController.GetAll()
+                .ToList();
         }
     }
 }

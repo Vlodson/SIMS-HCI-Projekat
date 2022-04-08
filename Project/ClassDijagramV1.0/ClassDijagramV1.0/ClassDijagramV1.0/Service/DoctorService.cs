@@ -1,4 +1,6 @@
+//using ClassDijagramV1._0.Repository;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 
@@ -7,8 +9,15 @@ namespace Service
    public class DoctorService
    {
 
-        
-      private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
+
+        private readonly DoctorRepo _doctorRepo;
+
+        public DoctorService(DoctorRepo doctorRepo)
+        {
+            _doctorRepo = doctorRepo;
+        }
+
+        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
       {
          throw new NotImplementedException();
       }
@@ -32,6 +41,13 @@ namespace Service
       {
          throw new NotImplementedException();
       }
+
+        //dodato
+
+        public List<Doctor> GetDoctors()
+        {
+            return _doctorRepo.GetAllDoctors();
+        }
    
    }
 }
