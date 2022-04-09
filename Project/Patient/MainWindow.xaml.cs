@@ -55,7 +55,7 @@ namespace Patient
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
-            
+            _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
         }
     }
 }

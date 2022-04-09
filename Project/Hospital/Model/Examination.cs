@@ -45,7 +45,7 @@ namespace Model
                 {
                     examRoom = value;
                     OnPropertyChanged("Room");
-                    OnPropertyChanging("Room");
+                    
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace Model
                 {
                     date = value;
                     OnPropertyChanged("Date");
-                    OnPropertyChanging("Date");
+                    
                 }
             }
         }
@@ -79,7 +79,7 @@ namespace Model
                 {
                     id = value;
                     OnPropertyChanged("Id");
-                    OnPropertyChanging("Id");
+                   
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace Model
                 {
                     duration = value;
                     OnPropertyChanged("Duration");
-                    OnPropertyChanging("Duration");
+                    
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace Model
                 {
                     patient = value;
                     OnPropertyChanged("Patient");
-                    OnPropertyChanging("Patient");
+                    
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace Model
                 {
                     doctor = value;
                     OnPropertyChanged("Doctor");
-                    OnPropertyChanging("Doctor");
+                    
                 }
             }
         }
@@ -158,13 +158,7 @@ namespace Model
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        protected virtual void OnPropertyChanging(string name)
-        {
-            if (PropertyChanging != null)
-            {
-                PropertyChanging(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        
 
     }
 }
