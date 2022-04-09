@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassDijagramV1._0.Controller
+namespace Controller
 {
     public class DoctorController
     {

@@ -89,7 +89,7 @@ namespace Repository
             List<Examination> doctorsExaminations = doctor.getExaminations();
             //sutra
             DateTime today = DateTime.Now;
-
+            /*
             //moze se zakazati 7 dana unapred
             DateTime startTime = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
             for (int i = 1; i < 7; ++i)
@@ -106,6 +106,9 @@ namespace Repository
                     }
                 }
             }
+            */
+            examinationsTime.Add(new DateTime(2021, 1, 1, 15, 15, 15));
+            examinationsTime.Add(new DateTime(2021, 2, 1, 12, 12, 12));
             return examinationsTime;
 
         }

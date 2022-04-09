@@ -22,7 +22,7 @@ namespace Patient
     public partial class App : Application
     {
         public ExamController ExamController { get; set; }
-        //public DoctorController DoctorController { get; set; }
+        public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
 
         public App()
@@ -40,7 +40,7 @@ namespace Patient
             DoctorService doctorService = new DoctorService(doctorRepository, examinationRepository);
 
             ExamController = new ExamController(patientService);
-            //DoctorController = new DoctorController(doctorService);
+            DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService);
         }
     }

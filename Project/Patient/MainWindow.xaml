@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vrsta" Binding="{Binding Doctor.Type}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}"></DataGridTextColumn>

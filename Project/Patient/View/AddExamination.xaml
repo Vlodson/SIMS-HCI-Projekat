@@ -7,34 +7,29 @@
         mc:Ignorable="d"
         Title="AddExamination" Height="450" Width="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
-        </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="10" />
-        </Grid.RowDefinitions>
 
-        <TextBlock Text="Lekar" Grid.Column="1" Grid.Row="1" Margin="0,0,10,10" />
-        <ComboBox x:Name="doctor" Grid.Column="2" Grid.Row="1" Width="150" Margin="0,0,0,10" Text="{Binding doctorList, Mode=TwoWay}" />
 
-        <DataGrid x:Name="timesExaminations" ItemsSource="{Binding Path=Examinations, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
+
+
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Doctor name" Binding="{Binding Doctor}"/>
-                <DataGridTextColumn Header="Date" Binding="{Binding StartTime}" Width="*"/>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Lekar" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
+        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="70,18,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Name}" Width="120"/>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
 
-        <Button x:Name="addExamination" Grid.Column="1" Grid.Row="4" Margin="0,0,0,10" Content="Add room" Click="addExamination_Click" />
+
     </Grid>
 </Window>

@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Patient.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,7 @@ namespace Patient
 
         private ExamController _examinationController;
         
-        public ObservableCollection<Examination> Examinations
+        public static ObservableCollection<Examination> Examinations
         {
             get;
             set;
@@ -43,7 +44,8 @@ namespace Patient
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
         {
-
+            AddExamination addExamination = new AddExamination();
+            addExamination.Show();
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -53,7 +55,7 @@ namespace Patient
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
