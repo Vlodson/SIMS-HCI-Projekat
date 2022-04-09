@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace Model
 {
-    public class Patient : Guest
+    public class Patient : Guest, INotifyPropertyChanged
     {
         private String id;
         private String name { get; set; }
@@ -12,6 +13,8 @@ namespace Model
 
         //public Examination[] examination;
         private List<Examination> examinations;
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public String getId()
         {

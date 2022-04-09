@@ -10,13 +10,14 @@ namespace Repository
     {
         private String dbPath;
         //lista pregleda
-        private List<Examination> examinationList;
+        public ObservableCollection<Examination> examinationList;
+        
 
-
-        public ExaminationRepo(string dbPath, List<Examination> examinationList)
+        public ExaminationRepo(string dbPath)
         {
             this.dbPath = dbPath;
             //this.examinationList = examinationList;
+            examinationList = new ObservableCollection<Examination>();
             List<Examination> examinations = new List<Examination>();
             Equipment equipment1 = new Equipment();
             List<Equipment> equipmentList1 = new List<Equipment>();
@@ -33,11 +34,33 @@ namespace Repository
 
             DateTime dtExam1 = DateTime.Now;
             Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, patient, doctor);
+            
             examinations.Add(exam1);
-
-            this.examinationList = examinations;
+            this.examinationList.Add(exam1);
+            
         }
 
+        public ObservableCollection<Examination> GetAll()
+        {
+            return examinationList;
+        }
+
+        public void DeleteByPatient(String id)
+        {
+            examinationList.Remove(GetId(id));
+        }
+
+        public Examination GetId(String id)
+        {
+            foreach(Examination examination in examinationList)
+            {
+                if(examination.Id == id)
+                {
+                    return examination;
+                }
+            }
+            return null;
+        }
         public bool NewExamination(Examination examination)
         {
             //examinationList.Add(examination);

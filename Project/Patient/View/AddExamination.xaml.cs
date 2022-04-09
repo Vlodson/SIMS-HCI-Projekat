@@ -77,7 +77,7 @@ namespace Patient.View
                 Examination newExam = new Examination(new Room(), dt, "idExam", 2, patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
-                MainWindow.Examinations.Add(newExam);
+                //MainWindow.Examinations.Add(newExam);
                 this.Close();
             }
 

@@ -33,7 +33,7 @@ namespace Patient
             List<Model.Patient> patients = new List<Model.Patient>();
 
 
-            ExaminationRepo examinationRepository = new ExaminationRepo("...", exams);
+            ExaminationRepo examinationRepository = new ExaminationRepo("...");
             PatientRepo patientRepository = new PatientRepo("...");
             PatientService patientService = new PatientService(patientRepository, examinationRepository);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
