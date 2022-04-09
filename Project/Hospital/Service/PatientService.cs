@@ -1,35 +1,52 @@
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Service
 {
-   public class PatientService
-   {
-      private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool CreateExam(Model.Patient patient, DateTime date, DoctorType examType)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool RemoveExam(String examId)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public void EditExam(String examId, DateTime newDate)
-      {
-         throw new NotImplementedException();
-      }
-      
-      public List<Examination> ReadMyExams()
-      {
-         throw new NotImplementedException();
-      }
-   
-   }
+    public class PatientService
+    {
+        //dodato
+        private readonly PatientRepo _patientRepo;
+        private readonly ExaminationRepo _examinationRepo;
+
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo)
+        {
+            _patientRepo = patientRepo;
+            _examinationRepo = examinationRepo;
+        }
+
+        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Patient GetPatient(String id)
+        {
+            return _patientRepo.GetPatient(id);
+        }
+
+        public void CreateExam(Examination examination)
+        {
+            _examinationRepo.SetExamination(examination);
+        }
+
+        public bool RemoveExam(Examination examination)
+        {
+            return _examinationRepo.DeleteExamination(examination);
+        }
+
+        public void EditExam(String examId, DateTime newDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ObservableCollection<Examination> ReadMyExams(string id)
+        {
+            return _examinationRepo.ExaminationsForPatient(id);
+        }
+
+    }
 }

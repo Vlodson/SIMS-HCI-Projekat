@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Controller;
+using Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +23,22 @@ namespace Patient
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private ExamController _examinationController;
+        
+        public ObservableCollection<Examination> Examinations
+        {
+            get;
+            set;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+            App app = Application.Current as App;
+            _examinationController = app.ExamController;
+            Examinations = _examinationController.ReadPatientExams("idPatient1");
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -32,7 +48,7 @@ namespace Patient
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)

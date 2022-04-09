@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="examinationsAppointments" IsReadOnly="True" HorizontalAlignment="Left" Height="355" Margin="10,20,0,0" VerticalAlignment="Top" Width="774">
+        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Doctor name"/>
-                <DataGridTextColumn Header="Doctor surname"/>
-                <DataGridTextColumn Header="Date and time"/>
+                <DataGridTextColumn Header="Vrsta" Binding="{Binding Doctor.Type}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="" Binding="{Binding Doctor.Surname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="AddExamination" Content="Zakazi" HorizontalAlignment="Left" Margin="330,391,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="AddExamination_Click"/>

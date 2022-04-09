@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="View\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Hospital\Hospital.csproj" />
   </ItemGroup>
 
