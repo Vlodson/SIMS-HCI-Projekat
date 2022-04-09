@@ -35,4 +35,5 @@ namespace Admin.View
             MessageBox.Show(message);
         }
     }
+
 }

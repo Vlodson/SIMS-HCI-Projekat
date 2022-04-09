@@ -1,32 +1,42 @@
 using System;
+using System.Collections.Generic;
+using Model;
+using Repository;
 
 namespace Service
 {
    public class RoomService
    {
-      public bool CreateRoom(String id, List<Equipment> equpiment, int floor, int roomNb, bool occupancy, String type)
+      
+      private readonly RoomRepo _repo;
+
+      public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, String type)
       {
-         throw new NotImplementedException();
+            // logic for failed addition needed
+            Room r = new Room(id, floor, roomNb, occupancy, type);
+            return _repo.NewRoom(r);
       }
       
       public bool RemoveRoom(String roomId)
       {
-         throw new NotImplementedException();
+         return _repo.DeleteRoom(roomId);
       }
       
       public void EditRoom(String id, List<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, String newType)
       {
-         throw new NotImplementedException();
+         Room room = new Room(id, newFloor, newRoomNb, newOccupancy, newType);
+         room.Equipment = newEquipment;
+         _repo.SetRoom(id, room);
       }
       
-      public Model.Room ReadRoom(String roomId)
+      public Room ReadRoom(String roomId)
       {
-         throw new NotImplementedException();
+         return _repo.GetRoom(roomId);
       }
       
       public List<Room> ReadAll()
       {
-         throw new NotImplementedException();
+         return _repo.Rooms;
       }
    
    }
