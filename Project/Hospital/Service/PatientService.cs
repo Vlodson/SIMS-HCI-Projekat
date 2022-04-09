@@ -1,4 +1,6 @@
+using Model;
 using System;
+using System.Collections.Generic;
 
 namespace Service
 {
@@ -9,7 +11,7 @@ namespace Service
          throw new NotImplementedException();
       }
       
-      public bool CreateExam(Model.Patient patient, DateTime date, Enumerate examType)
+      public bool CreateExam(Model.Patient patient, DateTime date, DoctorType examType)
       {
          throw new NotImplementedException();
       }
