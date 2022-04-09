@@ -1,0 +1,35 @@
+﻿<Window x:Class="Patient.View.AddExamination"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Patient.View"
+        mc:Ignorable="d"
+        Title="AddExamination" Height="450" Width="800">
+    <Grid>
+
+
+
+
+
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Lekar" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
+        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="70,18,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Name}" Width="120"/>
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
+
+
+    </Grid>
+</Window>
