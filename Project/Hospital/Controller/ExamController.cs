@@ -10,15 +10,14 @@ namespace Controller
     {
 
         private readonly PatientService _patientService;
-        //private readonly DoctorService _doctorService;
+        private readonly DoctorService _doctorService;
 
-        /*
-        public ExamController(PatientService patientService, DoctorService doctorService)
+        
+        public ExamController(DoctorService doctorService)
         {
-            _patientService = patientService;
             _doctorService = doctorService;
         }
-        */
+        
         public ExamController(PatientService patientService)
         {
             _patientService = patientService;
@@ -30,9 +29,9 @@ namespace Controller
             _patientService.CreateExam(examination);
         }
 
-        public bool DoctorCreateExam(Model.Patient patient, Doctor doctor, Model.Room examRoom, DateTime date)
+        public void DoctorCreateExam(Examination examination)
         {
-            throw new NotImplementedException();
+            _doctorService.CreateExam(examination);
         }
 
         public bool RemoveExam(Examination examination)
@@ -43,6 +42,11 @@ namespace Controller
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
             return _patientService.ReadMyExams(id);
+        }
+
+        public ObservableCollection<Examination> ReadDoctorExams(string id)
+        {
+            return _doctorService.ReadMyExams(id);
         }
 
         public void DoctorEditExam()

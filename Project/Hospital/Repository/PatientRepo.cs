@@ -19,6 +19,16 @@ namespace Repository
             this.patients.Add(p1);
         }
 
+        public PatientRepo(string dbPath, List<Patient> listPatient)
+        {
+            this.dbPath = dbPath;
+            this.patients = new List<Patient>();
+
+            Patient p1 = new Patient("1234567", "Jelena", "Dinic", new DateTime(2000, 11, 1), new List<Examination>());
+            this.patients.Add(p1);
+        }
+
+
         public bool NewPatient(Patient patient)
         {
             throw new NotImplementedException();
@@ -28,7 +38,7 @@ namespace Repository
         {
             foreach (Patient patient in patients)
             {
-                if (patient.getId().Equals(patientId))
+                if (patient.Id.Equals(patientId))
                 {
                     return patient;
                 }
@@ -57,6 +67,10 @@ namespace Repository
         }
 
         //public PatientAccountService patientAccountService;
+        public List<Patient> GetAllPatients()
+        {
+            return patients;
+        }
 
     }
 }

@@ -11,7 +11,8 @@ namespace Repository
         private String dbPath;
         //lista pregleda
         public ObservableCollection<Examination> examinationList;
-        
+        private List<Examination> examinationList1;
+
 
         public ExaminationRepo(string dbPath)
         {
@@ -33,11 +34,33 @@ namespace Repository
             Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
 
             DateTime dtExam1 = new DateTime(2022, 4, 11, 7, 30, 0);
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, patient, doctor);
+            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
             
             examinations.Add(exam1);
             this.examinationList.Add(exam1);
             
+        }
+
+        public ExaminationRepo(string dbPath, List<Examination> examinationList1)
+        {
+            this.dbPath = dbPath;
+            List<Examination> examinations = new List<Examination>();
+
+            Room r1 = new Room("idRoom1",2, 1, false, "typeRoom1");
+
+            List<Examination> examinationsDoctor1 = new List<Examination>();
+            DateTime dtDoctor1 = DateTime.Now;
+            Doctor doctor = new Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
+
+            List<Examination> examinationsPatient1 = new List<Examination>();
+            DateTime dtPatient1 = DateTime.Now;
+            Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
+
+            DateTime dtExam1 = DateTime.Now;
+            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
+            examinations.Add(exam1);
+
+            this.examinationList1 = examinations;
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -74,7 +97,7 @@ namespace Repository
 
         public void SetExamination(Examination examination)
         {
-            examinationList.Add(examination);
+            examinationList1.Add(examination);
         }
 
         public bool DeleteExamination(Examination examination)
@@ -95,9 +118,9 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList)
+            foreach (Examination exam in examinationList1)
             {
-                if (exam.patient.getId().Equals(id)) examsForPatient.Add(exam);
+                if (exam.Patient.Id.Equals(id)) examsForPatient.Add(exam);
             }
             return examsForPatient;
         }
@@ -164,6 +187,17 @@ namespace Repository
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
+        }
+
+        public ObservableCollection<Examination> ExaminationsForDoctor(string id)
+        {
+            ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
+            foreach (Examination exam in examinationList1)
+            {
+                //if (exam.doctor.getId().Equals(id)) 
+                examsForDoctor.Add(exam);
+            }
+            return examsForDoctor;
         }
 
 

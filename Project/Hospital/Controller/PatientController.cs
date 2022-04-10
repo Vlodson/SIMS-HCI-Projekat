@@ -1,5 +1,7 @@
+using Model;
 using Service;
 using System;
+using System.Collections.Generic;
 
 namespace Controller
 {
@@ -85,6 +87,11 @@ namespace Controller
         {
             if (patientAccountService != null)
                 patientAccountService.Clear();
+        }
+
+        public List<Patient> GetAll()
+        {
+            return _patientService.GetPatients();
         }
 
     }

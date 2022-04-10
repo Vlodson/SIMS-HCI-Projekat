@@ -2,6 +2,7 @@ using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Service
 {
@@ -58,6 +59,16 @@ namespace Service
         public List<DateTime> GetFreeExaminations(Doctor doctor)
         {
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
+        }
+
+        public ObservableCollection<Examination> ReadMyExams(string id)
+        {
+            return _examinationRepo.ExaminationsForDoctor(id);
+        }
+
+        public void CreateExam(Examination examination)
+        {
+            _examinationRepo.SetExamination(examination);
         }
 
     }

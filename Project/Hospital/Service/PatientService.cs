@@ -49,7 +49,7 @@ namespace Service
             List<Examination> others = new List<Examination>();
             foreach(Examination exam in _examinationRepo.GetAll())
             {
-                if (!exam.patient.getId().Equals(id))
+                if (!exam.Patient.Id.Equals(id))
                 {
                     others.Add(exam);
                 }
@@ -62,6 +62,11 @@ namespace Service
 
             //return _examinationRepo.ExaminationsForPatient(id);
             return _examinationRepo.GetAll();
+        }
+
+        public List<Patient> GetPatients()
+        {
+            return _patientRepo.GetAllPatients();
         }
 
     }

@@ -32,6 +32,18 @@ namespace Repository
             this.listDoctor = doctors;
            
         }
+        public DoctorRepo(string dbPath)
+        {
+            this.dbPath = dbPath;
+            this.listDoctor = new List<Doctor>();
+
+            List<Examination> examinationsDoctor1 = new List<Examination>();
+            Doctor doctor1 = new Doctor("111", "nameDoctor1", "surnameDoctor1", new DateTime(2000, 11, 1), DoctorType.Pulmonology, examinationsDoctor1);
+            Doctor doctor2 = new Doctor("222", "nameDoctor1", "surnameDoctor1", new DateTime(2000, 11, 1), DoctorType.Pulmonology, examinationsDoctor1);
+            this.listDoctor.Add(doctor1);
+            this.listDoctor.Add(doctor2);
+
+        }
 
         public List<Doctor> GetAllDoctors()
         {

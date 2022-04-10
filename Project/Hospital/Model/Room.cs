@@ -31,5 +31,10 @@ namespace Model
             Occupancy = r.Occupancy;
             Type = r.Type;
         }
-   }
+
+        public override string ToString()
+        {
+            return Id; //obisacu kad nadjem pametniji nacin
+        }
+    }
 }
