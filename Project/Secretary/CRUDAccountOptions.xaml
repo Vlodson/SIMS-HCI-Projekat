@@ -1,0 +1,56 @@
+﻿<Window x:Class="Secretary.CRUDAccountOptions"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Secretary"
+        mc:Ignorable="d"
+        Title="CRUDAccountOptions" Height="550" Width="800" Closed="Window_Closed">
+
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <Button x:Name="addAccBtn" Margin="100,10,10,10" Width="auto" Click="addAccBtn_Click">Add account</Button>
+            <Button x:Name="editAccBtn" Margin="50,10,10,10" Width="auto" Click="editAccBtn_Click">Edit account</Button>
+            <Button x:Name="removeAccBtn" Margin="50,10,340,10" Width="auto" Click="removeAccBtn_Click">Remove account</Button>
+        </DockPanel>
+
+        <DataGrid x:Name="dataGridPatients" DockPanel.Dock="Top" ItemsSource="{Binding patients, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" Height="310" Width="700" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ID, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Surname" Width="auto" Binding="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="DoB" Width="*" Binding="{Binding DoB, UpdateSourceTrigger=PropertyChanged}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid DockPanel.Dock="Bottom" VerticalAlignment="Bottom"  DataContext="{Binding ElementName=dataGridPatients,Path=SelectedItem}" Margin="10">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <Label x:Name="labelName" Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">Name:</Label>
+            <Label x:Name="labelSurname" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10">Surname:</Label>
+            <Label x:Name="labelUCIN" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10">UCIN:</Label>
+            <Label x:Name="labelDoB" Grid.Column="0" Grid.Row="3">Date of Birth:</Label>
+
+            <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name, Mode=OneWay}"/>
+            <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname, Mode=OneWay}"/>
+            <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding ID, Mode=OneWay}"/>
+            <TextBox x:Name="textDoB" Grid.Column="1" Grid.Row="3" Text="{Binding DoB, Mode=OneWay}"/>
+
+        </Grid>
+
+    </DockPanel>
+
+</Window>

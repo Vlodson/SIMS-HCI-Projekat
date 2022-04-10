@@ -28,6 +28,7 @@ namespace Model
             this.examinations = examinations;
         }
 
+
         public override string ToString()
         {
             return name;

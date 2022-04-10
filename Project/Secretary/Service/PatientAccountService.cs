@@ -1,7 +1,7 @@
 using System;
 using Repository;
 using Model;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Service
 {
@@ -15,9 +15,9 @@ namespace Service
             this.patientRepo = patientRepo;
       }
 
-      public bool CreatePatient(String id, String name, String surname, DateTime doB)
+      public bool CreatePatient(String id, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
       {
-            patientRepo.NewPatient(new Patient(id, name, surname, doB, new List<Examination>()));
+            patientRepo.NewPatient(new Patient(id, name, surname, doB, examinations));
             return true;
       }
       
@@ -27,7 +27,7 @@ namespace Service
             return true;
       }
       
-      public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, List<Examination> examinations)
+      public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, ObservableCollection<Examination> examinations)
       {
             patientRepo.SetPaetient(patientId, new Patient(patientId, newName, newSurname, newDoB, examinations));
       }
@@ -37,14 +37,14 @@ namespace Service
             return patientRepo.GetPatient(patientId);
       }
 
-      public List<Patient> ReadAllPatients()
+      public ObservableCollection<Patient> ReadAllPatients()
         {
             return patientRepo.GetAllPatients();
         }
       
       public bool UpgradeGuest(String guestId, String name, String surname, DateTime doB)
       {
-            Patient patient = new Patient(guestId, name, surname, doB, new List<Examination>());
+            Patient patient = new Patient(guestId, name, surname, doB, new ObservableCollection<Examination>());
             patientRepo.NewPatient(patient);
             return true;
       }

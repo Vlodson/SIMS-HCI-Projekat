@@ -38,7 +38,7 @@ namespace Repository
         {
             foreach (Patient patient in patients)
             {
-                if (patient.Id.Equals(patientId))
+                if (patient.ID.Equals(patientId))
                 {
                     return patient;
                 }
