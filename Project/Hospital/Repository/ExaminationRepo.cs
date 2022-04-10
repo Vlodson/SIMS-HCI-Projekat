@@ -32,7 +32,7 @@ namespace Repository
             DateTime dtPatient1 = DateTime.Now;
             Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
 
-            DateTime dtExam1 = DateTime.Now;
+            DateTime dtExam1 = new DateTime(2022, 4, 11, 7, 30, 0);
             Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, patient, doctor);
             
             examinations.Add(exam1);
@@ -109,29 +109,53 @@ namespace Repository
         public List<DateTime> GetFreeExaminationsForDoctor(Doctor doctor)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
+            List<DateTime> doctorsExaminationsTime = new List<DateTime>();
             List<Examination> doctorsExaminations = doctor.getExaminations();
             //sutra
             DateTime today = DateTime.Now;
+            
+
+            //moze da zakaze dva dana unapred
+            //popuni zauzetim za doktora
             /*
-            //moze se zakazati 7 dana unapred
-            DateTime startTime = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
-            for (int i = 1; i < 7; ++i)
+            foreach(Examination exam in examinationList)
             {
-                today = today.AddDays(i);
+                if (doctor.getId().Equals(exam.Doctor.getId()))
+                {
+                    doctorsExaminationsTime.Add(exam.Date);
+                }
+            }
+            
+            
+
+            DateTime startTime = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
+            for (int i = 1; i < 3; ++i)
+            {
+                today = startTime.AddDays(i);
                 for (int j = 0; j < 24; ++j)
                 {
-                    foreach (Examination exam in doctorsExaminations)
+                    DateTime dt = today.AddMinutes(j * 30);
+                    
+                    if (doctorsExaminationsTime.Count == 0)
                     {
-                        if (exam.Date.CompareTo(today.AddMinutes(j * 30)) != 0)
+                        examinationsTime.Add(dt);
+                    }
+                    
+                    foreach (DateTime dateTime in doctorsExaminationsTime)
+                    {
+                        if (dateTime.CompareTo(dt) != 0)
                         {
-                            examinationsTime.Add(today.AddMinutes(j * 30));
+                            examinationsTime.Add(dt);
                         }
                     }
                 }
+                
             }
             */
             examinationsTime.Add(new DateTime(2021, 1, 1, 15, 15, 15));
             examinationsTime.Add(new DateTime(2021, 2, 1, 12, 12, 12));
+            examinationsTime.Add(new DateTime(2021, 3, 1, 12, 12, 12));
+            examinationsTime.Add(new DateTime(2021, 4, 1, 12, 12, 12));
             return examinationsTime;
 
         }
