@@ -1,6 +1,6 @@
 using System;
 using Service;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Model;
 
 namespace Controller
@@ -15,9 +15,9 @@ namespace Controller
             this.patientAccService = patientAccService;
         }
 
-      public bool CreatePatient(String id, String name, String surname, DateTime doB)
+      public bool CreatePatient(String id, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
       {
-            patientAccService.CreatePatient(id, name, surname, doB);
+            patientAccService.CreatePatient(id, name, surname, doB, examinations);
             return true;
       }
       
@@ -27,7 +27,7 @@ namespace Controller
             return true;
       }
       
-      public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, List<Examination> examinations)
+      public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, ObservableCollection<Examination> examinations)
       {
             patientAccService.EditPatient(patientId, newName, newSurname, newDoB, examinations);
       }
@@ -37,16 +37,16 @@ namespace Controller
             return patientAccService.ReadPatient(patientId);
       }
 
-      public List<Patient> ReadAllPatients()
+      public ObservableCollection<Patient> ReadAllPatients()
       {
             return patientAccService.ReadAllPatients();
       }
       
-      //public bool UpgradeGuest(String guestId, String name, String surname, DateTime doB)
-      //{
-            //patientAccService.UpgradeGuest(guestId, name, surname, doB);
-            //return true;
-      //}
+      public bool UpgradeGuest(String guestId, String name, String surname, DateTime doB)
+      {
+            patientAccService.UpgradeGuest(guestId, name, surname, doB);
+            return true;
+      }
       
       public System.Collections.ArrayList patientAccountService;
       
@@ -69,9 +69,13 @@ namespace Controller
             }
          }
       }
-      
-      
-      public void AddPatientAccountService(Service.PatientAccountService newPatientAccountService)
+
+        internal void CreatePatient(string uCIN, string name, string surname, string dob)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddPatientAccountService(Service.PatientAccountService newPatientAccountService)
       {
          if (newPatientAccountService == null)
             return;

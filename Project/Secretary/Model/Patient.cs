@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 namespace Model
@@ -21,9 +21,9 @@ namespace Model
         private String surname;
         private DateTime doB;
 
-        public List<Examination> examinations;
+        public ObservableCollection<Examination> examinations;
 
-        public Patient(String id, String name, String surname, DateTime doB, List<Examination> examinations)
+        public Patient(String id, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
         {
             this.id = id;
             this.name = name;
@@ -88,7 +88,7 @@ namespace Model
             }
         }
 
-        public List<Examination> Examinations
+        public ObservableCollection<Examination> Examinations
         {
             get{ return examinations; }
             set
@@ -100,5 +100,6 @@ namespace Model
                 }
             }
         }
+
     }
 }
