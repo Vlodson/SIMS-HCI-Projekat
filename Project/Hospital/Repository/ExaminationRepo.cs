@@ -19,10 +19,10 @@ namespace Repository
             //this.examinationList = examinationList;
             examinationList = new ObservableCollection<Examination>();
             List<Examination> examinations = new List<Examination>();
-            Equipment equipment1 = new Equipment();
+            Equipment equipment1 = new Equipment("name", 1);
             List<Equipment> equipmentList1 = new List<Equipment>();
             equipmentList1.Add(equipment1);
-            Room r1 = new Room();
+            Room r1 = new Room("name1", 1, 2, false, "type");
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;

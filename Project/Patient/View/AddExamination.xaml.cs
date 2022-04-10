@@ -74,7 +74,7 @@ namespace Patient.View
                 Model.Patient patient = _patientController.ReadPatient("idPatient1");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 DateTime dt = (DateTime)ExamsAvailable.SelectedItem;
-                Examination newExam = new Examination(new Room(), dt, "idExam", 2, patient, doctor);
+                Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, "idExam", 2, patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);
