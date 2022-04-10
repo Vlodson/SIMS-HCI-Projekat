@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.IO;
 
 using Model;
 
@@ -7,7 +9,7 @@ namespace Repository
 {
    public class RoomRepo
    {
-      private String dbPath;
+      public String dbPath { get; set; }
       public List<Room> Rooms { get; set; }
       
       public RoomRepo(string db_path, List<Room> rooms)
@@ -57,8 +59,10 @@ namespace Repository
       
       public bool SaveRoom()
       {  
-         // logic for serialization
-         throw new NotImplementedException();
+         string jsonString = JsonSerializer.Serialize(Rooms);
+         
+         File.WriteAllText(dbPath, jsonString);
+         return true;
       }
       
    
