@@ -67,7 +67,7 @@ namespace Repository
         }
 
         //public PatientAccountService patientAccountService;
-        public List<Patient> GetAllPatients()
+        public List<Model.Patient> GetAllPatients()
         {
             return patients;
         }

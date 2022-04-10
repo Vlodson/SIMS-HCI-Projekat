@@ -36,5 +36,10 @@ namespace Model
         {
             return Id; //obisacu kad nadjem pametniji nacin
         }
+
+        public Room()
+        {
+
+        }
     }
 }

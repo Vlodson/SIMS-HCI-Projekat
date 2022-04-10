@@ -3,6 +3,8 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text.Json;
+using System.IO;
 
 namespace Repository
 {
@@ -16,6 +18,7 @@ namespace Repository
 
         public ExaminationRepo(string dbPath)
         {
+            this.dbPath = dbPath;
             /*
             this.dbPath = dbPath;
             //this.examinationList = examinationList;
@@ -113,12 +116,19 @@ namespace Repository
 
         public bool LoadExamination()
         {
-            throw new NotImplementedException();
+            
+            using FileStream stream = File.OpenRead(dbPath);
+            this.examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
+            
+            return true;
         }
 
         public bool SaveExamination()
         {
-            throw new NotImplementedException();
+            string jsonString = JsonSerializer.Serialize(examinationList);
+
+            File.WriteAllText(dbPath, jsonString);
+            return true;
         }
 
         public ObservableCollection<Examination> ExaminationsForPatient(string id)

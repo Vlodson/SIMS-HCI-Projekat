@@ -32,5 +32,10 @@ namespace Model
         {
             return name;
         }
+
+        public Patient()
+        {
+
+        }
     }
 }
