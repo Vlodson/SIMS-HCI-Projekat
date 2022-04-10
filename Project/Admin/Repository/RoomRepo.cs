@@ -52,13 +52,16 @@ namespace Repository
       }
       
       public bool LoadRoom()
-      {
-         // logic for deserialization
-         throw new NotImplementedException();
+      {  
+         // logic for failed load
+         using FileStream stream = File.OpenRead(dbPath);
+         this.Rooms = JsonSerializer.Deserialize<List<Room>>(stream);
+         return true;
       }
       
       public bool SaveRoom()
-      {  
+      {
+         // logic for failed save
          string jsonString = JsonSerializer.Serialize(Rooms);
          
          File.WriteAllText(dbPath, jsonString);

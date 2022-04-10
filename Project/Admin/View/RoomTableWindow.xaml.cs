@@ -41,10 +41,7 @@ namespace Admin.View
             _room_controller = app.roomController;
             _room_repo = app.roomRepo;
 
-            _room_controller.CreateRoom("1a", 1, 1, false, "tip1");
-            _room_controller.CreateRoom("1b", 2, 2, false, "tip2");
-            _room_controller.CreateRoom("1c", 3, 3, false, "tip3");
-
+            _room_repo.LoadRoom();
             RoomList = new ObservableCollection<Room>(_room_controller.ReadAll());
         }
 
@@ -87,8 +84,7 @@ namespace Admin.View
         private void Window_Closed(object sender, EventArgs e)
         {
             _room_repo.SaveRoom();
-            string temp = File.ReadAllText(_room_repo.dbPath);
-            MessageBox.Show(temp);
         }
+
     }
 }
