@@ -40,7 +40,7 @@ namespace Service
 
         public void EditExam(String examId, DateTime newDate)
         {
-            throw new NotImplementedException();
+            _examinationRepo.EditExamination(examId, newDate);
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
