@@ -22,16 +22,6 @@ namespace Model
         private DoctorType type;
 
         
-        /*
-        public String getId()
-        {
-            return id;
-        }
-        public void setId(String newId)
-        {
-            this.id = newId;
-        }
-        */
         //public Examination[] examination;
         private List<Examination> examinations;
 
@@ -121,14 +111,24 @@ namespace Model
 
         public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, List<Examination> examination)
         {
+            /*
             this.id = id;
             this.name = name;
             this.surname = surname;
             this.doB = doB;
             this.type = type;
             this.examinations = examination;
+            */
+            Id = id;
+            Name = name;
+            Surname = surname;  
+            DoB = doB;
+            Type = type;
+            Examinations = examination;
         }
 
-        
+        public Doctor()
+        {
+        }
     }
 }

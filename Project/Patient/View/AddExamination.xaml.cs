@@ -26,6 +26,8 @@ namespace Patient.View
         private DoctorController _doctorController;
         private PatientController _patientController;
 
+        public int id = 0;
+
         public ObservableCollection<Doctor> DoctorsObs
         {
             get;
@@ -37,6 +39,18 @@ namespace Patient.View
             set;
         }
 
+        private static Random random = new Random((int)DateTime.Now.Ticks);
+        private string RandomString(int Size)
+        {
+            StringBuilder builder = new StringBuilder();
+            char ch;
+            for (int i = 0; i < Size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            return builder.ToString();
+        }
         public AddExamination()
         {
             InitializeComponent();
@@ -74,7 +88,9 @@ namespace Patient.View
                 Model.Patient patient = _patientController.ReadPatient("idPatient1");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 DateTime dt = (DateTime)ExamsAvailable.SelectedItem;
-                Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, "idExam", 2,"pregled", patient, doctor);
+                id++;
+                //String idExam = "idExam" + id.ToString();
+                Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, RandomString(5), 2,"pregled", patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);

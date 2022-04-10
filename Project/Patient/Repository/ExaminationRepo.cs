@@ -116,10 +116,10 @@ namespace Repository
 
         public bool LoadExamination()
         {
-            /*
+            
             using FileStream stream = File.OpenRead(dbPath);
             this.examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
-            */
+            
             return true;
         }
 
