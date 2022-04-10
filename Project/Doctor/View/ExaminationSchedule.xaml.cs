@@ -88,6 +88,7 @@ namespace Doctor.View
             Examination selectedItem = dataGridExaminations.SelectedItem as Examination;
             if (selectedItem != null)
             {
+                _examController.DoctorRemoveExam(selectedItem);
                 Examinations.Remove(selectedItem);
             }
 

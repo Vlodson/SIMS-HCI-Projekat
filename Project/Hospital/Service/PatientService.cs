@@ -33,9 +33,9 @@ namespace Service
             _examinationRepo.SetExamination(examination);
         }
 
-        public bool RemoveExam(Examination examination)
+        public void RemoveExam(Examination examination)
         {
-            return _examinationRepo.DeleteExamination(examination);
+             _examinationRepo.DeleteExamination(examination);
         }
 
         public void EditExam(String examId, DateTime newDate)

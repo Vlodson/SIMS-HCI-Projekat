@@ -102,7 +102,7 @@ namespace Doctor.View
             string type = TIP.Text;
 
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
-            _examController.DoctorCreateExam(newExam);
+            _examController.DoctorEditExam(newExam);
 
             ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
             ExaminationSchedule.Examinations.Add(newExam);

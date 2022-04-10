@@ -102,9 +102,11 @@ namespace Repository
 
         }
 
-        public bool DeleteExamination(Examination examination)
+        public void DeleteExamination(Examination examination)
         {
-            return examinationList.Remove(examination);
+            examinationList.Remove(examination);
+            examinationList1.Remove(examination);
+
         }
 
         public bool LoadExamination()

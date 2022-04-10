@@ -34,9 +34,13 @@ namespace Controller
             _doctorService.CreateExam(examination);
         }
 
-        public bool RemoveExam(Examination examination)
+        public void RemoveExam(Examination examination)
         {
-            return _patientService.RemoveExam(examination);
+            _patientService.RemoveExam(examination);
+        }
+        public void DoctorRemoveExam(Examination exam)
+        {
+            _doctorService.RemoveExam(exam);
         }
 
         public ObservableCollection<Examination> ReadPatientExams(string id)
@@ -49,15 +53,16 @@ namespace Controller
             return _doctorService.ReadMyExams(id);
         }
 
-        public void DoctorEditExam()
+        public void DoctorEditExam(Examination examination)
         {
-            throw new NotImplementedException();
+            _doctorService.EditExams(examination);
         }
 
         public void PatientEditExam(Examination examination, DateTime dateTime)
         {
             _patientService.EditExam(examination.Id, dateTime);
         }
+
 
         //public System.Collections.ArrayList doctorService;
 

@@ -29,14 +29,14 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public bool RemoveExam(String examId)
+        public void RemoveExam(Examination exam)
         {
-            throw new NotImplementedException();
+            _examinationRepo.DeleteExamination(exam);
         }
 
-        public void EditExams(String examId, Model.Room newExamRoom, DateTime newDate)
+        public void EditExams(Examination exam)
         {
-            throw new NotImplementedException();
+            _examinationRepo.SetExamination(exam);
         }
 
         public List<Examination> ReadPatientExams(String patientId)
