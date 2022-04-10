@@ -29,7 +29,7 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
 
-            ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(MainWindow.selected.doctor);
+            ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(MainWindow.selected.Doctor);
             //AddExamination
         }
 

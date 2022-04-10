@@ -7,6 +7,62 @@
         mc:Ignorable="d"
         Title="UpdateExamination" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0">Izmeni</TextBlock>
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0">Pacijent:</TextBlock>
+                <ComboBox Name ="ComboBoxPacijent" ItemsSource="{Binding PatientsObs}" Grid.Column="1" Grid.Row="0">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Grid.Column="0" Grid.Row="1">Datum:</TextBlock>
+                <DatePicker Name="datePicker" Grid.Column="1" Grid.Row="1" Width="120"></DatePicker>
+                <TextBlock Grid.Column="0" Grid.Row="2">Vreme:</TextBlock>
+                <ComboBox Name="timePicker" Grid.Column="1" Grid.Row="2">
+                    <ComboBoxItem>07:00</ComboBoxItem>
+                    <ComboBoxItem>10:30</ComboBoxItem>
+                    <ComboBoxItem>12:15</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Grid.Column="0" Grid.Row="3">Tip:</TextBlock>
+                <ComboBox Name ="TIP" Grid.Column="1" Grid.Row="3">
+                    <ComboBoxItem>operacija</ComboBoxItem>
+                    <ComboBoxItem>kontrola</ComboBoxItem>
+                </ComboBox>
+                <TextBlock Grid.Column="0" Grid.Row="4">Soba:</TextBlock>
+                <ComboBox Name ="ComboBoxSoba" ItemsSource="{Binding RoomsObs}" Grid.Column="1" Grid.Row="4">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Id}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock Grid.Column="0" Grid.Row="5">Trajanje:</TextBlock>
+                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" ></TextBox>
+            </Grid>
+        </Grid>
+        <Button x:Name="Izmeni" Content="Izmeni" Grid.Column="1" Grid.Row="3" Click="Izmeni_Click"></Button>
     </Grid>
 </Window>

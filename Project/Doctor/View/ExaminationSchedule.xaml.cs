@@ -77,8 +77,8 @@ namespace Doctor.View
         private void Izmeni_Click(object sender, RoutedEventArgs e)
         {
             SelectedItem = dataGridExaminations.SelectedItem as Examination;
-           // UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
-           // updateExamination.Show();
+            UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
+            updateExamination.Show();
 
         }
 

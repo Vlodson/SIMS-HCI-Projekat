@@ -10,8 +10,8 @@ namespace Repository
     {
         private String dbPath;
         //lista pregleda
-        public ObservableCollection<Examination> examinationList;
-        private List<Examination> examinationList1;
+        public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
+        private List<Examination> examinationList1 = new List<Examination>();
 
 
         public ExaminationRepo(string dbPath)
@@ -98,6 +98,8 @@ namespace Repository
         public void SetExamination(Examination examination)
         {
             examinationList1.Add(examination);
+            examinationList.Add(examination);
+
         }
 
         public bool DeleteExamination(Examination examination)
