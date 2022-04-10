@@ -44,10 +44,10 @@
             <Label x:Name="labelUCIN" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10">UCIN:</Label>
             <Label x:Name="labelDoB" Grid.Column="0" Grid.Row="3">Date of Birth:</Label>
 
-            <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name}"/>
-            <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname}"/>
-            <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding ID}"/>
-            <TextBox x:Name="textDoB" Grid.Column="1" Grid.Row="3" Text="{Binding DoB}"/>
+            <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name, Mode=OneWay}"/>
+            <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname, Mode=OneWay}"/>
+            <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding ID, Mode=OneWay}"/>
+            <TextBox x:Name="textDoB" Grid.Column="1" Grid.Row="3" Text="{Binding DoB, Mode=OneWay}"/>
 
         </Grid>
 

@@ -55,18 +55,20 @@ namespace Secretary
         private void editAccBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if(dataGridPatients.SelectedIndex != -1)
+            Patient patient = (Patient)dataGridPatients.SelectedItem;
+
+            if (patient != null)
             {
-                Patient patient = (Patient)dataGridPatients.SelectedItem;
 
-                string name = textName.Text;
-                string surname = textSurname.Text;
-                string UCIN = textUCIN.Text;
-                DateTime dob = Convert.ToDateTime(textDoB.Text);
+                patient.Name = textName.Text;
+                patient.Surname = textSurname.Text;
+                patient.ID = textUCIN.Text;
+                patient.DoB = Convert.ToDateTime(textDoB.Text);
 
-                patientController.EditPatient(UCIN, name, surname, dob, patient.examinations);
+                patientController.EditPatient(patient.ID, patient.Name, patient.Surname, patient.DoB, patient.examinations);
             }
 
+            dataGridPatients.UnselectAll();
         }
 
         private void removeAccBtn_Click(object sender, RoutedEventArgs e)
