@@ -16,12 +16,14 @@ namespace Admin
     public partial class App : Application
     {
         public RoomController roomController { get; set; }
+        public RoomRepo roomRepo { get; set; }
 
         public App()
         {
             List<Room> rooms = new List<Room>();
 
-            var roomRepo = new RoomRepo("empty", rooms);
+            String dbPath = "C:\\Users\\vlada\\Desktop\\Faks\\SIMS\\SIMS-HCI-Projekat\\Project\\Admin\\Database\\Rooms.json";
+            roomRepo = new RoomRepo(dbPath, rooms);
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);
         }

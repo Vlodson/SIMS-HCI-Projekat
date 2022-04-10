@@ -12,9 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 using Model;
 using Controller;
+using Repository;
 
 namespace Admin.View
 {
@@ -26,6 +28,7 @@ namespace Admin.View
         private int id = 0;
 
         private RoomController _room_controller;
+        private RoomRepo _room_repo;
 
         public ObservableCollection<Room> RoomList { get; set; }
 
@@ -36,11 +39,9 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _room_controller = app.roomController;
+            _room_repo = app.roomRepo;
 
-            _room_controller.CreateRoom("1a", 1, 1, false, "tip1");
-            _room_controller.CreateRoom("1b", 2, 2, false, "tip2");
-            _room_controller.CreateRoom("1c", 3, 3, false, "tip3");
-
+            _room_repo.LoadRoom();
             RoomList = new ObservableCollection<Room>(_room_controller.ReadAll());
         }
 
@@ -79,5 +80,11 @@ namespace Admin.View
                 convertEntityToView();
             }
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _room_repo.SaveRoom();
+        }
+
     }
 }

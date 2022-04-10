@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
+    <ProjectReference Include="..\Hospital\Hospital.csproj" />
   </ItemGroup>
 
 </Project>
