@@ -26,13 +26,25 @@ namespace Model
         private Doctor doctor;
 
         public Room ExamRoom { get => examRoom; set => examRoom = value; }
-        public DateTime Date { get => date; set => date = value; }
+        //public DateTime Date { get => date; set => date = value; }
         public string Id { get => id; set => id = value; }
         public int Duration { get => duration; set => duration = value; }
         public string Type { get => type; set => type = value; }
         public Patient Patient { get => patient; set => patient = value; }
         public Doctor Doctor { get => doctor; set => doctor = value; }
 
+        public DateTime Date
+        {
+            get
+            {
+                return date;
+            }
+            set
+            {
+                date = value;
+                OnPropertyChanged("Date");
+            }
+        }
         public Examination(Room examRoom, DateTime date, string id, int duration, string type, Patient patient, Doctor doctor)
         {
             this.ExamRoom = examRoom;

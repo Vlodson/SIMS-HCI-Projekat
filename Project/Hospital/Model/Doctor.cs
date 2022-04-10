@@ -16,12 +16,13 @@ namespace Model
             }
         }
         private String id;
-        private String name { get; set; }
-        private String surname { get; set; }
-        private DateTime doB { get; set; }
-        private DoctorType type { get; set; }
+        private String name;
+        private String surname;
+        private DateTime doB;
+        private DoctorType type;
 
-
+        
+        /*
         public String getId()
         {
             return id;
@@ -30,18 +31,46 @@ namespace Model
         {
             this.id = newId;
         }
+        */
         //public Examination[] examination;
         private List<Examination> examinations;
 
-        public List<Examination> getExaminations()
+        public DateTime DoB
         {
-            return examinations;
-        }
-        public void setExaminations(List<Examination> newExaminations)
-        {
-            this.examinations = newExaminations;
+            get
+            {
+                return doB;
+            }
+            set
+            {
+                doB = value;
+            }
         }
 
+        public List<Examination> Examinations
+        {
+            get
+            {
+                return examinations;
+            }
+            set
+            {
+                examinations = value;
+            }
+        }
+        
+
+        public String Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
         public String Name
         {
             get
@@ -69,7 +98,7 @@ namespace Model
                 if (value != surname)
                 {
                     surname = value;
-                    OnPropertyChanged("Surame");
+                    OnPropertyChanged("Surname");
                 }
             }
         }
@@ -99,5 +128,7 @@ namespace Model
             this.type = type;
             this.examinations = examination;
         }
+
+        
     }
 }
