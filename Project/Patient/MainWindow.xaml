@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closed="Window_Closed">
     <Grid>
         <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vrsta" Binding="{Binding Doctor.Type}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="" Binding="{Binding Doctor.Surname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                 
             </DataGrid.Columns>
         </DataGrid>

@@ -3,19 +3,22 @@ using Service;
 using System;
 using System.Collections.Generic;
 
-using Model;
-
 namespace Repository
 {
    public class RoomRepo
    {
       private String dbPath;
-      public List<Room> Rooms { get; set; }
+        public List<Room> Rooms { get; set; }
       
       public RoomRepo(string db_path, List<Room> rooms)
         {
             this.dbPath = db_path;
             this.Rooms = rooms;
+            Room room1 = new Room("1A", 1, 1, true, "sala6");
+            Room room2 = new Room("3A", 1, 1, true, "soba6");
+
+            this.Rooms.Add(room1);
+            this.Rooms.Add(room2);
         }
       
       public bool NewRoom(Room room)
@@ -62,7 +65,6 @@ namespace Repository
          // logic for serialization
          throw new NotImplementedException();
       }
-      
-   
-   }
+
+    }
 }

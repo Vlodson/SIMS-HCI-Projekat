@@ -44,6 +44,11 @@ namespace Service
       {
          return _repo.Rooms;
       }
-   
-   }
+
+        public Room FindById(string id)
+        {
+            return _repo.GetRoom(id);
+        }
+
+    }
 }

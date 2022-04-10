@@ -41,7 +41,8 @@ namespace Admin.View
             _room_controller = app.roomController;
             _room_repo = app.roomRepo;
 
-            _room_repo.LoadRoom();
+            if(File.Exists(_room_repo.dbPath))
+                _room_repo.LoadRoom();
             RoomList = new ObservableCollection<Room>(_room_controller.ReadAll());
         }
 

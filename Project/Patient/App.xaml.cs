@@ -25,6 +25,8 @@ namespace Patient
         public DoctorController DoctorController { get; set; }
         public PatientController PatientController { get; set; }
 
+        public ExaminationRepo ExaminationRepo { get; set; }
+
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -32,12 +34,15 @@ namespace Patient
             List<Doctor> doctors = new List<Doctor>();
             List<Model.Patient> patients = new List<Model.Patient>();
 
+            //String dbPathExams = "E:\\normalno\\FTN\\godina_3\\letnji\\sims\\projekat10\\SIMS-HCI-Projekat\\Project\\Patient\\Database\\Examinations.json";
+            String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
 
-            ExaminationRepo examinationRepository = new ExaminationRepo("...");
+            //ExaminationRepo examinationRepository = new ExaminationRepo(dbPathExams);
+            ExaminationRepo = new ExaminationRepo(dbPathExams);
             PatientRepo patientRepository = new PatientRepo("...");
-            PatientService patientService = new PatientService(patientRepository, examinationRepository);
+            PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
-            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepository);
+            DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
 
             ExamController = new ExamController(patientService);
             DoctorController = new DoctorController(doctorService);

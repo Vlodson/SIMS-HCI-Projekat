@@ -16,32 +16,51 @@ namespace Model
             }
         }
         private String id;
-        private String name { get; set; }
-        private String surname { get; set; }
-        private DateTime doB { get; set; }
-        private DoctorType type { get; set; }
+        private String name;
+        private String surname;
+        private DateTime doB;
+        private DoctorType type;
 
-
-        public String getId()
-        {
-            return id;
-        }
-        public void setId(String newId)
-        {
-            this.id = newId;
-        }
+        
         //public Examination[] examination;
         private List<Examination> examinations;
 
-        public List<Examination> getExaminations()
+        public DateTime DoB
         {
-            return examinations;
-        }
-        public void setExaminations(List<Examination> newExaminations)
-        {
-            this.examinations = newExaminations;
+            get
+            {
+                return doB;
+            }
+            set
+            {
+                doB = value;
+            }
         }
 
+        public List<Examination> Examinations
+        {
+            get
+            {
+                return examinations;
+            }
+            set
+            {
+                examinations = value;
+            }
+        }
+        
+
+        public String Id
+        {
+            get
+            {
+                return id;
+            }
+            set
+            {
+                id = value;
+            }
+        }
         public String Name
         {
             get
@@ -69,7 +88,7 @@ namespace Model
                 if (value != surname)
                 {
                     surname = value;
-                    OnPropertyChanged("Surame");
+                    OnPropertyChanged("Surname");
                 }
             }
         }
@@ -92,12 +111,24 @@ namespace Model
 
         public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, List<Examination> examination)
         {
+            /*
             this.id = id;
             this.name = name;
             this.surname = surname;
             this.doB = doB;
             this.type = type;
             this.examinations = examination;
+            */
+            Id = id;
+            Name = name;
+            Surname = surname;  
+            DoB = doB;
+            Type = type;
+            Examinations = examination;
+        }
+
+        public Doctor()
+        {
         }
     }
 }

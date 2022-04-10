@@ -6,33 +6,36 @@ namespace Model
 {
     public class Patient : Guest, INotifyPropertyChanged
     {
-        private String id;
-        private String name { get; set; }
-        private String surname { get; set; }
+        private string id;
+        private string name;
+        private string surname { get; set; }
         private DateTime doB { get; set; }
+        public string Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
 
-        //public Examination[] examination;
         private List<Examination> examinations;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public String getId()
-        {
-            return id;
-        }
 
-        public void SetId(String newId)
-        {
-            this.id = newId;
-        }
 
         public Patient(string id, string name, string surname, DateTime doB, List<Examination> examinations)
         {
-            this.id = id;
-            this.name = name;
+            this.Id = id;
+            this.Name = name;
             this.surname = surname;
             this.doB = doB;
             this.examinations = examinations;
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+
+        public Patient()
+        {
+
         }
     }
 }

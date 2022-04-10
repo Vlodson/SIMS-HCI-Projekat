@@ -89,7 +89,7 @@ namespace Controller
                 patientAccountService.Clear();
         }
 
-        public List<Patient> GetAll()
+        public List<Model.Patient> GetAll()
         {
             return _patientService.GetPatients();
         }

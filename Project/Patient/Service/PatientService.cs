@@ -23,7 +23,7 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public Patient GetPatient(String id)
+        public Model.Patient GetPatient(String id)
         {
             return _patientRepo.GetPatient(id);
         }
@@ -64,7 +64,7 @@ namespace Service
             return _examinationRepo.GetAll();
         }
 
-        public List<Patient> GetPatients()
+        public List<Model.Patient> GetPatients()
         {
             return _patientRepo.GetAllPatients();
         }
