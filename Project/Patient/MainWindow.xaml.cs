@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace Patient
 {
@@ -42,7 +43,8 @@ namespace Patient
             this.DataContext = this;
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
-            _examinationRepo.LoadExamination();
+            if (File.Exists(_examinationRepo.dbPath))
+                _examinationRepo.LoadExamination();
             _examinationController = app.ExamController;
             Examinations = _examinationController.ReadPatientExams("idPatient1");
         }

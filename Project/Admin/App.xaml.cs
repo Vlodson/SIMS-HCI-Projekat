@@ -22,7 +22,7 @@ namespace Admin
         {
             List<Room> rooms = new List<Room>();
 
-            String dbPath = "C:\\Users\\vlada\\Desktop\\Faks\\SIMS\\SIMS-HCI-Projekat\\Project\\Admin\\Database\\Rooms.json";
+            String dbPath = "..\\..\\..\\Database\\Rooms.json";
             roomRepo = new RoomRepo(dbPath, rooms);
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);

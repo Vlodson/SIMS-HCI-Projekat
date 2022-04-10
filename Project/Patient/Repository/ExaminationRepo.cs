@@ -10,7 +10,7 @@ namespace Repository
 {
     public class ExaminationRepo
     {
-        private String dbPath;
+        public String dbPath { get; set; }
         //lista pregleda
         public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
         private List<Examination> examinationList1 = new List<Examination>();
