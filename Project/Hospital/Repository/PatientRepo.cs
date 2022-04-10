@@ -1,106 +1,76 @@
-using System;
-using System.Collections.Generic;
 using Model;
 using Service;
+using System;
+using System.Collections.Generic;
 
 namespace Repository
 {
-   public class PatientRepo
-   {
-      private String dbPath;
-      private List<Patient> patients;
-      
-      public PatientRepo(String dbPath)
-      {
+    public class PatientRepo
+    {
+        private String dbPath;
+        private List<Patient> patients;
+
+        public PatientRepo(string dbPath)
+        {
             this.dbPath = dbPath;
             this.patients = new List<Patient>();
 
-            Patient p1 = new Patient("1", "Pera", "Peric", new DateTime(1994, 05, 06), new List<Examination>());
-            Patient p2 = new Patient("2", "Ivan", "Ivic", new DateTime(1985, 08, 08), new List<Examination>());
-            Patient p3 = new Patient("3", "Zika", "Zikic", new DateTime(2001, 11, 17), new List<Examination>());
-
+            Patient p1 = new Patient("idPatient1", "namePatient1", "surnamePatient1", new DateTime(2000, 11, 1), new List<Examination>());
             this.patients.Add(p1);
-            this.patients.Add(p2);
-            this.patients.Add(p3);
         }
 
-      public bool NewPatient(Patient patient)
-      {
-         for (int i = 0; i < patients.Count; i++)
-            {
-                if(patients[i].ID == patient.ID)
-                {
-                    return false;
-                }
-            }
-
-         patients.Add(patient);
-         return true;
-      }
-      
-      public Patient GetPatient(String patientId)
-      {
-         for (int i = 0; i < patients.Count; i++)
-            {
-                if (patients[i].ID == patientId)
-                {
-                    return patients[i];
-                }
-            }
-
-         return null;
-      }
-
-      public List<Patient> GetAllPatients()
+        public PatientRepo(string dbPath, List<Patient> listPatient)
         {
-            List<Patient> allPatients = new List<Patient>();
-            for (int i = 0; i < patients.Count; i++)
-            {
-                allPatients.Add(patients[i]);
-            }
-            return allPatients;
-        }
-      
-      public void SetPaetient(String patientId, Patient newPatient)
-      {
-         for (int i = 0; i < patients.Count; i++)
-            {
-                if (patients[i].ID == patientId)
-                {
-                    patients[i].ID = newPatient.ID;
-                    patients[i].Name = newPatient.Name;
-                    patients[i].Surname = newPatient.Surname;
-                    patients[i].DoB = newPatient.DoB;
-                    patients[i].examinations = newPatient.examinations;
-                }
-            }
-      }
-      
-      public bool DeletePatient(String patientId)
-      {
-         for (int i = 0; i < patients.Count; i++)
-            {
-                if (patients[i].ID == patientId)
-                {
-                    patients.RemoveAt(i);
-                    return true;
-                }
-            }
+            this.dbPath = dbPath;
+            this.patients = new List<Patient>();
 
-         return false;
-      }
-      
-      public bool LoadPatient()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public bool SavePatient()
-      {
-         throw new NotImplementedException();
-      }
-      
-      public PatientAccountService patientAccountService;
-   
-   }
+            Patient p1 = new Patient("1234567", "Jelena", "Dinic", new DateTime(2000, 11, 1), new List<Examination>());
+            this.patients.Add(p1);
+        }
+
+
+        public bool NewPatient(Patient patient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Patient GetPatient(String patientId)
+        {
+            foreach (Patient patient in patients)
+            {
+                if (patient.ID.Equals(patientId))
+                {
+                    return patient;
+                }
+            }
+            return null;
+        }
+
+        public void SetPaetient(String patientId, Patient newPatient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeletePaetient(String patientId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool LoadPatient()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool SavePatient()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public PatientAccountService patientAccountService;
+        public List<Model.Patient> GetAllPatients()
+        {
+            return patients;
+        }
+
+    }
 }

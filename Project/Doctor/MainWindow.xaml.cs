@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Doctor.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,28 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Admin.View
+namespace Doctor
 {
     /// <summary>
-    /// Interaction logic for RemoveRoomWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class RemoveRoomWindow : Window
+    public partial class MainWindow : Window
     {
-        public string Room_id { get; set; }
-
-        public RemoveRoomWindow()
+        public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
 
-        private void removeRoomBtn_Click(object sender, RoutedEventArgs e)
+        private void Examinations_Click(object sender, RoutedEventArgs e)
         {
-            string message = Room_id;
-            MessageBox.Show(message);
+            this.Hide();
+            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
+            examinationSchedule.Show();
         }
-
     }
 }

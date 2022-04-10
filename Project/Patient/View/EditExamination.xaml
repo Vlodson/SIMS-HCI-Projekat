@@ -1,0 +1,18 @@
+﻿<Window x:Class="Patient.View.EditExamination"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Patient.View"
+        mc:Ignorable="d"
+        Title="EditExamination" Height="450" Width="800">
+    <Grid>
+        <Label Content="Odaberi novi termin" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="700,362,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+    </Grid>
+</Window>

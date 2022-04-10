@@ -1,83 +1,49 @@
+using Model;
 using System;
+using System.Collections.Generic;
+using Service;
 
 namespace Controller
 {
    public class RoomController
    {
-      public bool CreateRoom(String id, List<Equipment> equpiment, int floor, int roomNb, bool occupancy, String type)
+      
+      private readonly RoomService _roomService;
+      
+      public RoomController(RoomService _roomService)
+        {
+            this._roomService = _roomService;
+        }
+
+      public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, String type)
       {
-         throw new NotImplementedException();
+            return _roomService.CreateRoom(id, floor, roomNb, occupancy, type);
       }
       
       public bool RemoveRoom(String roomId)
       {
-         throw new NotImplementedException();
+            return _roomService.RemoveRoom(roomId);
       }
       
       public void EditRoom(String id, List<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, String newType)
       {
-         throw new NotImplementedException();
+         _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
       }
       
-      public Model.Room ReadRoom(String roomId)
+      public Room ReadRoom(String roomId)
       {
-         throw new NotImplementedException();
+         return _roomService.ReadRoom(roomId);
       }
       
       public List<Room> ReadAll()
       {
-         throw new NotImplementedException();
+         return _roomService.ReadAll();
       }
-      
-      public System.Collections.ArrayList roomService;
-      
-      
-      public System.Collections.ArrayList RoomService
+
+      public Room FindById(string id)
       {
-         get
-         {
-            if (roomService == null)
-               roomService = new System.Collections.ArrayList();
-            return roomService;
-         }
-         set
-         {
-            RemoveAllRoomService();
-            if (value != null)
-            {
-               foreach (Service.RoomService oRoomService in value)
-                  AddRoomService(oRoomService);
-            }
-         }
+         return _roomService.FindById(id);
       }
-      
-      
-      public void AddRoomService(Service.RoomService newRoomService)
-      {
-         if (newRoomService == null)
-            return;
-         if (this.roomService == null)
-            this.roomService = new System.Collections.ArrayList();
-         if (!this.roomService.Contains(newRoomService))
-            this.roomService.Add(newRoomService);
-      }
-      
-      
-      public void RemoveRoomService(Service.RoomService oldRoomService)
-      {
-         if (oldRoomService == null)
-            return;
-         if (this.roomService != null)
-            if (this.roomService.Contains(oldRoomService))
-               this.roomService.Remove(oldRoomService);
-      }
-      
-      
-      public void RemoveAllRoomService()
-      {
-         if (roomService != null)
-            roomService.Clear();
-      }
-   
-   }
+
+    }
 }

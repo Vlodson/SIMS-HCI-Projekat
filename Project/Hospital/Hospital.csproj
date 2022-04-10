@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller\DoctorController.cs" />
     <Compile Include="Controller\ExamController.cs" />
     <Compile Include="Controller\PatientController.cs" />
     <Compile Include="Controller\RoomController.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Model\Guest.cs" />
     <Compile Include="Model\Patient.cs" />
     <Compile Include="Model\Room.cs" />
+    <Compile Include="Repository\DoctorRepo.cs" />
     <Compile Include="Repository\ExaminationRepo.cs" />
     <Compile Include="Repository\PatientRepo.cs" />
     <Compile Include="Repository\RoomRepo.cs" />
@@ -110,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
