@@ -12,6 +12,11 @@ namespace Model
       public bool Occupancy { get; set; }
       public String Type { get; set; }
 
+      public Room()
+        {
+
+        }
+
       public Room(String id, int floor, int room_nb, bool occ, string type)
         {
             Id = id;
