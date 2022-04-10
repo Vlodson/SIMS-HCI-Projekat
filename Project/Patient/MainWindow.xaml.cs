@@ -26,6 +26,7 @@ namespace Patient
     {
 
         private ExamController _examinationController;
+        public static Examination selected;
         
         public static ObservableCollection<Examination> Examinations
         {
@@ -50,6 +51,12 @@ namespace Patient
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
         {
+            selected = (Examination)dataGridExaminations.SelectedItem;
+            if(selected != null)
+            {
+                EditExamination editExamination = new EditExamination();
+                editExamination.Show();
+            }
             
         }
 

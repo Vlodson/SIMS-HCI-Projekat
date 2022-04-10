@@ -160,6 +160,12 @@ namespace Repository
 
         }
 
+        public void EditExamination(string id, DateTime dateTime)
+        {
+            Examination examination = GetId(id);
+            examination.Date = dateTime;
+        }
+
 
     }
 }

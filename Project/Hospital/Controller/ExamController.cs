@@ -50,9 +50,9 @@ namespace Controller
             throw new NotImplementedException();
         }
 
-        public void PatientEditExam()
+        public void PatientEditExam(Examination examination, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            _patientService.EditExam(examination.Id, dateTime);
         }
 
         //public System.Collections.ArrayList doctorService;
