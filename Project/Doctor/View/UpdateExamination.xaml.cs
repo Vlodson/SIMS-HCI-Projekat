@@ -104,9 +104,22 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorEditExam(newExam);
 
+            //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
+            //ExaminationSchedule.Examinations.Add(newExam);
+            convertEntityToView();
             ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
-            ExaminationSchedule.Examinations.Add(newExam);
+            
             this.Close();
+        }
+
+        public void convertEntityToView()
+        {
+          
+            ExaminationSchedule.Examinations.Clear();
+            string idDoc = "IDDOC";
+            List<Examination> exams = this._examController.ReadAll(idDoc);
+            foreach (Examination exam in exams)
+                ExaminationSchedule.Examinations.Add(exam);
         }
     }
 }
