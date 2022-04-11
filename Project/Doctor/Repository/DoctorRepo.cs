@@ -51,6 +51,7 @@ namespace Repository
             return listDoctor;
         }
 
+
         public Model.Doctor GetDoctor(string id)
         {
             foreach(Model.Doctor doctor in this.listDoctor)

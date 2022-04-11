@@ -106,7 +106,20 @@ namespace Doctor.View
 
             //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
             //ExaminationSchedule.Examinations.Add(newExam);
+            convertEntityToView();
+            ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
+            
             this.Close();
+        }
+
+        public void convertEntityToView()
+        {
+          
+            ExaminationSchedule.Examinations.Clear();
+            string idDoc = "IDDOC";
+            List<Examination> exams = this._examController.ReadAll(idDoc);
+            foreach (Examination exam in exams)
+                ExaminationSchedule.Examinations.Add(exam);
         }
     }
 }

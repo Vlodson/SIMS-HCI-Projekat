@@ -34,7 +34,6 @@ namespace Doctor
             String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
 
             ExaminationRepo = new ExaminationRepo(dbPathExams, exams);
-            //var examinationRepository = new ExaminationRepo(dbPathExams, exams);
             var patientRepository = new PatientRepo("...", patients);
             var doctorRepository = new DoctorRepo("...");
             var roomRepository = new RoomRepo("...", rooms);

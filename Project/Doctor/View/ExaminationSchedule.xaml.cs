@@ -54,12 +54,11 @@ namespace Doctor.View
             _examController = app.ExamController;
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
-            
 
             Examinations = _examController.ReadDoctorExams(idDoc);
-            Equipment equipment1 = new Equipment("typeEquipment1", 2);
+            //Equipment equipment1 = new Equipment("typeEquipment1", 2);
 
-            Room r1 = new Room("idRoom1", 2, 1, false, "typeRoom1");
+            /*Room r1 = new Room("idRoom1", 2, 1, false, "typeRoom1");
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
             Model.Doctor doctor = new Model.Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
@@ -68,7 +67,7 @@ namespace Doctor.View
             Model.Patient patient = new Model.Patient("idPAtient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
             DateTime dtExam1 = DateTime.Now;
             Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "operacija", patient, doctor);
-            Examinations.Add(exam1);
+            Examinations.Add(exam1);*/
             
 
         }
@@ -77,6 +76,7 @@ namespace Doctor.View
         {
             AddExamination addExamination = new AddExamination();
             addExamination.Show();
+            
         }
 
         private void Izmeni_Click(object sender, RoutedEventArgs e)
@@ -94,6 +94,8 @@ namespace Doctor.View
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
+                Examinations.Remove(selectedItem);
+                convertEntityToView();
             }
 
         }
@@ -101,6 +103,16 @@ namespace Doctor.View
         private void Window_Closed(object sender, EventArgs e)
         {
             _examRepo.SaveExamination();
+        }
+
+        public void convertEntityToView()
+        {
+            // stupid slow but i dont really care right now also probably needs a check to see if its null
+            Examinations.Clear();
+            string idDoc = "IDDOC";
+            List<Examination> exams = this._examController.ReadAll(idDoc);
+            foreach (Examination exam in exams)
+                Examinations.Add(exam);
         }
     }
 }

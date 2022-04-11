@@ -95,8 +95,19 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorCreateExam(newExam);
 
-            ExaminationSchedule.Examinations.Add(newExam);
+            //ExaminationSchedule.Examinations.Add(newExam);
+            convertEntityToView();
             this.Close();
+        }
+
+        public void convertEntityToView()
+        {
+            // stupid slow but i dont really care right now also probably needs a check to see if its null
+            ExaminationSchedule.Examinations.Clear();
+            string idDoc = "IDDOC";
+            List<Examination> exams = this._examController.ReadAll(idDoc);
+            foreach (Examination exam in exams)
+                ExaminationSchedule.Examinations.Add(exam);
         }
     }
 }

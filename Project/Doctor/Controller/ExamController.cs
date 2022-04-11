@@ -53,6 +53,11 @@ namespace Controller
             return _doctorService.ReadMyExams(id);
         }
 
+        public List<Examination>ReadAll(string id)
+        {
+            return _doctorService.ReadAll(id);
+        }
+
         public void DoctorEditExam(Examination examination)
         {
             _doctorService.EditExams(examination);

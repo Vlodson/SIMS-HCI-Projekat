@@ -66,6 +66,11 @@ namespace Service
             return _examinationRepo.ExaminationsForDoctor(id);
         }
 
+        public List<Examination> ReadAll(string id)
+        {
+            return _examinationRepo.ReadAll(id);
+        }
+
         public void CreateExam(Examination examination)
         {
             _examinationRepo.SetExamination(examination);

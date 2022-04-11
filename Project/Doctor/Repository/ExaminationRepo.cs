@@ -202,9 +202,21 @@ namespace Repository
             examination.Date = dateTime;
         }
 
+
+
         public ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
+            foreach (Examination exam in ExaminationList1)
+            {
+                //if (exam.doctor.getId().Equals(id)) 
+                examsForDoctor.Add(exam);
+            }
+            return examsForDoctor;
+        }
+        public List<Examination> ReadAll(string id)
+        {
+            List<Examination> examsForDoctor = new List<Examination>();
             foreach (Examination exam in ExaminationList1)
             {
                 //if (exam.doctor.getId().Equals(id)) 
