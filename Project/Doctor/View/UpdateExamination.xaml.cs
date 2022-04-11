@@ -104,8 +104,8 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorEditExam(newExam);
 
-            ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
-            ExaminationSchedule.Examinations.Add(newExam);
+            //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
+            //ExaminationSchedule.Examinations.Add(newExam);
             this.Close();
         }
     }

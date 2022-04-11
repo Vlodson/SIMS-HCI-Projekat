@@ -3,19 +3,20 @@ using Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json;
 
 namespace Repository
 {
     public class ExaminationRepo
     {
-        private String dbPath;
+        public String dbPath;
         //lista pregleda
         public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
-        private List<Examination> examinationList1 = new List<Examination>();
-
-
+        public List<Examination> ExaminationList1;
         public ExaminationRepo(string dbPath)
         {
+            this.dbPath = dbPath;
             /*
             this.dbPath = dbPath;
             //this.examinationList = examinationList;
@@ -40,30 +41,30 @@ namespace Repository
             examinations.Add(exam1);
             this.examinationList.Add(exam1);
             */
-            
+
         }
 
         public ExaminationRepo(string dbPath, List<Examination> examinationList1)
         {
             this.dbPath = dbPath;
-            List<Examination> examinations = new List<Examination>();
+            this.ExaminationList1 = new List<Examination>();
+        /*List<Examination> examinations = new List<Examination>();
 
-            Room r1 = new Room("idRoom1",2, 1, false, "typeRoom1");
+        Room r1 = new Room("idRoom1",2, 1, false, "typeRoom1");
 
-            List<Examination> examinationsDoctor1 = new List<Examination>();
-            DateTime dtDoctor1 = DateTime.Now;
-            Doctor doctor = new Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
+        List<Examination> examinationsDoctor1 = new List<Examination>();
+        DateTime dtDoctor1 = DateTime.Now;
+        Model.Doctor doctor = new Model.Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
 
-            List<Examination> examinationsPatient1 = new List<Examination>();
-            DateTime dtPatient1 = DateTime.Now;
-            Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
+        List<Examination> examinationsPatient1 = new List<Examination>();
+        DateTime dtPatient1 = DateTime.Now;
+        Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
 
-            DateTime dtExam1 = DateTime.Now;
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
-            examinations.Add(exam1);
+        DateTime dtExam1 = DateTime.Now;
+        Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
+        examinations.Add(exam1);*/
 
-            this.examinationList1 = examinations;
-        }
+    }
 
         public ObservableCollection<Examination> GetAll()
         {
@@ -99,7 +100,7 @@ namespace Repository
 
         public void SetExamination(Examination examination)
         {
-            examinationList1.Add(examination);
+            ExaminationList1.Add(examination);
             examinationList.Add(examination);
 
         }
@@ -107,24 +108,30 @@ namespace Repository
         public void DeleteExamination(Examination examination)
         {
             examinationList.Remove(examination);
-            examinationList1.Remove(examination);
+            ExaminationList1.Remove(examination);
 
         }
 
         public bool LoadExamination()
         {
-            throw new NotImplementedException();
+            using FileStream stream = File.OpenRead(dbPath);
+            this.ExaminationList1 = JsonSerializer.Deserialize<List<Examination>>(stream);
+
+            return true;
         }
 
         public bool SaveExamination()
         {
-            throw new NotImplementedException();
+            string jsonString = JsonSerializer.Serialize(ExaminationList1);
+
+            File.WriteAllText(dbPath, jsonString);
+            return true;
         }
 
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList1)
+            foreach (Examination exam in ExaminationList1)
             {
                 if (exam.Patient.Id.Equals(id)) examsForPatient.Add(exam);
             }
@@ -135,7 +142,7 @@ namespace Repository
         //public DoctorService doctorService;
 
 
-        public List<DateTime> GetFreeExaminationsForDoctor(Doctor doctor)
+        public List<DateTime> GetFreeExaminationsForDoctor(Model.Doctor doctor)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
@@ -198,7 +205,7 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList1)
+            foreach (Examination exam in ExaminationList1)
             {
                 //if (exam.doctor.getId().Equals(id)) 
                 examsForDoctor.Add(exam);

@@ -19,12 +19,12 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
+        private List<DateTime> GetFreeDates(Model.Doctor doctor, int maxDates)
         {
             throw new NotImplementedException();
         }
 
-        public bool CreateExam(Model.Patient patient, Doctor doctor, Model.Room examRoom, DateTime date)
+        public bool CreateExam(Model.Patient patient, Model.Doctor doctor, Model.Room examRoom, DateTime date)
         {
             throw new NotImplementedException();
         }
@@ -46,17 +46,17 @@ namespace Service
 
         //dodato
 
-        public List<Doctor> GetDoctors()
+        public List<Model.Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
         }
 
-        public Doctor GetDoctor(string id)
+        public Model.Doctor GetDoctor(string id)
         {
             return _doctorRepo.GetDoctor(id);
         }
 
-        public List<DateTime> GetFreeExaminations(Doctor doctor)
+        public List<DateTime> GetFreeExaminations(Model.Doctor doctor)
         {
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
         }

@@ -38,7 +38,7 @@ namespace Repository
         {
             foreach (Patient patient in patients)
             {
-                if (patient.Id.Equals(patientId))
+                if (patient.ID.Equals(patientId))
                 {
                     return patient;
                 }
@@ -51,7 +51,7 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public bool DeletePaetient(String patientId)
+        public bool DeletePatient(String patientId)
         {
             throw new NotImplementedException();
         }

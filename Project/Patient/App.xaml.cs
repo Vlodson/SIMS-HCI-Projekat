@@ -34,7 +34,8 @@ namespace Patient
             List<Doctor> doctors = new List<Doctor>();
             List<Model.Patient> patients = new List<Model.Patient>();
 
-            String dbPathExams = "E:\\normalno\\FTN\\godina_3\\letnji\\sims\\projekat10\\SIMS-HCI-Projekat\\Project\\Patient\\Database\\Examinations.json";
+            //String dbPathExams = "E:\\normalno\\FTN\\godina_3\\letnji\\sims\\projekat10\\SIMS-HCI-Projekat\\Project\\Patient\\Database\\Examinations.json";
+            String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
 
             //ExaminationRepo examinationRepository = new ExaminationRepo(dbPathExams);
             ExaminationRepo = new ExaminationRepo(dbPathExams);

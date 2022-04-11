@@ -51,9 +51,18 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public bool DeletePaetient(String patientId)
+        public bool DeletePatient(String patientId)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < patients.Count; i++)
+            {
+                if (patients[i].ID == patientId)
+                {
+                    patients.RemoveAt(i);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool LoadPatient()

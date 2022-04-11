@@ -10,7 +10,7 @@ namespace Repository
 {
     public class ExaminationRepo
     {
-        private String dbPath;
+        public String dbPath { get; set; }
         //lista pregleda
         public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
         private List<Examination> examinationList1 = new List<Examination>();
@@ -51,21 +51,6 @@ namespace Repository
             this.dbPath = dbPath;
             List<Examination> examinations = new List<Examination>();
 
-            Room r1 = new Room("idRoom1",2, 1, false, "typeRoom1");
-
-            List<Examination> examinationsDoctor1 = new List<Examination>();
-            DateTime dtDoctor1 = DateTime.Now;
-            Doctor doctor = new Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
-
-            List<Examination> examinationsPatient1 = new List<Examination>();
-            DateTime dtPatient1 = DateTime.Now;
-            Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
-
-            DateTime dtExam1 = DateTime.Now;
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
-            examinations.Add(exam1);
-
-            this.examinationList1 = examinations;
         }
 
         public ObservableCollection<Examination> GetAll()

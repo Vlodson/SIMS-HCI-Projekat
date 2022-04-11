@@ -1,8 +1,10 @@
 ﻿using Controller;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ namespace Doctor.View
     public partial class ExaminationSchedule : Window
     {
         private ExamController _examController;
-        private DoctorController doctorController;
+        private ExaminationRepo _examRepo;
 
         public static Examination SelectedItem
         {
@@ -39,12 +41,24 @@ namespace Doctor.View
 
         public ExaminationSchedule()
         {
-
+            InitializeComponent();
+            this.DataContext = this;
             SelectedItem = null;
-            Examinations = new ObservableCollection<Examination>();
 
-            Equipment equipment1 = new Equipment("typeEquipment1", 2);
             
+
+            string idDoc = "IDDOC";
+
+            App app = Application.Current as App;
+            _examRepo = app.ExaminationRepo;
+            _examController = app.ExamController;
+            if (File.Exists(_examRepo.dbPath))
+                _examRepo.LoadExamination();
+            
+
+            Examinations = _examController.ReadDoctorExams(idDoc);
+            Equipment equipment1 = new Equipment("typeEquipment1", 2);
+
             Room r1 = new Room("idRoom1", 2, 1, false, "typeRoom1");
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -55,16 +69,7 @@ namespace Doctor.View
             DateTime dtExam1 = DateTime.Now;
             Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "operacija", patient, doctor);
             Examinations.Add(exam1);
-
-            string idDoc = "IDDOC";
-
-            var app = Application.Current as App;
-            _examController = app.ExamController;
-
-            Examinations = _examController.ReadDoctorExams(idDoc);
-
-            InitializeComponent();
-            this.DataContext = this;
+            
 
         }
 
@@ -89,9 +94,13 @@ namespace Doctor.View
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
-                Examinations.Remove(selectedItem);
             }
 
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _examRepo.SaveExamination();
         }
     }
 }

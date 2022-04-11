@@ -18,7 +18,7 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
+        private List<DateTime> GetFreeDates(Model.Doctor doctor, int maxDates)
         {
             throw new NotImplementedException();
         }

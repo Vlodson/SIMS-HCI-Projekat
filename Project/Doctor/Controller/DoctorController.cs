@@ -17,17 +17,17 @@ namespace Controller
             _doctorService = doctorService;
         }
 
-        public List<Doctor> GetAll()
+        public List<Model.Doctor> GetAll()
         {
             return _doctorService.GetDoctors();
         }
 
-        public Doctor GetDoctor(string id)
+        public Model.Doctor GetDoctor(string id)
         {
             return _doctorService.GetDoctor(id);
         }
 
-        public List<DateTime> GetFreeGetFreeExaminations(Doctor doctor)
+        public List<DateTime> GetFreeGetFreeExaminations(Model.Doctor doctor)
         {
             return _doctorService.GetFreeExaminations(doctor);
         }
