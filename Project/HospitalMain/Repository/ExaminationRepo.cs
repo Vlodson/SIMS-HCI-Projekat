@@ -13,44 +13,12 @@ namespace Repository
         public String dbPath { get; set; }
         //lista pregleda
         public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
-        //private List<Examination> examinationList1 = new List<Examination>();
 
 
         public ExaminationRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            /*
-            this.dbPath = dbPath;
-            //this.examinationList = examinationList;
-            examinationList = new ObservableCollection<Examination>();
-            List<Examination> examinations = new List<Examination>();
-            Equipment equipment1 = new Equipment("name", 1);
-            List<Equipment> equipmentList1 = new List<Equipment>();
-            equipmentList1.Add(equipment1);
-            Room r1 = new Room("name1", 1, 2, false, "type");
-
-            List<Examination> examinationsDoctor1 = new List<Examination>();
-            DateTime dtDoctor1 = DateTime.Now;
-            Doctor doctor = new Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
-
-            List<Examination> examinationsPatient1 = new List<Examination>();
-            DateTime dtPatient1 = DateTime.Now;
-            Model.Patient patient = new Model.Patient("idPatient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
-
-            DateTime dtExam1 = new DateTime(2022, 4, 11, 7, 30, 0);
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "kontrola", patient, doctor);
             
-            examinations.Add(exam1);
-            this.examinationList.Add(exam1);
-            */
-            
-        }
-
-        public ExaminationRepo(string dbPath, List<Examination> examinationList1)
-        {
-            this.dbPath = dbPath;
-            List<Examination> examinations = new List<Examination>();
-
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -87,7 +55,6 @@ namespace Repository
 
         public void SetExamination(Examination examination)
         {
-            //examinationList1.Add(examination);
             examinationList.Add(examination);
 
         }
@@ -95,7 +62,6 @@ namespace Repository
         public void DeleteExamination(Examination examination)
         {
             examinationList.Remove(examination);
-            //examinationList1.Remove(examination);
 
         }
 

@@ -65,7 +65,7 @@ namespace Doctor.View
             _roomController = app.RoomController;
 
             ComboBoxPacijent.Text = selectedItem.Patient.Name;
-            ComboBoxSoba.SelectedItem = selectedItem.ExamRoom;
+            ComboBoxSoba.Text = selectedItem.ExamRoom.Id;
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.Type;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
@@ -90,11 +90,11 @@ namespace Doctor.View
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
-            string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.FindById(roomId);
+            string roomId = ComboBoxSoba.Text;
+            Room r = new Room(roomId, 3, 3, true, "tip2");
 
 
-            string patientName = ComboBoxPacijent.SelectedItem.ToString();
+            string patientName = ComboBoxPacijent.Text;
             Guest guest = new Guest("246");
             Patient p = new Patient(guest, patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
 
@@ -105,22 +105,9 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorEditExam(newExam);
 
-            //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
-            //ExaminationSchedule.Examinations.Add(newExam);
-            convertEntityToView();
-            ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
             
             this.Close();
         }
 
-        public void convertEntityToView()
-        {
-          
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
-        }
     }
 }

@@ -28,7 +28,6 @@ namespace Doctor
 
         private void Examinations_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
             ExaminationSchedule examinationSchedule = new ExaminationSchedule();
             examinationSchedule.Show();
         }

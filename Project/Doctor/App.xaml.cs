@@ -22,25 +22,26 @@ namespace Doctor
         public PatientController PatientController { get; set; }
         public RoomController RoomController { get; set; }
         public ExaminationRepo ExaminationRepo { get; set; }
+        public RoomRepo RoomRepo { get; set; }
 
 
 
         public App()
         {
-            List<Examination> exams = new List<Examination>();
             List<Patient> patients = new List<Patient>();
             List<Room> rooms = new List<Room>();
 
-            String dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
+            string dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
+            string dbPathRooms = "..\\..\\..\\..\\HospitalMain\\Database\\Rooms.json";
 
-            ExaminationRepo = new ExaminationRepo(dbPathExams, exams);
+            ExaminationRepo = new ExaminationRepo(dbPathExams);
+            RoomRepo = new RoomRepo(dbPathRooms, rooms);
             var patientRepository = new PatientRepo("...", patients);
             var doctorRepository = new DoctorRepo("...");
-            var roomRepository = new RoomRepo("...", rooms);
 
             var patientService = new PatientService(patientRepository, ExaminationRepo);
             var doctorService = new DoctorService(doctorRepository, ExaminationRepo);
-            var roomService = new RoomService(roomRepository);
+            var roomService = new RoomService(RoomRepo);
 
             ExamController = new ExamController(doctorService);
             DoctorController = new DoctorController(doctorService);

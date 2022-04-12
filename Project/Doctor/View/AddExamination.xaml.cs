@@ -21,20 +21,12 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Window, INotifyPropertyChanged
+    public partial class AddExamination : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
-        protected virtual void NotifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
 
         public ObservableCollection<Patient> PatientsObs
         {
@@ -52,26 +44,18 @@ namespace Doctor.View
             InitializeComponent();
             this.DataContext = this;
 
-            RoomsObs = new ObservableCollection<Room>();
             PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
-            _patientController = app.PatientController;
             _roomController = app.RoomController;
+            _patientController = app.PatientController;
 
             foreach (var pom in _patientController.GetAll().ToList())
             {
                 PatientsObs.Add(pom);
             }
-            foreach (var pom in _roomController.ReadAll().ToList())
-            {
-                RoomsObs.Add(pom);
-            }
-
-
-
         }
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
@@ -82,7 +66,7 @@ namespace Doctor.View
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.FindById(roomId);
+            Room r = _roomController.ReadRoom(roomId);
 
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
@@ -96,7 +80,6 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorCreateExam(newExam);
 
-            //ExaminationSchedule.Examinations.Add(newExam);
             convertEntityToView();
             this.Close();
         }

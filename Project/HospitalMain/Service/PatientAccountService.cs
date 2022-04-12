@@ -31,7 +31,7 @@ namespace Service
       public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, List<Examination> examinations)
       {
             Guest guest = new Guest(patientId);
-            patientRepo.SetPaetient(patientId, new Patient(guest, newName, newSurname, newDoB, examinations));
+            patientRepo.SetPatient(patientId, new Patient(guest, newName, newSurname, newDoB, examinations));
       }
       
       public Model.Patient ReadPatient(String patientId)

@@ -7,11 +7,9 @@ namespace Model
     public class Patient : Guest, INotifyPropertyChanged
     {
         
-        private string name;
-        private string surname { get; set; }
-        private DateTime doB { get; set; }
-        //public string Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
+        public string Name { get; set; }
+        private string Surname { get; set; }
+        private DateTime DoB { get; set; }
 
         private List<Examination> examinations;
 
@@ -21,17 +19,16 @@ namespace Model
 
         public Patient(Guest guest, string name, string surname, DateTime doB, List<Examination> examinations):base(guest.ID)
         {
-            //this.Id = id;
             this.Name = name;
-            this.surname = surname;
-            this.doB = doB;
+            this.Surname = surname;
+            this.DoB = doB;
             this.examinations = examinations;
         }
 
 
         public override string ToString()
         {
-            return name;
+            return Name;
         }
 
         public Patient(Guest guest):base(guest.ID)

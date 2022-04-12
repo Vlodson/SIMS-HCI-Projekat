@@ -46,7 +46,7 @@ namespace Repository
             return null;
         }
 
-        public void SetPaetient(String patientId, Patient newPatient)
+        public void SetPatient(String patientId, Patient newPatient)
         {
             throw new NotImplementedException();
         }

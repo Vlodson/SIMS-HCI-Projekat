@@ -21,8 +21,7 @@ namespace Admin
         public App()
         {
             List<Room> rooms = new List<Room>();
-
-            String dbPath = "..\\..\\..\\Database\\Rooms.json";
+            String dbPath = "..\\..\\..\\..\\HospitalMain\\Database\\Rooms.json";
             roomRepo = new RoomRepo(dbPath, rooms);
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);
