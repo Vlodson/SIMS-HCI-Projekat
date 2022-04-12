@@ -86,7 +86,8 @@ namespace Doctor.View
 
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Patient p = new Patient("246", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
+            Guest guest = new Guest("246");
+            Patient p = new Patient(guest, patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 

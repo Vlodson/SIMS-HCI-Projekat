@@ -13,7 +13,7 @@ namespace Repository
         public String dbPath { get; set; }
         //lista pregleda
         public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
-        private List<Examination> examinationList1 = new List<Examination>();
+        //private List<Examination> examinationList1 = new List<Examination>();
 
 
         public ExaminationRepo(string dbPath)
@@ -87,7 +87,7 @@ namespace Repository
 
         public void SetExamination(Examination examination)
         {
-            examinationList1.Add(examination);
+            //examinationList1.Add(examination);
             examinationList.Add(examination);
 
         }
@@ -95,7 +95,7 @@ namespace Repository
         public void DeleteExamination(Examination examination)
         {
             examinationList.Remove(examination);
-            examinationList1.Remove(examination);
+            //examinationList1.Remove(examination);
 
         }
 
@@ -119,7 +119,8 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList1)
+            //bilo je jedan
+            foreach (Examination exam in examinationList)
             {
                 if (exam.Patient.ID.Equals(id)) examsForPatient.Add(exam);
             }
@@ -193,7 +194,19 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList1)
+            //bilo je 1
+            foreach (Examination exam in examinationList)
+            {
+                //if (exam.doctor.getId().Equals(id)) 
+                examsForDoctor.Add(exam);
+            }
+            return examsForDoctor;
+        }
+
+        public List<Examination> ReadAll(string id)
+        {
+            List<Examination> examsForDoctor = new List<Examination>();
+            foreach (Examination exam in examinationList)
             {
                 //if (exam.doctor.getId().Equals(id)) 
                 examsForDoctor.Add(exam);

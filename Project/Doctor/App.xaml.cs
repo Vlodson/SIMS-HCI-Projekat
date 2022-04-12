@@ -31,7 +31,7 @@ namespace Doctor
             List<Patient> patients = new List<Patient>();
             List<Room> rooms = new List<Room>();
 
-            String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
+            String dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
 
             ExaminationRepo = new ExaminationRepo(dbPathExams, exams);
             var patientRepository = new PatientRepo("...", patients);
