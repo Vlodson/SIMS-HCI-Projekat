@@ -6,6 +6,8 @@ namespace Model
    {
       public String Type { get; set; }
       public int Quantity { get; set; }
+      
+      // add empty constructor for serialization
 
       public Equipment(Equipment e)
         {

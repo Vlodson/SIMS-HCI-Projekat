@@ -12,6 +12,11 @@ namespace Model
       public bool Occupancy { get; set; }
       public String Type { get; set; }
 
+      public Room()
+        {
+
+        }
+
       public Room(String id, int floor, int room_nb, bool occ, string type)
         {
             Id = id;
@@ -31,15 +36,5 @@ namespace Model
             Occupancy = r.Occupancy;
             Type = r.Type;
         }
-
-        public override string ToString()
-        {
-            return Id; //obisacu kad nadjem pametniji nacin
-        }
-
-        public Room()
-        {
-
-        }
-    }
+   }
 }

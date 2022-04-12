@@ -36,6 +36,7 @@ namespace Secretary
             patientController.CreatePatient("3", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
             patientController.CreatePatient("4", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
 
+
             patientRepo.LoadPatient();
             patients = patientController.ReadAllPatients();
         }

@@ -1,8 +1,7 @@
-using Model;
 using System;
 using System.Collections.Generic;
+using Model;
 using Repository;
-
 
 namespace Service
 {
@@ -44,11 +43,6 @@ namespace Service
       {
          return _repo.Rooms;
       }
-
-        public Room FindById(string id)
-        {
-            return _repo.GetRoom(id);
-        }
-
-    }
+   
+   }
 }
