@@ -64,7 +64,7 @@ namespace Doctor.View
             _patientController = app.PatientController;
             _roomController = app.RoomController;
 
-            ComboBoxPacijent.Text = selectedItem.Patient.Name;
+            ComboBoxPacijent.SelectedItem = selectedItem.Patient;
             ComboBoxSoba.SelectedItem = selectedItem.ExamRoom;
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.Type;

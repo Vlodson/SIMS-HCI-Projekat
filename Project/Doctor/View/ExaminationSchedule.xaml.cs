@@ -43,6 +43,7 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
+
             SelectedItem = null;
 
             
@@ -107,7 +108,6 @@ namespace Doctor.View
 
         public void convertEntityToView()
         {
-            // stupid slow but i dont really care right now also probably needs a check to see if its null
             Examinations.Clear();
             string idDoc = "IDDOC";
             List<Examination> exams = this._examController.ReadAll(idDoc);
