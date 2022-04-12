@@ -17,6 +17,7 @@
         <DataGrid x:Name="dataGridPatients" DockPanel.Dock="Top" ItemsSource="{Binding patients, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" Height="310" Width="700" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ID, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="UCIN" Width="auto" Binding="{Binding UCIN, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Surname" Width="auto" Binding="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="DoB" Width="*" Binding="{Binding DoB, UpdateSourceTrigger=PropertyChanged}" />
@@ -46,7 +47,7 @@
 
             <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name, Mode=OneWay}"/>
             <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname, Mode=OneWay}"/>
-            <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding ID, Mode=OneWay}"/>
+            <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding UCIN, Mode=OneWay}"/>
             <TextBox x:Name="textDoB" Grid.Column="1" Grid.Row="3" Text="{Binding DoB, Mode=OneWay}"/>
 
         </Grid>

@@ -1,7 +1,7 @@
 using System;
 using Repository;
 using Model;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Service
 {
@@ -15,10 +15,10 @@ namespace Service
             this.patientRepo = patientRepo;
       }
 
-      public bool CreatePatient(String id, String name, String surname, DateTime doB)
+      public bool CreatePatient(String id, String ucin, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
       {
             Guest guest = new Guest(id);
-            patientRepo.NewPatient(new Patient(guest, name, surname, doB, new List<Examination>()));
+            patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, doB, examinations));
             return true;
       }
       
@@ -28,10 +28,10 @@ namespace Service
             return true;
       }
       
-      public void EditPatient(String patientId, String newName, String newSurname, DateTime newDoB, List<Examination> examinations)
+      public void EditPatient(String patientId, String ucin, String newName, String newSurname, DateTime newDoB, ObservableCollection<Examination> examinations)
       {
             Guest guest = new Guest(patientId);
-            patientRepo.SetPatient(patientId, new Patient(guest, newName, newSurname, newDoB, examinations));
+            patientRepo.SetPaetient(patientId, new Patient(guest.ID, ucin, newName, newSurname, newDoB, examinations));
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -39,15 +39,15 @@ namespace Service
             return patientRepo.GetPatient(patientId);
       }
 
-      public List<Patient> ReadAllPatients()
+      public ObservableCollection<Patient> ReadAllPatients()
         {
             return patientRepo.GetAllPatients();
         }
       
-      public bool UpgradeGuest(String guestId, String name, String surname, DateTime doB)
+      public bool UpgradeGuest(String guestId, String ucin, String name, String surname, DateTime doB)
       {
-            Guest guest = new Guest("guestId");
-            Patient patient = new Patient(guest, name, surname, doB, new List<Examination>());
+            Guest guest = new Guest("guestID");
+            Patient patient = new Patient(guest.ID, ucin, name, surname, doB, new ObservableCollection<Examination>());
             patientRepo.NewPatient(patient);
             return true;
       }

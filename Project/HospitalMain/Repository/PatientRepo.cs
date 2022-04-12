@@ -1,41 +1,58 @@
+using System;
+using System.Collections.ObjectModel;
 using Model;
 using Service;
-using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace Repository
 {
-    public class PatientRepo
-    {
-        private String dbPath;
-        private List<Patient> patients;
-
-        public PatientRepo(string dbPath)
-        {
+   public class PatientRepo
+   {
+      public String dbPath { get; set; }
+      public ObservableCollection<Patient> patients { get; set; }
+      
+      public PatientRepo(String dbPath)
+      {
             this.dbPath = dbPath;
-            this.patients = new List<Patient>();
-            Guest guest = new Guest("idPatient1");
-            Patient p1 = new Patient(guest, "namePatient1", "surnamePatient1", new DateTime(2000, 11, 1), new List<Examination>());
+            this.patients = new ObservableCollection<Patient>();
+            Guest guest = new Guest("1");
+
+            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", new DateTime(1994, 05, 06), new ObservableCollection<Examination>());
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", new DateTime(1985, 08, 08), new ObservableCollection<Examination>());
+            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
+
+            this.patients.Add(p1);
+            this.patients.Add(p2);
+            this.patients.Add(p3);
+        }
+
+        public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
+        {
+            this.dbPath=dbPath;
+            this.patients = patientCollection;
+            Guest guest = new Guest("123");
+            Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", new DateTime(2000, 11, 1), new ObservableCollection<Examination>());
             this.patients.Add(p1);
         }
 
-        public PatientRepo(string dbPath, List<Patient> listPatient)
-        {
-            this.dbPath = dbPath;
-            this.patients = new List<Patient>();
-            Guest guest = new Guest("1234567");
-            Patient p1 = new Patient(guest, "Jelena", "Dinic", new DateTime(2000, 11, 1), new List<Examination>());
-            this.patients.Add(p1);
-        }
+      public bool NewPatient(Patient patient)
+      {
 
+         foreach (Patient _patient in patients)
+            {
+                if (_patient.ID.Equals(patient.ID))
+                {
+                    return false;
+                }
+            }
 
-        public bool NewPatient(Patient patient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Patient GetPatient(String patientId)
-        {
+         patients.Add(patient);
+         return true;
+      }
+      
+      public Patient GetPatient(String patientId)
+      {
             foreach (Patient patient in patients)
             {
                 if (patient.ID.Equals(patientId))
@@ -43,34 +60,61 @@ namespace Repository
                     return patient;
                 }
             }
+
             return null;
-        }
+      }
 
-        public void SetPatient(String patientId, Patient newPatient)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeletePatient(String patientId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool LoadPatient()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool SavePatient()
-        {
-            throw new NotImplementedException();
-        }
-
-        //public PatientAccountService patientAccountService;
-        public List<Model.Patient> GetAllPatients()
+      public ObservableCollection<Patient> GetAllPatients()
         {
             return patients;
         }
+      
+      public void SetPaetient(String patientId, Patient newPatient)
+      {
+         for (int i = 0; i < patients.Count; i++)
+            {
+                if (patients[i].ID == patientId)
+                {
+                    patients[i].ID = newPatient.ID;
+                    patients[i].UCIN = newPatient.UCIN;
+                    patients[i].Name = newPatient.Name;
+                    patients[i].Surname = newPatient.Surname;
+                    patients[i].DoB = newPatient.DoB;
+                    patients[i].Examinations = newPatient.Examinations;
+                    break;
+                }
+            }
+      }
+      
+      public bool DeletePatient(String patientId)
+      {
+         for (int i = 0; i < patients.Count; i++)
+            {
+                if (patients[i].ID == patientId)
+                {
+                    patients.RemoveAt(i);
+                    return true;
+                }
+            }
 
-    }
+         return false;
+      }
+      
+      public bool LoadPatient()
+      {
+            using FileStream fileStream = File.OpenRead(dbPath);
+            this.patients = JsonSerializer.Deserialize<ObservableCollection<Patient>>(fileStream);
+            return true;
+      }
+      
+      public bool SavePatient()
+      {
+            string jsonString = JsonSerializer.Serialize(patients);
+            File.WriteAllText(dbPath, jsonString);
+            return true;
+      }
+      
+      //public PatientAccountService patientAccountService;
+   
+   }
 }

@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Doctor
 {
@@ -28,7 +29,7 @@ namespace Doctor
 
         public App()
         {
-            List<Patient> patients = new List<Patient>();
+            ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             List<Room> rooms = new List<Room>();
 
             string dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
