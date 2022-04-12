@@ -52,7 +52,13 @@ namespace Doctor.View
             _roomController = app.RoomController;
             _patientController = app.PatientController;
 
+            /*
             foreach (var pom in _patientController.GetAll().ToList())
+            {
+                PatientsObs.Add(pom);
+            }
+            */
+            foreach (var pom in _patientController.ReadAllPatients())
             {
                 PatientsObs.Add(pom);
             }
@@ -71,7 +77,7 @@ namespace Doctor.View
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
             Guest guest = new Guest("246");
-            Patient p = new Patient(guest, patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
+            Patient p = new Patient(guest.ID, "010199992222", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 

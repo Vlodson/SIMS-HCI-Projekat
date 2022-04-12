@@ -85,7 +85,7 @@ namespace Patient.View
         {
             if(ExamsAvailable.SelectedIndex != -1)
             {
-                Model.Patient patient = _patientController.ReadPatient("idPatient1");
+                Model.Patient patient = _patientController.ReadPatient("2");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 DateTime dt = (DateTime)ExamsAvailable.SelectedItem;
                 id++;

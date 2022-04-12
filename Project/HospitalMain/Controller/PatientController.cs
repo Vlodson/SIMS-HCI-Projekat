@@ -16,10 +16,13 @@ namespace Controller
             this.patientAccService = patientAccService;
         }
 
-      public PatientController(PatientService patientService)
+      public PatientController(PatientService patientService, PatientAccountService patientAccountService)
         {
             this.patientService = patientService;
+            this.patientAccService = patientAccountService;
         }
+
+       
 
       public bool CreatePatient(String id, String ucin, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
       {

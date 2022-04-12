@@ -36,17 +36,18 @@ namespace Patient
 
             //String dbPathExams = "E:\\normalno\\FTN\\godina_3\\letnji\\sims\\projekat10\\SIMS-HCI-Projekat\\Project\\Patient\\Database\\Examinations.json";
             String dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
-
+            String dbPathPatients = "..\\..\\..\\..\\HospitalMain\\Database\\Patients.json";
             //ExaminationRepo examinationRepository = new ExaminationRepo(dbPathExams);
             ExaminationRepo = new ExaminationRepo(dbPathExams);
-            PatientRepo patientRepository = new PatientRepo("...");
+            PatientRepo patientRepository = new PatientRepo(dbPathPatients);
             PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
+            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
             DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
 
             ExamController = new ExamController(patientService);
             DoctorController = new DoctorController(doctorService);
-            PatientController = new PatientController(patientService);
+            PatientController = new PatientController(patientService, patientAccountService);
         }
     }
 }

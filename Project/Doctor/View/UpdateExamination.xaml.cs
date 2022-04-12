@@ -71,7 +71,7 @@ namespace Doctor.View
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
             timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
 
-            foreach (var pom in _patientController.GetAll().ToList())
+            foreach (var pom in _patientController.ReadAllPatients())
             {
                 PatientsObs.Add(pom);
             }
@@ -96,7 +96,7 @@ namespace Doctor.View
 
             string patientName = ComboBoxPacijent.Text;
             Guest guest = new Guest("246");
-            Patient p = new Patient(guest, patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
+            Patient p = new Patient(guest.ID,"12345678", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
