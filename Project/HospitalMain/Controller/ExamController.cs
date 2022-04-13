@@ -179,10 +179,5 @@ namespace Controller
             */
         }
 
-        public List<Examination> ReadAll(string id)
-        {
-            return _doctorService.ReadAll(id);
-        }
-
     }
 }

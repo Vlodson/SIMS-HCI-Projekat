@@ -40,13 +40,14 @@ namespace Doctor
             var patientRepository = new PatientRepo("...", patients);
             var doctorRepository = new DoctorRepo("...");
 
-            var patientService = new PatientService(patientRepository, ExaminationRepo);
-            var doctorService = new DoctorService(doctorRepository, ExaminationRepo);
-            var roomService = new RoomService(RoomRepo);
+            PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
+            DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
+            RoomService roomService = new RoomService(RoomRepo);
+            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
 
             ExamController = new ExamController(doctorService);
             DoctorController = new DoctorController(doctorService);
-            PatientController = new PatientController(patientService);
+            PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
         }
     }

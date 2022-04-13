@@ -71,10 +71,5 @@ namespace Service
             _examinationRepo.SetExamination(examination);
         }
 
-        public List<Examination> ReadAll(string id)
-        {
-            return _examinationRepo.ReadAll(id);
-        }
-
     }
 }

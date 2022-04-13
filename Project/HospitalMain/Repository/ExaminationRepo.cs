@@ -82,6 +82,17 @@ namespace Repository
             return true;
         }
 
+        public ObservableCollection<Examination> ExaminationsForDoctor(string id)
+        {
+            ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
+            foreach (Examination exam in examinationList)
+            {
+                //if (exam.doctor.getId().Equals(id)) 
+                examsForDoctor.Add(exam);
+            }
+            return examsForDoctor;
+        }
+
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
@@ -155,29 +166,6 @@ namespace Repository
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
-        }
-
-        public ObservableCollection<Examination> ExaminationsForDoctor(string id)
-        {
-            ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
-            //bilo je 1
-            foreach (Examination exam in examinationList)
-            {
-                //if (exam.doctor.getId().Equals(id)) 
-                examsForDoctor.Add(exam);
-            }
-            return examsForDoctor;
-        }
-
-        public List<Examination> ReadAll(string id)
-        {
-            List<Examination> examsForDoctor = new List<Examination>();
-            foreach (Examination exam in examinationList)
-            {
-                //if (exam.doctor.getId().Equals(id)) 
-                examsForDoctor.Add(exam);
-            }
-            return examsForDoctor;
         }
 
 

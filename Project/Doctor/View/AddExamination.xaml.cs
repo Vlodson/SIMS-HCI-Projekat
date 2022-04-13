@@ -72,8 +72,8 @@ namespace Doctor.View
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.ReadRoom(roomId);
-
+            //Room r = _roomController.ReadRoom(roomId);
+            Room room = new Room(roomId, 5, 1, true, "tip");
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
             Guest guest = new Guest("246");
@@ -83,21 +83,11 @@ namespace Doctor.View
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
+            Examination newExam = new Examination(room, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorCreateExam(newExam);
 
-            convertEntityToView();
             this.Close();
         }
 
-        public void convertEntityToView()
-        {
-            // stupid slow but i dont really care right now also probably needs a check to see if its null
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
-        }
     }
 }
