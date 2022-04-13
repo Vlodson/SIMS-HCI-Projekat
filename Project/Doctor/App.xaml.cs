@@ -2,6 +2,7 @@
 using Model;
 using Repository;
 using Service;
+using Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,11 +33,8 @@ namespace Doctor
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             List<Room> rooms = new List<Room>();
 
-            string dbPathExams = "..\\..\\..\\..\\HospitalMain\\Database\\Examinations.json";
-            string dbPathRooms = "..\\..\\..\\..\\HospitalMain\\Database\\Rooms.json";
-
-            ExaminationRepo = new ExaminationRepo(dbPathExams);
-            RoomRepo = new RoomRepo(dbPathRooms, rooms);
+            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, rooms);
             var patientRepository = new PatientRepo("...", patients);
             var doctorRepository = new DoctorRepo("...");
 

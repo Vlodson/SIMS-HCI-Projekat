@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Controller;
 using Model;
+using Utility;
 using System.Collections.ObjectModel;
 using Repository;
 using Service;
@@ -20,8 +21,7 @@ namespace Secretary
         {
             
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
-            string path = "..\\..\\..\\..\\HospitalMain\\Database\\Patients.json";
-            patientRepo = new PatientRepo(path);
+            patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
             PatientAccountService patientAccService = new PatientAccountService(patientRepo);
             patientController = new PatientController(patientAccService);
 

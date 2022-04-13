@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Patient", "..\Patient\Patie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doctor", "..\Doctor\Doctor.csproj", "{3A5DEC68-7532-4EAA-AC86-9AC59BCCB7C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HospitalMain", "..\HospitalMain\HospitalMain.csproj", "{52C63490-6C12-4769-B9B2-985CC7CABB21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HospitalMain", "..\HospitalMain\HospitalMain.csproj", "{52C63490-6C12-4769-B9B2-985CC7CABB21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

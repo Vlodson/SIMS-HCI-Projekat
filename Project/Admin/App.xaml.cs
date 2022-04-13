@@ -10,6 +10,7 @@ using Controller;
 using Service;
 using Repository;
 using Model;
+using Utility;
 
 namespace Admin
 {
@@ -21,8 +22,7 @@ namespace Admin
         public App()
         {
             List<Room> rooms = new List<Room>();
-            String dbPath = "..\\..\\..\\..\\HospitalMain\\Database\\Rooms.json";
-            roomRepo = new RoomRepo(dbPath, rooms);
+            roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, rooms);
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);
         }
