@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace HospitalMain.Utility
+namespace Utility
 {
-    internal class GlobalPaths
+    public class GlobalPaths
     {
         public static String DBPath = Path.Combine(Environment.CurrentDirectory, @"..\..\..\..\HospitalMain\Database");
         public static String RoomsDBPath = Path.Combine(DBPath, "Rooms.json");
