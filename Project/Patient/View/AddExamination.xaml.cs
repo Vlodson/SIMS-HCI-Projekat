@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,7 @@ namespace Patient.View
         private ExamController _examController;
         private DoctorController _doctorController;
         private PatientController _patientController;
+        private ExaminationRepo _examinationRepo;
 
         public int id = 0;
 
@@ -59,6 +61,7 @@ namespace Patient.View
             _examController = app.ExamController;
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
+            _examinationRepo = app.ExaminationRepo;
 
             DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
 
@@ -94,6 +97,7 @@ namespace Patient.View
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);
+                _examinationRepo.SaveExamination();
                 this.Close();
             }
 
