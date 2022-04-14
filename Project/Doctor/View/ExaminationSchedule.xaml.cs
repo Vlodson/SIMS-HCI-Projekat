@@ -43,33 +43,18 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
-            SelectedItem = null;
-
-            
 
             string idDoc = "IDDOC";
 
             App app = Application.Current as App;
             _examRepo = app.ExaminationRepo;
             _examController = app.ExamController;
+
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
 
             Examinations = _examController.ReadDoctorExams(idDoc);
-            //Equipment equipment1 = new Equipment("typeEquipment1", 2);
-
-            /*Room r1 = new Room("idRoom1", 2, 1, false, "typeRoom1");
-            List<Examination> examinationsDoctor1 = new List<Examination>();
-            DateTime dtDoctor1 = DateTime.Now;
-            Model.Doctor doctor = new Model.Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
-            List<Examination> examinationsPatient1 = new List<Examination>();
-            DateTime dtPatient1 = DateTime.Now;
-            Model.Patient patient = new Model.Patient("idPAtient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
-            DateTime dtExam1 = DateTime.Now;
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "operacija", patient, doctor);
-            Examinations.Add(exam1);*/
             
-
         }
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
@@ -81,7 +66,7 @@ namespace Doctor.View
 
         private void Izmeni_Click(object sender, RoutedEventArgs e)
         {
-            SelectedItem = dataGridExaminations.SelectedItem as Examination;
+            SelectedItem = (Examination)dataGridExaminations.SelectedItem;
             UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
             updateExamination.Show();
 
@@ -90,12 +75,10 @@ namespace Doctor.View
 
         private void Otkazi_Click(object sender, RoutedEventArgs e)
         {
-            Examination selectedItem = dataGridExaminations.SelectedItem as Examination;
+            Examination selectedItem = (Examination)dataGridExaminations.SelectedItem;
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
-                Examinations.Remove(selectedItem);
-                convertEntityToView();
             }
 
         }
@@ -105,14 +88,5 @@ namespace Doctor.View
             _examRepo.SaveExamination();
         }
 
-        public void convertEntityToView()
-        {
-            // stupid slow but i dont really care right now also probably needs a check to see if its null
-            Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                Examinations.Add(exam);
-        }
     }
 }

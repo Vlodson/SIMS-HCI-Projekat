@@ -21,20 +21,12 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Window, INotifyPropertyChanged
+    public partial class AddExamination : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
-        protected virtual void NotifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
 
         public ObservableCollection<Patient> PatientsObs
         {
@@ -52,26 +44,24 @@ namespace Doctor.View
             InitializeComponent();
             this.DataContext = this;
 
-            RoomsObs = new ObservableCollection<Room>();
             PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
-            _patientController = app.PatientController;
             _roomController = app.RoomController;
+            _patientController = app.PatientController;
 
+            /*
             foreach (var pom in _patientController.GetAll().ToList())
             {
                 PatientsObs.Add(pom);
             }
-            foreach (var pom in _roomController.ReadAll().ToList())
+            */
+            foreach (var pom in _patientController.ReadAllPatients())
             {
-                RoomsObs.Add(pom);
+                PatientsObs.Add(pom);
             }
-
-
-
         }
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
@@ -82,32 +72,22 @@ namespace Doctor.View
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.FindById(roomId);
-
+            //Room r = _roomController.ReadRoom(roomId);
+            Room room = new Room(roomId, 5, 1, true, "tip");
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Patient p = new Patient("246", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
+            Guest guest = new Guest("246");
+            Patient p = new Patient(guest.ID, "010199992222", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
+            Examination newExam = new Examination(room, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorCreateExam(newExam);
 
-            //ExaminationSchedule.Examinations.Add(newExam);
-            convertEntityToView();
             this.Close();
         }
 
-        public void convertEntityToView()
-        {
-            // stupid slow but i dont really care right now also probably needs a check to see if its null
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
-        }
     }
 }

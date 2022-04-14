@@ -1,5 +1,4 @@
-﻿using Doctor.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Doctor
+namespace HospitalMain
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,12 +23,6 @@ namespace Doctor
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Examinations_Click(object sender, RoutedEventArgs e)
-        {
-            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
-            examinationSchedule.Show();
         }
     }
 }

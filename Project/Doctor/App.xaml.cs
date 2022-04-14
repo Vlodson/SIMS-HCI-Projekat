@@ -2,6 +2,7 @@
 using Model;
 using Repository;
 using Service;
+using Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Doctor
 {
@@ -22,29 +24,28 @@ namespace Doctor
         public PatientController PatientController { get; set; }
         public RoomController RoomController { get; set; }
         public ExaminationRepo ExaminationRepo { get; set; }
+        public RoomRepo RoomRepo { get; set; }
 
 
 
         public App()
         {
-            List<Examination> exams = new List<Examination>();
-            List<Patient> patients = new List<Patient>();
+            ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             List<Room> rooms = new List<Room>();
 
-            String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
-
-            ExaminationRepo = new ExaminationRepo(dbPathExams, exams);
+            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, rooms);
             var patientRepository = new PatientRepo("...", patients);
             var doctorRepository = new DoctorRepo("...");
-            var roomRepository = new RoomRepo("...", rooms);
 
-            var patientService = new PatientService(patientRepository, ExaminationRepo);
-            var doctorService = new DoctorService(doctorRepository, ExaminationRepo);
-            var roomService = new RoomService(roomRepository);
+            PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
+            DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
+            RoomService roomService = new RoomService(RoomRepo);
+            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
 
             ExamController = new ExamController(doctorService);
             DoctorController = new DoctorController(doctorService);
-            PatientController = new PatientController(patientService);
+            PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
         }
     }

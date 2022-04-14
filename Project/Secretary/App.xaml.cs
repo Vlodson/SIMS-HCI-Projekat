@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Controller;
 using Model;
+using Utility;
 using System.Collections.ObjectModel;
 using Repository;
 using Service;
@@ -20,8 +21,7 @@ namespace Secretary
         {
             
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
-            string path = "C:\\Users\\One\\Desktop\\F\\3. godina\\2. semestar\\SIMS & HCI Projekat\\SIMS-HCI-Projekat\\Project\\Secretary\\Repository\\Patients.json";
-            patientRepo = new PatientRepo(path);
+            patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
             PatientAccountService patientAccService = new PatientAccountService(patientRepo);
             patientController = new PatientController(patientAccService);
 

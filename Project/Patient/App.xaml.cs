@@ -2,6 +2,7 @@
 using Model;
 using Repository;
 using Service;
+using Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -34,19 +35,17 @@ namespace Patient
             List<Doctor> doctors = new List<Doctor>();
             List<Model.Patient> patients = new List<Model.Patient>();
 
-            //String dbPathExams = "E:\\normalno\\FTN\\godina_3\\letnji\\sims\\projekat10\\SIMS-HCI-Projekat\\Project\\Patient\\Database\\Examinations.json";
-            String dbPathExams = "..\\..\\..\\Database\\Examinations.json";
-
             //ExaminationRepo examinationRepository = new ExaminationRepo(dbPathExams);
-            ExaminationRepo = new ExaminationRepo(dbPathExams);
-            PatientRepo patientRepository = new PatientRepo("...");
+            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            PatientRepo patientRepository = new PatientRepo(GlobalPaths.PatientsDBPath);
             PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
+            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
             DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
 
             ExamController = new ExamController(patientService);
             DoctorController = new DoctorController(doctorService);
-            PatientController = new PatientController(patientService);
+            PatientController = new PatientController(patientService, patientAccountService);
         }
     }
 }
