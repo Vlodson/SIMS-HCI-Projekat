@@ -61,6 +61,11 @@ namespace Service
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
         }
 
+        public List<Examination> MoveExaminations(Examination examination)
+        {
+            return _examinationRepo.MoveExamination(examination);
+        }
+
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
             return _examinationRepo.ExaminationsForDoctor(id);

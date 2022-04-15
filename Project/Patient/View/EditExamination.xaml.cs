@@ -34,16 +34,20 @@ namespace Patient.View
             _examController = app.ExamController;
             _examinationRepo = app.ExaminationRepo;
 
-            ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
+            //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
+            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ListExaminations.selected);
             //AddExamination
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
             DateTime newDate = newExamination.Date;
             _examController.PatientEditExam(ListExaminations.selected, newDate);
             _examinationRepo.SaveExamination();
+            
+            
             this.Close();
         }
     }

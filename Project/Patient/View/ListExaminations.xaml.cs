@@ -57,10 +57,15 @@ namespace Patient.View
         private void EditExamination_Click(object sender, RoutedEventArgs e)
         {
             selected = (Examination)dataGridExaminations.SelectedItem;
+
             if (selected != null)
             {
-                EditExamination editExamination = new EditExamination();
-                editExamination.Show();
+                if (selected.Date.CompareTo(DateTime.Now.AddDays(1)) > 0)
+                {
+                    EditExamination editExamination = new EditExamination();
+                    editExamination.Show();
+                }
+                    
             }
 
         }

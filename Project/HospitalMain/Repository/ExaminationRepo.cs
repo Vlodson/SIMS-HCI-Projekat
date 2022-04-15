@@ -119,12 +119,8 @@ namespace Repository
             DateTime today = DateTime.Now;
             //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
             DateTime date = DateTime.Now;
-            int year = today.Year;
-            int month = today.Month;
-            int day = today.Day;
-            int minutes = 0;
-            int hour = 7;
-            for (int i = 0; i < 3; ++i)
+            
+            for (int i = 1; i < 7; ++i)
             {
                 //date.AddDays(1);
                 DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
@@ -137,14 +133,64 @@ namespace Repository
             List<Examination> examinations = new List<Examination>();
             foreach(DateTime dt in examinationsTime)
             {
-                examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
+                bool free = true;
+                foreach(Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
+                {
+                    if(doctorsExamination.Date == dt)
+                    {
+                        free = false;
+                    }
+                }
+                if (free)
+                {
+                    examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
+                }
+                
             }
-            //examinationsTime.Add(new DateTime(2021, 1, 1, 15, 15, 15));
-            //examinationsTime.Add(new DateTime(2021, 2, 1, 12, 12, 12));
-            //examinationsTime.Add(new DateTime(2021, 3, 1, 12, 12, 12));
-            //examinationsTime.Add(new DateTime(2021, 4, 1, 12, 12, 12));
             return examinations;
 
+        }
+
+        public List<Examination> MoveExamination(Examination examination)
+        {
+            List<DateTime> examinationsTime = new List<DateTime>();
+            List<DateTime> doctorsExaminationsTime = new List<DateTime>();
+            List<Examination> doctorsExaminations = examination.Doctor.Examinations;
+
+
+            //danasnji datum
+            DateTime today = DateTime.Now;
+            //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
+            DateTime date = examination.Date; //uzima trenutno zakazani termin pa mu nudi 4 dana unapred da zakaze
+            //sada mu se nudi samo 4 dana unapred da pomeri
+            for (int i = 1; i < 5; ++i)
+            {
+                //date.AddDays(1);
+                DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                for (int j = 0; j < 16; ++j)
+                {
+                    examinationsTime.Add(start.AddMinutes(j * 30));
+                }
+            }
+
+            List<Examination> examinations = new List<Examination>();
+            foreach (DateTime dt in examinationsTime)
+            {
+                bool free = true;
+                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.Doctor.Id))
+                {
+                    if (doctorsExamination.Date == dt)
+                    {
+                        free = false;
+                    }
+                }
+                if (free)
+                {
+                    examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), examination.Doctor));
+                }
+
+            }
+            return examinations;
         }
 
         public void EditExamination(string id, DateTime dateTime)

@@ -31,5 +31,10 @@ namespace Controller
         {
             return _doctorService.GetFreeExaminations(doctor);
         }
+
+        public List<Examination> MoveExaminations(Examination examination)
+        {
+            return _doctorService.MoveExaminations(examination);
+        }
     }
 }
