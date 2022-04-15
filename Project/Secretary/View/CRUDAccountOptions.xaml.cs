@@ -32,7 +32,6 @@ namespace Secretary
             patientController = app.patientController;
             patientRepo = app.patientRepo;
 
-
             //patientController.CreatePatient("1", "0605994800043", "Pera", "Peric", new DateTime(1994, 05, 06), new ObservableCollection<Examination>());
             //patientController.CreatePatient("2", "0808985800043", "Ivan", "Ivic", new DateTime(1985, 08, 08), new ObservableCollection<Examination>());
             //patientController.CreatePatient("3", "1111001800043", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
