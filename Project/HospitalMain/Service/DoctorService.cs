@@ -56,7 +56,7 @@ namespace Service
             return _doctorRepo.GetDoctor(id);
         }
 
-        public List<DateTime> GetFreeExaminations(Doctor doctor)
+        public List<Examination> GetFreeExaminations(Doctor doctor)
         {
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
         }

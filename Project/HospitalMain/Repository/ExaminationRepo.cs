@@ -108,57 +108,42 @@ namespace Repository
         //public DoctorService doctorService;
 
 
-        public List<DateTime> GetFreeExaminationsForDoctor(Doctor doctor)
+        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
             List<Examination> doctorsExaminations = doctor.Examinations;
-            //sutra
+            
+
+            //danasnji datum
             DateTime today = DateTime.Now;
-            
-
-            //moze da zakaze dva dana unapred
-            //popuni zauzetim za doktora
-            /*
-            foreach(Examination exam in examinationList)
+            //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
+            DateTime date = DateTime.Now;
+            int year = today.Year;
+            int month = today.Month;
+            int day = today.Day;
+            int minutes = 0;
+            int hour = 7;
+            for (int i = 0; i < 3; ++i)
             {
-                if (doctor.getId().Equals(exam.Doctor.getId()))
+                //date.AddDays(1);
+                DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                for(int j = 0; j < 16; ++j)
                 {
-                    doctorsExaminationsTime.Add(exam.Date);
+                    examinationsTime.Add(start.AddMinutes(j*30));
                 }
             }
-            
-            
 
-            DateTime startTime = new DateTime(today.Year, today.Month, today.Day, 7, 0, 0);
-            for (int i = 1; i < 3; ++i)
+            List<Examination> examinations = new List<Examination>();
+            foreach(DateTime dt in examinationsTime)
             {
-                today = startTime.AddDays(i);
-                for (int j = 0; j < 24; ++j)
-                {
-                    DateTime dt = today.AddMinutes(j * 30);
-                    
-                    if (doctorsExaminationsTime.Count == 0)
-                    {
-                        examinationsTime.Add(dt);
-                    }
-                    
-                    foreach (DateTime dateTime in doctorsExaminationsTime)
-                    {
-                        if (dateTime.CompareTo(dt) != 0)
-                        {
-                            examinationsTime.Add(dt);
-                        }
-                    }
-                }
-                
+                examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
             }
-            */
-            examinationsTime.Add(new DateTime(2021, 1, 1, 15, 15, 15));
-            examinationsTime.Add(new DateTime(2021, 2, 1, 12, 12, 12));
-            examinationsTime.Add(new DateTime(2021, 3, 1, 12, 12, 12));
-            examinationsTime.Add(new DateTime(2021, 4, 1, 12, 12, 12));
-            return examinationsTime;
+            //examinationsTime.Add(new DateTime(2021, 1, 1, 15, 15, 15));
+            //examinationsTime.Add(new DateTime(2021, 2, 1, 12, 12, 12));
+            //examinationsTime.Add(new DateTime(2021, 3, 1, 12, 12, 12));
+            //examinationsTime.Add(new DateTime(2021, 4, 1, 12, 12, 12));
+            return examinations;
 
         }
 

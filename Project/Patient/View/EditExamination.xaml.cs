@@ -1,4 +1,5 @@
 ﻿using Controller;
+using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,8 @@ namespace Patient.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DateTime newDate = (DateTime)ExamsAvailable.SelectedItem;
+            Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
+            DateTime newDate = newExamination.Date;
             _examController.PatientEditExam(ListExaminations.selected, newDate);
             _examinationRepo.SaveExamination();
             this.Close();

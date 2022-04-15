@@ -30,16 +30,14 @@ namespace Patient.View
 
         public int id = 0;
 
+        
+
         public ObservableCollection<Doctor> DoctorsObs
         {
             get;
             set;
         }
-        public ObservableCollection<DateTime> DateTimes
-        {
-            get;
-            set;
-        }
+        
 
         private static Random random = new Random((int)DateTime.Now.Ticks);
         private string RandomString(int Size)
@@ -80,6 +78,7 @@ namespace Patient.View
                 this.DataContext = this;
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor);
+                
             }
             
         }
@@ -90,7 +89,8 @@ namespace Patient.View
             {
                 Model.Patient patient = _patientController.ReadPatient("2");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                DateTime dt = (DateTime)ExamsAvailable.SelectedItem;
+                Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
+                DateTime dt = selectedExamination.Date;
                 id++;
                 //String idExam = "idExam" + id.ToString();
                 Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, RandomString(5), 2,"pregled", patient, doctor);
