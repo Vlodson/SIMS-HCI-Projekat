@@ -27,9 +27,9 @@ namespace Controller
             return _doctorService.GetDoctor(id);
         }
 
-        public List<Examination> GetFreeGetFreeExaminations(Doctor doctor)
+        public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
-            return _doctorService.GetFreeExaminations(doctor);
+            return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);
         }
 
         public List<Examination> MoveExaminations(Examination examination)

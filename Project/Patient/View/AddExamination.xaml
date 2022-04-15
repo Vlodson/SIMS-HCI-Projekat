@@ -12,13 +12,14 @@
 
 
 
-        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="275,75,0,0" VerticalAlignment="Top" Width="509">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}" Width="*"/>
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Lekar" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
-        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="70,18,0,0" VerticalAlignment="Top" Width="120">
+        <Label Content="Lekar" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
+        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="110,75,0,0" VerticalAlignment="Top" Width="120">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -27,8 +28,17 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="141,202,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
+        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top"/>
+        <Label Content="Od" HorizontalAlignment="Left" Margin="13,102,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,104,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Do" HorizontalAlignment="Left" Margin="14,128,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,133,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
+
+        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,166,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="170,166,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

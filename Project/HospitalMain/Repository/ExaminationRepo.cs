@@ -108,21 +108,22 @@ namespace Repository
         //public DoctorService doctorService;
 
 
-        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor)
+        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, List<Doctor> doctors)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
             List<Examination> doctorsExaminations = doctor.Examinations;
-            
 
             //danasnji datum
             DateTime today = DateTime.Now;
-            //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
-            DateTime date = DateTime.Now;
-            
-            for (int i = 1; i < 7; ++i)
+            DateTime date = startDate.Date;
+            DateTime end = endDate.Date;
+
+            //koliki je korak
+            int days = end.Day - date.Day;
+            for (int i = 0; i < days + 1; ++i)
             {
-                //date.AddDays(1);
+                //za svaki dan generise koji sve termini postoje
                 DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
                 for(int j = 0; j < 16; ++j)
                 {
@@ -131,6 +132,7 @@ namespace Repository
             }
 
             List<Examination> examinations = new List<Examination>();
+            //proverava da li su termini kod izabranog doktora zauzeti
             foreach(DateTime dt in examinationsTime)
             {
                 bool free = true;
@@ -147,6 +149,78 @@ namespace Repository
                 }
                 
             }
+
+            //provera koji je prioritet izabran, true je lekar, false termin
+            if (priority)
+            {
+                //ako nema pregleda i prioritet je lekar, nudi 4 dana pre i posle zeljenih dana dostuone termine
+                if (examinations.Count == 0)
+                {
+                    DateTime before = date.AddDays(-4);
+                    if (before.CompareTo(today) < 0)
+                    {
+                        before = today;
+                    }
+                    DateTime after = date.AddDays(4);
+                    days = after.Day - before.Day;
+                    for (int i = 0; i < days + 1; ++i)
+                    {
+                        //date.AddDays(1);
+                        DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                        for (int j = 0; j < 16; ++j)
+                        {
+                            examinationsTime.Add(start.AddMinutes(j * 30));
+                        }
+                    }
+                    foreach (DateTime dt in examinationsTime)
+                    {
+                        bool free = true;
+                        foreach (Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
+                        {
+                            if (doctorsExamination.Date == dt)
+                            {
+                                free = false;
+                            }
+                        }
+                        if (free)
+                        {
+                            examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
+                        }
+
+                    }
+
+                }
+            }
+            else
+            {
+                //prolazi kroz sve lekare u zeljenom terminu
+                if(examinations.Count == 0)
+                {
+
+                    foreach (Doctor doc in doctors)
+                    {
+                        foreach (DateTime dt in examinationsTime)
+                        {
+                            bool free = true;
+                            foreach (Examination doctorsExamination in ExaminationsForDoctor(doc.Id))
+                            {
+                                if (doctorsExamination.Date == dt)
+                                {
+                                    free = false;
+                                }
+                            }
+                            if (free)
+                            {
+                                examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doc));
+                            }
+
+                        }
+                    }
+                } 
+            }
+            
+
+
             return examinations;
 
         }

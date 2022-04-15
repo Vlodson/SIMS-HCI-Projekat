@@ -77,8 +77,19 @@ namespace Patient.View
             {
                 this.DataContext = this;
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor);
-                
+                DateTime startDate = (DateTime)Start.SelectedDate;
+                DateTime endDate = (DateTime)End.SelectedDate;
+
+                bool priority = true; //ako je doktor onda je true, termin false
+                if(doctorPriority.IsChecked == true)
+                {
+                    priority = true;
+                }
+                else
+                {
+                    priority = false;
+                }
+                ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
             }
             
         }

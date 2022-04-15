@@ -56,9 +56,10 @@ namespace Service
             return _doctorRepo.GetDoctor(id);
         }
 
-        public List<Examination> GetFreeExaminations(Doctor doctor)
+        public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
-            return _examinationRepo.GetFreeExaminationsForDoctor(doctor);
+            List<Doctor> doctors = _doctorRepo.GetAllDoctors();
+            return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
         }
 
         public List<Examination> MoveExaminations(Examination examination)
