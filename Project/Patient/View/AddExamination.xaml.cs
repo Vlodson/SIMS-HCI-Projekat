@@ -48,7 +48,8 @@ namespace Patient.View
             set;
         }
 
-        private DateTime startDate;
+        public static DateTime startDate;
+        private DateTime endDate;
         public DateTime StartDate
         {
             get
@@ -59,6 +60,18 @@ namespace Patient.View
             {
                 startDate = value;
                 OnPropertyChanged("StartDate");
+            }
+        }
+        public DateTime EndDate
+        {
+            get
+            {
+                return endDate;
+            }
+            set
+            {
+                endDate = value;
+                OnPropertyChanged("EndDate");
             }
         }
         
@@ -90,6 +103,7 @@ namespace Patient.View
 
             DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
             StartDate = DateTime.Now.AddDays(1);
+            EndDate = DateTime.Now.AddDays(7);
 
         }
 
@@ -107,7 +121,8 @@ namespace Patient.View
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 //DateTime startDate = (DateTime)Start.SelectedDate;
                 StartDate = (DateTime)Start.SelectedDate;
-                DateTime endDate = (DateTime)End.SelectedDate;
+                //DateTime endDate = (DateTime)End.SelectedDate;
+                EndDate = (DateTime)End.SelectedDate;
 
                 bool priority = true; //ako je doktor onda je true, termin false
                 if(doctorPriority.IsChecked == true)

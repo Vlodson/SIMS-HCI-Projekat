@@ -60,7 +60,7 @@ namespace Patient.View
 
             if (selected != null)
             {
-                if (selected.Date.CompareTo(DateTime.Now.AddDays(1)) > 0)
+                if (selected.Date.CompareTo(DateTime.Now.AddDays(1)) >= 0)
                 {
                     EditExamination editExamination = new EditExamination();
                     editExamination.Show();
