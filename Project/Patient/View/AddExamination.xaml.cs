@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,19 +26,18 @@ namespace Patient.View
         private ExamController _examController;
         private DoctorController _doctorController;
         private PatientController _patientController;
+        private ExaminationRepo _examinationRepo;
 
         public int id = 0;
+
+        
 
         public ObservableCollection<Doctor> DoctorsObs
         {
             get;
             set;
         }
-        public ObservableCollection<DateTime> DateTimes
-        {
-            get;
-            set;
-        }
+        
 
         private static Random random = new Random((int)DateTime.Now.Ticks);
         private string RandomString(int Size)
@@ -59,6 +59,7 @@ namespace Patient.View
             _examController = app.ExamController;
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
+            _examinationRepo = app.ExaminationRepo;
 
             DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
 
@@ -76,7 +77,19 @@ namespace Patient.View
             {
                 this.DataContext = this;
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor);
+                DateTime startDate = (DateTime)Start.SelectedDate;
+                DateTime endDate = (DateTime)End.SelectedDate;
+
+                bool priority = true; //ako je doktor onda je true, termin false
+                if(doctorPriority.IsChecked == true)
+                {
+                    priority = true;
+                }
+                else
+                {
+                    priority = false;
+                }
+                ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
             }
             
         }
@@ -87,13 +100,15 @@ namespace Patient.View
             {
                 Model.Patient patient = _patientController.ReadPatient("2");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                DateTime dt = (DateTime)ExamsAvailable.SelectedItem;
+                Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
+                DateTime dt = selectedExamination.Date;
                 id++;
                 //String idExam = "idExam" + id.ToString();
                 Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, RandomString(5), 2,"pregled", patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);
+                _examinationRepo.SaveExamination();
                 this.Close();
             }
 
