@@ -25,7 +25,7 @@ namespace Repository
          return true;
       }
       
-      public Room GetRoom(String roomId)
+      public Room GetRoom(String roomId) // this might create problems if r is not a reference
       {
          foreach(Room r in Rooms)
                 if(r.Id.Equals(roomId))

@@ -46,7 +46,6 @@ namespace Service
          return _repo.Rooms;
       }
    
-
       public bool LoadRoom()
         {
             return _repo.LoadRoom();
