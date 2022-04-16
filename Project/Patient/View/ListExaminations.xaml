@@ -19,6 +19,7 @@
         <Button x:Name="AddExamination" Content="Zakazi" HorizontalAlignment="Left" Margin="330,391,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Click="AddExamination_Click"/>
         <Button x:Name="EditExamination" Content="Izmeni" HorizontalAlignment="Left" Margin="503,391,0,0" VerticalAlignment="Top" Click="EditExamination_Click"/>
         <Button x:Name="RemoveExamination" Content="Otkazi" HorizontalAlignment="Left" Margin="657,391,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click"/>
+        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="26,388,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
