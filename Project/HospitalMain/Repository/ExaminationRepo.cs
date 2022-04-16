@@ -87,7 +87,7 @@ namespace Repository
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
             foreach (Examination exam in examinationList)
             {
-                //if (exam.doctor.getId().Equals(id)) 
+                if (exam.Doctor.Id.Equals(id)) 
                 examsForDoctor.Add(exam);
             }
             return examsForDoctor;
