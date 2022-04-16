@@ -8,7 +8,7 @@
         FontSize="20"
         Title="RoomTableWindow" Height="750" Width="430" Closed="Window_Closed">
     <Grid>
-        <DataGrid x:Name="roomDataGrid" ItemsSource="{Binding RoomList, Mode=OneWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
+        <DataGrid x:Name="roomDataGrid" ItemsSource="{Binding RoomsList, Mode=OneWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
                   Width="400" Height="300" VerticalAlignment="Top">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" />

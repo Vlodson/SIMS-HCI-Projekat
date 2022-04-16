@@ -9,7 +9,6 @@ using System.Windows;
 using Controller;
 using Service;
 using Repository;
-using Model;
 using Utility;
 
 namespace Admin
@@ -21,8 +20,7 @@ namespace Admin
 
         public App()
         {
-            List<Room> rooms = new List<Room>();
-            roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, rooms);
+            roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath);
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);
         }

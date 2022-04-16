@@ -1,7 +1,9 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+
 using Model;
 using Repository;
+using HospitalMain.Enums;
 
 namespace Service
 {
@@ -15,7 +17,7 @@ namespace Service
             _repo = roomRepo;
         }
 
-      public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, String type)
+      public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
       {
             // logic for failed addition needed
             Room r = new Room(id, floor, roomNb, occupancy, type);
@@ -27,7 +29,7 @@ namespace Service
          return _repo.DeleteRoom(roomId);
       }
       
-      public void EditRoom(String id, List<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, String newType)
+      public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
       {
          Room room = new Room(id, newFloor, newRoomNb, newOccupancy, newType);
          room.Equipment = newEquipment;
@@ -39,10 +41,20 @@ namespace Service
          return _repo.GetRoom(roomId);
       }
       
-      public List<Room> ReadAll()
+      public ObservableCollection<Room> ReadAll()
       {
          return _repo.Rooms;
       }
    
+
+      public bool LoadRoom()
+        {
+            return _repo.LoadRoom();
+        }
+
+      public bool SaveRoom()
+        {
+            return _repo.SaveRoom();
+        }
    }
 }
