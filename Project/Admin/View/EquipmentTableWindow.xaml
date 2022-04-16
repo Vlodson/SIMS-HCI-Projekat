@@ -1,0 +1,51 @@
+﻿<Window x:Class="Admin.View.EquipmentTableWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Admin.View"
+        FontSize="14"
+        mc:Ignorable="d"
+        Title="EquipmentTableWindow" Height="750" Width="430">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="auto" /> <!-- Navigation/Menu button row -->
+            <RowDefinition Height="auto" /> <!-- Query text box -->
+            <RowDefinition Height="*" /> <!-- Table -->
+            <RowDefinition Height="40" /> <!-- Change view tab button row -->
+            <RowDefinition Height="10" />
+        </Grid.RowDefinitions>
+
+        <!-- Take care of this with style later so that the whole stack panel is the same colour and there is no button border
+        so that it looks like a continious button bar -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
+            <Button x:Name="addEquipment" Content="Add Equipment" />
+            <Button x:Name="removeEquipment" Content="Remove Equipment" />
+        </StackPanel>
+
+        <!-- Stylize with icon and transparent/lightgray text -->
+        <TextBox x:Name="queryBox" Grid.Row="2" Grid.Column="1" Text="Search" Margin="0,0,0,10" />
+
+        <DataGrid Grid.Row="3" Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10"
+                  ItemsSource="{Binding EquipmentPerRoomList, Mode=OneWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" MinWidth="100" />
+                <DataGridTextColumn Header="RoomID" Binding="{Binding RoomID}" MinWidth="100" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- View changing tab button bar like sheets has.
+        Stylization similar to menu button bar but with button borders -->
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
+            <Button Content="Equipment" />
+        </StackPanel>
+    </Grid>
+</Window>
