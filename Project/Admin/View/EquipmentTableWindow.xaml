@@ -16,16 +16,16 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" /> <!-- Navigation/Menu button row -->
+            <RowDefinition Height="auto" /> <!-- Query text box -->
+            <RowDefinition Height="*" /> <!-- Table -->
+            <RowDefinition Height="40" /> <!-- Change view tab button row -->
             <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
         <!-- Take care of this with style later so that the whole stack panel is the same colour and there is no button border
         so that it looks like a continious button bar -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,20">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
             <Button x:Name="addEquipment" Content="Add Equipment" />
             <Button x:Name="removeEquipment" Content="Remove Equipment" />
         </StackPanel>
@@ -33,7 +33,7 @@
         <!-- Stylize with icon and transparent/lightgray text -->
         <TextBox x:Name="queryBox" Grid.Row="2" Grid.Column="1" Text="Search" Margin="0,0,0,10" />
 
-        <DataGrid Grid.Row="3" Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10" MinHeight="600"
+        <DataGrid Grid.Row="3" Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10"
                   ItemsSource="{Binding EquipmentPerRoomList, Mode=OneWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ID}" MinWidth="100" />
