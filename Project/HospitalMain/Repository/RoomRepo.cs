@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
 
@@ -10,12 +10,12 @@ namespace Repository
    public class RoomRepo
    {
       public String dbPath { get; set; }
-      public List<Room> Rooms { get; set; }
+      public ObservableCollection<Room> Rooms { get; set; }
       
-      public RoomRepo(string db_path, List<Room> rooms)
+      public RoomRepo(string db_path)
         {
             this.dbPath = db_path;
-            this.Rooms = rooms;
+            this.Rooms = new ObservableCollection<Room>();
         }
       
       public bool NewRoom(Room room)
@@ -36,8 +36,14 @@ namespace Repository
       
       public void SetRoom(String roomId, Room newRoom)
       {
-            int idx = Rooms.FindIndex(r => r.Id.Equals(roomId));
-            Rooms[idx] = new Room(newRoom);
+            for(int i = 0; i < Rooms.Count; i++)
+            {
+                if (Rooms[i].Id.Equals(roomId))
+                {
+                    Rooms[i] = newRoom;
+                    break;
+                }
+            }
       }
       
       public bool DeleteRoom(String roomId)
@@ -52,20 +58,13 @@ namespace Repository
       }
       
       public bool LoadRoom()
-      {  
-         // logic for failed load
-         using FileStream stream = File.OpenRead(dbPath);
-         this.Rooms = JsonSerializer.Deserialize<List<Room>>(stream);
-         return true;
+      {
+            return true;
       }
       
       public bool SaveRoom()
       {
-         // logic for failed save
-         string jsonString = JsonSerializer.Serialize(Rooms);
-         
-         File.WriteAllText(dbPath, jsonString);
-         return true;
+            return true;
       }
       
    
