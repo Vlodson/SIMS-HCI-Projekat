@@ -64,14 +64,19 @@ namespace Doctor.View
             _patientController = app.PatientController;
             _roomController = app.RoomController;
 
+<<<<<<< HEAD
             ComboBoxPacijent.SelectedItem = selectedItem.Patient;
             ComboBoxSoba.SelectedItem = selectedItem.ExamRoom;
+=======
+            ComboBoxPacijent.Text = selectedItem.Patient.Name;
+            ComboBoxSoba.Text = selectedItem.ExamRoom.Id;
+>>>>>>> 378b1b360ffe5ed22aceaadceb99b80dcb631148
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.Type;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
             timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
 
-            foreach (var pom in _patientController.GetAll().ToList())
+            foreach (var pom in _patientController.ReadAllPatients())
             {
                 PatientsObs.Add(pom);
             }
@@ -90,12 +95,13 @@ namespace Doctor.View
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
-            string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.FindById(roomId);
+            string roomId = ComboBoxSoba.Text;
+            Room r = new Room(roomId, 3, 3, true, "tip2");
 
 
-            string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Patient p = new Patient("246", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
+            string patientName = ComboBoxPacijent.Text;
+            Guest guest = new Guest("246");
+            Patient p = new Patient(guest.ID,"12345678", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
@@ -104,22 +110,9 @@ namespace Doctor.View
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorEditExam(newExam);
 
-            //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
-            //ExaminationSchedule.Examinations.Add(newExam);
-            convertEntityToView();
-            ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
             
             this.Close();
         }
 
-        public void convertEntityToView()
-        {
-          
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
-        }
     }
 }
