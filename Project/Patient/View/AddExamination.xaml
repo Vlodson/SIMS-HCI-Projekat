@@ -12,7 +12,7 @@
 
 
 
-        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="275,75,0,0" VerticalAlignment="Top" Width="509">
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}" Width="*"/>
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
@@ -28,17 +28,65 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="141,202,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="141,239,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
-        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top"/>
-        <Label Content="Od" HorizontalAlignment="Left" Margin="13,102,0,0" VerticalAlignment="Top"/>
-        <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,104,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Do" HorizontalAlignment="Left" Margin="14,128,0,0" VerticalAlignment="Top"/>
-        <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,133,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
+        <Label Content="Od" HorizontalAlignment="Left" Margin="13,114,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,114,0,0" VerticalAlignment="Top" Width="120">
+            <DatePicker.SelectedDate>
+                <Binding Path="StartDate" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:MinDateValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="dateStart"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </DatePicker>
+        <Label Content="Do" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,155,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.463,1.21">
+            <DatePicker.SelectedDate>
+                <Binding Path="EndDate" NotifyOnValidationError="True">
+                    <Binding.ValidationRules>
+                        <local:MaxDateValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </DatePicker.SelectedDate>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="dateStart"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </DatePicker>
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
-        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,166,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="170,166,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,204,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="170,205,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

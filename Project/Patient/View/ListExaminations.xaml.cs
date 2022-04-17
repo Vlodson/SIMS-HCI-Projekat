@@ -60,12 +60,23 @@ namespace Patient.View
 
             if (selected != null)
             {
-                if (selected.Date.CompareTo(DateTime.Now.AddDays(1)) > 0)
+                if (selected.Date.CompareTo(DateTime.Now) >= 0)
                 {
+                    Message.Visibility = Visibility.Hidden;
                     EditExamination editExamination = new EditExamination();
                     editExamination.Show();
                 }
-                    
+                else
+                {
+                    Message.Content = "Ne mozete pomeriti danasnji termin";
+                    Message.Visibility = Visibility.Visible;
+                }
+                
+            }
+            else
+            {
+                Message.Content = "Morate izabrati termin za pomeranje";
+                Message.Visibility = Visibility.Visible;
             }
 
         }

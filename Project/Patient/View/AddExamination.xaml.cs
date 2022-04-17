@@ -4,6 +4,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,17 @@ namespace Patient.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Window
+    public partial class AddExamination : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         private ExamController _examController;
         private DoctorController _doctorController;
         private PatientController _patientController;
@@ -37,9 +47,39 @@ namespace Patient.View
             get;
             set;
         }
+
+        public static DateTime startDate;
+        private DateTime endDate;
+        public DateTime StartDate
+        {
+            get
+            {
+                return startDate;
+            }
+            set
+            {
+                startDate = value;
+                OnPropertyChanged("StartDate");
+            }
+        }
+        public DateTime EndDate
+        {
+            get
+            {
+                return endDate;
+            }
+            set
+            {
+                endDate = value;
+                OnPropertyChanged("EndDate");
+            }
+        }
         
 
         private static Random random = new Random((int)DateTime.Now.Ticks);
+
+        
+
         private string RandomString(int Size)
         {
             StringBuilder builder = new StringBuilder();
@@ -62,6 +102,8 @@ namespace Patient.View
             _examinationRepo = app.ExaminationRepo;
 
             DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
+            StartDate = DateTime.Now.AddDays(1);
+            EndDate = DateTime.Now.AddDays(7);
 
         }
 
@@ -77,8 +119,10 @@ namespace Patient.View
             {
                 this.DataContext = this;
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                DateTime startDate = (DateTime)Start.SelectedDate;
-                DateTime endDate = (DateTime)End.SelectedDate;
+                //DateTime startDate = (DateTime)Start.SelectedDate;
+                StartDate = (DateTime)Start.SelectedDate;
+                //DateTime endDate = (DateTime)End.SelectedDate;
+                EndDate = (DateTime)End.SelectedDate;
 
                 bool priority = true; //ako je doktor onda je true, termin false
                 if(doctorPriority.IsChecked == true)
@@ -104,7 +148,7 @@ namespace Patient.View
                 DateTime dt = selectedExamination.Date;
                 id++;
                 //String idExam = "idExam" + id.ToString();
-                Examination newExam = new Examination(new Room("name", 1, 1, false, "type"), dt, RandomString(5), 2,"pregled", patient, doctor);
+                Examination newExam = new Examination(new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room), dt, RandomString(5), 2,"pregled", patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);
