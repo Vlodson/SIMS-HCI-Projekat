@@ -14,7 +14,7 @@
 
         <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Lekar" Binding="{Binding Doctor.Name}" Width="*"/>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorNameSurname}" Width="*"/>
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>

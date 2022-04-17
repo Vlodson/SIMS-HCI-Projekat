@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
 using HospitalMain.Enums;
+using Utility;
 
 namespace Repository
 {
@@ -78,11 +79,11 @@ namespace Repository
                 if (exam.Id == examID)
                 {
                     exam.Id = examination.Id;
-                    exam.ExamRoom = examination.ExamRoom;
+                    exam.ExamRoomId = examination.ExamRoomId;
                     exam.Date = examination.Date;
                     exam.Duration = examination.Duration;
-                    exam.Doctor = examination.Doctor;
-                    exam.Patient = examination.Patient;
+                    exam.DoctorId = examination.DoctorId;
+                    exam.PatientId = examination.PatientId;
                     exam.EType = examination.EType;
                     break;
                 }
@@ -125,7 +126,7 @@ namespace Repository
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
             foreach (Examination exam in examinationList)
             {
-                if (exam.Doctor.Id.Equals(id)) 
+                if (exam.DoctorId.Equals(id)) 
                 examsForDoctor.Add(exam);
             }
             return examsForDoctor;
@@ -137,7 +138,7 @@ namespace Repository
             //bilo je jedan
             foreach (Examination exam in examinationList)
             {
-                if (exam.Patient.ID.Equals(id)) examsForPatient.Add(exam);
+                if (exam.PatientId.Equals(id)) examsForPatient.Add(exam);
             }
             return examsForPatient;
         }
@@ -183,7 +184,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
+                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
                 
             }
@@ -222,7 +223,7 @@ namespace Repository
                         }
                         if (free)
                         {
-                            examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
+                            examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                         }
 
                     }
@@ -249,7 +250,7 @@ namespace Repository
                             }
                             if (free)
                             {
-                                examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doc));
+                                examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doc.Id));
                             }
 
                         }
@@ -267,7 +268,7 @@ namespace Repository
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            List<Examination> doctorsExaminations = examination.Doctor.Examinations;
+            //List<Examination> doctorsExaminations = examination.Doctor.Examinations;
 
 
             //danasnji datum
@@ -289,7 +290,7 @@ namespace Repository
             foreach (DateTime dt in examinationsTime)
             {
                 bool free = true;
-                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.Doctor.Id))
+                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.DoctorId))
                 {
                     if (doctorsExamination.Date == dt)
                     {
@@ -298,7 +299,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), examination.Doctor));
+                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", examination.DoctorId));
                 }
 
             }

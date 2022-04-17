@@ -27,6 +27,7 @@ namespace Patient.View
     {
         private ExamController _examinationController;
         private ExaminationRepo _examinationRepo;
+        private DoctorController _doctorController;
         public static Examination selected;
 
         public static ObservableCollection<Examination> Examinations
@@ -44,7 +45,16 @@ namespace Patient.View
             if (File.Exists(_examinationRepo.dbPath))
                 _examinationRepo.LoadExamination();
             _examinationController = app.ExamController;
-            Examinations = _examinationController.ReadPatientExams("2");
+            _doctorController = app.DoctorController;
+
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams("2");
+            foreach(Examination exam in examinations)
+            {
+                //exam.DoctorType = _doctorController.GetDoctor(exam.DoctorId).Type;
+                exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
+            }
+            Examinations = examinations;
+            //Examinations = _examinationController.ReadPatientExams("2");
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -83,7 +93,9 @@ namespace Patient.View
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
-            if(selected != null)
+            selected = (Examination)dataGridExaminations.SelectedItem;
+
+            if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
                 {
