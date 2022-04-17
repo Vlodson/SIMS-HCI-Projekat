@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:Doctor.View"
         mc:Ignorable="d"
         Title="ExaminationSchedule" Height="450" Width="800" Closed="Window_Closed">
+    
+  
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -19,8 +21,8 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0">Raspored zakazanih pregleda</TextBlock>
-        <Grid Grid.Column="0" Grid.Row="1">               
-            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode= TwoWay }" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False">
+        <Grid Grid.Column="0" Grid.Row="1">
+            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Pacijent" Binding="{Binding Patient.Name}"></DataGridTextColumn>

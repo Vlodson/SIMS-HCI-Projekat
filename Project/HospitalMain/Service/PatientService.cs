@@ -30,7 +30,7 @@ namespace Service
 
         public void CreateExam(Examination examination)
         {
-            _examinationRepo.SetExamination(examination);
+            _examinationRepo.NewExamination(examination);
         }
 
         public void RemoveExam(Examination examination)

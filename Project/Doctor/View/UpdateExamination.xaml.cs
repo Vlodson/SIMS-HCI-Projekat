@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,7 @@ namespace Doctor.View
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
+        private ExaminationRepo _examRepo;
 
 
         protected virtual void NotifyPropertyChanged(string name)
@@ -63,14 +65,10 @@ namespace Doctor.View
             _examController = app.ExamController;
             _patientController = app.PatientController;
             _roomController = app.RoomController;
+            _examRepo = app.ExaminationRepo;
 
-<<<<<<< HEAD
-            ComboBoxPacijent.SelectedItem = selectedItem.Patient;
-            ComboBoxSoba.SelectedItem = selectedItem.ExamRoom;
-=======
             ComboBoxPacijent.Text = selectedItem.Patient.Name;
             ComboBoxSoba.Text = selectedItem.ExamRoom.Id;
->>>>>>> 378b1b360ffe5ed22aceaadceb99b80dcb631148
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.Type;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
@@ -91,12 +89,13 @@ namespace Doctor.View
         private void Izmeni_Click(object sender, RoutedEventArgs e)
         {
 
-            Model.Doctor doctor = _doctorController.GetDoctor("222");
+            Model.Doctor doctor = new Model.Doctor("IDDOC", "pera", "Peric", new DateTime(1980, 11, 11), DoctorType.specialistCheckup, new List<Examination>());
+
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.Text;
-            Room r = new Room(roomId, 3, 3, true, "tip2");
+            Room r = new Room(roomId, 3, 3, true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
 
 
             string patientName = ComboBoxPacijent.Text;
@@ -108,9 +107,10 @@ namespace Doctor.View
             string type = TIP.Text;
 
             Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
-            _examController.DoctorEditExam(newExam);
-
-            
+            _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
+            _examRepo.SaveExamination();
+            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
+            examinationSchedule.Show();
             this.Close();
         }
 

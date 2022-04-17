@@ -30,13 +30,10 @@ namespace Doctor
 
         public App()
         {
-            ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
-            List<Room> rooms = new List<Room>();
-
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
-            RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, rooms);
-            var patientRepository = new PatientRepo("...", patients);
-            var doctorRepository = new DoctorRepo("...");
+            RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath);
+            var patientRepository = new PatientRepo(GlobalPaths.PatientsDBPath);
+            var doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
 
             PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
             DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);

@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,12 +22,23 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Window
+    public partial class AddExamination : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
+        private ExaminationRepo _examinationRepo;
 
         public ObservableCollection<Patient> PatientsObs
         {
@@ -46,12 +58,12 @@ namespace Doctor.View
 
             PatientsObs = new ObservableCollection<Patient>();
 
-            var app = Application.Current as App;
+            App app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
             _roomController = app.RoomController;
             _patientController = app.PatientController;
-
+            _examinationRepo = app.ExaminationRepo;
             /*
             foreach (var pom in _patientController.GetAll().ToList())
             {
@@ -66,14 +78,15 @@ namespace Doctor.View
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
         {
-            Model.Doctor doctor = _doctorController.GetDoctor("111");
+            //Model.Doctor doctor = _doctorController.GetDoctor("IDDOC");
+            Model.Doctor doctor = new Model.Doctor("IDDOC", "pera", "Peric", new DateTime(1980, 11, 11), DoctorType.specialistCheckup, new List<Examination>());
 
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
             //Room r = _roomController.ReadRoom(roomId);
-            Room room = new Room(roomId, 5, 1, true, "tip");
+            Room room = new Room(roomId, 5,4,true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
             Guest guest = new Guest("246");
@@ -85,20 +98,10 @@ namespace Doctor.View
 
             Examination newExam = new Examination(room, dt, "ID5", duration, type, p, doctor);
             _examController.DoctorCreateExam(newExam);
-
+            _examinationRepo.SaveExamination();
+            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
+            examinationSchedule.Show();
             this.Close();
         }
-
-<<<<<<< HEAD
-        public void convertEntityToView()
-        {
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
-        }
-=======
->>>>>>> 378b1b360ffe5ed22aceaadceb99b80dcb631148
     }
 }

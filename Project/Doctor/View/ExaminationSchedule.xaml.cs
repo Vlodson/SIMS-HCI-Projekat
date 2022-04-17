@@ -33,11 +33,13 @@ namespace Doctor.View
             set;
         }
 
-        public static ObservableCollection<Examination> Examinations
-        {
-            get;
-            set;
-        }
+        public static ObservableCollection<Examination> Examinations { get; set; }
+
+        //public static ObservableCollection<Examination> Examinations
+        //{
+        //    get;
+        //    set;
+        //}
 
         public ExaminationSchedule()
         {
@@ -48,11 +50,10 @@ namespace Doctor.View
 
             App app = Application.Current as App;
             _examRepo = app.ExaminationRepo;
-            _examController = app.ExamController;
-
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
 
+            _examController = app.ExamController;
             Examinations = _examController.ReadDoctorExams(idDoc);
             
         }
@@ -60,16 +61,16 @@ namespace Doctor.View
         private void Zakazi_Click(object sender, RoutedEventArgs e)
         {
             AddExamination addExamination = new AddExamination();
+            this.Close();
             addExamination.Show();
-            
         }
 
         private void Izmeni_Click(object sender, RoutedEventArgs e)
         {
             SelectedItem = (Examination)dataGridExaminations.SelectedItem;
             UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
+            this.Close();
             updateExamination.Show();
-
         }
 
 
@@ -79,7 +80,9 @@ namespace Doctor.View
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
+                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("IDDOC");
             }
+            _examRepo.SaveExamination();
 
         }
 

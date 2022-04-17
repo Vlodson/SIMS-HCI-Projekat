@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
+using System.ComponentModel;
 
 namespace Repository
 {
@@ -12,13 +13,13 @@ namespace Repository
     {
         public String dbPath { get; set; }
         //lista pregleda
-        public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
+        public ObservableCollection<Examination> examinationList;
 
 
         public ExaminationRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            
+            this.examinationList = new ObservableCollection<Examination>();
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -42,21 +43,9 @@ namespace Repository
             }
             return null;
         }
-        public bool NewExamination(Examination examination)
-        {
-            //examinationList.Add(examination);
-            return true;
-        }
-
-        public Examination GetExamination(String examId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetExamination(Examination examination)
+        public void NewExamination(Examination examination)
         {
             examinationList.Add(examination);
-
         }
 
         public void DeleteExamination(Examination examination)
@@ -271,6 +260,19 @@ namespace Repository
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
+        }
+
+        public void DoctorEditExamination(String id, Examination examination)
+        {
+            for (int i = 0; i < examinationList.Count; i++)
+            {
+                if (examinationList[i].Id.Equals(id))
+                {
+                    examinationList.Remove(examinationList[i]);
+                    break;
+                }
+            }
+            examinationList.Add(examination);
         }
 
 

@@ -53,9 +53,9 @@ namespace Controller
             return _doctorService.ReadMyExams(id);
         }
 
-        public void DoctorEditExam(Examination examination)
+        public void DoctorEditExam(string id, Examination examination)
         {
-            _doctorService.EditExams(examination);
+            _doctorService.EditExams(id, examination);
         }
 
         public void PatientEditExam(Examination examination, DateTime dateTime)
