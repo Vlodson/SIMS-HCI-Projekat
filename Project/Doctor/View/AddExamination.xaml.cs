@@ -86,18 +86,14 @@ namespace Doctor.View
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            ////Room r = _roomController.ReadRoom(roomId);
-            Room room = new Room(roomId, 5,4,true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Guest guest = new Guest("246");
-            Patient p = new Patient("1", "a", "ime", "prezime", "123", "mail", "adresa", Gender.Male, new DateTime(), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(room, dt, (new Random()).Next(10000).ToString(), duration, ExaminationTypeEnum.OrdinaryExamination, doctor);
+            Examination newExam = new Examination(roomId, dt, (new Random()).Next(10000).ToString(), duration, ExaminationTypeEnum.OrdinaryExamination,patientName, "IDDOC");
 
             _examController.DoctorCreateExam(newExam);
             _examinationRepo.SaveExamination();

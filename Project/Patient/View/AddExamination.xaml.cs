@@ -39,7 +39,9 @@ namespace Patient.View
         private ExaminationRepo _examinationRepo;
 
         public int id = 0;
+        private String doctorNameSurname;
 
+        
         
 
         public ObservableCollection<Doctor> DoctorsObs
@@ -74,6 +76,8 @@ namespace Patient.View
                 OnPropertyChanged("EndDate");
             }
         }
+
+        
         
 
         private static Random random = new Random((int)DateTime.Now.Ticks);
@@ -133,7 +137,14 @@ namespace Patient.View
                 {
                     priority = false;
                 }
-                ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                
+                List<Examination> listExaminations = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                foreach(Examination exam in listExaminations)
+                {
+                    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                }
+                //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                ExamsAvailable.ItemsSource = listExaminations;
             }
             
         }
@@ -148,11 +159,23 @@ namespace Patient.View
                 DateTime dt = selectedExamination.Date;
                 id++;
                 //String idExam = "idExam" + id.ToString();
+<<<<<<< HEAD
                 Examination newExam = new Examination(new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room), dt, RandomString(5), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient, doctor);
+=======
+                Room r1 = new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
+                Examination newExam = new Examination(r1.Id, dt, RandomString(5), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+>>>>>>> 4cee4ae3c692b9c948d058c06accb897b183b6a5
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);
                 _examinationRepo.SaveExamination();
+                ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
+                foreach (Examination exam in examinations)
+                {
+                    //exam.DoctorType = _doctorController.GetDoctor(exam.DoctorId).Type;
+                    exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
+                }
+                ExaminationsList.Examinations = examinations;
                 this.Close();
             }
 

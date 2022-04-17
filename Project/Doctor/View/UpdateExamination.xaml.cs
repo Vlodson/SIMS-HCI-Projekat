@@ -68,8 +68,6 @@ namespace Doctor.View
             _roomController = app.RoomController;
             _examRepo = app.ExaminationRepo;
 
-            ComboBoxPacijent.Text = selectedItem.Patient.Name;
-            ComboBoxSoba.Text = selectedItem.ExamRoom.Id;
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.EType.ToString();
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
@@ -89,25 +87,18 @@ namespace Doctor.View
 
         private void Izmeni_Click(object sender, RoutedEventArgs e)
         {
-
-            Model.Doctor doctor = new Model.Doctor("IDDOC", "pera", "Peric", new DateTime(1980, 11, 11), DoctorType.specialistCheckup, new List<Examination>());
-
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.Text;
-            Room room = new Room(roomId, 3, 3, true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
-
 
             string patientName = ComboBoxPacijent.Text;
-            Guest guest = new Guest("246");
-            Patient p = new Patient();
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(room, dt, "ID5", duration, ExaminationTypeEnum.Surgery, p, doctor);
+            Examination newExam = new Examination(roomId, dt, "ID5", duration, ExaminationTypeEnum.Surgery, patientName, "IDDOC");
             _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
             _examRepo.SaveExamination();
             ExaminationSchedule examinationSchedule = new ExaminationSchedule();

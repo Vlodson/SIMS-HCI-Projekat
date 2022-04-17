@@ -18,20 +18,56 @@ namespace Model
         }
 
 
-        private Room examRoom;
+        private String examRoomId;
         private DateTime date;
         private string id;
         private int duration;
         private ExaminationTypeEnum type;
 
-        private Patient patient;
-        private Doctor doctor;
+        private String patientId;
+        private String doctorId;
 
-        public Room ExamRoom { get => examRoom; set => examRoom = value; }
+        public String ExamRoomId 
+        {
+            get
+            {
+                return examRoomId;
+            }
+            set
+            {
+                examRoomId = value;
+            }
+        }
+        //public DateTime Date { get => date; set => date = value; }
         public string Id { get => id; set => id = value; }
         public int Duration { get => duration; set => duration = value; }
-        public Patient Patient { get => patient; set => patient = value; }
-        public Doctor Doctor { get => doctor; set => doctor = value; }
+        //public ExaminationType Type { get => type; set => type = value; }
+        public String PatientId
+        {
+            get
+            {
+                return patientId;
+            }
+            set
+            {
+                patientId = value;
+            }
+        }
+        public String DoctorId
+        {
+            get
+            {
+                return doctorId;
+            }
+            set
+            {
+                doctorId = value;
+            }
+        }
+
+        public String DoctorNameSurname { get; set; }
+        public DoctorType DoctorType { get; set; }
+        
 
         public ExaminationTypeEnum EType
         {
@@ -58,30 +94,16 @@ namespace Model
                 OnPropertyChanged("Date");
             }
         }
-
-        
-
-        public Examination(Room examRoom, DateTime date, string id, int duration, ExaminationTypeEnum type, Patient patient, Doctor doctor)
+        public Examination(String examRoom, DateTime date, string id, int duration, ExaminationTypeEnum type, String patient, String doctor)
         {
-            this.ExamRoom = examRoom;
+            this.ExamRoomId = examRoom;
             this.Date = date;
             this.Id = id;
             this.Duration = duration;
             this.EType = type;
-            this.Patient = patient;
-            this.Doctor = doctor;
+            this.PatientId = patient;
+            this.DoctorId = doctor;
         }
-
-        public Examination(Room examRoom, DateTime date, string id, int duration, ExaminationTypeEnum type, Doctor doctor)
-        {
-            this.ExamRoom = examRoom;
-            this.Date = date;
-            this.Id = id;
-            this.Duration = duration;
-            this.EType = type;
-            this.Doctor = doctor;
-        }
-
         public Examination()
         {
 
