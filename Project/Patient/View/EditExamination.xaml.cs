@@ -35,7 +35,7 @@ namespace Patient.View
             _examinationRepo = app.ExaminationRepo;
 
             //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
-            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ListExaminations.selected);
+            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
             //AddExamination
         }
 
@@ -44,7 +44,7 @@ namespace Patient.View
             
             Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
             DateTime newDate = newExamination.Date;
-            _examController.PatientEditExam(ListExaminations.selected, newDate);
+            _examController.PatientEditExam(ExaminationsList.selected, newDate);
             _examinationRepo.SaveExamination();
             
             

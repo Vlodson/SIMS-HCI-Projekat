@@ -34,6 +34,7 @@ namespace Patient
             InitializeComponent();
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
+            Main.Content = new Login();
         }
 
         
@@ -47,6 +48,12 @@ namespace Patient
         {
             ListExaminations listExaminations = new ListExaminations();
             listExaminations.Show();
+        }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new ExaminationsList();
+            //patientMenu.ShowsNavigationUI;
         }
     }
 }
