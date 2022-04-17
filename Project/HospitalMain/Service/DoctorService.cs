@@ -34,9 +34,9 @@ namespace Service
             _examinationRepo.DeleteExamination(exam);
         }
 
-        public void EditExams(Examination exam)
+        public void EditExams(string examID, Examination exam)
         {
-            _examinationRepo.SetExamination(exam);
+            _examinationRepo.SetExamination(examID, exam);
         }
 
         public List<Examination> ReadPatientExams(String patientId)
@@ -74,7 +74,7 @@ namespace Service
 
         public void CreateExam(Examination examination)
         {
-            _examinationRepo.SetExamination(examination);
+            _examinationRepo.NewExamination(examination);
         }
 
     }

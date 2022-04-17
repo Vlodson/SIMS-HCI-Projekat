@@ -2,6 +2,7 @@ using System;
 using Service;
 using System.Collections.ObjectModel;
 using Model;
+using HospitalMain.Enums;
 
 namespace Controller
 {
@@ -24,9 +25,9 @@ namespace Controller
 
        
 
-      public bool CreatePatient(String id, String ucin, String name, String surname, DateTime doB, ObservableCollection<Examination> examinations)
+      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, ObservableCollection<Examination> examinations)
       {
-            patientAccService.CreatePatient(id, ucin, name, surname, doB, examinations);
+            patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, examinations);
             return true;
       }
       
@@ -36,9 +37,9 @@ namespace Controller
             return true;
       }
       
-      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, DateTime newDoB, ObservableCollection<Examination> examinations)
+      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, ObservableCollection<Examination> examinations)
       {
-            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newDoB, examinations);
+            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, examinations);
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -51,9 +52,9 @@ namespace Controller
             return patientAccService.ReadAllPatients();
       }
       
-      public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, DateTime doB)
+      public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB)
       {
-            patientAccService.UpgradeGuest(guestId, ucin, name, surname, doB);
+            patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB);
             return true;
       }
       

@@ -1,17 +1,22 @@
-using System;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.ComponentModel;
 using HospitalMain.Enums;
+using System.Collections.ObjectModel;
 
 namespace Model
 {
-    public class Patient : Guest, INotifyPropertyChanged
+    public class MedicalRecord : INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(String name)
         {
-            if (PropertyChanged != null)
+            if(PropertyChanged != null)
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
@@ -25,43 +30,34 @@ namespace Model
         private String mail;
         private String adress;
         private Gender gender;
-        private DateTime doB;
+        private DateTime dob;
 
-        private ObservableCollection<Examination> examinations;
+        private Doctor doctor;
+        private String bloodType;
+        private ObservableCollection<String> allergens;
 
-        public Patient(Guest guest) : base(guest.ID)
-        {
-
-        }
-
-        public Patient() : base()
-        {
-
-        }
-
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, ObservableCollection<Examination> examinations)
+        public MedicalRecord(String id, String ucin, String name, String surname, String phone, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<String> allergens)
         {
             this.id = id;
             this.ucin = ucin;
             this.name = name;
             this.surname = surname;
-            this.phone_number = phone_number;
+            this.phone_number = phone;
             this.mail = mail;
             this.adress = adress;
             this.gender = gender;
-            this.doB = doB;
-            this.examinations = examinations;
+            this.dob = dob;
+            this.doctor = doctor;
+            this.bloodType = bloodType;
+            this.allergens = allergens;
         }
 
         public String ID
         {
-            get
-            {
-                return id;
-            }
+            get { return id; }
             set
             {
-                if(value != id)
+                if(id != null)
                 {
                     id = value;
                     //OnPropertyChanged("ID");
@@ -71,40 +67,36 @@ namespace Model
 
         public String UCIN
         {
-            get
-            {
-                return ucin;
-            }
+            get { return ucin; }
             set
             {
-                if (value != ucin)
+                if(ucin != null)
                 {
                     ucin = value;
                     OnPropertyChanged("UCIN");
                 }
             }
-
         }
-
+    
         public String Name
         {
             get { return name; }
             set
             {
-                if(value != name)
+                if(name != null)
                 {
                     name = value;
                     OnPropertyChanged("Name");
                 }
             }
         }
-
+    
         public String Surname
         {
             get { return surname; }
             set
             {
-                if(surname != value)
+                if(surname != null)
                 {
                     surname = value;
                     OnPropertyChanged("Surname");
@@ -117,7 +109,7 @@ namespace Model
             get { return phone_number; }
             set
             {
-                if((phone_number != value))
+                if ((phone_number != value))
                 {
                     phone_number = value;
                     OnPropertyChanged("PhoneNumber");
@@ -130,7 +122,7 @@ namespace Model
             get { return adress; }
             set
             {
-                if(adress != value)
+                if (adress != value)
                 {
                     adress = value;
                     OnPropertyChanged("Adress");
@@ -143,7 +135,7 @@ namespace Model
             get { return mail; }
             set
             {
-                if(mail != value)
+                if (mail != value)
                 {
                     mail = value;
                     OnPropertyChanged("Mail");
@@ -156,7 +148,7 @@ namespace Model
             get { return gender; }
             set
             {
-                if(gender != value)
+                if (gender != value)
                 {
                     gender = value;
                     OnPropertyChanged("Gender");
@@ -166,33 +158,54 @@ namespace Model
 
         public DateTime DoB
         {
-            get { return doB; }
+            get { return dob; }
             set
             {
-                if(doB != value)
+                if (dob != value)
                 {
-                    doB = value;
+                    dob = value;
                     OnPropertyChanged("DoB");
                 }
             }
         }
 
-        public ObservableCollection<Examination> Examinations
+        public String BloodType
         {
-            get{ return examinations; }
+            get { return bloodType; }
             set
             {
-                if(examinations != value)
+                if(bloodType != value)
                 {
-                    examinations = value;
-                    OnPropertyChanged("Examinations");
+                    bloodType = value;
+                    OnPropertyChanged("BloodType");
                 }
             }
         }
 
-        public override string ToString()
+        public Doctor Doctor
         {
-            return Name;
+            get { return doctor; }
+            set
+            {
+                if(doctor != value)
+                {
+                    doctor = value;
+                    OnPropertyChanged("Doctor");
+                }
+            }
+        }
+
+        public ObservableCollection<String> Allergens
+        {
+            get { return allergens; }
+            set
+            {
+                if(allergens != value)
+                {
+                    allergens = value;
+                    OnPropertyChanged("Allergens");
+                }
+            }
         }
 
     }
