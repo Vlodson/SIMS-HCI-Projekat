@@ -15,11 +15,29 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\arrow-small-left.png" />
+    <None Remove="Images\bell.png" />
+    <None Remove="Images\sign-out-alt.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Validation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\arrow-small-left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\bell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\sign-out-alt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
