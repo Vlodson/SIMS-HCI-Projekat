@@ -59,7 +59,7 @@ namespace Service
             List<Examination> others = new List<Examination>();
             foreach(Examination exam in _examinationRepo.GetAll())
             {
-                if (!exam.Patient.ID.Equals(id))
+                if (!exam.PatientId.Equals(id))
                 {
                     others.Add(exam);
                 }
