@@ -39,9 +39,10 @@ namespace Patient.View
             Window.GetWindow(this).Content = new Login();
         }
 
-        private void Notifications_Click()
+        private void Notifications_Click(object sender, RoutedEventArgs e)
         {
-
+            Notifications notifications = new Notifications();
+            notifications.Show();
         }
     }
 }
