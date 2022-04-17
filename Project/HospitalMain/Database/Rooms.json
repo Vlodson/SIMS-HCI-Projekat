@@ -1,1 +1,1 @@
-[{"Id":"0d","Equipment":[],"Floor":0,"RoomNb":0,"Occupancy":false,"Type":"tip0"},{"Id":"1d","Equipment":[],"Floor":1,"RoomNb":1,"Occupancy":false,"Type":"tip1"},{"Id":"2d","Equipment":[],"Floor":2,"RoomNb":2,"Occupancy":false,"Type":"tip2"}]
+[{"Id":"0d","Equipment":["e3","e4","e5","e6"],"Floor":0,"RoomNb":0,"Occupancy":false,"Type":0},{"Id":"1d","Equipment":[],"Floor":1,"RoomNb":1,"Occupancy":false,"Type":1},{"Id":"2d","Equipment":[],"Floor":2,"RoomNb":2,"Occupancy":false,"Type":2}]

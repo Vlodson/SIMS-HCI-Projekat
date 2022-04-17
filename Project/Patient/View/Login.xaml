@@ -1,0 +1,20 @@
+﻿<Page x:Class="Patient.View.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Patient.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="Login">
+
+    <Grid>
+        
+        <Label Content="Prijava" FontSize="40" HorizontalAlignment="Left" Margin="386,191,0,0" VerticalAlignment="Top"/>
+        <Label Content="Email*" FontSize="18" HorizontalAlignment="Left" Margin="299,277,0,0" VerticalAlignment="Top"/>
+        <Label Content="Šifra*" FontSize="18" HorizontalAlignment="Left" Margin="299,316,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="392,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="174"/>
+        <PasswordBox HorizontalAlignment="Left" Margin="392,324,0,0" VerticalAlignment="Top" Width="174"/>
+        <Button Content="Prijavi se" Click="Menu_Click" HorizontalAlignment="Center" Margin="0,356,0,0" VerticalAlignment="Top" Width="108"/>
+    </Grid>
+</Page>

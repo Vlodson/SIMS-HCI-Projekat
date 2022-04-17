@@ -1,4 +1,6 @@
 ﻿using Controller;
+using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,21 +24,30 @@ namespace Patient.View
     {
         private DoctorController _doctorController;
         private ExamController _examController;
+        private ExaminationRepo _examinationRepo;
+
         public EditExamination()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
+            _examinationRepo = app.ExaminationRepo;
 
-            ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(MainWindow.selected.Doctor);
+            //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
+            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
             //AddExamination
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DateTime newDate = (DateTime)ExamsAvailable.SelectedItem;
-            _examController.PatientEditExam(MainWindow.selected, newDate);
+            
+            Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
+            DateTime newDate = newExamination.Date;
+            _examController.PatientEditExam(ExaminationsList.selected, newDate);
+            _examinationRepo.SaveExamination();
+            
+            
             this.Close();
         }
     }

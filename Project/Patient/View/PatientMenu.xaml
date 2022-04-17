@@ -1,0 +1,33 @@
+﻿<Page x:Class="Patient.View.PatientMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Patient.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="1024"
+      Title="PatientMenu">
+
+    <Grid>
+        <Button Content="Termini" FontSize="32" Width="250" Height="65" Click="Button_Click" HorizontalAlignment="Left" Margin="32,319,0,0" VerticalAlignment="Top"/>
+        <Button HorizontalAlignment="Left" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+            <StackPanel>
+                <Image Source="/Images/sign-out-alt.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+            <StackPanel>
+                <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
+        <Button Content="Karton" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,195,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ocene" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,472,0,0" VerticalAlignment="Top"/>
+        <Button Content="Podsetnici" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,620,0,0" VerticalAlignment="Top"/>
+        <Button Content="Izveštaji" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="366,620,0,0" VerticalAlignment="Top"/>
+        <Button Content="Tutorijal" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="716,620,0,0" VerticalAlignment="Top"/>
+        <Label Content="Bolnica" FontSize="40" HorizontalAlignment="Left" Margin="157,35,0,0" VerticalAlignment="Top"/>
+
+
+
+    </Grid>
+</Page>
