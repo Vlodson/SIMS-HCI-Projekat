@@ -9,7 +9,7 @@
       Title="PatientMenu">
 
     <Grid>
-        <Button Content="Termini" Click="Button_Click" HorizontalAlignment="Left" Margin="82,318,0,0" VerticalAlignment="Top"/>
+        <Button Content="Termini" FontSize="32" Width="250" Height="65" Click="Button_Click" HorizontalAlignment="Left" Margin="32,319,0,0" VerticalAlignment="Top"/>
         <Button HorizontalAlignment="Left" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>
@@ -20,6 +20,13 @@
                 <Image Source="/Images/bell.png"/>
             </StackPanel>
         </Button>
+        <Button Content="Karton" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,195,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ocene" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,472,0,0" VerticalAlignment="Top"/>
+        <Button Content="Podsetnici" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,620,0,0" VerticalAlignment="Top"/>
+        <Button Content="Izveštaji" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="366,620,0,0" VerticalAlignment="Top"/>
+        <Button Content="Tutorijal" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="716,620,0,0" VerticalAlignment="Top"/>
+        <Label Content="Bolnica" FontSize="40" HorizontalAlignment="Left" Margin="157,35,0,0" VerticalAlignment="Top"/>
+
 
 
     </Grid>
