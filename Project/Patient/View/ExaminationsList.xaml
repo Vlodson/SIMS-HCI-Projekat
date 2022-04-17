@@ -13,11 +13,10 @@
             <ColumnDefinition Width="235*"/>
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="10,68,10,100" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="10,68,10,105" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Vrsta" FontSize="18" Binding="{Binding Doctor.Type}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding Doctor.Name}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="" Binding="{Binding Doctor.Surname}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding Doctor.NameSurname}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vreme" FontSize="18" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoom.Id}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
@@ -25,7 +24,7 @@
         <Button x:Name="AddExamination" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="177,695,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1"/>
         <Button x:Name="EditExamination" Content="Izmeni" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="310,695,0,0" VerticalAlignment="Top" Click="EditExamination_Click" Grid.Column="1"/>
         <Button x:Name="RemoveExamination" Content="Otkazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="444,695,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click" Grid.Column="1"/>
-        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="26,388,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>
         <Label Content="Zakazani pregledi" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Button  HorizontalAlignment="Left" Margin="10,695,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
             <StackPanel>

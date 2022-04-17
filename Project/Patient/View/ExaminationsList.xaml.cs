@@ -49,6 +49,7 @@ namespace Patient.View
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
         {
+            Message.Visibility = Visibility.Hidden;
             AddExamination addExamination = new AddExamination();
             addExamination.Show();
         }
@@ -82,8 +83,26 @@ namespace Patient.View
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
-            _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
-            _examinationRepo.SaveExamination();
+            if(selected != null)
+            {
+                if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                {
+                    Message.Visibility = Visibility.Hidden;
+                    _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
+                    _examinationRepo.SaveExamination();
+                }
+                else
+                {
+                    Message.Content = "Ne mozete otkazati danasnji termin";
+                    Message.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                Message.Content = "Morate izabrati termin za otkazivanje";
+                Message.Visibility = Visibility.Visible;
+            }
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)

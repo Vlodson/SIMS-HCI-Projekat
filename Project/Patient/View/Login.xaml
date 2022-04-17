@@ -9,7 +9,7 @@
       Title="Login">
 
     <Grid>
-        <Button Content="Termini" HorizontalAlignment="Left" Margin="44,683,0,0" VerticalAlignment="Top" RenderTransformOrigin="-3.508,6.335" Click="ListExaminations_Click"/>
+        
         <Label Content="Prijava" FontSize="40" HorizontalAlignment="Left" Margin="386,191,0,0" VerticalAlignment="Top"/>
         <Label Content="Email*" FontSize="18" HorizontalAlignment="Left" Margin="299,277,0,0" VerticalAlignment="Top"/>
         <Label Content="Šifra*" FontSize="18" HorizontalAlignment="Left" Margin="299,316,0,0" VerticalAlignment="Top"/>
