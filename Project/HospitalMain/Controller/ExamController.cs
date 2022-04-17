@@ -12,17 +12,12 @@ namespace Controller
         private readonly PatientService _patientService;
         private readonly DoctorService _doctorService;
 
-        
-        public ExamController(DoctorService doctorService)
-        {
-            _doctorService = doctorService;
-        }
-        
-        public ExamController(PatientService patientService)
+
+        public ExamController(PatientService patientService, DoctorService doctorService)
         {
             _patientService = patientService;
+            _doctorService = doctorService;
         }
-
 
         public void PatientCreateExam(Examination examination)
         {
@@ -63,6 +58,10 @@ namespace Controller
             _patientService.EditExam(examination.Id, dateTime);
         }
 
+        public void EditExam(string examID, Examination examination)
+        {
+            _patientService.SetExam(examID, examination);
+        }
 
         //public System.Collections.ArrayList doctorService;
 

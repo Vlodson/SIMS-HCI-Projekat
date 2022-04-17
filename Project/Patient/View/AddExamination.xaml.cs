@@ -148,7 +148,7 @@ namespace Patient.View
                 DateTime dt = selectedExamination.Date;
                 id++;
                 //String idExam = "idExam" + id.ToString();
-                Examination newExam = new Examination(new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room), dt, RandomString(5), 2,"pregled", patient, doctor);
+                Examination newExam = new Examination(new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room), dt, RandomString(5), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient, doctor);
                 _examController.PatientCreateExam(newExam);
                 //_examController.ReadPatientExams("idPatient1").Add(newExam);
                 //MainWindow.Examinations.Add(newExam);

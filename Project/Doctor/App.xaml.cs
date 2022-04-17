@@ -40,7 +40,7 @@ namespace Doctor
             RoomService roomService = new RoomService(RoomRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
 
-            ExamController = new ExamController(doctorService);
+            ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);

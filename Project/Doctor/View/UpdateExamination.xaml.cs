@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using HospitalMain.Enums;
 
 namespace Doctor.View
 {
@@ -70,7 +71,7 @@ namespace Doctor.View
             ComboBoxPacijent.Text = selectedItem.Patient.Name;
             ComboBoxSoba.Text = selectedItem.ExamRoom.Id;
             DUR.Text = selectedItem.Duration.ToString();
-            TIP.Text = selectedItem.Type;
+            TIP.Text = selectedItem.EType.ToString();
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
             timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
 
@@ -95,18 +96,18 @@ namespace Doctor.View
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.Text;
-            Room r = new Room(roomId, 3, 3, true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
+            Room room = new Room(roomId, 3, 3, true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
 
 
             string patientName = ComboBoxPacijent.Text;
             Guest guest = new Guest("246");
-            Patient p = new Patient(guest.ID,"12345678", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
+            Patient p = new Patient();
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
+            Examination newExam = new Examination(room, dt, "ID5", duration, ExaminationTypeEnum.Surgery, p, doctor);
             _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
             _examRepo.SaveExamination();
             ExaminationSchedule examinationSchedule = new ExaminationSchedule();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Secretary"
         mc:Ignorable="d"
-        Title="CRUDAccountOptions" Height="550" Width="800" Closed="Window_Closed">
+        Title="CRUDAccountOptions" Height="550" Width="1000" Closed="Window_Closed">
 
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
@@ -14,20 +14,26 @@
             <Button x:Name="removeAccBtn" Margin="50,10,340,10" Width="auto" Click="removeAccBtn_Click">Remove account</Button>
         </DockPanel>
 
-        <DataGrid x:Name="dataGridPatients" DockPanel.Dock="Top" ItemsSource="{Binding patients, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" Height="310" Width="700" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGridPatients" DockPanel.Dock="Top" ItemsSource="{Binding patients, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" Height="310" Width="900" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ID, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="UCIN" Width="auto" Binding="{Binding UCIN, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Surname" Width="auto" Binding="{Binding Surname, UpdateSourceTrigger=PropertyChanged}" />
-                <DataGridTextColumn Header="DoB" Width="*" Binding="{Binding DoB, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="DoB" Width="auto" Binding="{Binding DoB, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Phone number" Width="*" Binding="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Mail adress" Width="*" Binding="{Binding Mail, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Adress" Width="*" Binding="{Binding Adress, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Gender" Width="auto" Binding="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
 
         <Grid DockPanel.Dock="Bottom" VerticalAlignment="Bottom"  DataContext="{Binding ElementName=dataGridPatients,Path=SelectedItem}" Margin="10">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -40,15 +46,24 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
-            <Label x:Name="labelName" Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">Name:</Label>
-            <Label x:Name="labelSurname" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10">Surname:</Label>
-            <Label x:Name="labelUCIN" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10">UCIN:</Label>
-            <Label x:Name="labelDoB" Grid.Column="0" Grid.Row="3">Date of Birth:</Label>
-
+            <Label x:Name="labelName" Grid.Column="0" Grid.Row="0" Margin="0,0,0,10">Name :</Label>
+            <Label x:Name="labelSurname" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10">Surname :</Label>
+            <Label x:Name="labelUCIN" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10">UCIN :</Label>
+            <Label x:Name="labelDoB" Grid.Column="0" Grid.Row="3">Date of Birth :</Label>
+            <Label x:Name="labelPhoneNum" Grid.Column="2" Grid.Row="0" Margin="20,0,0,0" >Phone number :</Label>
+            <Label x:Name="labelMail" Grid.Column="2" Grid.Row="1" Margin="20,0,0,0" >Mail adress :</Label>
+            <Label x:Name="labelAdress" Grid.Column="2" Grid.Row="2" Margin="20,0,0,0" >Adress :</Label>
+            <Label x:Name="labelGender" Grid.Column="2" Grid.Row="3" Margin="20,0,0,0" >Gender :</Label>
+            
             <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name, Mode=OneWay}"/>
             <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname, Mode=OneWay}"/>
             <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding UCIN, Mode=OneWay}"/>
             <TextBox x:Name="textDoB" Grid.Column="1" Grid.Row="3" Text="{Binding DoB, Mode=OneWay}"/>
+            <TextBox x:Name="textPhoneNum" Grid.Column="3" Grid.Row="0" Margin="0,0,0,10" Text="{Binding PhoneNumber, Mode=OneWay}"/>
+            <TextBox x:Name="textMail" Grid.Column="3" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Mail, Mode=OneWay}"/>
+            <TextBox x:Name="textAdress" Grid.Column="3" Grid.Row="2" Margin="0,0,0,10" Text="{Binding Adress, Mode=OneWay}"/>
+            <TextBox x:Name="textGender" Grid.Column="3" Grid.Row="3" Text="{Binding Gender, Mode=OneWay}"/>
+            
 
         </Grid>
 

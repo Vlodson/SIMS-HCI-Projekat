@@ -38,6 +38,16 @@ namespace Service
              _examinationRepo.DeleteExamination(examination);
         }
 
+        public void SetExam(string examID, Examination examination)
+        {
+            _examinationRepo.SetExamination(examID, examination);
+        }
+
+        public void GetExam(string examID)
+        {
+            _examinationRepo.GetExamination(examID);
+        }
+
         public void EditExam(String examId, DateTime newDate)
         {
             _examinationRepo.EditExamination(examId, newDate);

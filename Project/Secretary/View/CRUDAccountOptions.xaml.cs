@@ -5,6 +5,7 @@ using Model;
 using System.Collections.ObjectModel;
 using Repository;
 using System.IO;
+using HospitalMain.Enums;
 
 namespace Secretary
 {
@@ -50,9 +51,14 @@ namespace Secretary
             string surname = textSurname.Text;
             string UCIN = textUCIN.Text;
             DateTime dob = Convert.ToDateTime(textDoB.Text);
+            string mail = textMail.Text;
+            string adress = textAdress.Text;
+            string phoneNum = textPhoneNum.Text;
+            string genderText = textGender.Text;
+            Enum.TryParse(genderText, out Gender gender);
             id++;
 
-            patientController.CreatePatient(id.ToString(), UCIN, name, surname, dob, new ObservableCollection<Examination>());
+            patientController.CreatePatient(id.ToString(), UCIN, name, surname, phoneNum, mail, adress, gender, dob, new ObservableCollection<Examination>());
 
         }
 
@@ -68,8 +74,13 @@ namespace Secretary
                 patient.Surname = textSurname.Text;
                 patient.UCIN = textUCIN.Text;
                 patient.DoB = Convert.ToDateTime(textDoB.Text);
+                patient.Mail = textMail.Text;
+                patient.Adress = textAdress.Text;
+                patient.PhoneNumber = textPhoneNum.Text;
+                Enum.TryParse(textGender.Text, out Gender gender);
+                patient.Gender = gender;
 
-                patientController.EditPatient(id.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.DoB, patient.Examinations);
+                patientController.EditPatient(id.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.PhoneNumber, patient.Mail, patient.Adress, patient.Gender, patient.DoB, patient.Examinations);
             }
 
             dataGridPatients.UnselectAll();

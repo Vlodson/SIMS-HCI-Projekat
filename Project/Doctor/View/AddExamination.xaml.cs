@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Enums;
 using Model;
 using Repository;
 using System;
@@ -78,27 +79,29 @@ namespace Doctor.View
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
         {
-            //Model.Doctor doctor = _doctorController.GetDoctor("IDDOC");
+            ////Model.Doctor doctor = _doctorController.GetDoctor("IDDOC");
             Model.Doctor doctor = new Model.Doctor("IDDOC", "pera", "Peric", new DateTime(1980, 11, 11), DoctorType.specialistCheckup, new List<Examination>());
 
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            //Room r = _roomController.ReadRoom(roomId);
+            ////Room r = _roomController.ReadRoom(roomId);
             Room room = new Room(roomId, 5,4,true, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
             Guest guest = new Guest("246");
-            Patient p = new Patient(guest.ID, "010199992222", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
+            Patient p = new Patient("1", "a", "ime", "prezime", "123", "mail", "adresa", Gender.Male, new DateTime(), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(room, dt, "ID5", duration, type, p, doctor);
+            Examination newExam = new Examination(room, dt, (new Random()).Next(10000).ToString(), duration, ExaminationTypeEnum.OrdinaryExamination, doctor);
+
             _examController.DoctorCreateExam(newExam);
             _examinationRepo.SaveExamination();
+
             ExaminationSchedule examinationSchedule = new ExaminationSchedule();
             examinationSchedule.Show();
             this.Close();
