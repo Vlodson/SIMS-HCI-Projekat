@@ -10,6 +10,17 @@
 
     <Grid>
         <Button Content="Termini" Click="Button_Click" HorizontalAlignment="Left" Margin="82,318,0,0" VerticalAlignment="Top"/>
+        <Button HorizontalAlignment="Left" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+            <StackPanel>
+                <Image Source="/Images/sign-out-alt.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26">
+            <StackPanel>
+                <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
+
 
     </Grid>
 </Page>

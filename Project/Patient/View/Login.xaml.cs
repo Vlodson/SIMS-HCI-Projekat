@@ -27,7 +27,7 @@ namespace Patient.View
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Content = new ExaminationsList();
+            Window.GetWindow(this).Content = new PatientMenu();
         }
         private void ListExaminations_Click(object sender, RoutedEventArgs e)
         {

@@ -27,10 +27,21 @@ namespace Patient.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ExaminationsList examinationsList = new ExaminationsList();
-            
+            Window.GetWindow(this).Content = new ExaminationsList();
+            //ExaminationsList examinationsList = new ExaminationsList();
+
             //ListExaminations listExaminations = new ListExaminations();
             //listExaminations.Show();
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new Login();
+        }
+
+        private void Notifications_Click()
+        {
+
         }
     }
 }

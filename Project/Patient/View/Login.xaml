@@ -13,7 +13,7 @@
         <Label Content="Prijava" FontSize="40" HorizontalAlignment="Left" Margin="386,191,0,0" VerticalAlignment="Top"/>
         <Label Content="Email*" FontSize="18" HorizontalAlignment="Left" Margin="299,277,0,0" VerticalAlignment="Top"/>
         <Label Content="Šifra*" FontSize="18" HorizontalAlignment="Left" Margin="299,316,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="392,285,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="174"/>
+        <TextBox HorizontalAlignment="Left" Margin="392,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="174"/>
         <PasswordBox HorizontalAlignment="Left" Margin="392,324,0,0" VerticalAlignment="Top" Width="174"/>
         <Button Content="Prijavi se" Click="Menu_Click" HorizontalAlignment="Center" Margin="0,356,0,0" VerticalAlignment="Top" Width="108"/>
     </Grid>
