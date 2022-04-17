@@ -83,7 +83,9 @@ namespace Patient.View
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
-            if(selected != null)
+            selected = (Examination)dataGridExaminations.SelectedItem;
+
+            if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
                 {

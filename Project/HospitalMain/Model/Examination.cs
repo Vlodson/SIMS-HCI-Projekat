@@ -70,5 +70,9 @@ namespace Model
             this.Patient = patient;
             this.Doctor = doctor;
         }
+        public Examination()
+        {
+
+        }
     }
 }
