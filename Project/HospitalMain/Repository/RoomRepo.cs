@@ -1,9 +1,11 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 
 using Model;
+using Utility;
 
 namespace Repository
 {
@@ -87,11 +89,31 @@ namespace Repository
       
         public bool LoadRoom()
         {
+            using FileStream roomFileStream = File.OpenRead(dbPath);
+            using FileStream equipmentFileStream = File.OpenRead(GlobalPaths.EquipmentDBPath);
+
+            ObservableCollection<Equipment> equipmentCollection = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(equipmentFileStream);
+            List<RoomAnnotation> roomAnnotations = JsonSerializer.Deserialize<List<RoomAnnotation>>(roomFileStream);
+
+            foreach (RoomAnnotation roomAnnotation in roomAnnotations)
+                Rooms.Add(new Room(roomAnnotation));
+
+            foreach (Equipment equipment in equipmentCollection)
+                foreach (Room room in Rooms)
+                    if (room.Id.Equals(equipment.RoomId))
+                        room.Equipment.Add(equipment);
+
             return true;
         }
       
         public bool SaveRoom()
         {
+            List<RoomAnnotation> roomAnnotations = new List<RoomAnnotation>();
+            foreach (Room room in Rooms)
+                roomAnnotations.Add(new RoomAnnotation(room));
+
+            string jsonString = JsonSerializer.Serialize(roomAnnotations);
+            File.WriteAllText(dbPath, jsonString);
             return true;
         }
       
