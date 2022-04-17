@@ -30,12 +30,22 @@ namespace Service
 
         public void CreateExam(Examination examination)
         {
-            _examinationRepo.SetExamination(examination);
+            _examinationRepo.NewExamination(examination);
         }
 
         public void RemoveExam(Examination examination)
         {
              _examinationRepo.DeleteExamination(examination);
+        }
+
+        public void SetExam(string examID, Examination examination)
+        {
+            _examinationRepo.SetExamination(examID, examination);
+        }
+
+        public void GetExam(string examID)
+        {
+            _examinationRepo.GetExamination(examID);
         }
 
         public void EditExam(String examId, DateTime newDate)

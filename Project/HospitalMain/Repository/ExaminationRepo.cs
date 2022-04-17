@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
+using HospitalMain.Enums;
 
 namespace Repository
 {
@@ -12,13 +13,13 @@ namespace Repository
     {
         public String dbPath { get; set; }
         //lista pregleda
-        public ObservableCollection<Examination> examinationList = new ObservableCollection<Examination>();
+        public ObservableCollection<Examination> examinationList;
 
 
         public ExaminationRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            
+            this.examinationList = new ObservableCollection<Examination>();
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -44,24 +45,61 @@ namespace Repository
         }
         public bool NewExamination(Examination examination)
         {
-            //examinationList.Add(examination);
+            foreach(Examination exam in examinationList)
+            {
+                if(exam.Id == examination.Id)
+                {
+                    return false;
+                }
+            }
+
+            examinationList.Add(examination);
             return true;
         }
 
         public Examination GetExamination(String examId)
         {
-            throw new NotImplementedException();
+            foreach(Examination examination in examinationList)
+            {
+                if(examination.Id == examId)
+                {
+                    return (examination);
+                }
+            }
+
+            return (null);
         }
 
-        public void SetExamination(Examination examination)
+        public void SetExamination(string examID, Examination examination)
         {
-            examinationList.Add(examination);
+            
+            foreach(Examination exam in examinationList)
+            {
+                if (exam.Id == examID)
+                {
+                    exam.Id = examination.Id;
+                    exam.ExamRoom = examination.ExamRoom;
+                    exam.Date = examination.Date;
+                    exam.Duration = examination.Duration;
+                    exam.Doctor = examination.Doctor;
+                    exam.Patient = examination.Patient;
+                    exam.EType = examination.EType;
+                    break;
+                }
+            }
 
         }
 
         public void DeleteExamination(Examination examination)
         {
-            examinationList.Remove(examination);
+            foreach(Examination exam in examinationList)
+            {
+                if(exam.Id == examination.Id)
+                {
+                    examinationList.Remove(examination);
+                    break;
+                }
+            }
 
         }
 
@@ -145,7 +183,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
+                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
                 }
                 
             }
@@ -184,7 +222,7 @@ namespace Repository
                         }
                         if (free)
                         {
-                            examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doctor));
+                            examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
                         }
 
                     }
@@ -211,7 +249,7 @@ namespace Repository
                             }
                             if (free)
                             {
-                                examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), doc));
+                                examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doc));
                             }
 
                         }
@@ -260,7 +298,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, "pregled", new Patient(), examination.Doctor));
+                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), examination.Doctor));
                 }
 
             }

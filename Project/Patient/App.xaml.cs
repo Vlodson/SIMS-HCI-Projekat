@@ -43,7 +43,7 @@ namespace Patient
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
             DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
 
-            ExamController = new ExamController(patientService);
+            ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService, patientAccountService);
         }
