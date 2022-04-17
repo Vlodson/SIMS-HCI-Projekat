@@ -24,9 +24,9 @@ namespace Admin
             var roomService = new RoomService(roomRepo);
             roomController = new RoomController(roomService);
 
-            var EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
-            var EquipmentService = new EquipmentService(EquipmentRepo);
-            equipmentController = new EquipmentController(EquipmentService);
+            var equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
+            var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
+            equipmentController = new EquipmentController(equipmentService);
         }
 
     }

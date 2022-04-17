@@ -57,6 +57,7 @@ namespace Admin.View
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
         {
+            // since TableGrid is shared, you need to clear it otherwise it will get more and more columns every time you press the buttons
             TableGrid.Columns.Clear();
 
             // create data grid programmatically
