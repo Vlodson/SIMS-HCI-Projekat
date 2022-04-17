@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 using Model;
 
@@ -60,11 +62,15 @@ namespace Repository
 
         public bool LoadEquipment()
         {
+            using FileStream fileStream = File.OpenRead(dbPath);
+            this.Equipment = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(fileStream);
             return true;
         }
 
         public bool SaveEquipment()
         {
+            string jsonString = JsonSerializer.Serialize(this.Equipment);
+            File.WriteAllText(dbPath, jsonString);
             return true;
         }
     }

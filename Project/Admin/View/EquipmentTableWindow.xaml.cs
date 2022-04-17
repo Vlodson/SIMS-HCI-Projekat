@@ -26,24 +26,10 @@ namespace Admin.View
     public partial class EquipmentTableWindow : Window
     {
 
-        private RoomController _roomController;
-        
-        public class EquipmentTableView
-        {
-            public String ID { get; set; }
-            public String RoomID { get; set; }
-            public EquipmentTypeEnum Type { get; set; }
-
-            public EquipmentTableView(String id, String roomId, EquipmentTypeEnum type)
-            {
-                ID = id;
-                RoomID = roomId;
-                Type = type;
-            }
-        }
+        private EquipmentController _equipmentController;
         
         // the name will likely change to tableview and for each button press it will do (1)
-        public ObservableCollection<EquipmentTableView> EquipmentPerRoomList { get; set; }
+        public ObservableCollection<Equipment> EquipmentPerRoomList { get; set; }
 
         public EquipmentTableWindow()
         {
@@ -51,17 +37,15 @@ namespace Admin.View
             this.DataContext = this;
 
             var app = Application.Current as App;
-            _roomController = app.roomController;
+            _equipmentController = app.equipmentController;
 
-            if (File.Exists(GlobalPaths.RoomsDBPath))
-                _roomController.LoadRoom();
+            if (File.Exists(GlobalPaths.EquipmentDBPath))
+                _equipmentController.LoadEquipment();
 
             // this is (1), since it doesnt do crud stuff on it directly just change reference on view button row press
             // and add new or something like that
-            EquipmentPerRoomList = new ObservableCollection<EquipmentTableView>();
-            foreach (Room room in _roomController.ReadAll())
-                foreach (Equipment eq in room.Equipment)
-                    EquipmentPerRoomList.Add(new EquipmentTableView(eq.Id, room.Id, eq.Type));
+            EquipmentPerRoomList = _equipmentController.ReadAll();
+            
         }
     }
 }

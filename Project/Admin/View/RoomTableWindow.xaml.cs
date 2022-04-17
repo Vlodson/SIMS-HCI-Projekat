@@ -29,6 +29,7 @@ namespace Admin.View
         private int id = 0;
 
         private RoomController _room_controller;
+        private EquipmentController _equipmentController;
 
         public ObservableCollection<Room> RoomsList { get; set; }
 
@@ -39,6 +40,11 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _room_controller = app.roomController;
+            _equipmentController = app.equipmentController;
+
+            // has to go before room loading
+            if (File.Exists(GlobalPaths.EquipmentDBPath))
+                _equipmentController.LoadEquipment();
 
             if (File.Exists(GlobalPaths.RoomsDBPath))
                 _room_controller.LoadRoom();
@@ -72,8 +78,32 @@ namespace Admin.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            _equipmentController.SaveEquipment();
             _room_controller.SaveRoom();
         }
 
+        private void addEquipmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Room r = (Room)roomDataGrid.SelectedItem;
+            if(r != null)
+            {
+                _equipmentController.CreateEquipment("e" + id.ToString(), r.Id, (EquipmentTypeEnum)(id % 10));
+                _room_controller.AddEquipment("0d", new Equipment("e" + id.ToString(), r.Id, (EquipmentTypeEnum)(id % 10)));
+                id++;
+            }
+            
+
+        }
+
+        private void removeEquipmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Room r = (Room)roomDataGrid.SelectedItem;
+            if(r != null)
+            {
+                _equipmentController.RemoveEquipment(r.Equipment[0].Id);
+                _room_controller.RemoveEquipment(r.Id, r.Equipment[0].Id);
+            }
+
+        }
     }
 }

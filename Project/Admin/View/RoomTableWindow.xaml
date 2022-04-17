@@ -16,11 +16,13 @@
                 <DataGridTextColumn Header="RoomNb" Binding="{Binding RoomNb}" />
                 <DataGridTextColumn Header="Occupancy" Binding="{Binding Occupancy}" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
-            </DataGrid.Columns>    
+            </DataGrid.Columns>
         </DataGrid>
-        
+
         <Button x:Name="addRoomBtn" Content="Add Room" Click="addRoomBtn_Click" Width="100" Height="30" HorizontalAlignment="Left" Margin="10,0,0,0"/>
         <Button x:Name="editRoomBtn" Content="Edit Room" Click="editRoomBtn_Click" Width="100" Height="30" HorizontalAlignment="Right" Margin="0,0,10,0" />
         <Button x:Name="removeRoomBtn" Content="Remove Room" Click="removeRoomBtn_Click" Width="150" Height="30" HorizontalAlignment="Center" />
+        <Button x:Name="addEquipmentBtn" Content="Add Equipment"  HorizontalAlignment="Left" Margin="10,411,0,0" VerticalAlignment="Top" Width="200" Click="addEquipmentBtn_Click"/>
+        <Button x:Name="removeEquipmentBtn" Content="Remove Equipment"  HorizontalAlignment="Left" Margin="215,411,0,0" VerticalAlignment="Top" Width="205" Click="removeEquipmentBtn_Click"/>
     </Grid>
 </Window>

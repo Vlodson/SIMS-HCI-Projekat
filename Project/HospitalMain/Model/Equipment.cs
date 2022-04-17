@@ -15,6 +15,7 @@ namespace Model
         }
 
         private String _id;
+        private String _roomId;
         private EquipmentTypeEnum _type;
 
         public String Id
@@ -26,6 +27,19 @@ namespace Model
                 {
                     _id = value;
                     OnPropertyChanged("Id");
+                }
+            }
+        }
+
+        public String RoomId
+        {
+            get { return _roomId; }
+            set
+            {
+                if(_roomId != value)
+                {
+                    _roomId = value;
+                    OnPropertyChanged("RoomId");
                 }
             }
         }
@@ -44,14 +58,16 @@ namespace Model
         }
 
         public Equipment() { }
-        public Equipment(String id, EquipmentTypeEnum type)
+        public Equipment(String id, String roomId, EquipmentTypeEnum type)
         {
             Id = id;
+            RoomId = roomId;
             Type = type;
         }
         public Equipment(Equipment e)
         {
             Id = e.Id;
+            RoomId = e.RoomId;
             Type = e.Type;
         }
    }
