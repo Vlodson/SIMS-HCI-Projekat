@@ -90,5 +90,10 @@ namespace Patient.View
         {
             _examinationRepo.SaveExamination();
         }
+
+        private void MenuClick(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new PatientMenu();
+        }
     }
 }
