@@ -90,13 +90,15 @@ namespace Repository
         public bool LoadRoom()
         {
             using FileStream roomFileStream = File.OpenRead(dbPath);
-            using FileStream equipmentFileStream = File.OpenRead(GlobalPaths.EquipmentDBPath);
 
-            ObservableCollection<Equipment> equipmentCollection = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(equipmentFileStream);
             List<RoomAnnotation> roomAnnotations = JsonSerializer.Deserialize<List<RoomAnnotation>>(roomFileStream);
 
             foreach (RoomAnnotation roomAnnotation in roomAnnotations)
                 Rooms.Add(new Room(roomAnnotation));
+
+            
+            using FileStream equipmentFileStream = File.OpenRead(GlobalPaths.EquipmentDBPath);
+            ObservableCollection<Equipment> equipmentCollection = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(equipmentFileStream);
 
             foreach (Equipment equipment in equipmentCollection)
                 foreach (Room room in Rooms)
