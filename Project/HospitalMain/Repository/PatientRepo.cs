@@ -74,7 +74,7 @@ namespace Repository
       {
          for (int i = 0; i < patients.Count; i++)
             {
-                if (patients[i].ID == patientId)
+                if (patients[i].ID.Equals(patientId))
                 {
                     patients[i].ID = newPatient.ID;
                     patients[i].UCIN = newPatient.UCIN;
@@ -95,7 +95,7 @@ namespace Repository
       {
          for (int i = 0; i < patients.Count; i++)
             {
-                if (patients[i].ID == patientId)
+                if (patients[i].ID.Equals(patientId))
                 {
                     patients.RemoveAt(i);
                     return true;

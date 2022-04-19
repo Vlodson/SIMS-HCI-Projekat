@@ -19,14 +19,13 @@ namespace Service
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, ObservableCollection<Examination> examinations)
       {
             Guest guest = new Guest(id);
-            patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, examinations));
-            return true;
+            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, examinations));
+            
       }
       
       public bool RemovePatient(String patientId)
       {
-            patientRepo.DeletePatient(patientId);
-            return true;
+            return patientRepo.DeletePatient(patientId);
       }
       
       public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, ObservableCollection<Examination> examinations)
@@ -49,8 +48,7 @@ namespace Service
       {
             Guest guest = new Guest("guestID");
             Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, new ObservableCollection<Examination>());
-            patientRepo.NewPatient(patient);
-            return true;
+            return patientRepo.NewPatient(patient);
       }
    
    }

@@ -27,14 +27,12 @@ namespace Controller
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, ObservableCollection<Examination> examinations)
       {
-            patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, examinations);
-            return true;
+            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, examinations);
       }
       
       public bool RemovePatient(String patientId)
       {
-            patientAccService.RemovePatient(patientId);
-            return true;
+            return patientAccService.RemovePatient(patientId);
       }
       
       public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, ObservableCollection<Examination> examinations)
@@ -54,8 +52,7 @@ namespace Controller
       
       public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB)
       {
-            patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB);
-            return true;
+            return patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB);
       }
       
       public System.Collections.ArrayList patientAccountService;
