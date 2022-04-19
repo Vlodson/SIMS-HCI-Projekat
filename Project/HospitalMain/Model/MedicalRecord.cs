@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using HospitalMain.Enums;
 using System.Collections.ObjectModel;
+using HospitalMain.Model;
 
 namespace Model
 {
@@ -34,21 +35,27 @@ namespace Model
 
         private Doctor doctor;
         private String bloodType;
+        private ObservableCollection<Report> reports;
         private ObservableCollection<String> allergens;
 
-        public MedicalRecord(String id, String ucin, String name, String surname, String phone, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<String> allergens)
+        public MedicalRecord ()
+        {
+
+        }
+        public MedicalRecord(string id, string ucin, string name, string surname, string phone_number, string mail, string adress, Gender gender, DateTime dob, Doctor doctor, string bloodType, ObservableCollection<Report> reports, ObservableCollection<string> allergens)
         {
             this.id = id;
             this.ucin = ucin;
             this.name = name;
             this.surname = surname;
-            this.phone_number = phone;
+            this.phone_number = phone_number;
             this.mail = mail;
             this.adress = adress;
             this.gender = gender;
             this.dob = dob;
             this.doctor = doctor;
             this.bloodType = bloodType;
+            this.reports = reports;
             this.allergens = allergens;
         }
 
@@ -191,6 +198,19 @@ namespace Model
                 {
                     doctor = value;
                     OnPropertyChanged("Doctor");
+                }
+            }
+        }
+
+        public ObservableCollection<Report> Reports
+        {
+            get { return reports; }
+            set
+            {
+                if (reports != value)
+                {
+                    reports = value;
+                    OnPropertyChanged("Reports");
                 }
             }
         }
