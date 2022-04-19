@@ -64,7 +64,7 @@ namespace Doctor.View
             var app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
-            _patientController = app.PatientController;
+            _patientController = app.patientController;
             _roomController = app.RoomController;
             _examRepo = app.ExaminationRepo;
 

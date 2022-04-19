@@ -12,15 +12,21 @@ namespace Repository
 {
     public class ExaminationRepo
     {
-        public String dbPath { get; set; }
-        //lista pregleda
-        public ObservableCollection<Examination> examinationList;
+        public string dbPath { get; set; }
+        public ObservableCollection<Examination> examinationList { get; set; }
+        public ObservableCollection<Examination> endedExams { get; set; }
 
 
         public ExaminationRepo(string dbPath)
         {
             this.dbPath = dbPath;
             this.examinationList = new ObservableCollection<Examination>();
+            this.endedExams = new ObservableCollection<Examination>();
+
+            Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "p1", "d1");
+            Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "p11", "d11");
+            this.examinationList.Add(exam1);
+            this.examinationList.Add(exam2);
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -135,7 +141,6 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            //bilo je jedan
             foreach (Examination exam in examinationList)
             {
                 if (exam.PatientId.Equals(id)) examsForPatient.Add(exam);
@@ -323,6 +328,18 @@ namespace Repository
                 }
             }
             examinationList.Add(examination);
+        }
+
+        public ObservableCollection<Examination> ReadEndedExams()
+        {
+                foreach (Examination exam in this.examinationList)
+                {
+                    int res = DateTime.Compare(exam.Date, DateTime.Now);
+                    if (res < 0)
+                        endedExams.Add(exam);
+
+                }
+            return endedExams;
         }
 
 

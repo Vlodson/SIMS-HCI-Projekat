@@ -63,7 +63,7 @@ namespace Doctor.View
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
             _roomController = app.RoomController;
-            _patientController = app.PatientController;
+            _patientController = app.patientController;
             _examinationRepo = app.ExaminationRepo;
             /*
             foreach (var pom in _patientController.GetAll().ToList())

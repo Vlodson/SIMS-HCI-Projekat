@@ -38,10 +38,8 @@ namespace Model
                 examRoomId = value;
             }
         }
-        //public DateTime Date { get => date; set => date = value; }
         public string Id { get => id; set => id = value; }
         public int Duration { get => duration; set => duration = value; }
-        //public ExaminationType Type { get => type; set => type = value; }
         public String PatientId
         {
             get

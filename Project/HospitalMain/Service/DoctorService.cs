@@ -44,8 +44,6 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        //dodato
-
         public List<Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
@@ -70,6 +68,11 @@ namespace Service
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
             return _examinationRepo.ExaminationsForDoctor(id);
+        }
+
+        public ObservableCollection<Examination> ReadEndedExams()
+        {
+            return _examinationRepo.ReadEndedExams();
         }
 
     }
