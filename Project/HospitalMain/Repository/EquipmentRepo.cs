@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.Json;
 
 using Model;
+using HospitalMain.Enums;
 
 namespace Repository
 {
@@ -36,13 +37,14 @@ namespace Repository
             return null;
         }
 
-        public void SetEquipment(String equipmentId, Equipment newEquipment)
+        public void SetEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
         {
             for(int i = 0; i < Equipment.Count; i++)
             {
                 if (Equipment[i].Id.Equals(equipmentId))
                 {
-                    Equipment[i] = newEquipment;
+                    Equipment[i].RoomId = newRoomId;
+                    Equipment[i].Type = newType;
                     break;
                 }
             }

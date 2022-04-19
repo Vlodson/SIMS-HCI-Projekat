@@ -29,7 +29,6 @@ namespace Admin.View
         private EquipmentController _equipmentController;
         private RoomController _roomController;
 
-        // the name will likely change to tableview and for each button press it will do (1)
         public ObservableCollection<Equipment> EquipmentPerRoomList { get; set; }
         public ObservableCollection<Room> RoomsList { get; set; }
 
@@ -48,8 +47,16 @@ namespace Admin.View
             if(File.Exists(GlobalPaths.RoomsDBPath))
                 _roomController.LoadRoom();
 
-            // this is (1), since it doesnt do crud stuff on it directly just change reference on view button row press
-            // and add new or something like that
+
+            _roomController.CreateRoom("0", 1, 1, true, RoomTypeEnum.Patient_Room);
+            
+            _equipmentController.CreateEquipment("0", "0", EquipmentTypeEnum.Bed);
+            _roomController.AddEquipment("0", _equipmentController.ReadEquipment("0"));
+
+            _equipmentController.EditEquipment("0", "0", EquipmentTypeEnum.Dish);
+            MessageBox.Show(_roomController.ReadRoom("0").Equipment[0].Type.ToString());
+            
+            
             EquipmentPerRoomList = _equipmentController.ReadAll();
             RoomsList = _roomController.ReadAll();
             

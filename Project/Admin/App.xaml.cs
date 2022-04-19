@@ -20,12 +20,13 @@ namespace Admin
 
         public App()
         {
-            var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath);
-            var roomService = new RoomService(roomRepo);
-            roomController = new RoomController(roomService);
-
             var equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
+            var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
+            
+            var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
+            
+            roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
         }
 

@@ -36,8 +36,7 @@ namespace Service
 
         public void EditEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
         {
-            Equipment equipment = new Equipment(equipmentId, newRoomId, newType);
-            _equipmentRepo.SetEquipment(equipmentId, equipment);
+            _equipmentRepo.SetEquipment(equipmentId, newRoomId, newType);
         }
 
         public Equipment ReadEquipment(String equipmentId)
