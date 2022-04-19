@@ -31,7 +31,7 @@ namespace Doctor.View
 
         private void ButtonExaminations(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new EndedExaminations();
         }
 
         private void ButtonRequests(object sender, RoutedEventArgs e)
@@ -41,7 +41,7 @@ namespace Doctor.View
 
         private void ButtonPatients(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new Patients();
         }
 
         private void ButtonNotifications(object sender, RoutedEventArgs e)

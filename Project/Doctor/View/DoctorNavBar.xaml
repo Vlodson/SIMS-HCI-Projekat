@@ -69,7 +69,7 @@
 
                     <Grid Grid.Row="1" Background="Azure">
 
-                        <Frame x:Name="Main" NavigationUIVisibility="Hidden" HorizontalAlignment="Right" Width="474"/>
+                        <Frame x:Name="Main" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" Width="452"/>
 
                     </Grid>
 

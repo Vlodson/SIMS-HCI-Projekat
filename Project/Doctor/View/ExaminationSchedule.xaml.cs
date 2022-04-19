@@ -35,12 +35,6 @@ namespace Doctor.View
 
         public static ObservableCollection<Examination> Examinations { get; set; }
 
-        //public static ObservableCollection<Examination> Examinations
-        //{
-        //    get;
-        //    set;
-        //}
-
         public ExaminationSchedule()
         {
             InitializeComponent();

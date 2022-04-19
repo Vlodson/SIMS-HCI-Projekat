@@ -63,7 +63,10 @@ namespace Controller
             _patientService.SetExam(examID, examination);
         }
 
-        //public System.Collections.ArrayList doctorService;
+        public ObservableCollection<Examination> ReadEndedExams()
+        {
+            return _doctorService.ReadEndedExams();
+        }
 
 
         /*
