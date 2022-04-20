@@ -44,7 +44,7 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public List<Doctor> GetDoctors()
+        public ObservableCollection<Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
         }
@@ -56,7 +56,7 @@ namespace Service
 
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
-            List<Doctor> doctors = _doctorRepo.GetAllDoctors();
+            ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
         }
 

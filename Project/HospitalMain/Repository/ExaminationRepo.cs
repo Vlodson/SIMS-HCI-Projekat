@@ -152,7 +152,7 @@ namespace Repository
         //public DoctorService doctorService;
 
 
-        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, List<Doctor> doctors)
+        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
