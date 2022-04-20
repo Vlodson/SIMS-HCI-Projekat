@@ -18,8 +18,8 @@
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Lekar" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
-        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="110,75,0,0" VerticalAlignment="Top" Width="150">
+        <Label Content="Lekar*" HorizontalAlignment="Left" Margin="13,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
+        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding DoctorsObs}" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top" Width="150">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -28,11 +28,11 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="141,239,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="185,260,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
-        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,190,0,0" VerticalAlignment="Top"/>
-        <Label Content="Od" HorizontalAlignment="Left" Margin="13,114,0,0" VerticalAlignment="Top"/>
-        <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,114,0,0" VerticalAlignment="Top" Width="150">
+        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top"/>
+        <Label Content="Od" HorizontalAlignment="Left" Margin="14,149,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,150,0,0" VerticalAlignment="Top" Width="150">
             <DatePicker.SelectedDate>
                 <Binding Path="StartDate" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -57,8 +57,8 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <Label Content="Do" HorizontalAlignment="Left" Margin="13,153,0,0" VerticalAlignment="Top"/>
-        <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,155,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.463,1.21">
+        <Label Content="Do" HorizontalAlignment="Left" Margin="14,186,0,0" VerticalAlignment="Top"/>
+        <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,192,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.463,1.21">
             <DatePicker.SelectedDate>
                 <Binding Path="EndDate" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
@@ -85,8 +85,11 @@
         </DatePicker>
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
-        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,204,0,0" VerticalAlignment="Top" IsChecked="True"/>
-        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="170,205,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,235,0,0" VerticalAlignment="Top" IsChecked="True" RenderTransformOrigin="0.513,0.408"/>
+        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="173,235,0,0" VerticalAlignment="Top"/>
+        <Label Content="Odeljenje*" HorizontalAlignment="Left" Margin="13,75,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="DoctorTypeSelected" ItemsSource="{Binding DoctorTypes}"  HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="ChangeType"/>
+
 
 
     </Grid>

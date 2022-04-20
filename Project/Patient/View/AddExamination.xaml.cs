@@ -36,10 +36,12 @@ namespace Patient.View
         private ExamController _examController;
         private DoctorController _doctorController;
         private PatientController _patientController;
+        private RoomController _roomController;
         private ExaminationRepo _examinationRepo;
 
         public int id = 0;
-        private String doctorNameSurname;
+        
+        private List<String> doctorTypes;
 
         
         
@@ -77,6 +79,18 @@ namespace Patient.View
             }
         }
 
+        public List<String> DoctorTypes
+        {
+            get
+            {
+                return doctorTypes;
+            }
+            set
+            {
+                doctorTypes = value;
+                OnPropertyChanged("DoctorTypes");
+            }
+        }
         
         
 
@@ -103,12 +117,28 @@ namespace Patient.View
             _examController = app.ExamController;
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
+            _roomController = app.RoomController;
             _examinationRepo = app.ExaminationRepo;
 
-            DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
+            
+            DoctorsObs = new ObservableCollection<Doctor>();
+            doctorTypes = new List<string>();
             StartDate = DateTime.Now.AddDays(1);
             EndDate = DateTime.Now.AddDays(7);
+            List<Doctor> doctors = _doctorController.GetAll();
 
+            DoctorTypeSelected.SelectedIndex = 0;
+            foreach (Doctor doctor in doctors)
+            {
+                if(doctor.Type == Model.DoctorType.Pulmonology)
+                {
+                    DoctorsObs.Add(doctor);
+                }
+            }
+
+            doctorTypes.Add("Pulmologija");
+            doctorTypes.Add("Opšta praksa");
+            doctorTypes.Add("Kardiologija");
         }
 
         private IList<Doctor> FindAllDoctors()
@@ -123,9 +153,9 @@ namespace Patient.View
             {
                 this.DataContext = this;
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
-                //DateTime startDate = (DateTime)Start.SelectedDate;
+                
                 StartDate = (DateTime)Start.SelectedDate;
-                //DateTime endDate = (DateTime)End.SelectedDate;
+                
                 EndDate = (DateTime)End.SelectedDate;
 
                 bool priority = true; //ako je doktor onda je true, termin false
@@ -143,7 +173,7 @@ namespace Patient.View
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
                 }
-                //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                
                 ExamsAvailable.ItemsSource = listExaminations;
             }
             
@@ -158,27 +188,64 @@ namespace Patient.View
                 Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
                 DateTime dt = selectedExamination.Date;
                 id++;
-                //String idExam = "idExam" + id.ToString();
-<<<<<<< HEAD
-                Examination newExam = new Examination(new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room), dt, RandomString(5), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient, doctor);
-=======
-                Room r1 = new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
-                Examination newExam = new Examination(r1.Id, dt, RandomString(5), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
->>>>>>> 4cee4ae3c692b9c948d058c06accb897b183b6a5
+
+                Room getRoom = new Room();
+                foreach(Room room in _roomController.ReadAll())
+                {
+                    if (room.Occupancy == false)
+                    {
+                        getRoom = room;
+                        Console.WriteLine(room.Id);
+                        break;
+                    }
+                }
+                
+                //Room r1 = new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
+                Examination newExam = new Examination(getRoom.Id, dt, RandomString(5), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+
                 _examController.PatientCreateExam(newExam);
-                //_examController.ReadPatientExams("idPatient1").Add(newExam);
-                //MainWindow.Examinations.Add(newExam);
                 _examinationRepo.SaveExamination();
                 ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
                 foreach (Examination exam in examinations)
                 {
-                    //exam.DoctorType = _doctorController.GetDoctor(exam.DoctorId).Type;
                     exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
                 }
                 ExaminationsList.Examinations = examinations;
                 this.Close();
             }
 
+        }
+
+        private void ChangeType(object sender, SelectionChangedEventArgs e)
+        {
+            DoctorType selectedType = DoctorType.Pulmonology;
+            switch (DoctorTypeSelected.SelectedIndex)
+            {
+                case 0:
+                    selectedType = DoctorType.Pulmonology;
+                    DoctorTypeSelected.SelectedIndex = 0;
+                    break;
+                case 1:
+                    selectedType = DoctorType.specialistCheckup;
+                    DoctorTypeSelected.SelectedIndex = 1;
+                    break;
+                case 2:
+                    selectedType = DoctorType.Cardiology;
+                    DoctorTypeSelected.SelectedIndex = 2;
+                    break;
+            }
+
+            
+            List<Doctor> doctors = _doctorController.GetAll();
+            DoctorsObs = new ObservableCollection<Doctor>();
+            foreach (Doctor doctor in doctors)
+            {
+                if(doctor.Type == selectedType)
+                {
+                    DoctorsObs.Add(doctor);
+                }
+            }
+            DoctorCombo.ItemsSource = DoctorsObs;
         }
     }
 }

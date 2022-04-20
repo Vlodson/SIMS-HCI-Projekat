@@ -6,7 +6,7 @@ namespace Model
    {
       Pulmonology,
       specialistCheckup,
-      operation,
-      Cardiology
-   }
+      Cardiology,
+      operation
+    }
 }

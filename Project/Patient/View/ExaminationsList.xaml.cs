@@ -42,19 +42,18 @@ namespace Patient.View
             this.DataContext = this;
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
-            if (File.Exists(_examinationRepo.dbPath))
-                _examinationRepo.LoadExamination();
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
+            if (File.Exists(_examinationRepo.dbPath))
+                _examinationRepo.LoadExamination();
+            
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams("2");
             foreach(Examination exam in examinations)
             {
-                //exam.DoctorType = _doctorController.GetDoctor(exam.DoctorId).Type;
                 exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
             }
             Examinations = examinations;
-            //Examinations = _examinationController.ReadPatientExams("2");
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
