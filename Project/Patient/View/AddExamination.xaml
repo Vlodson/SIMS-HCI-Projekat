@@ -88,7 +88,7 @@
         <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center" IsChecked="True" RenderTransformOrigin="0.513,0.408"/>
         <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="178,0,0,0" VerticalAlignment="Center"/>
         <Label Content="Odeljenje*" HorizontalAlignment="Left" Margin="13,75,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150"/>
+        <ComboBox Name="DoctorTypeSelected" ItemsSource="{Binding DoctorTypes}"  HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="ChangeType"/>
 
 
 

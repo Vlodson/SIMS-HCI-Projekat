@@ -40,6 +40,7 @@ namespace Patient.View
 
         public int id = 0;
         private String doctorNameSurname;
+        private List<String> doctorTypes;
 
         
         
@@ -77,6 +78,18 @@ namespace Patient.View
             }
         }
 
+        public List<String> DoctorTypes
+        {
+            get
+            {
+                return doctorTypes;
+            }
+            set
+            {
+                doctorTypes = value;
+                OnPropertyChanged("DoctorTypes");
+            }
+        }
         
         
 
@@ -105,10 +118,25 @@ namespace Patient.View
             _patientController = app.PatientController;
             _examinationRepo = app.ExaminationRepo;
 
-            DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
+            //DoctorsObs = new ObservableCollection<Doctor>(FindAllDoctors());
+            DoctorsObs = new ObservableCollection<Doctor>();
+            doctorTypes = new List<string>();
             StartDate = DateTime.Now.AddDays(1);
             EndDate = DateTime.Now.AddDays(7);
+            List<Doctor> doctors = _doctorController.GetAll();
 
+            DoctorTypeSelected.SelectedIndex = 0;
+            foreach (Doctor doctor in doctors)
+            {
+                if(doctor.Type == Model.DoctorType.Pulmonology)
+                {
+                    DoctorsObs.Add(doctor);
+                }
+            }
+
+            doctorTypes.Add("Pulmologija");
+            doctorTypes.Add("Opšta praksa");
+            doctorTypes.Add("Kardiologija");
         }
 
         private IList<Doctor> FindAllDoctors()
@@ -179,6 +207,38 @@ namespace Patient.View
                 this.Close();
             }
 
+        }
+
+        private void ChangeType(object sender, SelectionChangedEventArgs e)
+        {
+            DoctorType selectedType = DoctorType.Pulmonology;
+            switch (DoctorTypeSelected.SelectedIndex)
+            {
+                case 0:
+                    selectedType = DoctorType.Pulmonology;
+                    DoctorTypeSelected.SelectedIndex = 0;
+                    break;
+                case 1:
+                    selectedType = DoctorType.specialistCheckup;
+                    DoctorTypeSelected.SelectedIndex = 1;
+                    break;
+                case 2:
+                    selectedType = DoctorType.Cardiology;
+                    DoctorTypeSelected.SelectedIndex = 2;
+                    break;
+            }
+
+            
+            List<Doctor> doctors = _doctorController.GetAll();
+            DoctorsObs = new ObservableCollection<Doctor>();
+            foreach (Doctor doctor in doctors)
+            {
+                if(doctor.Type == selectedType)
+                {
+                    DoctorsObs.Add(doctor);
+                }
+            }
+            DoctorCombo.ItemsSource = DoctorsObs;
         }
     }
 }
