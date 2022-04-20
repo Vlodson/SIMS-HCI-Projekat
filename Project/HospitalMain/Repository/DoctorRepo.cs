@@ -1,22 +1,24 @@
 ﻿using Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Repository
 {
     public class DoctorRepo
     {
-        private String dbPath;
-        private List<Doctor> listDoctor;
+        private string dbPath { get; set; }
+        private ObservableCollection<Doctor> doctorList { get; set; }
 
         public DoctorRepo(string dbPath, List<Doctor> listDoctor)
         {
             this.dbPath = dbPath;
-            //listDoctor = new List<Doctor>();
-            List<Doctor> doctors = new List<Doctor>();
+            this.doctorList = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -26,34 +28,37 @@ namespace Repository
             DateTime dtDoctor2 = DateTime.Now;
             Doctor doctor2 = new Doctor("idDoctor2", "nameDoctor2", "surnameDoctor2", dtDoctor2, DoctorType.Pulmonology, examinationsDoctor2);
 
-            doctors.Add(doctor1);
-            doctors.Add(doctor2);
-
-            this.listDoctor = doctors;
+            this.doctorList.Add(doctor1);
+            this.doctorList.Add(doctor2);
            
         }
         public DoctorRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            this.listDoctor = new List<Doctor>();
+            this.doctorList = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
-            Doctor doctor1 = new Doctor("111", "nameDoctor1", "surnameDoctor1", new DateTime(2000, 11, 1), DoctorType.Pulmonology, examinationsDoctor1);
-            Doctor doctor2 = new Doctor("222", "nameDoctor1", "surnameDoctor1", new DateTime(2000, 11, 1), DoctorType.Pulmonology, examinationsDoctor1);
-            this.listDoctor.Add(doctor1);
-            this.listDoctor.Add(doctor2);
+            DateTime dtDoctor1 = DateTime.Now;
+            Doctor doctor1 = new Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
+
+            List<Examination> examinationsDoctor2 = new List<Examination>();
+            DateTime dtDoctor2 = DateTime.Now;
+            Doctor doctor2 = new Doctor("idDoctor2", "nameDoctor2", "surnameDoctor2", dtDoctor2, DoctorType.Pulmonology, examinationsDoctor2);
+
+            this.doctorList.Add(doctor1);
+            this.doctorList.Add(doctor2);
 
         }
 
-        public List<Doctor> GetAllDoctors()
+        public ObservableCollection<Doctor> GetAllDoctors()
         {
             //foreach(Doctor doctor in listDoctor) Console.WriteLine(doctor.Name);
-            return listDoctor;
+            return doctorList;
         }
 
         public Doctor GetDoctor(string id)
         {
-            foreach(Doctor doctor in this.listDoctor)
+            foreach(Doctor doctor in this.doctorList)
             {
                 if (doctor.Id.Equals(id))
                 {
@@ -63,6 +68,24 @@ namespace Repository
             return null;
         }
 
-        
+        public bool LoadExamination()
+        {
+
+            using FileStream stream = File.OpenRead(dbPath);
+            this.doctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
+
+            return true;
+        }
+
+        public bool SaveExamination()
+        {
+            string jsonString = JsonSerializer.Serialize(doctorList);
+
+            File.WriteAllText(dbPath, jsonString);
+            return true;
+        }
+
+
+
     }
 }

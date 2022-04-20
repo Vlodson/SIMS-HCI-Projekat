@@ -2,6 +2,7 @@
 using Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Controller
             _doctorService = doctorService;
         }
 
-        public List<Doctor> GetAll()
+        public ObservableCollection<Doctor> GetAll()
         {
             return _doctorService.GetDoctors();
         }

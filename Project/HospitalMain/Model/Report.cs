@@ -23,17 +23,17 @@ namespace HospitalMain.Model
         private string examinationId; //jedan pregled se vezuje za tacno jedan izvjestaj i obrnuto
         private string description;
         private DateTime createDate;
-        private Patient patient;
-        private Doctor doctor;
+        private string patientId;
+        private string doctorId;
         private ObservableCollection<Therapy> therapy;
 
-        public Report(string examinationId, string description, DateTime createDate, Patient patient, Doctor doctor, ObservableCollection<Therapy> therapy)
+        public Report(string examinationId, string description, DateTime createDate, string patientId, string doctorId, ObservableCollection<Therapy> therapy)
         {
             this.examinationId = examinationId;
             this.description = description;
             this.createDate = createDate;
-            this.patient = patient;
-            this.doctor = doctor;
+            this.patientId = patientId;
+            this.doctorId = doctorId;
             this.therapy = therapy;
         }
 
@@ -76,28 +76,28 @@ namespace HospitalMain.Model
             }
         }
 
-        public Patient Patient
+        public string PatientId
         {
-            get { return patient; }
+            get { return patientId; }
             set
             {
-                if (patient != value)
+                if (patientId != value)
                 {
-                    patient = value;
-                    OnPropertyChanged("Patient");
+                    patientId = value;
+                    OnPropertyChanged("PatientId");
                 }
             }
         }
 
-        public Doctor Doctor
+        public string DoctorId
         {
-            get { return doctor; }
+            get { return doctorId; }
             set
             {
-                if (doctor != value)
+                if (doctorId != value)
                 {
-                    doctor = value;
-                    OnPropertyChanged("Doctor");
+                    doctorId = value;
+                    OnPropertyChanged("DoctorId");
                 }
             }
         }
