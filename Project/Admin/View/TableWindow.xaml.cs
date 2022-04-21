@@ -53,7 +53,8 @@ namespace Admin.View
             _equipmentController.CreateEquipment("0", "0", EquipmentTypeEnum.Bed);
             _roomController.AddEquipment("0", _equipmentController.ReadEquipment("0"));
 
-            _equipmentController.EditEquipment("0", "0", EquipmentTypeEnum.Dish);
+            //_equipmentController.EditEquipment("0", "0", EquipmentTypeEnum.Dish);
+            //_roomController.ReadRoom("0").Equipment[0].Type = EquipmentTypeEnum.Chair;
             MessageBox.Show(_roomController.ReadRoom("0").Equipment[0].Type.ToString());
             
             
