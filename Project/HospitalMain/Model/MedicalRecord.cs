@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using HospitalMain.Enums;
 using System.Collections.ObjectModel;
-using HospitalMain.Model;
 
 namespace Model
 {

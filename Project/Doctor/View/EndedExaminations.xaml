@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Foreground="Black" Margin="113,0,110,0" FontSize="24">ODABERI PREGLED</TextBlock>
-        <DataGrid x:Name="dataGridPatients" Grid.Row="1" ItemsSource="{Binding examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,0,56,-55" Grid.RowSpan="2" >
+        <DataGrid x:Name="dataGridExams" Grid.Row="1" ItemsSource="{Binding examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,0,56,-55" Grid.RowSpan="2" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Pacijent" Binding="{Binding PatientId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>

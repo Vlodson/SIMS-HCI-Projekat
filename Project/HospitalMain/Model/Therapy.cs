@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HospitalMain.Model
+namespace Model
 {
     public class Therapy: INotifyPropertyChanged
     {
@@ -18,30 +18,43 @@ namespace HospitalMain.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
-        private string id;
+        private string examId;
         private string medicine; //zamjeniti sa klasom Medicine(Lek) kad se implementira
         private int duration;
         private int perDay;
         private bool prescription; //da li se izdaje recept za ovaj lek ili ne
 
-        public Therapy(string id, string medicine, int duration, int perDay, bool prescription )
+        public Therapy(string examId, string medicine, int duration, int perDay, bool prescription )
         {
-            this.id = id;
+            this.examId = examId;
             this.medicine = medicine;
             this.duration = duration;
             this.perDay = perDay;
             this.prescription = prescription;
         }
 
-        public string Id
+        public bool Prescription
         {
-            get { return id; }
+            get { return prescription; }
             set
             {
-                if (id != value)
+                if (prescription != value)
                 {
-                    id = value;
-                    // OnPropertyChanged("Id");
+                    prescription = value;
+                    OnPropertyChanged("Prescription");
+                }
+            }
+        }
+
+        public string ExamId
+        {
+            get { return examId; }
+            set
+            {
+                if (examId != value)
+                {
+                    examId = value;
+                    // OnPropertyChanged("ExamId");
                 }
             }
         }
