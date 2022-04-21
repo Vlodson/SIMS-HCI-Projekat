@@ -14,10 +14,12 @@ namespace Service
     {
 
         private readonly EquipmentRepo _equipmentRepo;
+        private readonly RoomRepo _roomRepo;
 
-        public EquipmentService(EquipmentRepo equipmentRepo)
+        public EquipmentService(EquipmentRepo equipmentRepo, RoomRepo roomRepo)
         {
             _equipmentRepo = equipmentRepo;
+            _roomRepo = roomRepo;
         }
 
         public bool CreateEquipment(String equipmentId, String roomId, EquipmentTypeEnum type)
@@ -26,15 +28,15 @@ namespace Service
             return _equipmentRepo.NewEquipment(equipment);
         }
 
-        public bool RemoveEquipment(String equipmentId)
+        public bool RemoveEquipment(String equipmentId, String roomId)
         {
+            _roomRepo.RemoveEquipment(roomId, equipmentId);
             return _equipmentRepo.DeleteEquipment(equipmentId);
         }
 
         public void EditEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
         {
-            Equipment equipment = new Equipment(equipmentId, newRoomId, newType);
-            _equipmentRepo.SetEquipment(equipmentId, equipment);
+            _equipmentRepo.SetEquipment(equipmentId, newRoomId, newType);
         }
 
         public Equipment ReadEquipment(String equipmentId)

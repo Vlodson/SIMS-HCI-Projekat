@@ -15,6 +15,8 @@ namespace Model
         }
 
         private String _id;
+        // when rooms are parceled you need to change this otherwise its always the same as when constructed
+        // so for room parceling just "move" these by saying the room id is now storage room
         private String _roomId;
         private EquipmentTypeEnum _type;
 

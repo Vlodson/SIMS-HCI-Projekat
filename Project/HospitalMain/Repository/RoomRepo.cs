@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 
+using Repository;
+using HospitalMain.Enums;
 using Model;
 using Utility;
 
@@ -12,11 +14,13 @@ namespace Repository
    public class RoomRepo
    {
         public String dbPath { get; set; }
+        private EquipmentRepo _equipmentRepo;
         public ObservableCollection<Room> Rooms { get; set; }
       
-        public RoomRepo(string db_path)
+        public RoomRepo(string db_path, EquipmentRepo equipmentRepo)
         {
             this.dbPath = db_path;
+            this._equipmentRepo = equipmentRepo;
             this.Rooms = new ObservableCollection<Room>();
         }
       
@@ -36,13 +40,17 @@ namespace Repository
             return null;
         }
       
-        public void SetRoom(String roomId, Room newRoom)
+        public void SetRoom(String roomId, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
         {
             for(int i = 0; i < Rooms.Count; i++)
             {
                 if (Rooms[i].Id.Equals(roomId))
                 {
-                    Rooms[i] = newRoom;
+                    Rooms[i].Equipment = newEquipment;
+                    Rooms[i].Floor = newFloor;
+                    Rooms[i].RoomNb = newRoomNb;
+                    Rooms[i].Occupancy = newOccupancy;
+                    Rooms[i].Type = newType;
                     break;
                 }
             }
@@ -97,10 +105,7 @@ namespace Repository
                 Rooms.Add(new Room(roomAnnotation));
 
             
-            using FileStream equipmentFileStream = File.OpenRead(GlobalPaths.EquipmentDBPath);
-            ObservableCollection<Equipment> equipmentCollection = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(equipmentFileStream);
-
-            foreach (Equipment equipment in equipmentCollection)
+            foreach (Equipment equipment in _equipmentRepo.Equipment)
                 foreach (Room room in Rooms)
                     if (room.Id.Equals(equipment.RoomId))
                         room.Equipment.Add(equipment);

@@ -31,9 +31,7 @@ namespace Service
       
         public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
         {
-            Room room = new Room(id, newFloor, newRoomNb, newOccupancy, newType);
-            room.Equipment = newEquipment;
-            _repo.SetRoom(id, room);
+            _repo.SetRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
         }
       
         public Room ReadRoom(String roomId)

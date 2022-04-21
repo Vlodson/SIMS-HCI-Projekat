@@ -24,9 +24,9 @@ namespace Controller
         {
             return _equipmentService.CreateEquipment(equipmentId, roomId, type);
         }
-        public bool RemoveEquipment(String equipmentId)
+        public bool RemoveEquipment(String equipmentId, String roomId)
         {
-            return _equipmentService.RemoveEquipment(equipmentId);
+            return _equipmentService.RemoveEquipment(equipmentId, roomId);
         }
         public void EditEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
         {
