@@ -34,16 +34,13 @@
         </StackPanel>
 
         <TextBlock x:Name="titleTextBlock" Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="30">
-            <!--Choose form for room
-            <LineBreak />
-            101-->
         </TextBlock>
 
         <Button x:Name="transferEquipmentBtn" HorizontalAlignment="Center" Grid.Row="4" Grid.Column="1" Content="Schedule equipment transfer"
-                Width="300" />
+                Width="300" Click="transferEquipmentBtn_Click" />
         <Button x:Name="changeRoomTypeBtn" HorizontalAlignment="Center" Grid.Row="6" Grid.Column="1" Content="Change room type"
-                Width="300" />
+                Width="300" Click="changeRoomTypeBtn_Click" />
         <Button x:Name="renovateRoomBtn" HorizontalAlignment="Center" Grid.Row="8" Grid.Column="1" Content="Schedule room renovation"
-                Width="300" />
+                Width="300" Click="renovateRoomBtn_Click" />
     </Grid>
 </Window>
