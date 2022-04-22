@@ -57,9 +57,9 @@
             </StackPanel>
         </Grid>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+        <StackPanel x:Name="floorButtons" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Floor 1" />
+            <!--<Button Content="Floor 1" />-->
         </StackPanel>
     </Grid>
 </Window>

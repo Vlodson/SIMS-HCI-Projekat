@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 using Model;
 using Controller;
@@ -23,7 +24,12 @@ namespace Admin.View
     /// </summary>
     public partial class MainMenuWindow : Window
     {
-        ObservableCollection<Room> roomList;
+        // clear roomList
+        // check which button is pressed and then make roomList equal only those which are on the selceted floor with .Where(r => r.floor == pressed_floor)
+        // then clear the children of the stack panels
+        // then call create blueprint
+        public ObservableCollection<Room> roomList;
+        public ObservableCollection<Room> floorRoomList;
 
         public MainMenuWindow()
         {
@@ -37,21 +43,28 @@ namespace Admin.View
             this.DataContext = this;
 
             roomList = new ObservableCollection<Room>();
+            floorRoomList = new ObservableCollection<Room>();
             for(int i = 0; i < 20; i++)
             {
-                roomList.Add(new Room(i.ToString(), 1, i, false, RoomTypeEnum.Patient_Room));
+                _roomController.CreateRoom(i.ToString(), i%4+1, i, false, RoomTypeEnum.Patient_Room);
             }
+            roomList = _roomController.ReadAll();
 
+            makeFloorButtons();
+
+            // always show first floor when opening
+            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
         }
 
         private void makeBlueprint()
         {
-            int evenRoomNb = roomList.Where(r => r.RoomNb % 2 == 0).Count();
-            int oddRoomNb = roomList.Where(r => r.RoomNb % 2 == 1).Count();
-
-            foreach (Room r in roomList)
+            int evenRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 0).Count();
+            int oddRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 1).Count();
+            var s = "";
+            foreach (Room r in floorRoomList)
             {
+                s += r.Id;
                 Border room = new Border();
                 room.BorderBrush = Brushes.Black;
                 room.BorderThickness = new Thickness(1);
@@ -75,6 +88,32 @@ namespace Admin.View
                     room.Width = Hall.ActualWidth / oddRoomNb;
                     lowerRooms.Children.Add(room);
                 }
+            }
+
+        }
+
+        private void makeFloorButtons()
+        {
+            int floors = roomList.Max(r => r.Floor); // what a weird way to find maximum values, but also powerful
+            for(int i = 1; i < floors+1; i++)
+            {
+                Button floorBtn = new Button();
+                floorBtn.Content = "Floor " + i;
+                floorBtn.Click += (s, e) =>
+                {
+                    // clean what you currently have drawn
+                    upperRooms.Children.Clear();
+                    lowerRooms.Children.Clear();
+
+                    Button pressedFloorNb = (Button)s;
+                    int floorNb = int.Parse(Regex.Match(pressedFloorNb.Content.ToString(), @"\d+").Value);
+
+                    floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == floorNb));
+                    
+                    makeBlueprint();
+                };
+
+                floorButtons.Children.Add(floorBtn);
             }
         }
 
