@@ -10,7 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition x:Name="windowGridWidth" Width="*" />
             <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
@@ -27,7 +27,7 @@
             <Button Content="Main menu" />
         </StackPanel>
 
-        <Grid Grid.Row="2" Grid.Column="1">
+        <Grid x:Name="roomGrid" Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -47,7 +47,7 @@
             <!-- For these to work, you need a border which has a background, and has a MouseDown event listener 
             Then and only then can you have a text block inside -->
             <!-- This is also a template for a room -->
-            <Border x:Name="Hall" Grid.Row="2" Grid.Column="1" Height="30" BorderBrush="Black" BorderThickness="1" 
+            <Border x:Name="Hall" Grid.Row="2" Grid.Column="1" Height="30" Width="Auto" BorderBrush="Black" BorderThickness="1" 
                     Background="Transparent" MouseDown="Hall_MouseDown" >
                 <TextBlock Text="Hall" HorizontalAlignment="Center" />
             </Border>
