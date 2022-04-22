@@ -52,12 +52,32 @@ namespace Controller
             return _roomService.RemoveEquipment(roomId, equipmentId);
         }
 
+        public bool SetClipboardRoom(Room room)
+        {
+            return _roomService.SetClipboardRoom(room);
+        }
+
+        public Room GetClipboardRoom()
+        {
+            return _roomService.GetClipboardRoom();
+        }
+
+        public bool SetSelectedRoom(Room room)
+        {
+            return _roomService.SetSelectedRoom(room);
+        }
+
+        public Room GetSelectedRoom()
+        {
+            return _roomService.GetSelectedRoom();
+        }
+
         public bool LoadRoom()
         {
             return _roomService.LoadRoom();
         }
 
-      public bool SaveRoom()
+        public bool SaveRoom()
         {
             return _roomService.SaveRoom();
         }
