@@ -54,12 +54,32 @@ namespace Service
             return _repo.RemoveEquipment(roomId, equipmentId);
         }
    
-      public bool LoadRoom()
+        public bool SetClipboardRoom(Room room)
+        {
+            return _repo.SetClipboardRoom(room);
+        }
+
+        public Room GetClipboardRoom()
+        {
+            return _repo.GetClipboardRoom();
+        }
+        
+        public bool SetSelectedRoom(Room room)
+        {
+            return _repo.SetSelectedRoom(room);
+        }
+
+        public Room GetSelectedRoom()
+        {
+            return _repo.GetSelectedRoom();
+        }
+
+        public bool LoadRoom()
         {
             return _repo.LoadRoom();
         }
 
-      public bool SaveRoom()
+        public bool SaveRoom()
         {
             return _repo.SaveRoom();
         }

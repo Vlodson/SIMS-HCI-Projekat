@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using Model;
+using Controller;
+
 namespace Admin.View
 {
     /// <summary>
@@ -19,9 +22,19 @@ namespace Admin.View
     /// </summary>
     public partial class ChooseFormWindow : Window
     {
+        public Room selectedRoom { get; set; }
+
         public ChooseFormWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+
+            var app = Application.Current as App;
+            RoomController _roomController = app.roomController;
+
+            selectedRoom = _roomController.GetClipboardRoom();
+
+            titleTextBlock.Text = "Choose form for room\n" + selectedRoom.RoomNb;
         }
     }
 }

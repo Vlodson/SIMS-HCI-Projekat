@@ -1,4 +1,4 @@
-﻿<Window x:Class="Admin.View.MainMenuWindow"
+﻿<Window x:Class="Admin.View.HospitalLayoutSubmenuWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Admin.View"
         mc:Ignorable="d"
         FontSize="18"
-        Title="Window1" Height="430" Width="750">
+        Title="HospitalLayoutSubmenuWindow" Height="430" Width="750">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -24,7 +24,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Main menu" />
+            <Button Content="Back" />
         </StackPanel>
 
         <Grid x:Name="roomGrid" Grid.Row="2" Grid.Column="1">
@@ -41,22 +41,19 @@
             </Grid.RowDefinitions>
 
             <StackPanel x:Name="upperRooms" Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
-                
+
             </StackPanel>
 
-            <!-- For these to work, you need a border which has a background, and has a MouseDown event listener 
-            Then and only then can you have a text block inside -->
-            <!-- This is also a template for a room -->
             <Border x:Name="Hall" Grid.Row="2" Grid.Column="1" Height="30" Width="Auto" BorderBrush="Black" BorderThickness="1" 
                     Background="Transparent" >
                 <TextBlock Text="Hall" HorizontalAlignment="Center" />
             </Border>
 
             <StackPanel x:Name="lowerRooms" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                    
+
             </StackPanel>
         </Grid>
-        
+
         <StackPanel x:Name="floorButtons" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
         </StackPanel>
     </Grid>

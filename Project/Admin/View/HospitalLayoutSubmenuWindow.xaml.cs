@@ -20,24 +20,18 @@ using HospitalMain.Enums;
 namespace Admin.View
 {
     /// <summary>
-    /// Interaction logic for MainMenuWindow.xaml
+    /// Interaction logic for HospitalLayoutSubmenuWindow.xaml
     /// </summary>
-    public partial class MainMenuWindow : Window
+    public partial class HospitalLayoutSubmenuWindow : Window
     {
-        // clear roomList
-        // check which button is pressed and then make roomList equal only those which are on the selceted floor with .Where(r => r.floor == pressed_floor)
-        // then clear the children of the stack panels
-        // then call create blueprint
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
 
-        public MainMenuWindow()
+        public HospitalLayoutSubmenuWindow()
         {
             InitializeComponent();
-            // wpf is actually comically retarded, so i need to "show" the current window
-            // so it can calculate the auto widths and heights even though it fucking rendered them
-            this.Show(); 
+            this.Show();
 
             var app = Application.Current as App;
             _roomController = app.roomController;
@@ -45,13 +39,13 @@ namespace Admin.View
 
             roomList = new ObservableCollection<Room>();
             floorRoomList = new ObservableCollection<Room>();
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 int floor = 1;
                 if (i > 10)
                     floor = 2;
 
-                _roomController.CreateRoom(i.ToString(), floor, i%11 + 10*(floor-1), false, RoomTypeEnum.Patient_Room);
+                _roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, RoomTypeEnum.Patient_Room);
             }
             roomList = _roomController.ReadAll();
 
@@ -66,7 +60,6 @@ namespace Admin.View
         {
             int evenRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 0).Count();
             int oddRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 1).Count();
-            // similar to how you did the button onclick do the same with room click, also create a room_repo clipboard room
             foreach (Room r in floorRoomList)
             {
                 Border room = new Border();
@@ -75,14 +68,12 @@ namespace Admin.View
                 room.Background = Brushes.Transparent;
                 room.MouseDown += (s, e) =>
                 {
-                    _roomController.SetClipboardRoom(r);
-                    ChooseFormWindow formWindow = new ChooseFormWindow();
-                    formWindow.Show();
+                    _roomController.SetSelectedRoom(r);
                 };
 
                 TextBlock roomId = new TextBlock();
                 roomId.Text = r.RoomNb + " " + r.Type.ToString();
-                roomId.Margin = new Thickness(5,0,5,0);
+                roomId.Margin = new Thickness(5, 0, 5, 0);
                 roomId.TextWrapping = TextWrapping.Wrap;
                 roomId.HorizontalAlignment = HorizontalAlignment.Center;
                 roomId.VerticalAlignment = VerticalAlignment.Center;
@@ -104,8 +95,8 @@ namespace Admin.View
 
         private void makeFloorButtons()
         {
-            int floors = roomList.Max(r => r.Floor); // what a weird way to find maximum values, but also powerful
-            for(int i = 1; i < floors+1; i++)
+            int floors = roomList.Max(r => r.Floor);
+            for (int i = 1; i < floors + 1; i++)
             {
                 Button floorBtn = new Button();
                 floorBtn.Content = "Floor " + i;
@@ -115,12 +106,11 @@ namespace Admin.View
                     upperRooms.Children.Clear();
                     lowerRooms.Children.Clear();
 
-                    // parse which floor is pressed, because it didnt work with i :)
                     Button pressedFloorNb = (Button)s;
                     int floorNb = int.Parse(Regex.Match(pressedFloorNb.Content.ToString(), @"\d+").Value);
 
                     floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == floorNb));
-                    
+
                     makeBlueprint();
                 };
 
