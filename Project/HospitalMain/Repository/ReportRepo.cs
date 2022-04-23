@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HospitalMain.Repository
+namespace Repository
 {
     public class ReportRepo
     {
@@ -28,8 +28,10 @@ namespace HospitalMain.Repository
             ts.Add(therapy2);
             ts.Add(therapy3);
 
-            Report report = new Report("examId", "Neki opis", new DateTime(), "p1", "d1", ts);
+            /*Report report = new Report("examId", "Neki opis", new DateTime(), "1", "d1", ts);
+            Report report1 = new Report("examId1", "Neki opis1", new DateTime(), "1", "d1", ts);
             reports.Add(report);
+            reports.Add(report1);*/
         }
 
         public bool LoadReport()
@@ -44,6 +46,22 @@ namespace HospitalMain.Repository
             string jsonString = JsonSerializer.Serialize(reports);
             File.WriteAllText(dbPath, jsonString);
             return true;
+        }
+
+        public void NewReport(Report report)
+        {
+            reports.Add(report);
+        }
+
+        public ObservableCollection<Report> findByPatientId(string id)
+        {
+            ObservableCollection<Report> reportsForPatient = new ObservableCollection<Report>();
+            foreach (Report report in reports)
+            {
+                if (report.PatientId.Equals(id))
+                    reportsForPatient.Add(report);
+            }
+            return reportsForPatient;
         }
     }
 }

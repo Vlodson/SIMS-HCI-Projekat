@@ -9,14 +9,14 @@ namespace Controller
     public class ExamController
     {
 
-        private readonly PatientService _patientService;
-        private readonly DoctorService _doctorService;
+        private PatientService _patientService;
+        private DoctorService _doctorService;
 
 
         public ExamController(PatientService patientService, DoctorService doctorService)
         {
-            _patientService = patientService;
-            _doctorService = doctorService;
+            this._patientService = patientService;
+            this._doctorService = doctorService;
         }
 
         public void PatientCreateExam(Examination examination)

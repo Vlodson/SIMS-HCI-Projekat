@@ -40,12 +40,12 @@ namespace Doctor.View
             this.DataContext = this;
 
             App app = Application.Current as App;
-            _examRepo = app.ExaminationRepo;
-            _examController = app.ExamController;
+            _examController = app.examController;
+            _examRepo = app.examRepo;
 
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
-            //examinations = _examRepo.GetAll();
+
             examinations = _examController.ReadEndedExams();
         }
 

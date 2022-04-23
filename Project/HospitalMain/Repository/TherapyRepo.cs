@@ -54,5 +54,10 @@ namespace Repository
             }
             return therapies;
         }
+
+        public void NewTherapy(Therapy therapy)
+        {
+            this.therapyList.Add(therapy);
+        }
     }
 }

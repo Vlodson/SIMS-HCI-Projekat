@@ -1,10 +1,10 @@
 ﻿using Controller;
+using HospitalMain.Enums;
 using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,59 +15,44 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using HospitalMain.Enums;
 
 namespace Doctor.View
 {
     /// <summary>
     /// Interaction logic for UpdateExamination.xaml
     /// </summary>
-    public partial class UpdateExamination : Window
+    public partial class UpdateExamination : Page
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
         private ExaminationRepo _examRepo;
 
-
-        protected virtual void NotifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        private ExaminationSchedule _examinationSchedule;
 
         public static ObservableCollection<Patient> PatientsObs
         {
             get;
             set;
         }
-        public static ObservableCollection<Room> RoomsObs
-        {
-            get;
-            set;
-        }
-
-
-        public UpdateExamination(Examination selectedItem)
+        public UpdateExamination(Examination selectedItem, ExaminationSchedule examinationSchedule)
         {
             InitializeComponent();
             this.DataContext = this;
-
-            RoomsObs = new ObservableCollection<Room>();
+            _examinationSchedule = examinationSchedule;
             PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
-            _doctorController = app.DoctorController;
-            _examController = app.ExamController;
+            _doctorController = app.doctorController;
+            _examController = app.examController;
             _patientController = app.patientController;
-            _roomController = app.RoomController;
-            _examRepo = app.ExaminationRepo;
+            _roomController = app.roomController;
+            _examRepo = app.examRepo;
 
+            ComboBoxPacijent.Text = selectedItem.PatientId.ToString();
             DUR.Text = selectedItem.Duration.ToString();
             TIP.Text = selectedItem.EType.ToString();
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
@@ -77,15 +62,9 @@ namespace Doctor.View
             {
                 PatientsObs.Add(pom);
             }
-            foreach (var pom in _roomController.ReadAll().ToList())
-            {
-                RoomsObs.Add(pom);
-            }
-
-
         }
 
-        private void Izmeni_Click(object sender, RoutedEventArgs e)
+        private void Update_Click(object sender, RoutedEventArgs e)
         {
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
@@ -98,13 +77,11 @@ namespace Doctor.View
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(roomId, dt, "ID5", duration, ExaminationTypeEnum.Surgery, patientName, "IDDOC");
+            Examination newExam = new Examination(roomId, dt, "ID5", duration, ExaminationTypeEnum.Surgery, patientName, "d1");
             _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
             _examRepo.SaveExamination();
-            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
-            examinationSchedule.Show();
-            this.Close();
+            NavigationService.Navigate(_examinationSchedule);
+            
         }
-
     }
 }

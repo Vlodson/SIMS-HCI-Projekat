@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor.View"
         mc:Ignorable="d"
-        Title="DoctorNavBar" Height="450" Width="688">
+        Title="DoctorNavBar" Height="450" Width="688" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>

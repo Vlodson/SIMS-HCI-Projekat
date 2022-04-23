@@ -1,32 +1,31 @@
 using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
 using HospitalMain.Enums;
 using Utility;
+using System.Collections.Generic;
 
 namespace Repository
 {
     public class ExaminationRepo
     {
-        public string dbPath { get; set; }
+        public String dbPath { get; set; }
         public ObservableCollection<Examination> examinationList { get; set; }
         public ObservableCollection<Examination> endedExams { get; set; }
 
-
-        public ExaminationRepo(string dbPath)
+        public ExaminationRepo(String dbPath)
         {
             this.dbPath = dbPath;
-            this.examinationList = new ObservableCollection<Examination>();
-            this.endedExams = new ObservableCollection<Examination>();
+            examinationList = new ObservableCollection<Examination>();
+            endedExams = new ObservableCollection<Examination>();
 
-            Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "p1", "d1");
-            Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "p11", "d11");
-            this.examinationList.Add(exam1);
-            this.examinationList.Add(exam2);
+            /*Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "1", "d1");
+            Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
+            examinationList.Add(exam1);
+            examinationList.Add(exam2);*/
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -114,7 +113,7 @@ namespace Repository
         {
             
             using FileStream stream = File.OpenRead(dbPath);
-            this.examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
+            examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
             
             return true;
         }
@@ -323,11 +322,10 @@ namespace Repository
             {
                 if (examinationList[i].Id.Equals(id))
                 {
-                    examinationList.Remove(examinationList[i]);
+                    examinationList[i] = examination;
                     break;
                 }
             }
-            examinationList.Add(examination);
         }
 
         public ObservableCollection<Examination> ReadEndedExams()

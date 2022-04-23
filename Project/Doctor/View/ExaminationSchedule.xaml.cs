@@ -15,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Doctor.View
@@ -22,68 +23,54 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for ExaminationSchedule.xaml
     /// </summary>
-    public partial class ExaminationSchedule : Window
+    public partial class ExaminationSchedule : Page
     {
         private ExamController _examController;
         private ExaminationRepo _examRepo;
-
         public static Examination SelectedItem
         {
             get;
             set;
         }
-
         public static ObservableCollection<Examination> Examinations { get; set; }
-
         public ExaminationSchedule()
         {
             InitializeComponent();
             this.DataContext = this;
 
-            string idDoc = "IDDOC";
-
             App app = Application.Current as App;
-            _examRepo = app.ExaminationRepo;
+            _examController = app.examController;
+            _examRepo = app.examRepo;
+
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
 
-            _examController = app.ExamController;
-            Examinations = _examController.ReadDoctorExams(idDoc);
-            
+            Examinations = _examController.ReadDoctorExams("d1");
         }
-
-        private void Zakazi_Click(object sender, RoutedEventArgs e)
+        private void add_Click(object sender, RoutedEventArgs e)
         {
-            AddExamination addExamination = new AddExamination();
-            this.Close();
-            addExamination.Show();
+            //AddExamination addExamination = new AddExamination();
+            //addExamination.Show();
         }
 
-        private void Izmeni_Click(object sender, RoutedEventArgs e)
+        private void update_Click(object sender, RoutedEventArgs e)
         {
             SelectedItem = (Examination)dataGridExaminations.SelectedItem;
-            UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
-            this.Close();
-            updateExamination.Show();
+            UpdateExamination updateExamination = new UpdateExamination(SelectedItem, this);
+            NavigationService.Navigate(updateExamination);
+            _examRepo.SaveExamination();
         }
 
 
-        private void Otkazi_Click(object sender, RoutedEventArgs e)
+        private void cancel_Click(object sender, RoutedEventArgs e)
         {
             Examination selectedItem = (Examination)dataGridExaminations.SelectedItem;
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
-                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("IDDOC");
+                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("d1");
             }
-            _examRepo.SaveExamination();
 
         }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _examRepo.SaveExamination();
-        }
-
     }
 }
