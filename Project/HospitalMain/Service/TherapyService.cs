@@ -23,5 +23,10 @@ namespace Service
         {
             return _therapyRepo.findById(id);
         }
+
+        public void NewTherapy(Therapy therapy)
+        {
+            _therapyRepo.NewTherapy(therapy);
+        }
     }
 }

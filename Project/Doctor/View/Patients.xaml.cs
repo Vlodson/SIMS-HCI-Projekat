@@ -26,8 +26,9 @@ namespace Doctor.View
     public partial class Patients : Page
     {
 
-        private PatientController patientController;
-        private PatientRepo patientRepo;
+        private PatientController _patientController;
+        private PatientRepo _patientRepo;
+
 
         public static ObservableCollection<Patient> patients
         {
@@ -40,17 +41,18 @@ namespace Doctor.View
             this.DataContext = this;
 
             App app = Application.Current as App;
-            patientController = app.patientController;
-            patientRepo = app.patientRepo;
+            _patientController = app.patientController;
+            _patientRepo = app.patientRepo;
 
-            if (File.Exists(patientRepo.dbPath))
-                patientRepo.LoadPatient();
-            patients = patientController.ReadAllPatients();
+            if (File.Exists(_patientRepo.dbPath))
+                _patientRepo.LoadPatient();
+            patients = _patientController.ReadAllPatients();
         }
-
-        private void Choose_Click(object sender, RoutedEventArgs e)
+        public void Choose_Click(object sender, RoutedEventArgs e)
         {
-
+            Patient selectedPatient = (Patient)dataGridPatients.SelectedItem;
+            MedicalRecord medicalRecord = new MedicalRecord(selectedPatient);
+            NavigationService.Navigate(medicalRecord);
         }
-    }
+    }   
 }

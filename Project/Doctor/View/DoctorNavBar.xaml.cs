@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,14 +20,25 @@ namespace Doctor.View
     /// </summary>
     public partial class DoctorNavBar : Window
     {
+        private ReportRepo _reportRepo;
+        private TherapyRepo _therapyRepo;
+        private ExaminationRepo _examinationRepo;
+
         public DoctorNavBar()
         {
             InitializeComponent();
+            this.DataContext = this;
+
+            App app = Application.Current as App;
+            _examinationRepo = app.examRepo;
+            _reportRepo = app.reportRepo;
+            _therapyRepo = app.therapyRepo;
+            
         }
 
         private void ButtonSchedule(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new ExaminationSchedule();
         }
 
         private void ButtonExaminations(object sender, RoutedEventArgs e)
@@ -54,6 +66,11 @@ namespace Doctor.View
 
         }
 
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _examinationRepo.SaveExamination();
+            _therapyRepo.SaveTherapy();
+            _reportRepo.SaveReport();
+        }
     }
 }

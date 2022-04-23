@@ -11,16 +11,21 @@ namespace Controller
 {
     public class TherapyController
     {
-        private TherapyService therapyService;
+        private readonly TherapyService _therapyService;
 
         public TherapyController(TherapyService therapyService)
         {
-            this.therapyService = therapyService;
+            _therapyService = therapyService;
         }
 
         public ObservableCollection<Therapy> findById (string examId)
         {
-            return therapyService.findById(examId);
+            return _therapyService.findById(examId);
+        }
+
+        public void NewTherapy(Therapy therapy)
+        {
+            _therapyService.NewTherapy(therapy);
         }
     }
 }
