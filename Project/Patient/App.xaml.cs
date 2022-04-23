@@ -27,6 +27,7 @@ namespace Patient
         public PatientController PatientController { get; set; }
 
         public ExaminationRepo ExaminationRepo { get; set; }
+        public RoomController RoomController { get; set; }
 
         public App()
         {
@@ -36,16 +37,22 @@ namespace Patient
             List<Model.Patient> patients = new List<Model.Patient>();
 
             //ExaminationRepo examinationRepository = new ExaminationRepo(dbPathExams);
-            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            ExaminationRepo examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            ExaminationRepo = examinationRepo;
             PatientRepo patientRepository = new PatientRepo(GlobalPaths.PatientsDBPath);
-            PatientService patientService = new PatientService(patientRepository, ExaminationRepo);
-            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
-            DoctorService doctorService = new DoctorService(doctorRepository, ExaminationRepo);
+            EquipmentRepo equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
+            RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
+
+            PatientService patientService = new PatientService(patientRepository, examinationRepo);
+            PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
+            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo);
+            RoomService roomService = new RoomService(roomRepo);
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService, patientAccountService);
+            RoomController = new RoomController(roomService);
         }
     }
 }

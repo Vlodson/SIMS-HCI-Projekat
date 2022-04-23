@@ -15,6 +15,9 @@ namespace Model
         }
 
         private String _id;
+        // when rooms are parceled you need to change this otherwise its always the same as when constructed
+        // so for room parceling just "move" these by saying the room id is now storage room
+        private String _roomId;
         private EquipmentTypeEnum _type;
 
         public String Id
@@ -26,6 +29,19 @@ namespace Model
                 {
                     _id = value;
                     OnPropertyChanged("Id");
+                }
+            }
+        }
+
+        public String RoomId
+        {
+            get { return _roomId; }
+            set
+            {
+                if(_roomId != value)
+                {
+                    _roomId = value;
+                    OnPropertyChanged("RoomId");
                 }
             }
         }
@@ -44,14 +60,16 @@ namespace Model
         }
 
         public Equipment() { }
-        public Equipment(String id, EquipmentTypeEnum type)
+        public Equipment(String id, String roomId, EquipmentTypeEnum type)
         {
             Id = id;
+            RoomId = roomId;
             Type = type;
         }
         public Equipment(Equipment e)
         {
             Id = e.Id;
+            RoomId = e.RoomId;
             Type = e.Type;
         }
    }

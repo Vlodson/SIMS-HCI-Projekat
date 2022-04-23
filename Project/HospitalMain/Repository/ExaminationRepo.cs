@@ -1,25 +1,31 @@
 using Model;
 using Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text.Json;
 using System.IO;
 using HospitalMain.Enums;
+using Utility;
+using System.Collections.Generic;
 
 namespace Repository
 {
     public class ExaminationRepo
     {
         public String dbPath { get; set; }
-        //lista pregleda
-        public ObservableCollection<Examination> examinationList;
+        public ObservableCollection<Examination> examinationList { get; set; }
+        public ObservableCollection<Examination> endedExams { get; set; }
 
-
-        public ExaminationRepo(string dbPath)
+        public ExaminationRepo(String dbPath)
         {
             this.dbPath = dbPath;
-            this.examinationList = new ObservableCollection<Examination>();
+            examinationList = new ObservableCollection<Examination>();
+            endedExams = new ObservableCollection<Examination>();
+
+            /*Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "1", "d1");
+            Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
+            examinationList.Add(exam1);
+            examinationList.Add(exam2);*/
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -78,11 +84,11 @@ namespace Repository
                 if (exam.Id == examID)
                 {
                     exam.Id = examination.Id;
-                    exam.ExamRoom = examination.ExamRoom;
+                    exam.ExamRoomId = examination.ExamRoomId;
                     exam.Date = examination.Date;
                     exam.Duration = examination.Duration;
-                    exam.Doctor = examination.Doctor;
-                    exam.Patient = examination.Patient;
+                    exam.DoctorId = examination.DoctorId;
+                    exam.PatientId = examination.PatientId;
                     exam.EType = examination.EType;
                     break;
                 }
@@ -107,7 +113,7 @@ namespace Repository
         {
             
             using FileStream stream = File.OpenRead(dbPath);
-            this.examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
+            examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
             
             return true;
         }
@@ -125,7 +131,7 @@ namespace Repository
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
             foreach (Examination exam in examinationList)
             {
-                if (exam.Doctor.Id.Equals(id)) 
+                if (exam.DoctorId.Equals(id)) 
                 examsForDoctor.Add(exam);
             }
             return examsForDoctor;
@@ -134,10 +140,9 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            //bilo je jedan
             foreach (Examination exam in examinationList)
             {
-                if (exam.Patient.ID.Equals(id)) examsForPatient.Add(exam);
+                if (exam.PatientId.Equals(id)) examsForPatient.Add(exam);
             }
             return examsForPatient;
         }
@@ -146,7 +151,7 @@ namespace Repository
         //public DoctorService doctorService;
 
 
-        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, List<Doctor> doctors)
+        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
@@ -183,7 +188,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
+                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
                 
             }
@@ -222,7 +227,7 @@ namespace Repository
                         }
                         if (free)
                         {
-                            examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doctor));
+                            examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                         }
 
                     }
@@ -249,7 +254,7 @@ namespace Repository
                             }
                             if (free)
                             {
-                                examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), doc));
+                                examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doc.Id));
                             }
 
                         }
@@ -267,7 +272,7 @@ namespace Repository
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            List<Examination> doctorsExaminations = examination.Doctor.Examinations;
+            //List<Examination> doctorsExaminations = examination.Doctor.Examinations;
 
 
             //danasnji datum
@@ -289,7 +294,7 @@ namespace Repository
             foreach (DateTime dt in examinationsTime)
             {
                 bool free = true;
-                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.Doctor.Id))
+                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.DoctorId))
                 {
                     if (doctorsExamination.Date == dt)
                     {
@@ -298,7 +303,7 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination(new Room(), dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, new Patient(), examination.Doctor));
+                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", examination.DoctorId));
                 }
 
             }
@@ -309,6 +314,30 @@ namespace Repository
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
+        }
+
+        public void DoctorEditExamination(String id, Examination examination)
+        {
+            for (int i = 0; i < examinationList.Count; i++)
+            {
+                if (examinationList[i].Id.Equals(id))
+                {
+                    examinationList[i] = examination;
+                    break;
+                }
+            }
+        }
+
+        public ObservableCollection<Examination> ReadEndedExams()
+        {
+                foreach (Examination exam in this.examinationList)
+                {
+                    int res = DateTime.Compare(exam.Date, DateTime.Now);
+                    if (res < 0)
+                        endedExams.Add(exam);
+
+                }
+            return endedExams;
         }
 
 

@@ -109,6 +109,19 @@ namespace Model
             }
         }
 
+        public string NameSurname
+        {
+            get
+            {
+                return name + " " + surname;
+            }
+            set
+            {
+                string[] splitted = value.Split(" ");
+                name = splitted[0];
+                surname = splitted[1];
+            }
+        }
         public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, List<Examination> examination)
         {
             /*

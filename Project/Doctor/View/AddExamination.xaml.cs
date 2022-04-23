@@ -1,9 +1,10 @@
 ﻿using Controller;
+using HospitalMain.Enums;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Doctor.View
@@ -21,43 +23,31 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Window
+    public partial class AddExamination : Page
     {
-        private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
-        private RoomController _roomController;
+        private ExaminationRepo _examRepo;
 
+        private ReportPage _reportPage;
         public ObservableCollection<Patient> PatientsObs
         {
             get;
             set;
         }
-        public static ObservableCollection<Room> RoomsObs
-        {
-            get;
-            set;
-        }
-
-        public AddExamination()
+        public AddExamination(ReportPage reportPage)
         {
             InitializeComponent();
             this.DataContext = this;
+            _reportPage = reportPage;
 
             PatientsObs = new ObservableCollection<Patient>();
 
-            var app = Application.Current as App;
-            _doctorController = app.DoctorController;
-            _examController = app.ExamController;
-            _roomController = app.RoomController;
-            _patientController = app.PatientController;
+            App app = Application.Current as App;
+            _examController = app.examController;
+            _patientController = app.patientController;
+            _examRepo = app.examRepo;
 
-            /*
-            foreach (var pom in _patientController.GetAll().ToList())
-            {
-                PatientsObs.Add(pom);
-            }
-            */
             foreach (var pom in _patientController.ReadAllPatients())
             {
                 PatientsObs.Add(pom);
@@ -66,28 +56,26 @@ namespace Doctor.View
 
         private void Zakazi_Click(object sender, RoutedEventArgs e)
         {
-            Model.Doctor doctor = _doctorController.GetDoctor("111");
+            ////Model.Doctor doctor = _doctorController.GetDoctor("IDDOC");
+            Model.Doctor doctor = new Model.Doctor("IDDOC", "pera", "Peric", new DateTime(1980, 11, 11), DoctorType.specialistCheckup, new List<Examination>());
 
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
             string roomId = ComboBoxSoba.SelectedItem.ToString();
-            //Room r = _roomController.ReadRoom(roomId);
-            Room room = new Room(roomId, 5, 1, true, "tip");
 
             string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Guest guest = new Guest("246");
-            Patient p = new Patient(guest.ID, "010199992222", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new ObservableCollection<Examination>());
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(room, dt, "ID5", duration, type, p, doctor);
+            Examination newExam = new Examination(roomId, dt, (new Random()).Next(10000).ToString(), duration, ExaminationTypeEnum.OrdinaryExamination, patientName, "IDDOC");
+
             _examController.DoctorCreateExam(newExam);
+            _examRepo.SaveExamination();
 
-            this.Close();
+            NavigationService.Navigate(_reportPage);
         }
-
     }
 }

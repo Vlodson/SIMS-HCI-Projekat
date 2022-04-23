@@ -1,4 +1,4 @@
-﻿<Window x:Class="Admin.View.EquipmentTableWindow"
+﻿<Window x:Class="Admin.View.TableWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -33,19 +33,14 @@
         <!-- Stylize with icon and transparent/lightgray text -->
         <TextBox x:Name="queryBox" Grid.Row="2" Grid.Column="1" Text="Search" Margin="0,0,0,10" />
 
-        <DataGrid Grid.Row="3" Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10"
-                  ItemsSource="{Binding EquipmentPerRoomList, Mode=OneWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" MinWidth="100" />
-                <DataGridTextColumn Header="RoomID" Binding="{Binding RoomID}" MinWidth="100" />
-                <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*" />
-            </DataGrid.Columns>
+        <DataGrid x:Name="TableGrid" Grid.Row="3"  Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10">
         </DataGrid>
 
         <!-- View changing tab button bar like sheets has.
         Stylization similar to menu button bar but with button borders -->
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
-            <Button Content="Equipment" />
+            <Button x:Name="equipmentBtn" Content="Equipment" Click="equipmentBtn_Click"  />
+            <Button x:Name="roomsBtn" Content="Rooms" Click="roomsBtn_Click"  />
         </StackPanel>
     </Grid>
 </Window>

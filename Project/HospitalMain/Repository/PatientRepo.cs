@@ -19,23 +19,24 @@ namespace Repository
             this.Patients = new ObservableCollection<Patient>();
             Guest guest = new Guest("1");
 
-            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), new ObservableCollection<Examination>());
-            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), new ObservableCollection<Examination>());
-            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
+            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), new MedicalRecord(),  new ObservableCollection<Examination>());
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), new MedicalRecord(new ObservableCollection<Report>()),  new ObservableCollection<Examination>());
+            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), new MedicalRecord(),  new ObservableCollection<Examination>());
 
             this.Patients.Add(p1);
             this.Patients.Add(p2);
             this.Patients.Add(p3);
-        }
+       }
 
-        public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
-        {
+
+       public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
+       {
             this.DBPath=dbPath;
             this.Patients = patientCollection;
             Guest guest = new Guest("123");
             Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Female, new DateTime(2000, 11, 1), new ObservableCollection<Examination>());
             this.Patients.Add(p1);
-        }
+       }
 
       public bool NewPatient(Patient patient)
       {

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 
 using HospitalMain.Enums;
+using Utility;
 
 namespace Model
 {
@@ -22,8 +23,7 @@ namespace Model
         private bool _occupancy;
         private RoomTypeEnum _type;
 
-
-      public String Id
+        public String Id
         {
             get { return _id; }
             set
@@ -35,8 +35,8 @@ namespace Model
                 }
             }
         }
-      public ObservableCollection<Equipment> Equipment { get; set; }
-      public int Floor
+        public ObservableCollection<Equipment> Equipment { get; set; }
+        public int Floor
         {
             get { return _floor; }
             set
@@ -48,7 +48,7 @@ namespace Model
                 }
             }
         }
-      public int RoomNb
+        public int RoomNb
         {
             get { return _roomnb; }
             set
@@ -60,7 +60,7 @@ namespace Model
                 }
             }
         }
-      public bool Occupancy
+        public bool Occupancy
         {
             get { return _occupancy; }
             set
@@ -72,7 +72,7 @@ namespace Model
                 }
             }
         }
-      public RoomTypeEnum Type
+        public RoomTypeEnum Type
         {
             get { return _type; }
             set
@@ -85,9 +85,9 @@ namespace Model
             }
         }
 
-      public Room() { }
+        public Room() { }
 
-      public Room(String id, int floor, int room_nb, bool occ, RoomTypeEnum type)
+        public Room(String id, int floor, int room_nb, bool occ, RoomTypeEnum type)
         {
             Id = id;
             Equipment = new ObservableCollection<Equipment>();
@@ -97,7 +97,7 @@ namespace Model
             Type = type;
         }
 
-      public Room(Room r)
+        public Room(Room r)
         {
             Id = r.Id;
             Equipment = r.Equipment;
@@ -105,6 +105,16 @@ namespace Model
             RoomNb = r.RoomNb;
             Occupancy = r.Occupancy;
             Type = r.Type;
+        }
+
+        public Room(RoomAnnotation roomAnnotation)
+        {
+            this.Id = roomAnnotation.Id;
+            this.Equipment = new ObservableCollection<Equipment>();
+            this.Floor = roomAnnotation.Floor;
+            this.RoomNb = roomAnnotation.RoomNb;
+            this.Occupancy = roomAnnotation.Occupancy;
+            this.Type = roomAnnotation.Type;
         }
    }
 }

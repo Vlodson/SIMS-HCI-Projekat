@@ -28,8 +28,8 @@ namespace Doctor
 
         private void Examinations_Click(object sender, RoutedEventArgs e)
         {
-            ExaminationSchedule examinationSchedule = new ExaminationSchedule();
-            examinationSchedule.Show();
+            DoctorNavBar doctorNavBar = new DoctorNavBar();
+            doctorNavBar.Show();
         }
     }
 }

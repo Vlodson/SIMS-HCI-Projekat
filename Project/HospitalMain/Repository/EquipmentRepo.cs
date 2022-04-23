@@ -3,8 +3,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 using Model;
+using HospitalMain.Enums;
 
 namespace Repository
 {
@@ -34,13 +37,14 @@ namespace Repository
             return null;
         }
 
-        public void SetEquipment(String equipmentId, Equipment newEquipment)
+        public void SetEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
         {
             for(int i = 0; i < Equipment.Count; i++)
             {
                 if (Equipment[i].Id.Equals(equipmentId))
                 {
-                    Equipment[i] = newEquipment;
+                    Equipment[i].RoomId = newRoomId;
+                    Equipment[i].Type = newType;
                     break;
                 }
             }
@@ -60,11 +64,15 @@ namespace Repository
 
         public bool LoadEquipment()
         {
+            using FileStream fileStream = File.OpenRead(dbPath);
+            this.Equipment = JsonSerializer.Deserialize<ObservableCollection<Equipment>>(fileStream);
             return true;
         }
 
         public bool SaveEquipment()
         {
+            string jsonString = JsonSerializer.Serialize(this.Equipment);
+            File.WriteAllText(dbPath, jsonString);
             return true;
         }
     }

@@ -24,9 +24,9 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public bool CreateExam(Model.Patient patient, Doctor doctor, Model.Room examRoom, DateTime date)
+        public void CreateExam(Examination exam)
         {
-            throw new NotImplementedException();
+            _examinationRepo.NewExamination(exam);
         }
 
         public void RemoveExam(Examination exam)
@@ -34,9 +34,9 @@ namespace Service
             _examinationRepo.DeleteExamination(exam);
         }
 
-        public void EditExams(string examID, Examination exam)
+        public void EditExams(string id, Examination exam)
         {
-            _examinationRepo.SetExamination(examID, exam);
+            _examinationRepo.DoctorEditExamination(id,exam);
         }
 
         public List<Examination> ReadPatientExams(String patientId)
@@ -44,9 +44,7 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        //dodato
-
-        public List<Doctor> GetDoctors()
+        public ObservableCollection<Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
         }
@@ -58,7 +56,7 @@ namespace Service
 
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
-            List<Doctor> doctors = _doctorRepo.GetAllDoctors();
+            ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
             return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
         }
 
@@ -72,9 +70,9 @@ namespace Service
             return _examinationRepo.ExaminationsForDoctor(id);
         }
 
-        public void CreateExam(Examination examination)
+        public ObservableCollection<Examination> ReadEndedExams()
         {
-            _examinationRepo.NewExamination(examination);
+            return _examinationRepo.ReadEndedExams();
         }
 
     }

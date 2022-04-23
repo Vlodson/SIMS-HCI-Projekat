@@ -10,44 +10,74 @@ namespace Controller
    public class RoomController
    {
       
-      private readonly RoomService _roomService;
+        private readonly RoomService _roomService;
       
-      public RoomController(RoomService _roomService)
+        public RoomController(RoomService _roomService)
         {
             this._roomService = _roomService;
         }
 
-      public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
-      {
+        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
+        {
             return _roomService.CreateRoom(id, floor, roomNb, occupancy, type);
-      }
+        }
       
-      public bool RemoveRoom(String roomId)
-      {
+        public bool RemoveRoom(String roomId)
+        {
             return _roomService.RemoveRoom(roomId);
-      }
+        }
       
-      public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
-      {
-         _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
-      }
+        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
+        {
+            _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
+        }
       
-      public Room ReadRoom(String roomId)
-      {
-         return _roomService.ReadRoom(roomId);
-      }
+        public Room ReadRoom(String roomId)
+        {
+            return _roomService.ReadRoom(roomId);
+        }
       
-      public ObservableCollection<Room> ReadAll()
-      {
-         return _roomService.ReadAll();
-      }
+        public ObservableCollection<Room> ReadAll()
+        {
+            return _roomService.ReadAll();
+        }
 
-      public bool LoadRoom()
+        public bool AddEquipment(String roomId, Equipment equipment)
+        {
+            return _roomService.AddEquipment(roomId, equipment);
+        }
+
+        public bool RemoveEquipment(String roomId, String equipmentId)
+        {
+            return _roomService.RemoveEquipment(roomId, equipmentId);
+        }
+
+        public bool SetClipboardRoom(Room room)
+        {
+            return _roomService.SetClipboardRoom(room);
+        }
+
+        public Room GetClipboardRoom()
+        {
+            return _roomService.GetClipboardRoom();
+        }
+
+        public bool SetSelectedRoom(Room room)
+        {
+            return _roomService.SetSelectedRoom(room);
+        }
+
+        public Room GetSelectedRoom()
+        {
+            return _roomService.GetSelectedRoom();
+        }
+
+        public bool LoadRoom()
         {
             return _roomService.LoadRoom();
         }
 
-      public bool SaveRoom()
+        public bool SaveRoom()
         {
             return _roomService.SaveRoom();
         }
