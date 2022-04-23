@@ -11,6 +11,7 @@ namespace HospitalMain.Enums
         Patient_Room,
         Operation_Room,
         Storage_Room,
-        Meeting_Room
+        Meeting_Room,
+        Renovating
     }
 }

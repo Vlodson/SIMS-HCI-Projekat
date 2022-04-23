@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.IO;
 
 using Model;
 using Controller;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Admin.View
@@ -45,14 +47,7 @@ namespace Admin.View
 
             roomList = new ObservableCollection<Room>();
             floorRoomList = new ObservableCollection<Room>();
-            for(int i = 0; i < 20; i++)
-            {
-                int floor = 1;
-                if (i > 10)
-                    floor = 2;
 
-                _roomController.CreateRoom(i.ToString(), floor, i%11 + 10*(floor-1), false, RoomTypeEnum.Patient_Room);
-            }
             roomList = _roomController.ReadAll();
 
             makeFloorButtons();

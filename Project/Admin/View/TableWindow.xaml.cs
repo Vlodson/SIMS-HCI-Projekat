@@ -40,27 +40,9 @@ namespace Admin.View
             var app = Application.Current as App;
             _equipmentController = app.equipmentController;
             _roomController = app.roomController;
-
-            if (File.Exists(GlobalPaths.EquipmentDBPath))
-                _equipmentController.LoadEquipment();
-
-            if(File.Exists(GlobalPaths.RoomsDBPath))
-                _roomController.LoadRoom();
-
-
-            _roomController.CreateRoom("0", 1, 1, true, RoomTypeEnum.Patient_Room);
-            
-            _equipmentController.CreateEquipment("0", "0", EquipmentTypeEnum.Bed);
-            _roomController.AddEquipment("0", _equipmentController.ReadEquipment("0"));
-
-            //_equipmentController.EditEquipment("0", "0", EquipmentTypeEnum.Dish);
-            //_roomController.ReadRoom("0").Equipment[0].Type = EquipmentTypeEnum.Chair;
-            MessageBox.Show(_roomController.ReadRoom("0").Equipment[0].Type.ToString());
-            
             
             EquipmentPerRoomList = _equipmentController.ReadAll();
             RoomsList = _roomController.ReadAll();
-            
         }
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
