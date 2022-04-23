@@ -6,11 +6,16 @@
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
         Title="Notifications" Height="450" Width="400">
-    <Grid>
-        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"/>
-        <ItemsControl ItemsSource="{Binding ShowingNotifications}">
-            
-        </ItemsControl>
+    <Grid Margin="0,78,0,0">
+        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="NotificationList" ItemsSource="{Binding ShowingNotifications}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Margin="2"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
 
     </Grid>
 </Window>
