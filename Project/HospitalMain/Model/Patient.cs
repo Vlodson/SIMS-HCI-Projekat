@@ -28,7 +28,7 @@ namespace Model
         private DateTime doB;
 
         private ObservableCollection<Examination> examinations;
-        MedicalRecord medicalRecord;
+        private MedicalRecord medicalRecord;
 
         public Patient(Guest guest) : base(guest.ID)
         {

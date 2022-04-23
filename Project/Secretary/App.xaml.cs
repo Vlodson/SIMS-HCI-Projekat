@@ -14,16 +14,25 @@ namespace Secretary
     public partial class App : Application
     {
             
-        public PatientController patientController { get; set; }
-        public PatientRepo patientRepo { get; set; }
+        public PatientController PatientController { get; set; }
+        public PatientRepo PatientRepo { get; set; }
+
+        public MedicalRecordController MedicalRecordController { get; set; }
+
+        public MedicalRecordRepo MedicalRecordRepo { get; set; }
 
         public App()
         {
             
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
-            patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
-            PatientAccountService patientAccService = new PatientAccountService(patientRepo);
-            patientController = new PatientController(patientAccService);
+            PatientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
+            PatientAccountService patientAccService = new PatientAccountService(PatientRepo);
+            PatientController = new PatientController(patientAccService);
+
+            ObservableCollection<MedicalRecord> medicicalRecords = new ObservableCollection<MedicalRecord>();
+            MedicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
+            MedicalRecordService medicalRecordService = new MedicalRecordService(MedicalRecordRepo);
+            MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
         }
          

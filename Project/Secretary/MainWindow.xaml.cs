@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Secretary.View;
+using System.Diagnostics;
 
 namespace Secretary
 {
@@ -29,6 +31,12 @@ namespace Secretary
         {
             CRUDAccountOptions crudAO = new CRUDAccountOptions();
             crudAO.Show();
+        }
+
+        private void CRUDMedRecords_Click(object sender, RoutedEventArgs e)
+        {
+            CRUDMedicalRecord crudMedRecords = new CRUDMedicalRecord();
+            crudMedRecords.Show();
         }
     }
 }
