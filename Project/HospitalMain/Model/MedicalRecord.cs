@@ -34,6 +34,7 @@ namespace Model
 
         private Doctor doctor;
         private String bloodType;
+
         private ObservableCollection<String> allergens;
 
         public MedicalRecord(String id, String ucin, String name, String surname, String phone, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<String> allergens)

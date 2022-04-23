@@ -39,7 +39,7 @@ namespace Secretary
             //patientController.CreatePatient("3", "1111001800043", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
             //patientController.CreatePatient("4", "1111001800043", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
 
-            if(File.Exists(patientRepo.dbPath))
+            if(File.Exists(patientRepo.DBPath))
                 patientRepo.LoadPatient();
             patients = patientController.ReadAllPatients();
         }

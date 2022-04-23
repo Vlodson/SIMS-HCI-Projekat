@@ -10,31 +10,31 @@ namespace Repository
 {
     public class MedicalRecordRepo
     {
-        private String dbPath { get; set; }
-        private ObservableCollection<MedicalRecord> medicalRecords { get; set; }
+        public String DBPath { get; set; }
+        public ObservableCollection<MedicalRecord> MedicalRecords { get; set; }
 
         public MedicalRecordRepo(String dbPath)
         {
-            this.dbPath = dbPath;
-            this.medicalRecords = new ObservableCollection<MedicalRecord>();
+            this.DBPath = dbPath;
+            this.MedicalRecords = new ObservableCollection<MedicalRecord>();
         }
 
         public bool NewMedicalRecord(MedicalRecord medRecord)
         {
-            foreach(MedicalRecord oneMedRecord in medicalRecords)
+            foreach(MedicalRecord oneMedRecord in MedicalRecords)
             {
                 if (oneMedRecord.ID.Equals(medRecord.ID))
                 {
                     return false;
                 }
             }
-            medicalRecords.Add(medRecord);
+            MedicalRecords.Add(medRecord);
             return true;
         }
 
         public void EditMedicalRecord(String medRecordID, MedicalRecord medRecord)
         {
-            foreach(MedicalRecord oneMedRecord in medicalRecords)
+            foreach(MedicalRecord oneMedRecord in MedicalRecords)
             {
                 if (medRecord.ID.Equals(medRecordID))
                 {
@@ -57,11 +57,11 @@ namespace Repository
 
         public bool DeleteMedicalRecord(String medRecordID)
         {
-            foreach(MedicalRecord medRecord in medicalRecords)
+            foreach(MedicalRecord medRecord in MedicalRecords)
             {
                 if (medRecord.ID.Equals(medRecordID))
                 {
-                    medicalRecords.Remove(medRecord);
+                    MedicalRecords.Remove(medRecord);
                     return true;
                 }
             }
@@ -70,7 +70,7 @@ namespace Repository
 
         public MedicalRecord ReadMedicalRecord(String medRecordID)
         {
-            foreach(MedicalRecord medRecord in medicalRecords)
+            foreach(MedicalRecord medRecord in MedicalRecords)
             {
                 if(medRecord.ID.Equals(medRecordID))
                 {
@@ -83,7 +83,7 @@ namespace Repository
 
         public ObservableCollection<MedicalRecord> ReadAllMedicalRecords()
         {
-            return medicalRecords;
+            return MedicalRecords;
         }
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)
