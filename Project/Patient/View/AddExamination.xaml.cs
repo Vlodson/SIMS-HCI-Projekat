@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Utility;
 
 namespace Patient.View
 {
@@ -125,7 +127,7 @@ namespace Patient.View
             doctorTypes = new List<string>();
             StartDate = DateTime.Now.AddDays(1);
             EndDate = DateTime.Now.AddDays(7);
-            List<Doctor> doctors = _doctorController.GetAll();
+            List<Doctor> doctors = _doctorController.GetAll().ToList();
 
             DoctorTypeSelected.SelectedIndex = 0;
             foreach (Doctor doctor in doctors)
@@ -181,7 +183,8 @@ namespace Patient.View
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            if(ExamsAvailable.SelectedIndex != -1)
+            
+            if (ExamsAvailable.SelectedIndex != -1)
             {
                 Model.Patient patient = _patientController.ReadPatient("2");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
@@ -190,12 +193,15 @@ namespace Patient.View
                 id++;
 
                 Room getRoom = new Room();
-                foreach(Room room in _roomController.ReadAll())
+                if (File.Exists(GlobalPaths.RoomsDBPath))
+                    _roomController.LoadRoom();
+                
+                foreach (Room room in _roomController.ReadAll())
                 {
+                    Console.WriteLine("nesto radi");
                     if (room.Occupancy == false)
                     {
                         getRoom = room;
-                        Console.WriteLine(room.Id);
                         break;
                     }
                 }
@@ -236,7 +242,7 @@ namespace Patient.View
             }
 
             
-            List<Doctor> doctors = _doctorController.GetAll();
+            List<Doctor> doctors = _doctorController.GetAll().ToList();
             DoctorsObs = new ObservableCollection<Doctor>();
             foreach (Doctor doctor in doctors)
             {

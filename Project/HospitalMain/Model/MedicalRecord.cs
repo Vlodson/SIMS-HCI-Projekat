@@ -58,6 +58,11 @@ namespace Model
             this.allergens = allergens;
         }
 
+        public MedicalRecord(ObservableCollection<Report> reports)
+        {
+            this.reports=reports;
+        }
+
         public String ID
         {
             get { return id; }

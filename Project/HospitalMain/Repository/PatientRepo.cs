@@ -20,7 +20,7 @@ namespace Repository
             Guest guest = new Guest("1");
 
             Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), new MedicalRecord(),  new ObservableCollection<Examination>());
-            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), new MedicalRecord(),  new ObservableCollection<Examination>());
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), new MedicalRecord(new ObservableCollection<Report>()),  new ObservableCollection<Examination>());
             Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), new MedicalRecord(),  new ObservableCollection<Examination>());
 
             this.patients.Add(p1);

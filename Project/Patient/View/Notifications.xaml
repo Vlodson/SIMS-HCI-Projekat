@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
         Title="Notifications" Height="450" Width="400">
-    <Grid>
-        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top"/>
-        <StackPanel Margin="0,63,0,0">
-            <Border BorderBrush="Black" BorderThickness="1">
-                <TextBlock>Popiti lek</TextBlock>
-            </Border>
-            
-        </StackPanel>
+    <Grid Margin="0,78,0,0">
+        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="NotificationList" Margin="0,-11,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
 
     </Grid>
 </Window>
