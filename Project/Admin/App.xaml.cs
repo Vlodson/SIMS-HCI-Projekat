@@ -49,8 +49,8 @@ namespace Admin
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            equipmentController.SaveEquipment();
-            roomController.SaveRoom();
+            //equipmentController.SaveEquipment();
+            //roomController.SaveRoom();
         }
     }
 }

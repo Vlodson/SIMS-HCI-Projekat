@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
 
-using Repository;
 using HospitalMain.Enums;
 using Model;
 using Utility;
@@ -33,7 +32,7 @@ namespace Repository
             return true;
         }
       
-        public Room GetRoom(String roomId) // this might create problems if r is not a reference
+        public Room GetRoom(String roomId)
         {
             foreach(Room r in Rooms)
                 if(r.Id.Equals(roomId))
