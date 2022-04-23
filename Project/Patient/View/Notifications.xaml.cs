@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Controller;
+using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,67 @@ namespace Patient.View
     /// </summary>
     public partial class Notifications : Window
     {
+        private PatientController _patientController;
+        private List<String> notificationsList;
+        private List<DateTime> notificationsTimeList;
+        private List<String> showingNotifications;
+
+
+        
+
+        public List<String> ShowingNotifications
+        {
+            get
+            {
+                return showingNotifications;
+            }
+            set
+            {
+                showingNotifications = value;
+            }
+        }
+
         public Notifications()
         {
             InitializeComponent();
+            App app = Application.Current as App;
+            _patientController = app.PatientController;
+
+            String patientId = "2";
+            notificationsTimeList = new List<DateTime>();
+            notificationsList = new List<String>();
+
+            Model.Patient patient = _patientController.ReadPatient(patientId);
+            foreach(Report report in patient.MedicalRecord.Reports)
+            {
+                foreach(Therapy therapy in report.Therapy)
+                {
+                    //ovde dodje do terapije
+                    DateTime start = report.CreateDate;
+                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
+                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
+
+                    //popuniti liste
+                    for(int i = 0; i < therapy.Duration; ++i)
+                    {
+                       for(int j = 0; j < therapy.PerDay; ++j)
+                        {
+                            notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
+                            notificationsList.Add("Popiti lek" + therapy.Medicine);
+                        }
+                    }
+                }
+            }
+
+            showingNotifications = new List<string>();
+            DateTime today = DateTime.Now;
+            foreach(DateTime dateTime in notificationsTimeList)
+            {
+                if(today.Day == dateTime.Day)
+                {
+                    showingNotifications.Add(notificationsList[notificationsTimeList.IndexOf(dateTime)] + "u" + dateTime.ToString("HH:mm"));
+                }
+            }
         }
     }
 }

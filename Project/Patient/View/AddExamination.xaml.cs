@@ -125,7 +125,7 @@ namespace Patient.View
             doctorTypes = new List<string>();
             StartDate = DateTime.Now.AddDays(1);
             EndDate = DateTime.Now.AddDays(7);
-            List<Doctor> doctors = _doctorController.GetAll();
+            List<Doctor> doctors = _doctorController.GetAll().ToList();
 
             DoctorTypeSelected.SelectedIndex = 0;
             foreach (Doctor doctor in doctors)
@@ -236,7 +236,7 @@ namespace Patient.View
             }
 
             
-            List<Doctor> doctors = _doctorController.GetAll();
+            List<Doctor> doctors = _doctorController.GetAll().ToList();
             DoctorsObs = new ObservableCollection<Doctor>();
             foreach (Doctor doctor in doctors)
             {

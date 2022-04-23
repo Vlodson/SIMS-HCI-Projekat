@@ -41,7 +41,8 @@ namespace Patient
             ExaminationRepo = examinationRepo;
             PatientRepo patientRepository = new PatientRepo(GlobalPaths.PatientsDBPath);
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
-            RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath);
+            EquipmentRepo equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
+            RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
 
             PatientService patientService = new PatientService(patientRepository, examinationRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
