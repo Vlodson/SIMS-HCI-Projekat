@@ -9,7 +9,7 @@ using Model;
 
 namespace Controller
 {
-    internal class EquipmentTransferController
+    public class EquipmentTransferController
     {
         private readonly EquipmentTransferService _equipmentTransferService;
 

@@ -41,6 +41,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
             <Button x:Name="equipmentBtn" Content="Equipment" Click="equipmentBtn_Click"  />
             <Button x:Name="roomsBtn" Content="Rooms" Click="roomsBtn_Click"  />
+            <Button x:Name="eqTransferBtn" Content="Transfers" Click="eqTransferBtn_Click"  />
         </StackPanel>
     </Grid>
 </Window>

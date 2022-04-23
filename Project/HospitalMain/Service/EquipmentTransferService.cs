@@ -28,18 +28,7 @@ namespace Service
             Room destinationRoom = _roomRepo.GetRoom(destinationRoomId);
             Equipment equipment = _equipmentRepo.GetEquipment(equipmentId);
 
-            // remove from origin
-            if (!_roomRepo.RemoveEquipment(originRoom.Id, equipment.Id))
-                return false;
-
-            // add to destination
-            if (!_roomRepo.AddEquipment(destinationRoom.Id, equipment))
-                return false;
-
-            // change equipment room id
-            _equipmentRepo.SetEquipment(equipment.Id, destinationRoom.Id, equipment.Type);
-
-            // make new schedule with no signature, cuz thats recording
+            // make new schedule with no signature, cuz thats recording, and thats when the actual transfer happens
             EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id, originRoom, destinationRoom, equipment, startDate, endDate, "");
             _equipmentTransferRepo.NewEquipmentTransfer(equipmentTransfer);
 
@@ -49,6 +38,18 @@ namespace Service
         public bool RecordTransfer(String trainsferId, String signature)
         {
             EquipmentTransfer equipmentTransfer = _equipmentTransferRepo.GetEquipmentTransfer(trainsferId);
+
+            // remove from origin
+            if (!_roomRepo.RemoveEquipment(equipmentTransfer.OriginRoom.Id, equipmentTransfer.Equipment.Id))
+                return false;
+
+            // add to destination
+            if (!_roomRepo.AddEquipment(equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment))
+                return false;
+
+            // change equipment room id
+            _equipmentRepo.SetEquipment(equipmentTransfer.Equipment.Id, equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment.Type);
+
             _equipmentTransferRepo.SetEquipmentTransfer(trainsferId, equipmentTransfer.OriginRoom, equipmentTransfer.DestinationRoom, equipmentTransfer.Equipment, equipmentTransfer.StartDate, equipmentTransfer.EndDate, signature);
             return true;
         }

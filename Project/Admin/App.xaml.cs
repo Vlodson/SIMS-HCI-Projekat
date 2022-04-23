@@ -19,23 +19,30 @@ namespace Admin
     {
         public RoomController roomController { get; set; }
         public EquipmentController equipmentController { get; set; }
+        public EquipmentTransferController equipmentTransferController { get; set; }
 
         public App()
         {
             var equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
+            var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
+            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo);
             
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
+            equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
             
             if (File.Exists(GlobalPaths.RoomsDBPath))
                 roomController.LoadRoom();
+
+            if (File.Exists(GlobalPaths.EquipmentTransfersDBPath))
+                equipmentTransferController.LoadEquipmentTransfer();
 
             for(int i = 0; i < 20; i++)
             {
@@ -44,6 +51,14 @@ namespace Admin
                     floor = 2;
 
                 roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
+                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
+            }
+
+            for(int i = 0; i < 20; i++)
+            {
+                equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i+1)%20).ToString(), i.ToString(), new DateOnly(2022,10,10), new DateOnly(2022, 11, 10));
+                equipmentTransferController.RecordTransfer(i.ToString(), "Pera");
             }
         }
 

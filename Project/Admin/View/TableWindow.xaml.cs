@@ -28,9 +28,11 @@ namespace Admin.View
 
         private EquipmentController _equipmentController;
         private RoomController _roomController;
+        private EquipmentTransferController _equipmentTransferController;
 
         public ObservableCollection<Equipment> EquipmentPerRoomList { get; set; }
         public ObservableCollection<Room> RoomsList { get; set; }
+        public ObservableCollection<EquipmentTransfer> EquipmentTransferList { get; set; }
 
         public TableWindow()
         {
@@ -40,9 +42,11 @@ namespace Admin.View
             var app = Application.Current as App;
             _equipmentController = app.equipmentController;
             _roomController = app.roomController;
+            _equipmentTransferController = app.equipmentTransferController;
             
             EquipmentPerRoomList = _equipmentController.ReadAll();
             RoomsList = _roomController.ReadAll();
+            EquipmentTransferList = new ObservableCollection<EquipmentTransfer>(_equipmentTransferController.ReadAll().Where(et => !string.IsNullOrEmpty(et.Signature)));
         }
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
@@ -122,6 +126,56 @@ namespace Admin.View
             TableGrid.Columns.Add(roomnb_col);
             TableGrid.Columns.Add(occupancy_col);
             TableGrid.Columns.Add(type_col);
+        }
+
+        private void eqTransferBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TableGrid.Columns.Clear();
+
+            TableGrid.ItemsSource = EquipmentTransferList;
+
+            DataGridTextColumn id_col = new DataGridTextColumn()
+            {
+                Header = "ID",
+                Binding = new Binding("Id")
+            };
+
+            DataGridTextColumn originId = new DataGridTextColumn()
+            {
+                Header = "Origin",
+                Binding = new Binding("OriginRoom.RoomNb")
+            };
+
+            DataGridTextColumn destinationId = new DataGridTextColumn()
+            {
+                Header = "Destination",
+                Binding = new Binding("DestinationRoom.RoomNb")
+            };
+
+            DataGridTextColumn equipmentId = new DataGridTextColumn()
+            {
+                Header = "Equipment",
+                Binding = new Binding("Equipment.Type")
+            };
+
+            DataGridTextColumn endDate = new DataGridTextColumn()
+            {
+                Header = "End Date",
+                Binding = new Binding("EndDate")
+            };
+
+            DataGridTextColumn Signature = new DataGridTextColumn()
+            {
+                Header = "Signature",
+                Binding = new Binding("Signature")
+            };
+
+            TableGrid.Columns.Add(id_col);
+            TableGrid.Columns.Add(originId);
+            TableGrid.Columns.Add(destinationId);
+            TableGrid.Columns.Add(equipmentId);
+            TableGrid.Columns.Add(endDate);
+            TableGrid.Columns.Add(Signature);
         }
     }
 }
