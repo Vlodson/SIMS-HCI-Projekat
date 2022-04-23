@@ -83,7 +83,7 @@ namespace Repository
             return true;
         }
 
-        public bool ReadEquipmentTransfer()
+        public bool SaveEquipmentTransfer()
         {
             return true;
         }
