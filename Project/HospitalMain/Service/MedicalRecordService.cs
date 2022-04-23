@@ -20,14 +20,14 @@ namespace Service
             this.medicalRecordRepo = medicalRecordRepo;
         }
 
-        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<String> allergens)
+        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<Report> reports, ObservableCollection<String> allergens)
         {
-            return medicalRecordRepo.NewMedicalRecord(new MedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, doctor, bloodType, allergens));
+            return medicalRecordRepo.NewMedicalRecord(new MedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, doctor, bloodType, reports, allergens));
         }
 
-        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, Doctor newDoctor, String newBloodType, ObservableCollection<String> newAllergens)
+        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, Doctor newDoctor, String newBloodType, ObservableCollection<Report> reports, ObservableCollection<String> newAllergens)
         {
-            medicalRecordRepo.EditMedicalRecord(medRecordID, new MedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newDoctor, newBloodType, newAllergens));
+            medicalRecordRepo.EditMedicalRecord(medRecordID, new MedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newDoctor, newBloodType, reports, newAllergens));
         }
 
         public bool DeleteMedicalRecord(String medRecordID)

@@ -30,8 +30,8 @@ namespace Secretary
             this.DataContext = this;
 
             App app = Application.Current as App;
-            patientController = app.patientController;
-            patientRepo = app.patientRepo;
+            patientController = app.PatientController;
+            patientRepo = app.PatientRepo;
 
 
             //patientController.CreatePatient("1", "0605994800043", "Pera", "Peric", new DateTime(1994, 05, 06), new ObservableCollection<Examination>());

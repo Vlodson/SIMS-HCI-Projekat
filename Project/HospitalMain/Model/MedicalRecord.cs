@@ -41,7 +41,7 @@ namespace Model
         {
 
         }
-        public MedicalRecord(string id, string ucin, string name, string surname, string phone_number, string mail, string adress, Gender gender, DateTime dob, Doctor doctor, string bloodType, ObservableCollection<Report> reports, ObservableCollection<string> allergens)
+        public MedicalRecord(String id, string ucin, string name, string surname, string phone_number, string mail, string adress, Gender gender, DateTime dob, Doctor doctor, string bloodType, ObservableCollection<Report> reports, ObservableCollection<string> allergens)
         {
             this.id = id;
             this.ucin = ucin;

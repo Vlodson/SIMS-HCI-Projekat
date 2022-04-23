@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HospitalMain.Enums;
 
 namespace Repository
 {
@@ -32,9 +33,30 @@ namespace Repository
             Report report = new Report("examId", "Neki opis", new DateTime(), "p1", "d1", ts);
             ObservableCollection<Report> reports = new ObservableCollection<Report>();
             reports.Add(report);
-          
-            MedicalRecord mr = new MedicalRecord("4", "ucin", "ime", "prezime", "4098240", "mejl", "adresa", Enums.Gender.Male, new DateTime(), new Doctor(), "A", reports, new ObservableCollection<string>());
-            this.MedicalRecords.Add(mr);
+
+            String allergen1 = "Prasina";
+            String allergen2 = "Polen trave";
+            String allergen3 = "Grinje";
+            String allergen4 = "Lesnici";
+            ObservableCollection<String> allergens1 = new ObservableCollection<String>();
+            ObservableCollection<String> allergens2 = new ObservableCollection<String>();
+            ObservableCollection<String> allergens3 = new ObservableCollection<String>();
+
+            allergens1.Add(allergen1);
+            allergens1.Add(allergen2);
+
+            allergens2.Add(allergen3);
+
+            allergens3.Add(allergen4);
+            allergens3.Add(allergen1);
+ 
+            MedicalRecord mr1 = new MedicalRecord("1", "015456238", "Pera", "Peric", "4098240", "perapera@gmail.com", "adresa1", Gender.Male, new DateTime(), new Doctor(), "A", reports, allergens1);
+            MedicalRecord mr2 = new MedicalRecord("2", "054646235", "Vladica", "Lunic", "4489965", "gromina@gmail.com", "adresa2", Gender.Male, new DateTime(), new Doctor(), "B", reports, allergens1);
+            MedicalRecord mr3 = new MedicalRecord("3", "015605699", "Milos", "Gravara", "41478115", "buljavac@gmail.com", "adresa3", Gender.Male, new DateTime(), new Doctor(), "AB", reports, allergens1);
+
+            this.MedicalRecords.Add(mr1);
+            this.MedicalRecords.Add(mr2);
+            this.MedicalRecords.Add(mr3);
         }
 
         public bool NewMedicalRecord(MedicalRecord medRecord)

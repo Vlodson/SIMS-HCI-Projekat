@@ -6,25 +6,29 @@
         xmlns:local="clr-namespace:Secretary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="LightBlue">
+        
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}"> 
+                <Setter Property="Margin" Value="30,0,0,0"/>
+            </Style>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         
-        <Button x:Name="CRUDAcc" Grid.Column="1" Grid.Row="1" Content="CRUD Account options" Margin="0,0,10,0" Click="CRUDAcc_Click"/>
-        <Button x:Name="button" Grid.Column="2" Grid.Row="1" Content="Button" />
+        <Button BorderBrush="Black" BorderThickness="1" x:Name="CRUDAcc" Grid.Column="1" Grid.Row="1" Content="CRUD account options" Margin="0,0,10,0" Click="CRUDAcc_Click"/>
+        <Button BorderBrush="Black" BorderThickness="1" x:Name="CRUDMedRecords" Grid.Column="2" Grid.Row="1" Content="CRUD medical records" Click="CRUDMedRecords_Click" />
         
     </Grid>
 </Window>
