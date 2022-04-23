@@ -52,7 +52,8 @@ namespace Patient.View
             notificationsList = new List<String>();
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
-            foreach(Report report in patient.MedicalRecord.Reports)
+            
+            foreach (Report report in patient.MedicalRecord.Reports)
             {
                 foreach(Therapy therapy in report.Therapy)
                 {
@@ -79,9 +80,11 @@ namespace Patient.View
             {
                 if(today.Day == dateTime.Day)
                 {
-                    showingNotifications.Add(notificationsList[notificationsTimeList.IndexOf(dateTime)] + "u" + dateTime.ToString("HH:mm"));
+                    ShowingNotifications.Add(notificationsList[notificationsTimeList.IndexOf(dateTime)] + "u" + dateTime.ToString("HH:mm"));
                 }
             }
+            //ShowingNotifications.Add("nesto");
+            NotificationList.ItemsSource = ShowingNotifications;
         }
     }
 }

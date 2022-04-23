@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Utility;
 
 namespace Patient.View
 {
@@ -181,7 +183,8 @@ namespace Patient.View
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            if(ExamsAvailable.SelectedIndex != -1)
+            
+            if (ExamsAvailable.SelectedIndex != -1)
             {
                 Model.Patient patient = _patientController.ReadPatient("2");
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
@@ -190,12 +193,15 @@ namespace Patient.View
                 id++;
 
                 Room getRoom = new Room();
-                foreach(Room room in _roomController.ReadAll())
+                if (File.Exists(GlobalPaths.RoomsDBPath))
+                    _roomController.LoadRoom();
+                
+                foreach (Room room in _roomController.ReadAll())
                 {
+                    Console.WriteLine("nesto radi");
                     if (room.Occupancy == false)
                     {
                         getRoom = room;
-                        Console.WriteLine(room.Id);
                         break;
                     }
                 }

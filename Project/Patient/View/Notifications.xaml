@@ -8,10 +8,10 @@
         Title="Notifications" Height="450" Width="400">
     <Grid Margin="0,78,0,0">
         <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="NotificationList" ItemsSource="{Binding ShowingNotifications}">
+        <ListBox x:Name="NotificationList" Margin="0,-11,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="2"/>
+                    <TextBlock Text="{Binding}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
