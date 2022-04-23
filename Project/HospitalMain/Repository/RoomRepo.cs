@@ -16,6 +16,8 @@ namespace Repository
         public String dbPath { get; set; }
         private EquipmentRepo _equipmentRepo;
         public ObservableCollection<Room> Rooms { get; set; }
+        public Room clipboardRoom { get; set; }
+        public Room selectedRoom { get; set; }
       
         public RoomRepo(string db_path, EquipmentRepo equipmentRepo)
         {
@@ -94,7 +96,28 @@ namespace Repository
 
             return false;
         }
-      
+
+        public bool SetClipboardRoom(Room room)
+        {
+            clipboardRoom = new Room(room);
+            return true;
+        }
+
+        public Room GetClipboardRoom()
+        {
+            return clipboardRoom;
+        }
+
+        public bool SetSelectedRoom(Room room)
+        {
+            selectedRoom = room;
+            return true;
+        }
+        public Room GetSelectedRoom()
+        {
+            return selectedRoom;
+        }
+
         public bool LoadRoom()
         {
             using FileStream roomFileStream = File.OpenRead(dbPath);
