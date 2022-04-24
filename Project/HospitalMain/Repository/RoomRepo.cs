@@ -147,6 +147,7 @@ namespace Repository
 
             string jsonString = JsonSerializer.Serialize(roomAnnotations);
             File.WriteAllText(dbPath, jsonString);
+
             return true;
         }
       

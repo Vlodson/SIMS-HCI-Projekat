@@ -25,7 +25,7 @@ namespace Admin
         {
             var equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
-            var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo);
+            var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
@@ -81,6 +81,7 @@ namespace Admin
         {
             //equipmentController.SaveEquipment();
             //roomController.SaveRoom();
+            //equipmentTransferController.SaveEquipmentTransfer();
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 using Model;
 using Utility;
+using Repository;
 
 namespace Repository
 {
@@ -13,13 +17,15 @@ namespace Repository
     {
         public String dbPath { get; set; }
         private RoomRepo _roomRepo;
+        private EquipmentRepo _equipmentRepo;
         public ObservableCollection<EquipmentTransfer> equipmentTransfers { get; set; }
         public EquipmentTransfer clipboardEquipmentTransfer { get; set; }
 
-        public EquipmentTransferRepo(String db_path, RoomRepo roomRepo)
+        public EquipmentTransferRepo(String db_path, RoomRepo roomRepo, EquipmentRepo equipmentRepo)
         {
             dbPath = db_path;
             _roomRepo = roomRepo;
+            _equipmentRepo = equipmentRepo;
             equipmentTransfers = new ObservableCollection<EquipmentTransfer>();
         }
 
@@ -80,11 +86,30 @@ namespace Repository
 
         public bool LoadEquipmentTransfer()
         {
+            using FileStream fileStream = File.OpenRead(dbPath);
+
+            List<EquipmentTransferAnnotation> equipmentTransferAnnotations = JsonSerializer.Deserialize<List<EquipmentTransferAnnotation>>(fileStream);
+
+            foreach (EquipmentTransferAnnotation equipmentTransferAnnotation in equipmentTransferAnnotations)
+            {
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferAnnotation);
+                equipmentTransfer.OriginRoom = _roomRepo.GetRoom(equipmentTransferAnnotation.OriginRoomId);
+                equipmentTransfer.DestinationRoom = _roomRepo.GetRoom(equipmentTransferAnnotation.DestinationRoomId);
+                equipmentTransfer.Equipment = _equipmentRepo.GetEquipment(equipmentTransferAnnotation.EquipmentId);
+            }
+
             return true;
         }
 
         public bool SaveEquipmentTransfer()
         {
+            List<EquipmentTransferAnnotation> equipmentTransferAnnotations = new List<EquipmentTransferAnnotation>();
+            foreach (EquipmentTransfer equipmentTransfer in equipmentTransfers)
+                equipmentTransferAnnotations.Add(new EquipmentTransferAnnotation(equipmentTransfer));
+
+            string jsonString = JsonSerializer.Serialize(equipmentTransferAnnotations);
+            File.WriteAllText(dbPath, jsonString);
+
             return true;
         }
 

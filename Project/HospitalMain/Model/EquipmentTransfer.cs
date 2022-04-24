@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
+using Utility;
+
 namespace Model
 {
     public class EquipmentTransfer : INotifyPropertyChanged
@@ -137,6 +139,17 @@ namespace Model
             StartDate = equipmentTransfer.StartDate;
             EndDate = equipmentTransfer.EndDate;
             Signature = equipmentTransfer.Signature;
+        }
+
+        public EquipmentTransfer(EquipmentTransferAnnotation equipmentTransferAnnotation)
+        {
+            this.Id = equipmentTransferAnnotation.Id;
+            this.OriginRoom = null;
+            this.DestinationRoom = null;
+            this.Equipment = null;
+            this.StartDate = equipmentTransferAnnotation.StartDate;
+            this.EndDate = equipmentTransferAnnotation.EndDate;
+            this.Signature = equipmentTransferAnnotation.Signature;
         }
     }
 }
