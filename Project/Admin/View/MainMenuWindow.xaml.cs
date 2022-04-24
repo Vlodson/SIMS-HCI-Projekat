@@ -73,8 +73,8 @@ namespace Admin.View
                     _roomController.SetClipboardRoom(r);
                     this.Hide();
                     ChooseFormWindow formWindow = new ChooseFormWindow();
-                    formWindow.ShowDialog();
-                    this.Show();
+                    formWindow.Owner = this;
+                    formWindow.Show();
                 };
 
                 TextBlock roomId = new TextBlock();

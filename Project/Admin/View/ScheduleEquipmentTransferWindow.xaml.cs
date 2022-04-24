@@ -91,6 +91,7 @@ namespace Admin.View
         {
             _roomController.RemoveSelectedRoom();
             this.Close();
+            this.Owner.Show();
         }
     }
 }

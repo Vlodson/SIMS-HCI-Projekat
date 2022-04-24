@@ -71,6 +71,12 @@ namespace Admin
             return null;
         }
 
+        public static void HideAllWindows()
+        {
+            foreach (Window window in App.Current.Windows)
+                window.Hide();
+        }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             //equipmentController.SaveEquipment();

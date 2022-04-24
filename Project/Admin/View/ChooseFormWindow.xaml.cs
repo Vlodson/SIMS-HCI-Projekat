@@ -41,8 +41,8 @@ namespace Admin.View
         {
             this.Hide();
             ScheduleEquipmentTransferWindow scheduleEquipmentTransferWindow = new ScheduleEquipmentTransferWindow();
-            scheduleEquipmentTransferWindow.ShowDialog();
-            this.Show();
+            scheduleEquipmentTransferWindow.Owner = this;
+            scheduleEquipmentTransferWindow.Show();
         }
 
         private void changeRoomTypeBtn_Click(object sender, RoutedEventArgs e)
@@ -56,6 +56,12 @@ namespace Admin.View
             ScheduleRenovationWindow scheduleRenovationWindow = new ScheduleRenovationWindow();
             scheduleRenovationWindow.Show();
             this.Show();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
         }
     }
 }
