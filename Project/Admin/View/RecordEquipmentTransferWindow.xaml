@@ -78,8 +78,8 @@
         </StackPanel>
 
         <Grid Grid.Row="13" Grid.Column="1">
-            <Button Content="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" Click="Button_Click" />
-            <Button Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,30,0" Click="Button_Click_1" />
+            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" Click="saveBtn_Click" />
+            <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,30,0" Click="discardBtn_Click"  />
         </Grid>
     </Grid>
 </Window>

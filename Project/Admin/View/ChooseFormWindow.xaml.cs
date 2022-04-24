@@ -54,8 +54,8 @@ namespace Admin.View
         {
             this.Hide();
             ScheduleRenovationWindow scheduleRenovationWindow = new ScheduleRenovationWindow();
+            scheduleRenovationWindow.Owner = this;
             scheduleRenovationWindow.Show();
-            this.Show();
         }
 
         private void Window_Closed(object sender, EventArgs e)

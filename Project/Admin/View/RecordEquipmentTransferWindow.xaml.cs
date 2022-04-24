@@ -43,15 +43,18 @@ namespace Admin.View
             endDate.Text = equipmentTransfer.EndDate.ToString();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void saveBtn_Click(object sender, RoutedEventArgs e)
         {
             _equipmentTransferController.RecordTransfer(equipmentTransfer.Id, signatrueTextBox.Text);
             this.Close();
+            this.Owner.Show();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void discardBtn_Click(object sender, RoutedEventArgs e)
         {
+            _equipmentTransferController.DeleteEquipmentTransfer(equipmentTransfer.Id);
             this.Close();
+            this.Owner.Show();
         }
     }
 }

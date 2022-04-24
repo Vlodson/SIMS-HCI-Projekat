@@ -20,20 +20,24 @@ namespace Admin
         public RoomController roomController { get; set; }
         public EquipmentController equipmentController { get; set; }
         public EquipmentTransferController equipmentTransferController { get; set; }
+        public RenovationController renovationController { get; set; }
 
         public App()
         {
             var equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
+            var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo);
+            var renovationService = new RenovationService(renovationRepo, roomRepo);
             
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
+            renovationController = new RenovationController(renovationService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
@@ -43,6 +47,9 @@ namespace Admin
 
             if (File.Exists(GlobalPaths.EquipmentTransfersDBPath))
                 equipmentTransferController.LoadEquipmentTransfer();
+
+            if(File.Exists(GlobalPaths.RenovationDBPath))
+                renovationController.LoadRenovation();
 
             for(int i = 0; i < 20; i++)
             {
@@ -57,9 +64,10 @@ namespace Admin
 
             for(int i = 0; i < 20; i++)
             {
-                equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i+1)%20).ToString(), i.ToString(), new DateOnly(2022,10,10), new DateOnly(2022, 11, 10));
+                equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i + 1) % 20).ToString(), i.ToString(), new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
                 equipmentTransferController.RecordTransfer(i.ToString(), "Pera");
             }
+
         }
 
         public static Window GetSpecificWindowType<T>()
@@ -82,6 +90,7 @@ namespace Admin
             //equipmentController.SaveEquipment();
             //roomController.SaveRoom();
             //equipmentTransferController.SaveEquipmentTransfer();
+            //renovationController.SaveRenovation();
         }
     }
 }

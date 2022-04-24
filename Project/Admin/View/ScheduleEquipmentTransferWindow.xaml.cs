@@ -42,9 +42,9 @@ namespace Admin.View
             _roomController = app.roomController;
 
             OriginRoom = _roomController.GetClipboardRoom();
-            foreach(Equipment equipment in OriginRoom.Equipment)
+            equipmentComboBox.Items.Clear();
+            foreach (Equipment equipment in OriginRoom.Equipment)
             {
-                equipmentComboBox.Items.Clear();
                 equipmentComboBox.Items.Add(equipment);
                 equipmentComboBox.SelectedValuePath = "Id";
                 equipmentComboBox.DisplayMemberPath = "Type";
@@ -74,6 +74,7 @@ namespace Admin.View
             _equipmentTransferController.ScheduleTransfer(id.ToString(), OriginRoom.Id, DestinationRoom.Id, eq.Id, start, end);
             this.Close();
             RecordEquipmentTransferWindow recordEquipmentTransferWindow = new RecordEquipmentTransferWindow();
+            recordEquipmentTransferWindow.Owner = App.Current.MainWindow;
             recordEquipmentTransferWindow.Show();
         }
 

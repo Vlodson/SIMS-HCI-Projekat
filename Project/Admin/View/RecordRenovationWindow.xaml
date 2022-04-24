@@ -51,34 +51,34 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Renovation Type</TextBlock>
-            <ComboBox Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="renoTypeTextBox" IsReadOnly="True" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <!-- Make available only if reno type is parcelling -->
         <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Parcelling</TextBlock>
             <!-- Make clickable and autofilled with room clicked -->
-            <TextBox Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="parcellingTextBox" IsReadOnly="True" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Start date</TextBlock>
-            <DatePicker Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="startDateTextBox" IsReadOnly="True" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="10" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">End date</TextBlock>
-            <DatePicker Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="endDateTextBox" IsReadOnly="True" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="12" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Signature</TextBlock>
-            <TextBox Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="signatureTextBox" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <Grid Grid.Row="13" Grid.Column="1">
-            <Button Content="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" />
-            <Button Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,30,0" />
+            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" Click="saveBtn_Click" />
+            <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,30,0" Click="discardBtn_Click" />
         </Grid>
     </Grid>
 </Window>
