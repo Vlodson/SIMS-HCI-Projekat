@@ -63,7 +63,7 @@ namespace Service
         {
             return _repo.GetClipboardRoom();
         }
-        
+
         public bool SetSelectedRoom(Room room)
         {
             return _repo.SetSelectedRoom(room);
@@ -72,6 +72,11 @@ namespace Service
         public Room GetSelectedRoom()
         {
             return _repo.GetSelectedRoom();
+        }
+
+        public void RemoveSelectedRoom()
+        {
+            _repo.RemoveSelectedRoom();
         }
 
         public bool LoadRoom()

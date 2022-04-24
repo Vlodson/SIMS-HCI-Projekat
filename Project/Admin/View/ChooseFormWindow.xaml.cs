@@ -36,5 +36,32 @@ namespace Admin.View
 
             titleTextBlock.Text = "Choose form for room\n" + selectedRoom.RoomNb;
         }
+
+        private void transferEquipmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            ScheduleEquipmentTransferWindow scheduleEquipmentTransferWindow = new ScheduleEquipmentTransferWindow();
+            scheduleEquipmentTransferWindow.Owner = this;
+            scheduleEquipmentTransferWindow.Show();
+        }
+
+        private void changeRoomTypeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Implementation not needed for CP3");
+        }
+
+        private void renovateRoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            ScheduleRenovationWindow scheduleRenovationWindow = new ScheduleRenovationWindow();
+            scheduleRenovationWindow.Owner = this;
+            scheduleRenovationWindow.Show();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
+        }
     }
 }
