@@ -66,7 +66,9 @@ namespace Admin.View
 
         private void recordBtn_Click(object sender, RoutedEventArgs e)
         {
-            int id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id))+1;
+            int id = 0;
+            if(_equipmentTransferController.ReadAll().Count > 0)
+                id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id))+1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
             Equipment eq = equipmentComboBox.SelectedItem as Equipment;

@@ -57,7 +57,9 @@ namespace Admin.View
 
         private void recordBtn_Click(object sender, RoutedEventArgs e)
         {
-            int id = _renovationController.ReadAll().Max(reno => int.Parse(reno.Id)) + 1;
+            int id = 0;
+            if(_renovationController.ReadAll().Count > 0)
+                id = _renovationController.ReadAll().Max(reno => int.Parse(reno.Id)) + 1;
             RenovationType = (RenovationTypeEnum)renoTypeComboBox.SelectedItem;
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
