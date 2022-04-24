@@ -29,10 +29,12 @@ namespace Admin.View
         private EquipmentController _equipmentController;
         private RoomController _roomController;
         private EquipmentTransferController _equipmentTransferController;
+        private RenovationController _renovationController;
 
         public ObservableCollection<Equipment> EquipmentPerRoomList { get; set; }
         public ObservableCollection<Room> RoomsList { get; set; }
         public ObservableCollection<EquipmentTransfer> EquipmentTransferList { get; set; }
+        public ObservableCollection<Renovation> RenovationList { get; set; }
 
         public TableWindow()
         {
@@ -43,10 +45,12 @@ namespace Admin.View
             _equipmentController = app.equipmentController;
             _roomController = app.roomController;
             _equipmentTransferController = app.equipmentTransferController;
+            _renovationController = app.renovationController;
 
             EquipmentPerRoomList = new ObservableCollection<Equipment>();
             RoomsList = new ObservableCollection<Room>();
             EquipmentTransferList = new ObservableCollection<EquipmentTransfer>();
+            RenovationList = new ObservableCollection<Renovation>();
         }
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
@@ -133,8 +137,9 @@ namespace Admin.View
         {
             TableGrid.Columns.Clear();
             EquipmentTransferList = _equipmentTransferController.ReadAll();
+            ObservableCollection<EquipmentTransfer> signedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(EquipmentTransferList.Where(eq => !String.IsNullOrEmpty(eq.Signature)));
 
-            TableGrid.ItemsSource = EquipmentTransferList;
+            TableGrid.ItemsSource = signedEquipmentTransfers;
 
             DataGridTextColumn id_col = new DataGridTextColumn()
             {
@@ -178,6 +183,51 @@ namespace Admin.View
             TableGrid.Columns.Add(equipmentId);
             TableGrid.Columns.Add(endDate);
             TableGrid.Columns.Add(Signature);
+        }
+
+        private void renovationsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TableGrid.Columns.Clear();
+            RenovationList = _renovationController.ReadAll();
+            ObservableCollection<Renovation> signedRenovations = new ObservableCollection<Renovation>(RenovationList.Where(reno => !String.IsNullOrEmpty(reno.Signature)));
+
+            TableGrid.ItemsSource = signedRenovations;
+
+            DataGridTextColumn id_col = new DataGridTextColumn()
+            {
+                Header = "ID",
+                Binding = new Binding("Id")
+            };
+
+            DataGridTextColumn originRoomNb_col = new DataGridTextColumn()
+            {
+                Header = "Origin",
+                Binding = new Binding("OriginRoom.RoomNb")
+            };
+
+            DataGridTextColumn type_col = new DataGridTextColumn()
+            {
+                Header = "Type",
+                Binding = new Binding("Type")
+            };
+
+            DataGridTextColumn endDate_col = new DataGridTextColumn()
+            {
+                Header = "End Date",
+                Binding = new Binding("EndDate")
+            };
+
+            DataGridTextColumn signature_col = new DataGridTextColumn()
+            {
+                Header = "Signature",
+                Binding = new Binding("Signature")
+            };
+
+            TableGrid.Columns.Add(id_col);
+            TableGrid.Columns.Add(originRoomNb_col);
+            TableGrid.Columns.Add(type_col);
+            TableGrid.Columns.Add(endDate_col);
+            TableGrid.Columns.Add(signature_col);
         }
     }
 }
