@@ -107,7 +107,7 @@ namespace Repository
             foreach (EquipmentTransfer equipmentTransfer in equipmentTransfers)
                 equipmentTransferAnnotations.Add(new EquipmentTransferAnnotation(equipmentTransfer));
 
-            string jsonString = JsonSerializer.Serialize(equipmentTransferAnnotations);
+            String jsonString = JsonSerializer.Serialize(equipmentTransferAnnotations);
             File.WriteAllText(dbPath, jsonString);
 
             return true;

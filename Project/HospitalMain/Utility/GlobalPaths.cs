@@ -13,6 +13,7 @@ namespace Utility
         public static String RoomsDBPath = Path.Combine(DBPath, "Rooms.json");
         public static String EquipmentDBPath = Path.Combine(DBPath, "Equipment.json");
         public static String EquipmentTransfersDBPath = Path.Combine(DBPath, "EquipmentTransfers.json");
+        public static String RenovationDBPath = Path.Combine(DBPath, "Renovations.json");
         public static String ExamsDBPath = Path.Combine(DBPath, "Exams.json");
         public static String PatientsDBPath = Path.Combine(DBPath, "Patients.json");
         public static String DoctorsDBPath = Path.Combine(DBPath, "Doctors.json");
