@@ -116,6 +116,10 @@ namespace Repository
         {
             return selectedRoom;
         }
+        public void RemoveSelectedRoom()
+        {
+            selectedRoom = null;
+        }
 
         public bool LoadRoom()
         {

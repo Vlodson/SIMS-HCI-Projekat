@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Admin.View"
         mc:Ignorable="d"
         FontSize="18"
-        Title="Window1" Height="430" Width="750">
+        Title="Hospital" Height="430" Width="750">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -24,7 +24,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Main menu" />
+            <Button x:Name="tableViewBtn" Content="Tables" Click="tableViewBtn_Click" />
         </StackPanel>
 
         <Grid x:Name="roomGrid" Grid.Row="2" Grid.Column="1">

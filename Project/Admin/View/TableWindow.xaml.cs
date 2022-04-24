@@ -43,18 +43,18 @@ namespace Admin.View
             _equipmentController = app.equipmentController;
             _roomController = app.roomController;
             _equipmentTransferController = app.equipmentTransferController;
-            
-            EquipmentPerRoomList = _equipmentController.ReadAll();
-            RoomsList = _roomController.ReadAll();
-            EquipmentTransferList = new ObservableCollection<EquipmentTransfer>(_equipmentTransferController.ReadAll().Where(et => !string.IsNullOrEmpty(et.Signature)));
+
+            EquipmentPerRoomList = new ObservableCollection<Equipment>();
+            RoomsList = new ObservableCollection<Room>();
+            EquipmentTransferList = new ObservableCollection<EquipmentTransfer>();
         }
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
         {
             // since TableGrid is shared, you need to clear it otherwise it will get more and more columns every time you press the buttons
             TableGrid.Columns.Clear();
+            EquipmentPerRoomList = _equipmentController.ReadAll();
 
-            // create data grid programmatically
             TableGrid.ItemsSource = EquipmentPerRoomList;
 
             DataGridTextColumn id_col = new DataGridTextColumn()
@@ -87,6 +87,7 @@ namespace Admin.View
         private void roomsBtn_Click(object sender, RoutedEventArgs e)
         {
             TableGrid.Columns.Clear();
+            RoomsList = _roomController.ReadAll();
 
             TableGrid.ItemsSource = RoomsList;
 
@@ -131,6 +132,7 @@ namespace Admin.View
         private void eqTransferBtn_Click(object sender, RoutedEventArgs e)
         {
             TableGrid.Columns.Clear();
+            EquipmentTransferList = _equipmentTransferController.ReadAll();
 
             TableGrid.ItemsSource = EquipmentTransferList;
 

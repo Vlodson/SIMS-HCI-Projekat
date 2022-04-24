@@ -39,12 +39,12 @@ namespace Service
         {
             EquipmentTransfer equipmentTransfer = _equipmentTransferRepo.GetEquipmentTransfer(trainsferId);
 
-            // remove from origin
-            if (!_roomRepo.RemoveEquipment(equipmentTransfer.OriginRoom.Id, equipmentTransfer.Equipment.Id))
-                return false;
-
             // add to destination
             if (!_roomRepo.AddEquipment(equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment))
+                return false;
+
+            // remove from origin
+            if (!_roomRepo.RemoveEquipment(equipmentTransfer.OriginRoom.Id, equipmentTransfer.Equipment.Id))
                 return false;
 
             // change equipment room id

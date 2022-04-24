@@ -72,6 +72,11 @@ namespace Controller
             return _roomService.GetSelectedRoom();
         }
 
+        public void RemoveSelectedRoom()
+        {
+            _roomService.RemoveSelectedRoom();
+        }
+
         public bool LoadRoom()
         {
             return _roomService.LoadRoom();

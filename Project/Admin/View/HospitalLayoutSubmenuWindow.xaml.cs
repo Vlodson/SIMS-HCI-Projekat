@@ -64,6 +64,7 @@ namespace Admin.View
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetSelectedRoom(r);
+                    this.Close();
                 };
 
                 TextBlock roomId = new TextBlock();

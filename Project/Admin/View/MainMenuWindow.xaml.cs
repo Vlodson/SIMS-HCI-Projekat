@@ -71,8 +71,10 @@ namespace Admin.View
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetClipboardRoom(r);
+                    this.Hide();
                     ChooseFormWindow formWindow = new ChooseFormWindow();
-                    formWindow.Show();
+                    formWindow.ShowDialog();
+                    this.Show();
                 };
 
                 TextBlock roomId = new TextBlock();
@@ -121,6 +123,15 @@ namespace Admin.View
 
                 floorButtons.Children.Add(floorBtn);
             }
+        }
+
+        private void tableViewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            TableWindow tableWindow = new TableWindow();
+            tableWindow.Hide();
+            tableWindow.ShowDialog();
+            this.Show();
         }
     }
 }

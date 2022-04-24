@@ -62,6 +62,15 @@ namespace Admin
             }
         }
 
+        public static Window GetSpecificWindowType<T>()
+        {
+            // return first instance of type T of window
+            foreach(Window window in App.Current.Windows)
+                if(window is T)
+                    return window;
+            return null;
+        }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             //equipmentController.SaveEquipment();
