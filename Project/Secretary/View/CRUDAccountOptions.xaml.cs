@@ -53,7 +53,7 @@ namespace Secretary
             id++;
             string medicalRecordID = textMedicalRecordID.Text;
 
-            patientController.CreatePatient(id.ToString(), UCIN, name, surname, phoneNum, mail, adress, gender, dob, medicalRecordID, new ObservableCollection<Examination>());
+            patientController.CreatePatient(id.ToString(), UCIN, name, surname, phoneNum, mail, adress, gender, dob, medicalRecordID);
 
         }
 
@@ -76,7 +76,7 @@ namespace Secretary
                 patient.Gender = gender;
                 patient.MedicalRecordID = textMedicalRecordID.Text;
 
-                patientController.EditPatient(patient.ID.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.PhoneNumber, patient.Mail, patient.Adress, patient.Gender, patient.DoB, patient.MedicalRecordID, patient.Examinations);
+                patientController.EditPatient(patient.ID.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.PhoneNumber, patient.Mail, patient.Adress, patient.Gender, patient.DoB, patient.MedicalRecordID);
             }
 
             dataGridPatients.UnselectAll();
