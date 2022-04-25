@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="Notifications" Height="450" Width="400">
+        Title="Obaveštenja" Height="450" Width="400">
     <Grid Margin="0,78,0,0">
         <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="NotificationList" Margin="0,-11,0,0">

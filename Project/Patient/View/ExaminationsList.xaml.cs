@@ -61,7 +61,7 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             AddExamination addExamination = new AddExamination();
-            addExamination.Show();
+            addExamination.ShowDialog();
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace Patient.View
                 {
                     Message.Visibility = Visibility.Hidden;
                     EditExamination editExamination = new EditExamination();
-                    editExamination.Show();
+                    editExamination.ShowDialog();
                 }
                 else
                 {

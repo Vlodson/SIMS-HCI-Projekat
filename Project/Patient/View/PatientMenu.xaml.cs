@@ -86,7 +86,7 @@ namespace Patient.View
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
             Notifications notifications = new Notifications();
-            notifications.Show();
+            notifications.ShowDialog();
         }
     }
 }

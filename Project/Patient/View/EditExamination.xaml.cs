@@ -36,6 +36,9 @@ namespace Patient.View
 
             //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
             ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
+            Odeljenje.Content = ExaminationsList.selected.DoctorType;
+            Lekar.Content = ExaminationsList.selected.DoctorNameSurname;
+            StariTermin.Content = ExaminationsList.selected.Date;
             //AddExamination
         }
 
