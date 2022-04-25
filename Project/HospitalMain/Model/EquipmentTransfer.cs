@@ -147,8 +147,8 @@ namespace Model
             this.OriginRoom = null;
             this.DestinationRoom = null;
             this.Equipment = null;
-            this.StartDate = equipmentTransferAnnotation.StartDate;
-            this.EndDate = equipmentTransferAnnotation.EndDate;
+            this.StartDate = DateOnly.Parse(equipmentTransferAnnotation.StartDate);
+            this.EndDate = DateOnly.Parse(equipmentTransferAnnotation.EndDate);
             this.Signature = equipmentTransferAnnotation.Signature;
         }
     }

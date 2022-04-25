@@ -56,12 +56,5 @@ namespace Admin.View
             this.Close();
             this.Owner.Show();
         }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            _equipmentTransferController.DeleteEquipmentTransfer(equipmentTransfer.Id);
-            this.Close();
-            this.Owner.Show();
-        }
     }
 }

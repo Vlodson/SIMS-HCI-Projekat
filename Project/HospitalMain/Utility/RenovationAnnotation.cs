@@ -14,8 +14,8 @@ namespace Utility
         public String Id { get; set; }
         public String OriginRoomId { get; set; }
         public RenovationTypeEnum Type { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public String StartDate { get; set; }
+        public String EndDate { get; set; }
         public String Signature { get; set; }
 
         public RenovationAnnotation() { }
@@ -24,11 +24,11 @@ namespace Utility
             Id = renovation.Id;
             OriginRoomId = renovation.OriginRoom.Id;
             Type = renovation.Type;
-            StartDate = renovation.StartDate;
-            EndDate = renovation.EndDate;
+            StartDate = renovation.StartDate.ToString();
+            EndDate = renovation.EndDate.ToString();
             Signature = renovation.Signature;
         }
-        public RenovationAnnotation(String id, String originRoomId, RenovationTypeEnum type, DateOnly start, DateOnly end, String signature)
+        public RenovationAnnotation(String id, String originRoomId, RenovationTypeEnum type, String start, String end, String signature)
         {
             this.Id = id;
             this.OriginRoomId = originRoomId;

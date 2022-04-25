@@ -14,8 +14,8 @@ namespace Utility
         public String OriginRoomId { get; set; }
         public String DestinationRoomId { get; set; }
         public String EquipmentId { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public String StartDate { get; set; }
+        public String EndDate { get; set; }
         public String Signature { get; set; }
 
         public EquipmentTransferAnnotation() { }
@@ -25,11 +25,11 @@ namespace Utility
             OriginRoomId = equipmentTransfer.OriginRoom.Id;
             DestinationRoomId = equipmentTransfer.DestinationRoom.Id;
             EquipmentId = equipmentTransfer.Equipment.Id;
-            StartDate = equipmentTransfer.StartDate;
-            EndDate = equipmentTransfer.EndDate;
+            StartDate = equipmentTransfer.StartDate.ToString();
+            EndDate = equipmentTransfer.EndDate.ToString();
             Signature = equipmentTransfer.Signature;
         }
-        public EquipmentTransferAnnotation(String id, String originId, String destinationId, String equipmentId, DateOnly start, DateOnly end, String signature)
+        public EquipmentTransferAnnotation(String id, String originId, String destinationId, String equipmentId, String start, String end, String signature)
         {
             this.Id = id;
             this.OriginRoomId = originId;

@@ -57,11 +57,5 @@ namespace Admin.View
             scheduleRenovationWindow.Owner = this;
             scheduleRenovationWindow.Show();
         }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            this.Close();
-            this.Owner.Show();
-        }
     }
 }

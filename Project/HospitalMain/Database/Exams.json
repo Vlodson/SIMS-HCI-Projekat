@@ -1,1 +1,0 @@
-[{"ExamRoomId":"idRoom","Id":"idExam","Duration":30,"PatientId":"1","DoctorId":"d1","DoctorNameSurname":null,"DoctorType":0,"EType":1,"Date":"2022-06-06T12:12:00"},{"ExamRoomId":"idRoom1","Id":"idExam1","Duration":30,"PatientId":"1","DoctorId":"d11","DoctorNameSurname":null,"DoctorType":0,"EType":1,"Date":"2021-02-02T12:12:00"}]
