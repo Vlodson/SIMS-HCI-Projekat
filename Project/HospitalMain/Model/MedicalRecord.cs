@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using HospitalMain.Enums;
 using System.Collections.ObjectModel;
+using HospitalMain.Model;
 
 namespace Model
 {
@@ -32,16 +33,16 @@ namespace Model
         private Gender gender;
         private DateTime dob;
 
-        private Doctor doctor;
         private String bloodType;
         private ObservableCollection<Report> reports;
-        private ObservableCollection<String> allergens;
+        private ObservableCollection<Allergen> allergens;
 
-        public MedicalRecord ()
-        {
+        //public MedicalRecord(ObservableCollection<Report> reports)
+        //{
+        //    this.reports=reports;
+        //}
 
-        }
-        public MedicalRecord(string id, string ucin, string name, string surname, string phone_number, string mail, string adress, Gender gender, DateTime dob, Doctor doctor, string bloodType, ObservableCollection<Report> reports, ObservableCollection<string> allergens)
+        public MedicalRecord(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens)
         {
             this.id = id;
             this.ucin = ucin;
@@ -52,15 +53,9 @@ namespace Model
             this.adress = adress;
             this.gender = gender;
             this.dob = dob;
-            this.doctor = doctor;
             this.bloodType = bloodType;
             this.reports = reports;
             this.allergens = allergens;
-        }
-
-        public MedicalRecord(ObservableCollection<Report> reports)
-        {
-            this.reports=reports;
         }
 
         public String ID
@@ -193,19 +188,6 @@ namespace Model
             }
         }
 
-        public Doctor Doctor
-        {
-            get { return doctor; }
-            set
-            {
-                if(doctor != value)
-                {
-                    doctor = value;
-                    OnPropertyChanged("Doctor");
-                }
-            }
-        }
-
         public ObservableCollection<Report> Reports
         {
             get { return reports; }
@@ -219,7 +201,7 @@ namespace Model
             }
         }
 
-        public ObservableCollection<String> Allergens
+        public ObservableCollection<Allergen> Allergens
         {
             get { return allergens; }
             set
@@ -230,6 +212,11 @@ namespace Model
                     OnPropertyChanged("Allergens");
                 }
             }
+        }
+
+        public MedicalRecord()
+        {
+
         }
 
     }

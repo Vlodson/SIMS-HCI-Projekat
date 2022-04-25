@@ -49,34 +49,34 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Renovation Type</TextBlock>
-            <ComboBox Width="215" HorizontalAlignment="Left" />
+            <ComboBox x:Name="renoTypeComboBox" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <!-- Make available only if reno type is parcelling -->
         <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Parcelling</TextBlock>
             <Grid Width="215" HorizontalAlignment="Left" Margin="0,0,0,10">
-                <Button Content="Splitting" Width="100" HorizontalAlignment="Left" />
-                <Button Content="Merging" Width="100" HorizontalAlignment="Right" />
+                <Button x:Name="splitBtn" Content="Splitting" Width="100" HorizontalAlignment="Left" Click="splitBtn_Click" />
+                <Button x:Name="mergeBtn" Content="Merging" Width="100" HorizontalAlignment="Right" />
             </Grid>
             <!-- Make clickable and autofilled with room clicked -->
-            <TextBox Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="parcellingRoomTextBox" Background="Transparent" IsReadOnly="True" Width="215" HorizontalAlignment="Left" PreviewMouseDown="parcellingRoomTextBox_PreviewMouseDown" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Start date</TextBlock>
-            <DatePicker Width="215" HorizontalAlignment="Left" />
+            <DatePicker x:Name="startDate" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="10" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">End date</TextBlock>
-            <DatePicker Width="215" HorizontalAlignment="Left" />
+            <DatePicker x:Name="endDate" Width="215" HorizontalAlignment="Left" />
         </StackPanel>
 
         <Grid Grid.Row="11" Grid.Column="1">
-            <Button Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" />
-            <Button Content="Save" Height="50" Width="100" HorizontalAlignment="Center" />
-            <Button Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" />
+            <Button x:Name="recordBtn" Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" Click="recordBtn_Click" />
+            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Center" Click="saveBtn_Click" />
+            <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" Click="discardBtn_Click" />
         </Grid>
     </Grid>
 </Window>

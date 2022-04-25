@@ -28,9 +28,13 @@ namespace Admin.View
 
         private EquipmentController _equipmentController;
         private RoomController _roomController;
+        private EquipmentTransferController _equipmentTransferController;
+        private RenovationController _renovationController;
 
         public ObservableCollection<Equipment> EquipmentPerRoomList { get; set; }
         public ObservableCollection<Room> RoomsList { get; set; }
+        public ObservableCollection<EquipmentTransfer> EquipmentTransferList { get; set; }
+        public ObservableCollection<Renovation> RenovationList { get; set; }
 
         public TableWindow()
         {
@@ -40,35 +44,21 @@ namespace Admin.View
             var app = Application.Current as App;
             _equipmentController = app.equipmentController;
             _roomController = app.roomController;
+            _equipmentTransferController = app.equipmentTransferController;
+            _renovationController = app.renovationController;
 
-            if (File.Exists(GlobalPaths.EquipmentDBPath))
-                _equipmentController.LoadEquipment();
-
-            if(File.Exists(GlobalPaths.RoomsDBPath))
-                _roomController.LoadRoom();
-
-
-            _roomController.CreateRoom("0", 1, 1, true, RoomTypeEnum.Patient_Room);
-            
-            _equipmentController.CreateEquipment("0", "0", EquipmentTypeEnum.Bed);
-            _roomController.AddEquipment("0", _equipmentController.ReadEquipment("0"));
-
-            //_equipmentController.EditEquipment("0", "0", EquipmentTypeEnum.Dish);
-            //_roomController.ReadRoom("0").Equipment[0].Type = EquipmentTypeEnum.Chair;
-            MessageBox.Show(_roomController.ReadRoom("0").Equipment[0].Type.ToString());
-            
-            
-            EquipmentPerRoomList = _equipmentController.ReadAll();
-            RoomsList = _roomController.ReadAll();
-            
+            EquipmentPerRoomList = new ObservableCollection<Equipment>();
+            RoomsList = new ObservableCollection<Room>();
+            EquipmentTransferList = new ObservableCollection<EquipmentTransfer>();
+            RenovationList = new ObservableCollection<Renovation>();
         }
 
         private void equipmentBtn_Click(object sender, RoutedEventArgs e)
         {
             // since TableGrid is shared, you need to clear it otherwise it will get more and more columns every time you press the buttons
             TableGrid.Columns.Clear();
+            EquipmentPerRoomList = _equipmentController.ReadAll();
 
-            // create data grid programmatically
             TableGrid.ItemsSource = EquipmentPerRoomList;
 
             DataGridTextColumn id_col = new DataGridTextColumn()
@@ -101,6 +91,7 @@ namespace Admin.View
         private void roomsBtn_Click(object sender, RoutedEventArgs e)
         {
             TableGrid.Columns.Clear();
+            RoomsList = _roomController.ReadAll();
 
             TableGrid.ItemsSource = RoomsList;
 
@@ -140,6 +131,103 @@ namespace Admin.View
             TableGrid.Columns.Add(roomnb_col);
             TableGrid.Columns.Add(occupancy_col);
             TableGrid.Columns.Add(type_col);
+        }
+
+        private void eqTransferBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TableGrid.Columns.Clear();
+            EquipmentTransferList = _equipmentTransferController.ReadAll();
+            ObservableCollection<EquipmentTransfer> signedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(EquipmentTransferList.Where(eq => !String.IsNullOrEmpty(eq.Signature)));
+
+            TableGrid.ItemsSource = signedEquipmentTransfers;
+
+            DataGridTextColumn id_col = new DataGridTextColumn()
+            {
+                Header = "ID",
+                Binding = new Binding("Id")
+            };
+
+            DataGridTextColumn originId = new DataGridTextColumn()
+            {
+                Header = "Origin",
+                Binding = new Binding("OriginRoom.RoomNb")
+            };
+
+            DataGridTextColumn destinationId = new DataGridTextColumn()
+            {
+                Header = "Destination",
+                Binding = new Binding("DestinationRoom.RoomNb")
+            };
+
+            DataGridTextColumn equipmentId = new DataGridTextColumn()
+            {
+                Header = "Equipment",
+                Binding = new Binding("Equipment.Type")
+            };
+
+            DataGridTextColumn endDate = new DataGridTextColumn()
+            {
+                Header = "End Date",
+                Binding = new Binding("EndDate")
+            };
+
+            DataGridTextColumn Signature = new DataGridTextColumn()
+            {
+                Header = "Signature",
+                Binding = new Binding("Signature")
+            };
+
+            TableGrid.Columns.Add(id_col);
+            TableGrid.Columns.Add(originId);
+            TableGrid.Columns.Add(destinationId);
+            TableGrid.Columns.Add(equipmentId);
+            TableGrid.Columns.Add(endDate);
+            TableGrid.Columns.Add(Signature);
+        }
+
+        private void renovationsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            TableGrid.Columns.Clear();
+            RenovationList = _renovationController.ReadAll();
+            ObservableCollection<Renovation> signedRenovations = new ObservableCollection<Renovation>(RenovationList.Where(reno => !String.IsNullOrEmpty(reno.Signature)));
+
+            TableGrid.ItemsSource = signedRenovations;
+
+            DataGridTextColumn id_col = new DataGridTextColumn()
+            {
+                Header = "ID",
+                Binding = new Binding("Id")
+            };
+
+            DataGridTextColumn originRoomNb_col = new DataGridTextColumn()
+            {
+                Header = "Origin",
+                Binding = new Binding("OriginRoom.RoomNb")
+            };
+
+            DataGridTextColumn type_col = new DataGridTextColumn()
+            {
+                Header = "Type",
+                Binding = new Binding("Type")
+            };
+
+            DataGridTextColumn endDate_col = new DataGridTextColumn()
+            {
+                Header = "End Date",
+                Binding = new Binding("EndDate")
+            };
+
+            DataGridTextColumn signature_col = new DataGridTextColumn()
+            {
+                Header = "Signature",
+                Binding = new Binding("Signature")
+            };
+
+            TableGrid.Columns.Add(id_col);
+            TableGrid.Columns.Add(originRoomNb_col);
+            TableGrid.Columns.Add(type_col);
+            TableGrid.Columns.Add(endDate_col);
+            TableGrid.Columns.Add(signature_col);
         }
     }
 }

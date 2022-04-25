@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace HospitalMain.Enums
 {
-    public enum RoomTypeEnum
+    public enum RenovationTypeEnum
     {
-        Patient_Room,
-        Operation_Room,
-        Storage_Room,
-        Meeting_Room,
-        Inoperative
+        Maintenance,
+        Painting,
+        Tiling,
+        Reparations,
+        Parcelling
     }
 }
