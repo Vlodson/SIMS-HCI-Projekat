@@ -193,10 +193,10 @@ namespace Patient.View
                 
                 
                 Room getRoom = new Room();
-                
+                /*
                 if (File.Exists(GlobalPaths.RoomsDBPath))
                     _roomController.LoadRoom();
-                
+                */
 
                 foreach (Room room in _roomController.ReadAll())
                 {
@@ -204,6 +204,8 @@ namespace Patient.View
                     if (room.Occupancy == false)
                     {
                         getRoom = room;
+                        _roomController.EditRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, true, room.Type);
+                        //room.Occupancy = true;
                         break;
                     }
                 }
