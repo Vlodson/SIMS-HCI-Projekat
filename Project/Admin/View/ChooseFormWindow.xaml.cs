@@ -57,5 +57,11 @@ namespace Admin.View
             scheduleRenovationWindow.Owner = this;
             scheduleRenovationWindow.Show();
         }
+
+        private void backBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            this.Owner.Show();
+        }
     }
 }

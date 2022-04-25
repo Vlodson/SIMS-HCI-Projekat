@@ -30,7 +30,7 @@
         
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Main menu" />
+            <Button x:Name="backBtn" Content="Back" Click="backBtn_Click" />
         </StackPanel>
 
         <TextBlock x:Name="titleTextBlock" Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="30">
