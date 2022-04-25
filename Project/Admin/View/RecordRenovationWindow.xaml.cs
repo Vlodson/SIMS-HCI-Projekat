@@ -55,5 +55,12 @@ namespace Admin.View
             this.Close();
             this.Owner.Show();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _renovationController.DeleteRenovation(renovation.Id);
+            this.Close();
+            this.Owner.Show();
+        }
     }
 }

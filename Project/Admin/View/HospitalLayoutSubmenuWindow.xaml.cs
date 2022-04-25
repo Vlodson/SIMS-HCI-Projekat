@@ -96,6 +96,7 @@ namespace Admin.View
             {
                 Button floorBtn = new Button();
                 floorBtn.Content = "Floor " + i;
+                floorBtn.Padding = new Thickness(5, 0, 5, 0);
                 floorBtn.Click += (s, e) =>
                 {
                     // clean what you currently have drawn

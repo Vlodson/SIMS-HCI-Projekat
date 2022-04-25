@@ -96,5 +96,12 @@ namespace Admin.View
             this.Close();
             this.Owner.Show();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            _roomController.RemoveSelectedRoom();
+            this.Close();
+            this.Owner.Show();
+        }
     }
 }

@@ -39,10 +39,10 @@
         <!-- View changing tab button bar like sheets has.
         Stylization similar to menu button bar but with button borders -->
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
-            <Button x:Name="equipmentBtn" Content="Equipment" Click="equipmentBtn_Click"  />
-            <Button x:Name="roomsBtn" Content="Rooms" Click="roomsBtn_Click"  />
-            <Button x:Name="eqTransferBtn" Content="Transfers" Click="eqTransferBtn_Click"  />
-            <Button x:Name="renovationsBtn" Content="Renovations" Click="renovationsBtn_Click"  />
+            <Button x:Name="equipmentBtn" Content="Equipment" Click="equipmentBtn_Click" Padding="5,0,5,0"  />
+            <Button x:Name="roomsBtn" Content="Rooms" Click="roomsBtn_Click" Padding="5,0,5,0" />
+            <Button x:Name="eqTransferBtn" Content="Transfers" Click="eqTransferBtn_Click" Padding="5,0,5,0" />
+            <Button x:Name="renovationsBtn" Content="Renovations" Click="renovationsBtn_Click" Padding="5,0,5,0" />
         </StackPanel>
     </Grid>
 </Window>

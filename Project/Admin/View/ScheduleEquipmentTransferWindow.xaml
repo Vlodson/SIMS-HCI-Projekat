@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Admin.View"
         mc:Ignorable="d"
         FontSize="18"
-        Title="ScheduleEquipmentTransferWindow" Height="750" Width="430">
+        Title="ScheduleEquipmentTransferWindow" Height="750" Width="430" Closed="Window_Closed">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
