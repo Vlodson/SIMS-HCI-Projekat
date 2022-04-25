@@ -74,6 +74,10 @@ namespace Controller
             return _patientService.GetExaminations();
         }
 
+        public void SaveExaminationRepo()
+        {
+            _patientService.SaveExaminationRepo();
+        }
         /*
       public System.Collections.ArrayList DoctorService
       {

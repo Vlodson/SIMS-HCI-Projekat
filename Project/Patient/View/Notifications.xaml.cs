@@ -71,7 +71,7 @@ namespace Patient.View
                        for(int j = 0; j < therapy.PerDay; ++j)
                         {
                             notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
-                            notificationsList.Add("Popiti lek" + therapy.Medicine);
+                            notificationsList.Add("Popiti lek " + therapy.Medicine);
                         }
                     }
                 }
@@ -79,14 +79,14 @@ namespace Patient.View
 
             showingNotifications = new List<string>();
             DateTime today = DateTime.Now;
-            foreach(DateTime dateTime in notificationsTimeList)
+            for(int i = 0; i < notificationsTimeList.Count; ++i)
             {
-                if(today.Day == dateTime.Day)
+                if(today.Date == notificationsTimeList[i].Date)
                 {
-                    ShowingNotifications.Add(notificationsList[notificationsTimeList.IndexOf(dateTime)] + "u" + dateTime.ToString("HH:mm"));
+                    ShowingNotifications.Add(notificationsList[i] + " u " + notificationsTimeList[i].ToString("HH:mm"));
                 }
             }
-            //ShowingNotifications.Add("nesto");
+            
             NotificationList.ItemsSource = ShowingNotifications;
         }
     }

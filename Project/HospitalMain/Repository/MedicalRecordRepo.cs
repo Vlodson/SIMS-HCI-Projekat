@@ -31,7 +31,7 @@ namespace Repository
             ts.Add(therapy2);
             ts.Add(therapy3);
 
-            Report report = new Report("examId", "Neki opis", new DateTime(), "p1", "d1", ts);
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 4, 25, 12, 0, 0), "p1", "d1", ts);
             ObservableCollection<Report> reports = new ObservableCollection<Report>();
             reports.Add(report);
 

@@ -18,6 +18,10 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
+        public void SaveExaminationRepo()
+        {
+            _examinationRepo.SaveExamination();
+        }
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
         {
             throw new NotImplementedException();
