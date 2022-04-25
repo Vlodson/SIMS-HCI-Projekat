@@ -22,6 +22,8 @@ namespace Patient.View
     public partial class Notifications : Window
     {
         private PatientController _patientController;
+        private MedicalRecordController _medicalRecordController;
+
         private List<String> notificationsList;
         private List<DateTime> notificationsTimeList;
         private List<String> showingNotifications;
@@ -46,14 +48,15 @@ namespace Patient.View
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
+            _medicalRecordController = app.MedicalRecordController;
 
             String patientId = "2";
             notificationsTimeList = new List<DateTime>();
             notificationsList = new List<String>();
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
-            
-            foreach (Report report in patient.MedicalRecord.Reports)
+            MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+            foreach (Report report in patientMedicalRecord.Reports)
             {
                 foreach(Therapy therapy in report.Therapy)
                 {

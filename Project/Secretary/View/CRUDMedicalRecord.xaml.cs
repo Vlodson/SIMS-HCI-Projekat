@@ -150,7 +150,7 @@ namespace Secretary.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            //medicalRecordRepo.SaveMedicalRecord();
+            medicalRecordRepo.SaveMedicalRecord();
         }
 
         private void dataGridMedicalRecords_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

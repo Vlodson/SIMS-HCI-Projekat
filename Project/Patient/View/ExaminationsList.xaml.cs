@@ -44,9 +44,10 @@ namespace Patient.View
             _examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
-            if (File.Exists(_examinationRepo.dbPath))
-                _examinationRepo.LoadExamination();
-            
+
+            //if (File.Exists(_examinationRepo.dbPath))
+            //    _examinationRepo.LoadExamination();
+
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams("2");
             foreach(Examination exam in examinations)
