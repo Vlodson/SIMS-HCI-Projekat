@@ -286,7 +286,7 @@ namespace Repository
             for (int i = 1; i < 5; ++i)
             {
                 //date.AddDays(1);
-                DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
                 for (int j = 0; j < 16; ++j)
                 {
                     examinationsTime.Add(start.AddMinutes(j * 30));

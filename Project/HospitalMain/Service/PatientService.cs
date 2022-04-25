@@ -79,5 +79,10 @@ namespace Service
             return _patientRepo.GetAllPatients();
         }
 
+        public ObservableCollection<Examination> GetExaminations()
+        {
+            return _examinationRepo.GetAll();
+        }
+
     }
 }
