@@ -11,7 +11,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.ObjectModel;
-using HospitalMain.Repository;
 
 namespace Doctor
 {

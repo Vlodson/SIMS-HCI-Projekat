@@ -17,6 +17,9 @@ namespace Repository
       {
             this.DBPath = dbPath;
             this.Patients = new ObservableCollection<Patient>();
+            /*Guest guest = new Guest("1");
+            this.DBPath = dbPath;
+            this.Patients = new ObservableCollection<Patient>();
             //Guest guest = new Guest("1");
 
             //Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), "1");
@@ -30,8 +33,10 @@ namespace Repository
             if (File.Exists(DBPath))
                 LoadPatient();
 
+            this.patients.Add(p1);
+            this.patients.Add(p2);
+            this.patients.Add(p3);*/
         }
-
 
        public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
        {
@@ -41,6 +46,7 @@ namespace Repository
             Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Female, new DateTime(2000, 11, 1), "4");
             this.Patients.Add(p1);
        }
+
 
       public bool NewPatient(Patient patient)
       {

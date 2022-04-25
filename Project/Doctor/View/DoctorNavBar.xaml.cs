@@ -1,6 +1,7 @@
 ﻿using Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,9 @@ namespace Doctor.View
     {
         private ReportRepo _reportRepo;
         private TherapyRepo _therapyRepo;
-        private ExaminationRepo _examinationRepo;
+        private ExaminationRepo _examRepo;
+        private PatientRepo _patientRepo;
+        private RoomRepo _roomRepo;
 
         public DoctorNavBar()
         {
@@ -30,10 +33,19 @@ namespace Doctor.View
             this.DataContext = this;
 
             App app = Application.Current as App;
-            _examinationRepo = app.examRepo;
+            _examRepo = app.examRepo;
             _reportRepo = app.reportRepo;
             _therapyRepo = app.therapyRepo;
-            
+            _patientRepo = app.patientRepo;
+            _roomRepo = app.roomRepo;
+
+            if (File.Exists(_patientRepo.DBPath))
+                _patientRepo.LoadPatient();
+            if (File.Exists(_roomRepo.dbPath))
+                _roomRepo.LoadRoom();
+            if (File.Exists(_examRepo.dbPath))
+                _examRepo.LoadExamination();
+
         }
 
         private void ButtonSchedule(object sender, RoutedEventArgs e)
@@ -68,9 +80,10 @@ namespace Doctor.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            _examinationRepo.SaveExamination();
+            _examRepo.SaveExamination();
             _therapyRepo.SaveTherapy();
             _reportRepo.SaveReport();
+            _patientRepo.SavePatient();
         }
     }
 }

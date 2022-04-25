@@ -8,16 +8,23 @@
       d:DesignHeight="395" d:DesignWidth="452"
       Title="MedicalRecord">
 
-    <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="IZVESTAJI ODABRANOG PACIJENTA" VerticalAlignment="Top" FontSize="20"/>
-        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,60,87,0" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="IZVESTAJI ODABRANOG PACIJENTA" VerticalAlignment="Top" FontSize="20"/>
+            <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="38,79,30,-128" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" DockPanel.Dock="Bottom" Height="177" Width="332">
+            <TextBox Name ="txtDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}" VerticalAlignment="Top" Width="283" Height="91" Margin="18,59,0,0"/>
+            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="257,155,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+        </Grid>
 
-    </Grid>
+
+    </DockPanel>
 </Page>
