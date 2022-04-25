@@ -50,7 +50,7 @@ namespace Patient.View
                 foreach (Therapy therapy in report.Therapy)
                 {
                     //ovde dodje do terapije
-                    DateTime start = report.CreateDate;
+                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
                     DateTime end = report.CreateDate.AddDays(therapy.Duration);
                     int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
 

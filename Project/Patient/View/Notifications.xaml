@@ -9,6 +9,12 @@
     <Grid Margin="0,78,0,0">
         <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="NotificationList" Margin="0,-11,0,0">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding}"/>
