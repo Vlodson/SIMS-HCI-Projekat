@@ -28,7 +28,7 @@ namespace Model
         private DateTime doB;
 
         private ObservableCollection<Examination> examinations;
-        private MedicalRecord medicalRecord;
+        private String medicalRecordID;
 
         public Patient(Guest guest) : base(guest.ID)
         {
@@ -40,7 +40,7 @@ namespace Model
 
         }
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, MedicalRecord medicalRecord, ObservableCollection<Examination> examinations)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, ObservableCollection<Examination> examinations)
         {
             this.id = id;
             this.ucin = ucin;
@@ -51,7 +51,7 @@ namespace Model
             this.adress = adress;
             this.gender = gender;
             this.doB = doB;
-            this.medicalRecord = medicalRecord; 
+            this.medicalRecordID = medicalRecordID; 
             this.examinations = examinations;
         }
 
@@ -88,18 +88,18 @@ namespace Model
 
         }
 
-        public MedicalRecord MedicalRecord
+        public String MedicalRecordID
         {
             get
             {
-                return medicalRecord;
+                return medicalRecordID;
             }
             set
             {
-                if (value != medicalRecord)
+                if (value != medicalRecordID)
                 {
-                    medicalRecord = value;
-                    OnPropertyChanged("MedicalRecord");
+                    medicalRecordID = value;
+                    OnPropertyChanged("MedicalRecordID");
                 }
             }
 
