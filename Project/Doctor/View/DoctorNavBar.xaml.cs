@@ -39,7 +39,7 @@ namespace Doctor.View
             _patientRepo = app.patientRepo;
             _roomRepo = app.roomRepo;
 
-            if (File.Exists(_patientRepo.dbPath))
+            if (File.Exists(_patientRepo.DBPath))
                 _patientRepo.LoadPatient();
             if (File.Exists(_roomRepo.dbPath))
                 _roomRepo.LoadRoom();

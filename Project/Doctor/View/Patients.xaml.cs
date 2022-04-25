@@ -44,7 +44,7 @@ namespace Doctor.View
             _patientController = app.patientController;
             _patientRepo = app.patientRepo;
 
-            if (File.Exists(_patientRepo.dbPath))
+            if (File.Exists(_patientRepo.DBPath))
                 _patientRepo.LoadPatient();
             patients = _patientController.ReadAllPatients();
         }

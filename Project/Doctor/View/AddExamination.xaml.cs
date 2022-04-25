@@ -40,7 +40,7 @@ namespace Doctor.View
             this.DataContext = this;
             _examinationSchedule = examinationSchedule;
 
-            PatientsObs = new ObservableCollection<Patient>();
+            //PatientsObs = new ObservableCollection<Patient>();
 
             App app = Application.Current as App;
             _examController = app.examController;
