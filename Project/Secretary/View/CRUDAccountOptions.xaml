@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CRUDAccountOptions" Height="550" Width="1024" Closed="Window_Closed">
 
-    <DockPanel>
+    <DockPanel Background="LightBlue">
         <DockPanel DockPanel.Dock="Top">
             <Button x:Name="addAccBtn" Margin="100,10,10,10" Width="auto" Click="addAccBtn_Click">Add account</Button>
             <Button x:Name="editAccBtn" Margin="50,10,10,10" Width="auto" Click="editAccBtn_Click">Edit account</Button>
@@ -25,6 +25,7 @@
                 <DataGridTextColumn Header="Mail adress" Width="*" Binding="{Binding Mail, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Adress" Width="*" Binding="{Binding Adress, UpdateSourceTrigger=PropertyChanged}" />
                 <DataGridTextColumn Header="Gender" Width="auto" Binding="{Binding Gender, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="MedicalRecordID" Width="auto" Binding="{Binding MedicalRecordID, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -35,7 +36,7 @@
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -54,7 +55,8 @@
             <Label x:Name="labelMail" Grid.Column="2" Grid.Row="1" Margin="20,0,0,0" >Mail adress :</Label>
             <Label x:Name="labelAdress" Grid.Column="2" Grid.Row="2" Margin="20,0,0,0" >Adress :</Label>
             <Label x:Name="labelGender" Grid.Column="2" Grid.Row="3" Margin="20,0,0,0" >Gender :</Label>
-            
+            <Label x:Name="labelMedicalRecordID" Grid.Column="4" Grid.Row="0" Margin="20,0,0,0" Content="MedicalRecordID :"/>
+
             <TextBox x:Name="textName" Grid.Column="1" Grid.Row="0" Margin="0,0,0,10" Text="{Binding Name, Mode=OneWay}"/>
             <TextBox x:Name="textSurname" Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Surname, Mode=OneWay}"/>
             <TextBox x:Name="textUCIN" Grid.Column="1" Grid.Row="2" Margin="0,0,0,10" Text="{Binding UCIN, Mode=OneWay}"/>
@@ -63,7 +65,8 @@
             <TextBox x:Name="textMail" Grid.Column="3" Grid.Row="1" Margin="0,0,0,10" Text="{Binding Mail, Mode=OneWay}"/>
             <TextBox x:Name="textAdress" Grid.Column="3" Grid.Row="2" Margin="0,0,0,10" Text="{Binding Adress, Mode=OneWay}"/>
             <TextBox x:Name="textGender" Grid.Column="3" Grid.Row="3" Text="{Binding Gender, Mode=OneWay}"/>
-            
+            <TextBox x:Name="textMedicalRecordID" Grid.Column="5" Grid.Row="0" Margin="0,0,0,10" Text="{Binding MedicalRecordID, Mode=OneWay}" Width="150" HorizontalAlignment="Left"/>
+
 
         </Grid>
 

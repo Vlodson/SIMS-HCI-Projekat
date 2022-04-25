@@ -120,6 +120,7 @@ namespace Model
                 string[] splitted = value.Split(" ");
                 name = splitted[0];
                 surname = splitted[1];
+                OnPropertyChanged("NameSurname");
             }
         }
         public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, List<Examination> examination)

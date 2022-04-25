@@ -33,14 +33,8 @@ namespace Secretary
             patientController = app.PatientController;
             patientRepo = app.PatientRepo;
 
-
-            //patientController.CreatePatient("1", "0605994800043", "Pera", "Peric", new DateTime(1994, 05, 06), new ObservableCollection<Examination>());
-            //patientController.CreatePatient("2", "0808985800043", "Ivan", "Ivic", new DateTime(1985, 08, 08), new ObservableCollection<Examination>());
-            //patientController.CreatePatient("3", "1111001800043", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
-            //patientController.CreatePatient("4", "1111001800043", "Zika", "Zikic", new DateTime(2001, 11, 11), new ObservableCollection<Examination>());
-
-            if(File.Exists(patientRepo.DBPath))
-                patientRepo.LoadPatient();
+            //if(File.Exists(patientRepo.DBPath))
+            //    patientRepo.LoadPatient();
             patients = patientController.ReadAllPatients();
         }
 
@@ -57,8 +51,9 @@ namespace Secretary
             string genderText = textGender.Text;
             Enum.TryParse(genderText, out Gender gender);
             id++;
+            string medicalRecordID = textMedicalRecordID.Text;
 
-            patientController.CreatePatient(id.ToString(), UCIN, name, surname, phoneNum, mail, adress, gender, dob, new ObservableCollection<Examination>());
+            patientController.CreatePatient(id.ToString(), UCIN, name, surname, phoneNum, mail, adress, gender, dob, medicalRecordID, new ObservableCollection<Examination>());
 
         }
 
@@ -79,8 +74,9 @@ namespace Secretary
                 patient.PhoneNumber = textPhoneNum.Text;
                 Enum.TryParse(textGender.Text, out Gender gender);
                 patient.Gender = gender;
+                patient.MedicalRecordID = textMedicalRecordID.Text;
 
-                patientController.EditPatient(id.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.PhoneNumber, patient.Mail, patient.Adress, patient.Gender, patient.DoB, patient.Examinations);
+                patientController.EditPatient(patient.ID.ToString(), patient.UCIN, patient.Name, patient.Surname, patient.PhoneNumber, patient.Mail, patient.Adress, patient.Gender, patient.DoB, patient.MedicalRecordID, patient.Examinations);
             }
 
             dataGridPatients.UnselectAll();

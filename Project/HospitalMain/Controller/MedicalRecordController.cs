@@ -7,6 +7,7 @@ using Service;
 using Model;
 using System.Collections.ObjectModel;
 using HospitalMain.Enums;
+using HospitalMain.Model;
 
 namespace Controller
 {
@@ -20,14 +21,14 @@ namespace Controller
             this.medRecordService = medRecordService;
         }
 
-        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, Doctor doctor, String bloodType, ObservableCollection<Report> reports, ObservableCollection<String> allergens)
+        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens)
         {
-            return medRecordService.CreateMedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, doctor, bloodType, reports, allergens);
+            return medRecordService.CreateMedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens);
         }
 
-        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, Doctor newDoctor, String newBloodType, ObservableCollection<Report> newReports, ObservableCollection<String> newAllergens)
+        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newBloodType, ObservableCollection<Report> newReports, ObservableCollection<Allergen> newAllergens)
         {
-            medRecordService.EditMedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newDoctor, newBloodType, newReports, newAllergens);
+            medRecordService.EditMedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newBloodType, newReports, newAllergens);
         }
 
         public bool DeleteMedicalRecord(String medRecordID)
