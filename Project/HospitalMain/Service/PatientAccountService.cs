@@ -18,10 +18,10 @@ namespace Service
 
         }
 
-      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, ObservableCollection<Examination> examinations)
+      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
             Guest guest = new Guest(id);
-            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID,  examinations));
+            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID));
       }
       
       public bool RemovePatient(String patientId)
@@ -29,10 +29,10 @@ namespace Service
             return patientRepo.DeletePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID, ObservableCollection<Examination> examinations)
+      public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID)
       {
             Guest guest = new Guest(patientId);
-            patientRepo.SetPaetient(patientId, new Patient(guest.ID, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID, examinations));
+            patientRepo.SetPaetient(patientId, new Patient(guest.ID, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID));
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -48,7 +48,7 @@ namespace Service
       public bool UpgradeGuest(String guestId, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
             Guest guest = new Guest("guestID");
-            Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID,  new ObservableCollection<Examination>());
+            Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID);
             return patientRepo.NewPatient(patient);
       }
    

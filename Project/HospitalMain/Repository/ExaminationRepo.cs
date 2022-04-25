@@ -14,13 +14,11 @@ namespace Repository
     {
         public String dbPath { get; set; }
         public ObservableCollection<Examination> examinationList { get; set; }
-        public ObservableCollection<Examination> endedExams { get; set; }
 
         public ExaminationRepo(String dbPath)
         {
             this.dbPath = dbPath;
             examinationList = new ObservableCollection<Examination>();
-            endedExams = new ObservableCollection<Examination>();
 
             /*Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "1", "d1");
             Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
@@ -333,6 +331,7 @@ namespace Repository
 
         public ObservableCollection<Examination> ReadEndedExams()
         {
+            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
                 foreach (Examination exam in this.examinationList)
                 {
                     int res = DateTime.Compare(exam.Date, DateTime.Now);

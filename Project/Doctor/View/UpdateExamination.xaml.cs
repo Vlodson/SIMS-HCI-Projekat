@@ -33,17 +33,17 @@ namespace Doctor.View
 
         private ExaminationSchedule _examinationSchedule;
 
-        public static ObservableCollection<Patient> PatientsObs
-        {
-            get;
-            set;
-        }
+        private Examination _selectedExam { get; set; }
+
+        public ObservableCollection<Patient> PatientsObs { get; set; }
+        public ObservableCollection<Room> RoomsObs { get; set; }
         public UpdateExamination(Examination selectedItem, ExaminationSchedule examinationSchedule)
         {
             InitializeComponent();
             this.DataContext = this;
             _examinationSchedule = examinationSchedule;
-            PatientsObs = new ObservableCollection<Patient>();
+            _selectedExam = selectedItem;
+           // PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
             _doctorController = app.doctorController;
@@ -58,10 +58,8 @@ namespace Doctor.View
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
             timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
 
-            foreach (var pom in _patientController.ReadAllPatients())
-            {
-                PatientsObs.Add(pom);
-            }
+            PatientsObs = _patientController.ReadAllPatients();
+            RoomsObs = _roomController.ReadAll();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
@@ -69,17 +67,18 @@ namespace Doctor.View
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
 
-            string roomId = ComboBoxSoba.Text;
+            Room room = (Room)ComboBoxSoba.SelectedItem;
 
-            string patientName = ComboBoxPacijent.Text;
+            Patient patient = (Patient)ComboBoxPacijent.SelectedItem;
 
             int duration = Int32.Parse(DUR.Text);
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(roomId, dt, "ID5", duration, ExaminationTypeEnum.Surgery, patientName, "d1");
+            Examination newExam = new Examination(room.Id, dt, _selectedExam.Id , duration, ExaminationTypeEnum.Surgery, patient.ID, "d1");
             _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
             _examRepo.SaveExamination();
+            _examinationSchedule = new ExaminationSchedule();
             NavigationService.Navigate(_examinationSchedule);
             
         }

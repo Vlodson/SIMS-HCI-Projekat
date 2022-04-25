@@ -43,8 +43,7 @@ namespace Doctor.View
             _examController = app.examController;
             _examRepo = app.examRepo;
 
-            if (File.Exists(_examRepo.dbPath))
-                _examRepo.LoadExamination();
+            
 
             examinations = _examController.ReadEndedExams();
         }
