@@ -15,14 +15,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="127,-5,-127,5" FontSize="18">RASPORED ZAKAZANIH PREGLEDA</TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="86,-5,-86,5" FontSize="18">RASPORED ZAKAZANIH PREGLEDA</TextBlock>
         <Grid Grid.Column="0" Grid.Row="1">
-            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="45,8,42,-8">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Pacijent" Binding="{Binding PatientId, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
@@ -32,10 +27,8 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <TextBlock Grid.Column="0" Grid.Row="2">
-            <Button x:Name="add" Content="Zakazi " Click="add_Click" ></Button>
-            <Button x:Name="update" Content="Izmeni " Click="update_Click" ></Button>
-            <Button x:Name="cancel" Content="Otkazi " Click="cancel_Click" ></Button>
-        </TextBlock>
+        <Button Grid.Row="3" x:Name="add" Content="Zakazi " Click="add_Click" Margin="86,211,293,-221" />
+        <Button Grid.Row="3" x:Name="update" Content="Izmeni " Click="update_Click" Margin="190,211,190,-221" />
+        <Button Grid.Row="3" x:Name="cancel" Content="Otkazi " Click="cancel_Click" Margin="288,211,91,-221" ></Button>
     </Grid>
 </Page>

@@ -28,6 +28,7 @@ namespace Doctor.View
         private TherapyRepo _therapyRepo;
         private TherapyController _therapyController;
         private ReportController _reportController;
+        private ReportRepo _reportRepo;
         private string patientBind;
         private DateTime dateBind;
         private Examination selectedExam;
@@ -50,9 +51,10 @@ namespace Doctor.View
             _therapyRepo = app.therapyRepo;
             _therapyController = app.therapyController;
             _reportController = app.reportController;
+            _reportRepo = app.reportRepo;
 
-            /*if (File.Exists(_therapyRepo.dbPath))
-                _therapyRepo.LoadTherapy();*/
+            if (File.Exists(_therapyRepo.dbPath))
+                _therapyRepo.LoadTherapy();
 
             therapyBind = _therapyController.findById(exam.Id);
         }
@@ -80,12 +82,6 @@ namespace Doctor.View
             dataGridTherapy.ItemsSource = _therapyController.findById(selectedExam.Id);
         }
 
-        private void AddExam_Click(object sender, RoutedEventArgs e)
-        {
-            AddExamination addExamination = new AddExamination(this);
-            NavigationService.Navigate(addExamination);
-        }
-
         private void SaveReport_Click(object sender, RoutedEventArgs e)
         {
             string description = textBoxDescription.Text;
@@ -93,6 +89,7 @@ namespace Doctor.View
 
             Report report = new Report(selectedExam.Id, description, selectedExam.Date, selectedExam.PatientId, selectedExam.DoctorId, therapies);
             _reportController.NewReport(report);
+            _reportRepo.SaveReport();
         }
     }
 }

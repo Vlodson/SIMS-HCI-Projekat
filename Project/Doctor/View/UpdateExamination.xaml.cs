@@ -33,6 +33,8 @@ namespace Doctor.View
 
         private ExaminationSchedule _examinationSchedule;
 
+        private Examination _selectedExam { get; set; }
+
         public static ObservableCollection<Patient> PatientsObs
         {
             get;
@@ -43,6 +45,7 @@ namespace Doctor.View
             InitializeComponent();
             this.DataContext = this;
             _examinationSchedule = examinationSchedule;
+            _selectedExam = selectedItem;
             PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
@@ -77,9 +80,10 @@ namespace Doctor.View
 
             string type = TIP.Text;
 
-            Examination newExam = new Examination(roomId, dt, "ID5", duration, ExaminationTypeEnum.Surgery, patientName, "d1");
+            Examination newExam = new Examination(roomId, dt, _selectedExam.Id , duration, ExaminationTypeEnum.Surgery, patientName, "d1");
             _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
             _examRepo.SaveExamination();
+            _examinationSchedule = new ExaminationSchedule();
             NavigationService.Navigate(_examinationSchedule);
             
         }

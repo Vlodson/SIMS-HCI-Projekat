@@ -17,7 +17,7 @@ namespace Repository
       {
             this.dbPath = dbPath;
             this.patients = new ObservableCollection<Patient>();
-            Guest guest = new Guest("1");
+            /*Guest guest = new Guest("1");
 
             Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), new MedicalRecord(),  new ObservableCollection<Examination>());
             Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), new MedicalRecord(new ObservableCollection<Report>()),  new ObservableCollection<Examination>());
@@ -25,7 +25,7 @@ namespace Repository
 
             this.patients.Add(p1);
             this.patients.Add(p2);
-            this.patients.Add(p3);
+            this.patients.Add(p3);*/
         }
 
       public bool NewPatient(Patient patient)
