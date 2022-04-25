@@ -39,9 +39,9 @@ namespace Patient.View
         private DoctorController _doctorController;
         private PatientController _patientController;
         private RoomController _roomController;
-        private ExaminationRepo _examinationRepo;
+        //private ExaminationRepo _examinationRepo;
 
-        public int id = 0;
+        //public int id = 0;
         
         private List<String> doctorTypes;
 
@@ -120,7 +120,7 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
             _roomController = app.RoomController;
-            _examinationRepo = app.ExaminationRepo;
+            //_examinationRepo = app.ExaminationRepo;
 
             
             DoctorsObs = new ObservableCollection<Doctor>();
@@ -190,27 +190,32 @@ namespace Patient.View
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
                 DateTime dt = selectedExamination.Date;
-                id++;
-
-                Room getRoom = new Room();
-                if (File.Exists(GlobalPaths.RoomsDBPath))
-                    _roomController.LoadRoom();
                 
+                
+                Room getRoom = new Room();
                 foreach (Room room in _roomController.ReadAll())
                 {
-                    Console.WriteLine("nesto radi");
-                    if (room.Occupancy == false)
+                    //Console.WriteLine("nesto radi");
+                    if (room.Occupancy == false && room.Type==HospitalMain.Enums.RoomTypeEnum.Patient_Room)
                     {
                         getRoom = room;
+                        _roomController.EditRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, true, room.Type);
                         break;
                     }
                 }
+
                 
-                //Room r1 = new Room("name", 1, 1, false, HospitalMain.Enums.RoomTypeEnum.Patient_Room);
-                Examination newExam = new Examination(getRoom.Id, dt, RandomString(5), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+                int id = 0;
+                for(int i = 0; i < _examController.GetExaminations().Count; ++i)
+                {
+                    ++id;
+                }
+                ++id;
+                Examination newExam = new Examination(getRoom.Id, dt, id.ToString(), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
 
                 _examController.PatientCreateExam(newExam);
-                _examinationRepo.SaveExamination();
+                //_examinationRepo.SaveExamination();
+                _examController.SaveExaminationRepo();
                 ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
                 foreach (Examination exam in examinations)
                 {

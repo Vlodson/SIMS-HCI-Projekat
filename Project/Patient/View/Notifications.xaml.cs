@@ -22,6 +22,8 @@ namespace Patient.View
     public partial class Notifications : Window
     {
         private PatientController _patientController;
+        private MedicalRecordController _medicalRecordController;
+
         private List<String> notificationsList;
         private List<DateTime> notificationsTimeList;
         private List<String> showingNotifications;
@@ -46,19 +48,21 @@ namespace Patient.View
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
+            _medicalRecordController = app.MedicalRecordController;
 
             String patientId = "2";
             notificationsTimeList = new List<DateTime>();
             notificationsList = new List<String>();
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
-            
-            foreach (Report report in patient.MedicalRecord.Reports)
+            MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+            foreach (Report report in patientMedicalRecord.Reports)
             {
                 foreach(Therapy therapy in report.Therapy)
                 {
                     //ovde dodje do terapije
-                    DateTime start = report.CreateDate;
+                    //DateTime start = report.CreateDate;
+                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
                     DateTime end = report.CreateDate.AddDays(therapy.Duration);
                     int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
 
@@ -68,7 +72,7 @@ namespace Patient.View
                        for(int j = 0; j < therapy.PerDay; ++j)
                         {
                             notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
-                            notificationsList.Add("Popiti lek" + therapy.Medicine);
+                            notificationsList.Add("Popiti lek " + therapy.Medicine);
                         }
                     }
                 }
@@ -76,14 +80,14 @@ namespace Patient.View
 
             showingNotifications = new List<string>();
             DateTime today = DateTime.Now;
-            foreach(DateTime dateTime in notificationsTimeList)
+            for(int i = 0; i < notificationsTimeList.Count; ++i)
             {
-                if(today.Day == dateTime.Day)
+                if(today.Date == notificationsTimeList[i].Date)
                 {
-                    ShowingNotifications.Add(notificationsList[notificationsTimeList.IndexOf(dateTime)] + "u" + dateTime.ToString("HH:mm"));
+                    ShowingNotifications.Add(notificationsList[i] + " u " + notificationsTimeList[i].ToString("HH:mm"));
                 }
             }
-            //ShowingNotifications.Add("nesto");
+            
             NotificationList.ItemsSource = ShowingNotifications;
         }
     }

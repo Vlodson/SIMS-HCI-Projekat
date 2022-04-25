@@ -22,16 +22,16 @@ namespace Repository
         {
             this.DBPath = dbPath;
             this.MedicalRecords = new ObservableCollection<MedicalRecord>();
-          
-            Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
+
+            Therapy therapy1 = new Therapy("t1", "lek1", 5, 3, true);
             Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
             Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
             ObservableCollection<Therapy> ts = new ObservableCollection<Therapy>();
             ts.Add(therapy1);
             ts.Add(therapy2);
             ts.Add(therapy3);
-          
-            Report report = new Report("examId", "Neki opis", new DateTime(), "p1", "d1", ts);
+
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 4, 25, 0, 0, 0), "p1", "d1", ts);
             ObservableCollection<Report> reports = new ObservableCollection<Report>();
             reports.Add(report);
 
@@ -73,8 +73,10 @@ namespace Repository
             //this.MedicalRecords.Add(mr2);
             //this.MedicalRecords.Add(mr3);
 
-            if (File.Exists(DBPath))
-               LoadMedicalRecord();
+            
+            //if (File.Exists(dbPath))
+            //    LoadMedicalRecord();
+            
         }
 
         public bool NewMedicalRecord(MedicalRecord medRecord)
