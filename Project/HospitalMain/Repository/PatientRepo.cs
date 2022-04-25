@@ -15,6 +15,9 @@ namespace Repository
       
       public PatientRepo(String dbPath)
       {
+            this.dbPath = dbPath;
+            this.patients = new ObservableCollection<Patient>();
+            /*Guest guest = new Guest("1");
             this.DBPath = dbPath;
             this.Patients = new ObservableCollection<Patient>();
             //Guest guest = new Guest("1");
@@ -30,6 +33,9 @@ namespace Repository
             if (File.Exists(DBPath))
                 LoadPatient();
 
+            this.patients.Add(p1);
+            this.patients.Add(p2);
+            this.patients.Add(p3);*/
         }
 
 

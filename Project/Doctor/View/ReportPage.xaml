@@ -29,7 +29,7 @@
         </Grid>
         <TextBox Name="textBoxDescription" HorizontalAlignment="Left" Margin="10,84,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Unesi izvestaj sa pregleda..."  GotKeyboardFocus="TextBox_GotKeyboardFocus" VerticalAlignment="Top" Width="408" Height="83"/>
         <TextBlock HorizontalAlignment="Left" Margin="10,180,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Terapija:" VerticalAlignment="Top" Height="18"/>
-        <DataGrid Name ="dataGridTherapy" ItemsSource="{Binding therapyBind, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Margin="10,203,34,18">
+        <DataGrid Name ="dataGridTherapy" ItemsSource="{Binding therapyBind, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Margin="10,203,34,109" Grid.RowSpan="4">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Medicine}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje(dana)" Binding="{Binding Duration}"></DataGridTextColumn>
@@ -39,17 +39,16 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <ComboBox Name ="comboBoxMedicine" HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="3" VerticalAlignment="Top" Width="90">
+        <ComboBox Name ="comboBoxMedicine" HorizontalAlignment="Left" Margin="21,74,0,0" Grid.Row="4" VerticalAlignment="Top" Width="90">
             <ComboBoxItem>lek2</ComboBoxItem>
             <ComboBoxItem>lek3</ComboBoxItem>
             <ComboBoxItem>lek4</ComboBoxItem>
         </ComboBox>
-        <TextBox Name ="textBoxDuration" HorizontalAlignment="Left" Margin="124,27,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"/>
-        <TextBox Name ="textBoxPerDay" HorizontalAlignment="Left" Margin="206,27,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
-        <CheckBox Name ="checkBoxPrescription" Content="CheckBox" HorizontalAlignment="Left" Margin="294,30,0,0" Grid.Row="3" VerticalAlignment="Top" Width="52"/>
-        <Button Name ="add" Content="Dodaj" HorizontalAlignment="Left" Margin="383,30,0,0" Grid.Row="3" VerticalAlignment="Top" Height="23" Width="48" Click="add_Click"/>
-        <Button Name ="AddExam" Content="Zakazi pregled" HorizontalAlignment="Left" Margin="14,24,0,0" Grid.Row="4" VerticalAlignment="Top" Click="AddExam_Click"/>
-        <Button Name ="SaveReport" Content="Prosledi" HorizontalAlignment="Left" Margin="343,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="64" Click="SaveReport_Click"/>
+        <TextBox Name ="textBoxDuration" HorizontalAlignment="Left" Margin="135,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"/>
+        <TextBox Name ="textBoxPerDay" HorizontalAlignment="Left" Margin="217,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+        <CheckBox Name ="checkBoxPrescription" Content="CheckBox" HorizontalAlignment="Left" Margin="305,81,0,0" Grid.Row="4" VerticalAlignment="Top" Width="52"/>
+        <Button Name ="add" Content="Dodaj" HorizontalAlignment="Left" Margin="394,81,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="48" Click="add_Click"/>
+        <Button Name ="SaveReport" Content="Prosledi" HorizontalAlignment="Left" Margin="378,117,0,0" Grid.Row="4" VerticalAlignment="Top" Width="64" Click="SaveReport_Click"/>
 
     </Grid>
 </Page>

@@ -49,8 +49,9 @@ namespace Doctor.View
         }
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            //AddExamination addExamination = new AddExamination();
-            //addExamination.Show();
+            AddExamination addExamination = new AddExamination(this);
+            NavigationService.Navigate(addExamination);
+            _examRepo.SaveExamination();
         }
 
         private void update_Click(object sender, RoutedEventArgs e)
