@@ -55,10 +55,10 @@ namespace Admin.View
             
         }
 
-        private void recordBtn_Click(object sender, RoutedEventArgs e)
+        private void Execute_Record(object sender, ExecutedRoutedEventArgs e)
         {
             int id = 0;
-            if(_renovationController.ReadAll().Count > 0)
+            if (_renovationController.ReadAll().Count > 0)
                 id = _renovationController.ReadAll().Max(reno => int.Parse(reno.Id)) + 1;
             RenovationType = (RenovationTypeEnum)renoTypeComboBox.SelectedItem;
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
@@ -71,14 +71,26 @@ namespace Admin.View
             recordRenovationWindow.Show();
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            int id = _renovationController.ReadAll().Max(reno => int.Parse(reno.Id)) + 1;
+            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+        }
+
+        private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
+        {
+            int id = 0;
+            if (_renovationController.ReadAll().Count > 0)
+                id = _renovationController.ReadAll().Max(reno => int.Parse(reno.Id)) + 1;
             RenovationType = (RenovationTypeEnum)renoTypeComboBox.SelectedItem;
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
 
             _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate, ""));
+        }
+
+        private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)
