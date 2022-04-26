@@ -18,7 +18,7 @@ namespace Controller
             this._patientService = patientService;
             this._doctorService = doctorService;
         }
-
+      
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _patientService.generateID(examinations);
@@ -32,7 +32,7 @@ namespace Controller
         {
             return _patientService.GetExam(examID);
         }
-
+      
         public void PatientCreateExam(Examination examination)
         {
             _patientService.CreateExam(examination);
@@ -82,7 +82,15 @@ namespace Controller
             return _doctorService.ReadEndedExams();
         }
 
+        public ObservableCollection<Examination> GetExaminations()
+        {
+            return _patientService.GetExaminations();
+        }
 
+        public void SaveExaminationRepo()
+        {
+            _patientService.SaveExaminationRepo();
+        }
         /*
       public System.Collections.ArrayList DoctorService
       {

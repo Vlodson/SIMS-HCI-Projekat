@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 using Model;
 using Controller;
@@ -20,11 +21,34 @@ namespace Admin.View
     /// <summary>
     /// Interaction logic for RecordRenovationWindow.xaml
     /// </summary>
-    public partial class RecordRenovationWindow : Window
+    public partial class RecordRenovationWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public Renovation renovation { get; set; }
 
         private RenovationController _renovationController;
+
+        private String _signature;
+        public String Signature
+        {
+            get { return _signature; }
+            set
+            {
+                if(_signature != value)
+                {
+                    _signature = value;
+                    OnPropertyChanged("Signature");
+                }
+            }
+        }
 
         public RecordRenovationWindow()
         {
@@ -42,11 +66,16 @@ namespace Admin.View
             endDateTextBox.Text = renovation.EndDate.ToString();
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
-            _renovationController.RecordRenovation(renovation.Id, signatureTextBox.Text);
+            _renovationController.RecordRenovation(renovation.Id, Signature);
             this.Close();
             this.Owner.Show();
+        }
+
+        private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !String.IsNullOrEmpty(Signature);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

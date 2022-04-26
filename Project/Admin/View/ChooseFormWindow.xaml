@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Admin.View"
         mc:Ignorable="d"
         FontSize="18"
-        Title="ChooseFormWindow" Height="750" Width="430" Closed="Window_Closed">
+        Title="ChooseFormWindow" Height="750" Width="430">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -30,7 +30,7 @@
         
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Main menu" />
+            <Button x:Name="backBtn" Content="Back" Click="backBtn_Click" />
         </StackPanel>
 
         <TextBlock x:Name="titleTextBlock" Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="30">

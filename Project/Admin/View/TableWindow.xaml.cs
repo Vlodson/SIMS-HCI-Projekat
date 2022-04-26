@@ -174,6 +174,7 @@ namespace Admin.View
             DataGridTextColumn Signature = new DataGridTextColumn()
             {
                 Header = "Signature",
+                Width = new DataGridLength(1, DataGridLengthUnitType.Star),
                 Binding = new Binding("Signature")
             };
 
@@ -220,6 +221,7 @@ namespace Admin.View
             DataGridTextColumn signature_col = new DataGridTextColumn()
             {
                 Header = "Signature",
+                Width = new DataGridLength(1, DataGridLengthUnitType.Star),
                 Binding = new Binding("Signature")
             };
 

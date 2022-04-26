@@ -26,10 +26,6 @@ namespace Admin.View
     /// </summary>
     public partial class MainMenuWindow : Window
     {
-        // clear roomList
-        // check which button is pressed and then make roomList equal only those which are on the selceted floor with .Where(r => r.floor == pressed_floor)
-        // then clear the children of the stack panels
-        // then call create blueprint
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
@@ -37,28 +33,20 @@ namespace Admin.View
         public MainMenuWindow()
         {
             InitializeComponent();
-            // wpf is actually comically retarded, so i need to "show" the current window
-            // so it can calculate the auto widths and heights even though it fucking rendered them
-            this.Show(); 
-
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
 
-            roomList = new ObservableCollection<Room>();
-            floorRoomList = new ObservableCollection<Room>();
-
-            roomList = _roomController.ReadAll();
-
-            makeFloorButtons();
-
-            // always show first floor when opening
-            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
-            makeBlueprint();
+            // wpf is actually comically retarded, so i need to "show" the current window
+            // so it can calculate the auto widths and heights even though it fucking rendered them
+            this.Show();
         }
 
-        private void makeBlueprint()
+        public void makeBlueprint()
         {
+            upperRooms.Children.Clear();
+            lowerRooms.Children.Clear();
+
             int evenRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 0).Count();
             int oddRoomNb = floorRoomList.Where(r => r.RoomNb % 2 == 1).Count();
             // similar to how you did the button onclick do the same with room click, also create a room_repo clipboard room
@@ -96,16 +84,18 @@ namespace Admin.View
                     lowerRooms.Children.Add(room);
                 }
             }
-
         }
 
         private void makeFloorButtons()
         {
+            floorButtons.Children.Clear();
+
             int floors = roomList.Max(r => r.Floor); // what a weird way to find maximum values, but also powerful
             for(int i = 1; i < floors+1; i++)
             {
                 Button floorBtn = new Button();
                 floorBtn.Content = "Floor " + i;
+                floorBtn.Padding = new Thickness(5,0,5,0);
                 floorBtn.Click += (s, e) =>
                 {
                     // clean what you currently have drawn
@@ -132,6 +122,21 @@ namespace Admin.View
             tableWindow.Hide();
             tableWindow.ShowDialog();
             this.Show();
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            // every time it shows, redraw it because i cant access makeBlueprint from somewhere else :(
+            roomList = new ObservableCollection<Room>();
+            floorRoomList = new ObservableCollection<Room>();
+
+            roomList = _roomController.ReadAll();
+
+            makeFloorButtons();
+
+            // always show first floor when opening
+            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
+            makeBlueprint();
         }
     }
 }

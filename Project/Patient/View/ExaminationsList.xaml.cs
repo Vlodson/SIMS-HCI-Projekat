@@ -26,7 +26,7 @@ namespace Patient.View
     public partial class ExaminationsList : Page
     {
         private ExamController _examinationController;
-        private ExaminationRepo _examinationRepo;
+        //private ExaminationRepo _examinationRepo;
         private DoctorController _doctorController;
         public static Examination selected;
 
@@ -41,12 +41,13 @@ namespace Patient.View
             InitializeComponent();
             this.DataContext = this;
             App app = Application.Current as App;
-            _examinationRepo = app.ExaminationRepo;
+           //_examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
-            if (File.Exists(_examinationRepo.dbPath))
-                _examinationRepo.LoadExamination();
-            
+
+            //if (File.Exists(_examinationRepo.dbPath))
+            //    _examinationRepo.LoadExamination();
+
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams("2");
             foreach(Examination exam in examinations)
@@ -60,7 +61,7 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             AddExamination addExamination = new AddExamination();
-            addExamination.Show();
+            addExamination.ShowDialog();
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -73,7 +74,7 @@ namespace Patient.View
                 {
                     Message.Visibility = Visibility.Hidden;
                     EditExamination editExamination = new EditExamination();
-                    editExamination.Show();
+                    editExamination.ShowDialog();
                 }
                 else
                 {
@@ -100,7 +101,8 @@ namespace Patient.View
                 {
                     Message.Visibility = Visibility.Hidden;
                     _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
-                    _examinationRepo.SaveExamination();
+                    //_examinationRepo.SaveExamination();
+                    _examinationController.SaveExaminationRepo();
                 }
                 else
                 {
@@ -118,7 +120,8 @@ namespace Patient.View
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            _examinationRepo.SaveExamination();
+            //_examinationRepo.SaveExamination();
+            _examinationController.SaveExaminationRepo();
         }
 
         private void MenuClick(object sender, RoutedEventArgs e)

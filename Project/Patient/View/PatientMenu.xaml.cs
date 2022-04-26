@@ -24,11 +24,13 @@ namespace Patient.View
     public partial class PatientMenu : Page
     {
         private PatientController _patientController;
+        private MedicalRecordController _medicalRecordController;
         public PatientMenu()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
+            _medicalRecordController = app.MedicalRecordController;
 
             Timer t = new Timer(TimerCallback, null, 0, 1000);
         }
@@ -39,13 +41,16 @@ namespace Patient.View
             String patientId = "2";
             App app = Application.Current as App;
             PatientController patientController = app.PatientController;
+            MedicalRecordController medicalRecordController = app.MedicalRecordController;
+
             Model.Patient patient = patientController.ReadPatient(patientId);
-            foreach (Report report in patient.MedicalRecord.Reports)
+            MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+            foreach (Report report in patientMedicalRecord.Reports)
             {
                 foreach (Therapy therapy in report.Therapy)
                 {
                     //ovde dodje do terapije
-                    DateTime start = report.CreateDate;
+                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
                     DateTime end = report.CreateDate.AddDays(therapy.Duration);
                     int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
 
@@ -81,7 +86,7 @@ namespace Patient.View
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
             Notifications notifications = new Notifications();
-            notifications.Show();
+            notifications.ShowDialog();
         }
     }
 }

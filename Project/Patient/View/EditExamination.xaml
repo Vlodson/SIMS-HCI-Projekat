@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="EditExamination" Height="450" Width="800">
-    <Grid>
-        <Label Content="Odaberi novi termin" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
-        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="321" Margin="338,36,0,0" VerticalAlignment="Top" Width="446">
+        Title="Izmena pregleda" Height="431" Width="800">
+    <Grid Margin="0,0,0,-16">
+        <Label Content="Izmena termina" FontSize="32" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
+        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="270" Margin="338,87,0,0" VerticalAlignment="Top" Width="446">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="700,362,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Button Content="Potvrdi izmenu" HorizontalAlignment="Left" Margin="700,362,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+        <Label Content="Odeljenje:" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" Name="Odeljenje" HorizontalAlignment="Left" Margin="105,87,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" Name="Lekar" HorizontalAlignment="Left" Margin="105,118,0,0" VerticalAlignment="Top"/>
+        <Label Content="Stari termin:" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" Name="StariTermin" HorizontalAlignment="Left" Margin="105,152,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

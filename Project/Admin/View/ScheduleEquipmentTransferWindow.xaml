@@ -61,8 +61,16 @@
         </StackPanel>
 
         <Grid Grid.Row="11" Grid.Column="1">
-            <Button x:Name="recordBtn" Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" Click="recordBtn_Click" />
-            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Center" Click="saveBtn_Click" />
+            <Button x:Name="recordBtn" Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" Command="Record">
+                <Button.CommandBindings>
+                    <CommandBinding Command="Record" CanExecute="CanExecute_Record" Executed="Execute_Record" />
+                </Button.CommandBindings>
+            </Button>
+            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Center" Command="Save">
+                <Button.CommandBindings>
+                    <CommandBinding Command="Save" CanExecute="CanExecute_Save" Executed="Execute_Save" />
+                </Button.CommandBindings>
+            </Button>
             <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" Click="discardBtn_Click" />
         </Grid>
         

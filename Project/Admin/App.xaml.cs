@@ -51,7 +51,7 @@ namespace Admin
             if(File.Exists(GlobalPaths.RenovationDBPath))
                 renovationController.LoadRenovation();
 
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 int floor = 1;
                 if (i > 10)
@@ -62,7 +62,7 @@ namespace Admin
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
             }
 
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < 20; i++)
             {
                 equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i + 1) % 20).ToString(), i.ToString(), new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
                 equipmentTransferController.RecordTransfer(i.ToString(), "Pera");

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Admin.View"
         mc:Ignorable="d"
         FontSize="18"
-        Title="Hospital" Height="430" Width="750">
+        Title="Hospital" Height="430" Width="750" Activated="Window_Activated">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />

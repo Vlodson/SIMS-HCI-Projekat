@@ -28,6 +28,11 @@ namespace Service
             return _examinationRepo.GetAll();
         }
 
+        public void SaveExaminationRepo()
+        {
+            _examinationRepo.SaveExamination();
+        }
+
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
         {
             throw new NotImplementedException();
@@ -87,6 +92,11 @@ namespace Service
         public ObservableCollection<Model.Patient> GetPatients()
         {
             return _patientRepo.GetAllPatients();
+        }
+
+        public ObservableCollection<Examination> GetExaminations()
+        {
+            return _examinationRepo.GetAll();
         }
 
     }
