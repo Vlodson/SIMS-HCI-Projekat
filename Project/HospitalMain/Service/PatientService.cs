@@ -18,10 +18,21 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
+        public int generateID (ObservableCollection<Examination> examinations)
+        {
+            return _examinationRepo.generateID(examinations);
+        }
+
+        public ObservableCollection<Examination> getAllExaminations()
+        {
+            return _examinationRepo.GetAll();
+        }
+
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();
         }
+
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
         {
             throw new NotImplementedException();
@@ -47,9 +58,9 @@ namespace Service
             _examinationRepo.SetExamination(examID, examination);
         }
 
-        public void GetExam(string examID)
+        public Examination GetExam(string examID)
         {
-            _examinationRepo.GetExamination(examID);
+            return _examinationRepo.GetExamination(examID);
         }
 
         public void EditExam(String examId, DateTime newDate)

@@ -18,8 +18,21 @@ namespace Controller
             this._patientService = patientService;
             this._doctorService = doctorService;
         }
+      
+        public int generateID (ObservableCollection<Examination> examinations)
+        {
+            return _patientService.generateID(examinations);
+        }
+        public ObservableCollection<Examination> getAllExaminations()
+        {
+            return _patientService.getAllExaminations();
+        }
 
-        
+        public Examination getExamination(String examID)
+        {
+            return _patientService.GetExam(examID);
+        }
+      
         public void PatientCreateExam(Examination examination)
         {
             _patientService.CreateExam(examination);
