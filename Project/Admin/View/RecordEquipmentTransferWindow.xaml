@@ -74,11 +74,16 @@
         <StackPanel Orientation="Vertical" Grid.Row="12" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Signature</TextBlock>
             <!-- Make like signature line in wireframe -->
-            <TextBox x:Name="signatrueTextBox" Width="215" HorizontalAlignment="Left" />
+            <TextBox x:Name="signatrueTextBox" Width="215" HorizontalAlignment="Left" Text="{Binding Path=Signature, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <Grid Grid.Row="13" Grid.Column="1">
-            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" Click="saveBtn_Click" />
+            <Button x:Name="saveBtn" Content="Save" Command="Save" Height="50" Width="100" HorizontalAlignment="Left" Margin="30,0,0,0" >
+                <Button.CommandBindings>
+                    <CommandBinding Command="Save" Executed="Execute_Save" CanExecute="CanExecute_Save" />
+                </Button.CommandBindings>
+            </Button>
+
             <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,30,0" Click="discardBtn_Click"  />
         </Grid>
     </Grid>

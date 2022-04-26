@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 using Model;
 using Controller;
@@ -20,12 +21,35 @@ namespace Admin.View
     /// <summary>
     /// Interaction logic for RecordEquipmentTransferWindow.xaml
     /// </summary>
-    public partial class RecordEquipmentTransferWindow : Window
+    public partial class RecordEquipmentTransferWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         public EquipmentTransfer equipmentTransfer { get; set; }
         
         private EquipmentTransferController _equipmentTransferController;
-        
+
+        private String _signature;
+        public String Signature
+        {
+            get { return _signature; }
+            set
+            {
+                if (_signature != value)
+                {
+                    _signature = value;
+                    OnPropertyChanged("Signature");
+                }
+            }
+        }
+
         public RecordEquipmentTransferWindow()
         {
             InitializeComponent();
@@ -43,11 +67,16 @@ namespace Admin.View
             endDate.Text = equipmentTransfer.EndDate.ToString();
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
             _equipmentTransferController.RecordTransfer(equipmentTransfer.Id, signatrueTextBox.Text);
             this.Close();
             this.Owner.Show();
+        }
+
+        private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !String.IsNullOrEmpty(Signature);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

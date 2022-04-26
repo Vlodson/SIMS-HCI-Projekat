@@ -7,6 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties database_4exams_1json__JsonSchema="https://bitbucket.org/atlassianlabs/atlascode/raw/main/resources/schemas/pipelines-schema.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>

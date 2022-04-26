@@ -129,8 +129,8 @@ namespace Model
             this.Id = renovationAnnotation.Id;
             this.OriginRoom = null;
             this.Type = renovationAnnotation.Type;
-            this.StartDate = renovationAnnotation.StartDate;
-            this.EndDate = renovationAnnotation.EndDate;
+            this.StartDate = DateOnly.Parse(renovationAnnotation.StartDate);
+            this.EndDate = DateOnly.Parse(renovationAnnotation.EndDate);
             this.Signature = renovationAnnotation.Signature;
         }
 

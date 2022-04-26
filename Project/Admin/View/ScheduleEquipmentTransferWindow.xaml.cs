@@ -61,14 +61,24 @@ namespace Admin.View
             this.Show();
             DestinationRoom = _roomController.GetSelectedRoom();
             if(DestinationRoom != null)
-                destinationTextBox.Text = DestinationRoom.RoomNb.ToString();
-        }
+            {
+                if (DestinationRoom.Id.Equals(OriginRoom.Id))
+                {
+                    DestinationRoom = null;
+                    _roomController.RemoveSelectedRoom();
+                    destinationTextBox.Text = "Same room selected";
+                    return;
+                }
 
-        private void recordBtn_Click(object sender, RoutedEventArgs e)
+                destinationTextBox.Text = DestinationRoom.RoomNb.ToString();
+            }
+        }
+        
+        private void Execute_Record(object sender, ExecutedRoutedEventArgs e)
         {
             int id = 0;
-            if(_equipmentTransferController.ReadAll().Count > 0)
-                id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id))+1;
+            if (_equipmentTransferController.ReadAll().Count > 0)
+                id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
             Equipment eq = equipmentComboBox.SelectedItem as Equipment;
@@ -80,14 +90,25 @@ namespace Admin.View
             recordEquipmentTransferWindow.Show();
         }
 
-        private void saveBtn_Click(object sender, RoutedEventArgs e)
+        private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            int id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id))+1;
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+        }
+        private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
+        {
+            int id = 0;
+            if (_equipmentTransferController.ReadAll().Count > 0)
+                id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
             Equipment eq = equipmentComboBox.SelectedItem as Equipment;
 
             _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, Equipment, StartDate, EndDate, ""));
+        }
+
+        private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)
