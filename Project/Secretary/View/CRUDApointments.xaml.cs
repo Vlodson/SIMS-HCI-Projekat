@@ -11,6 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Secretary.View;
+using Controller;
+using System.Collections.ObjectModel;
+using Model;
+using Repository;
+using Secretary.ViewModel;
 
 namespace Secretary.View
 {
@@ -19,9 +25,27 @@ namespace Secretary.View
     /// </summary>
     public partial class CRUDApointments : Window
     {
+        private ExamController examController;
+        //ispraviti kasnije
+        private ExaminationRepo examinationRepo;
+        private int id = 3;
+
+        public static ObservableCollection<Examination> Examinations
+        {
+            get;
+            set;
+        }
+
         public CRUDApointments()
         {
             InitializeComponent();
+            this.DataContext = new CRUDAppointmentsViewModel();
+
+            App app = Application.Current as App;
+            examController = app.ExamController;
+
+            Examinations = examController.getAllExaminations();
         }
+
     }
 }
