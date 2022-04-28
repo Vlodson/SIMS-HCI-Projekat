@@ -12,11 +12,13 @@ namespace Service
 
         private readonly DoctorRepo _doctorRepo;
         private readonly ExaminationRepo _examinationRepo;
+        private readonly RoomRepo _roomRepo;
 
-        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo)
+        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo, RoomRepo roomRepo)
         {
             _doctorRepo = doctorRepo;
             _examinationRepo = examinationRepo;
+            _roomRepo = roomRepo;
         }
 
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
@@ -63,7 +65,26 @@ namespace Service
         public List<Examination> MoveExaminations(Examination examination)
         {
             Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
-            return _examinationRepo.MoveExamination(examination, doctor);
+            List<Examination> listForDoctor = _examinationRepo.MoveExamination(examination, doctor);
+            List<Examination> listExaminationsWithRooms = new List<Examination>();
+            foreach (Examination exam in listForDoctor)
+            {
+                int counter = 0;
+                foreach (Room room in _roomRepo.Rooms)
+                {
+                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter < _roomRepo.Rooms.Count)
+                {
+                    listExaminationsWithRooms.Add(exam);
+                }
+                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+            }
+            //return _examinationRepo.MoveExamination(examination, doctor);
+            return listExaminationsWithRooms;
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)

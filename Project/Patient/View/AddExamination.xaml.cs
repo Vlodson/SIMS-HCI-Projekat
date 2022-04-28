@@ -173,22 +173,25 @@ namespace Patient.View
                 List<Examination> listExaminations = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
                 List<Examination> listExaminationsWithRooms = new List<Examination>();
                 //provera da li postoji slobodna prostorija za dati termin
+                
                 foreach(Examination exam in listExaminations)
                 {
-                    bool add = true;
+                    int counter = 0;
                     foreach(Room room in _roomController.ReadAll())
                     {
                         if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
                         {
-                            add = false;
+                            counter++;
                         }
                     }
-                    if(add == true)
+                    if(counter < _roomController.ReadAll().Count)
                     {
                         listExaminationsWithRooms.Add(exam);
                     }
                     //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
                 }
+                
+                //listExaminationsWithRooms = listExaminations;
                 foreach(Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;

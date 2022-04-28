@@ -38,25 +38,28 @@ namespace Patient.View
 
             //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
             //ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
+            /*
             List<Examination> listExaminationsWithRooms = new List<Examination>();
             List<Examination> listForDoctor = _doctorController.MoveExaminations(ExaminationsList.selected);
             foreach (Examination exam in listForDoctor)
             {
-                bool add = true;
+                int counter = 0;
                 foreach (Room room in _roomController.ReadAll())
                 {
                     if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
                     {
-                        add = false;
+                        counter++;
                     }
                 }
-                if (add == true)
+                if (counter < _roomController.ReadAll().Count)
                 {
                     listExaminationsWithRooms.Add(exam);
                 }
                 //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
             }
             ExamsAvailable.ItemsSource = listExaminationsWithRooms;
+            */
+            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
             Odeljenje.Content = ExaminationsList.selected.DoctorType;
             Lekar.Content = ExaminationsList.selected.DoctorNameSurname;
             StariTermin.Content = ExaminationsList.selected.Date;
