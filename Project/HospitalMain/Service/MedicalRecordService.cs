@@ -46,6 +46,11 @@ namespace Service
             return medicalRecordRepo.ReadAllMedicalRecords();
         }
 
+        public void AddNewReport(string id, Report report)
+        {
+            medicalRecordRepo.AddNewReport(id, report);
+        }
+
 
     }
 }

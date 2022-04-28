@@ -45,5 +45,10 @@ namespace Controller
         {
             return medRecordService.GetAllMedicalRecords();
         }
+
+        public void AddNewReport(string id, Report report)
+        {
+            medRecordService.AddNewReport(id, report);
+        }
     }
 }

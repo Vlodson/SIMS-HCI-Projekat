@@ -26,6 +26,7 @@ namespace Doctor.View
         private ExaminationRepo _examRepo;
         private PatientRepo _patientRepo;
         private RoomRepo _roomRepo;
+        private MedicalRecordRepo _medicalRecordRepo;
 
         public DoctorNavBar()
         {
@@ -38,6 +39,7 @@ namespace Doctor.View
             _therapyRepo = app.therapyRepo;
             _patientRepo = app.patientRepo;
             _roomRepo = app.roomRepo;
+            _medicalRecordRepo = app.medicalRecordRepo;
 
             if (File.Exists(_patientRepo.DBPath))
                 _patientRepo.LoadPatient();
@@ -84,6 +86,7 @@ namespace Doctor.View
             _therapyRepo.SaveTherapy();
             _reportRepo.SaveReport();
             _patientRepo.SavePatient();
+            _medicalRecordRepo.SaveMedicalRecord();
         }
     }
 }

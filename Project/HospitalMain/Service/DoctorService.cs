@@ -75,5 +75,9 @@ namespace Service
             return _examinationRepo.ReadEndedExams();
         }
 
+        public bool occupiedDate(DateTime dt)
+        {
+            return _examinationRepo.occupiedDate(dt);
+        }
     }
 }

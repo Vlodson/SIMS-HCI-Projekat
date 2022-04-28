@@ -339,6 +339,16 @@ namespace Repository
             return endedExams;
         }
 
+        public bool occupiedDate(DateTime dt)
+        {
+            foreach(Examination exam in this.examinationList)
+            {
+                if (exam.Date.Equals(dt))
+                    return true;
+            }
+            return false;
+        }
+
 
     }
 }
