@@ -24,6 +24,7 @@ namespace Patient.View
     {
         private DoctorController _doctorController;
         private ExamController _examController;
+        private RoomController _roomController;
         //private ExaminationRepo _examinationRepo;
 
         public EditExamination()
@@ -32,10 +33,30 @@ namespace Patient.View
             App app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
+            _roomController = app.RoomController;
             //_examinationRepo = app.ExaminationRepo;
 
             //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
-            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
+            //ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
+            List<Examination> listExaminationsWithRooms = new List<Examination>();
+            List<Examination> listForDoctor = _doctorController.MoveExaminations(ExaminationsList.selected);
+            foreach (Examination exam in listForDoctor)
+            {
+                bool add = true;
+                foreach (Room room in _roomController.ReadAll())
+                {
+                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                    {
+                        add = false;
+                    }
+                }
+                if (add == true)
+                {
+                    listExaminationsWithRooms.Add(exam);
+                }
+                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+            }
+            ExamsAvailable.ItemsSource = listExaminationsWithRooms;
             Odeljenje.Content = ExaminationsList.selected.DoctorType;
             Lekar.Content = ExaminationsList.selected.DoctorNameSurname;
             StariTermin.Content = ExaminationsList.selected.Date;
