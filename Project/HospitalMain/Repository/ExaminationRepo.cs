@@ -79,6 +79,7 @@ namespace Repository
         }
         public bool NewExamination(Examination examination)
         {
+            
             foreach(Examination exam in examinationList)
             {
                 if(exam.Id.Equals(examination.Id))
@@ -86,6 +87,8 @@ namespace Repository
                     return false;
                 }
             }
+            
+            
 
             examinationList.Add(examination);
             SaveExamination();
@@ -342,10 +345,11 @@ namespace Repository
             return examinations;
         }
 
-        public void EditExamination(string id, DateTime dateTime)
+        public void EditExamination(string id, DateTime dateTime, Room room)
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
+            examination.ExamRoomId = room.Id;
         }
 
         public void DoctorEditExamination(String id, Examination examination)
@@ -373,6 +377,18 @@ namespace Repository
             return endedExams;
         }
 
+        public List<Examination> getExamByTime(DateTime dateTime)
+        {
+            List<Examination> returnList = new List<Examination> ();
+            foreach(Examination examination in this.examinationList)
+            {
+                if (examination.Date.Equals(dateTime))
+                {
+                    returnList.Add(examination);
+                }
+            }
+            return returnList;
+        }
 
     }
 }

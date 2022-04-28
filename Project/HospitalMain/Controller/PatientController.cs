@@ -3,6 +3,7 @@ using Service;
 using System.Collections.ObjectModel;
 using Model;
 using HospitalMain.Enums;
+using System.Collections.Generic;
 
 namespace Controller
 {
@@ -108,6 +109,11 @@ namespace Controller
          if (patientAccountService != null)
             patientAccountService.Clear();
       }
-   
-   }
+
+        public List<Examination> GetExamByTime(DateTime dateTime)
+        {
+            return patientService.GetExamByTime(dateTime);
+        }
+
+    }
 }

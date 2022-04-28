@@ -25,6 +25,7 @@ namespace Patient.View
         private DoctorController _doctorController;
         private ExamController _examController;
         private RoomController _roomController;
+        private PatientController _patientController;
         //private ExaminationRepo _examinationRepo;
 
         public EditExamination()
@@ -34,6 +35,7 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
             _roomController = app.RoomController;
+            _patientController = app.PatientController;
             //_examinationRepo = app.ExaminationRepo;
 
             //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
@@ -71,6 +73,32 @@ namespace Patient.View
             
             Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
             DateTime newDate = newExamination.Date;
+            /*
+            Room getRoom = new Room();
+            List<Room> patientRooms = new List<Room>();
+            foreach (Room room in _roomController.ReadAll())
+            {
+                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+            foreach (Examination examinationExists in _patientController.GetExamByTime(newDate))
+            {
+                bool take = false;
+                foreach (Room room in patientRooms)
+                {
+                    if (room.Occupancy == false)
+                    {
+                        if (examinationExists.ExamRoomId != room.Id)
+                        {
+                            take = true;
+                            getRoom = room;
+                        }
+                    }
+                }
+            }
+            */
             _examController.PatientEditExam(ExaminationsList.selected, newDate);
             //_examinationRepo.SaveExamination();
             _examController.SaveExaminationRepo();
