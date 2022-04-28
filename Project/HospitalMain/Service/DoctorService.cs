@@ -62,7 +62,8 @@ namespace Service
 
         public List<Examination> MoveExaminations(Examination examination)
         {
-            return _examinationRepo.MoveExamination(examination);
+            Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
+            return _examinationRepo.MoveExamination(examination, doctor);
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
