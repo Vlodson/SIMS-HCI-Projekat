@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Secretary.View;
 using System.Diagnostics;
+using Secretary.Stores;
+using Secretary.Commands;
 
 namespace Secretary
 {
@@ -22,9 +24,13 @@ namespace Secretary
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ICommand CRUDAppointmentsCommand { get;}
+
         public MainWindow()
         {
             InitializeComponent();
+
+            //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
 
         private void CRUDAcc_Click(object sender, RoutedEventArgs e)
@@ -37,6 +43,12 @@ namespace Secretary
         {
             CRUDMedicalRecord crudMedRecords = new CRUDMedicalRecord();
             crudMedRecords.Show();
+        }
+
+        private void CRUDAppointments_Click(object sender, RoutedEventArgs e)
+        {
+            CRUDApointments crudAppointments = new CRUDApointments();
+            crudAppointments.Show();
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Model
 
         private String examRoomId;
         private DateTime date;
-        private string id;
+        private String id;
         private int duration;
         private ExaminationTypeEnum type;
 

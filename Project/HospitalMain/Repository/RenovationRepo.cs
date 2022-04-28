@@ -86,6 +86,7 @@ namespace Repository
             {
                 Renovation renovation = new Renovation(annotation);
                 renovation.OriginRoom = _roomRepo.GetRoom(annotation.OriginRoomId);
+                Renovations.Add(renovation);
             }
 
             return true;

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="AddExamination" Height="450" Width="800">
+        Title="Novi pregled" Height="450" Width="800">
     <Grid>
 
 
@@ -15,7 +15,7 @@
         <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorNameSurname}" Width="*"/>
-                <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Lekar*" HorizontalAlignment="Left" Margin="13,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
@@ -30,8 +30,8 @@
         </ComboBox>
         <Button Content="Prikazi termine" HorizontalAlignment="Left" Margin="185,260,0,0" VerticalAlignment="Top" Click="Button_Click"/>
         <Button Content="Zakazi" HorizontalAlignment="Left" Margin="747,362,0,0" VerticalAlignment="Top" Click="AddClick"/>
-        <Label Content="Prioritet" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top"/>
-        <Label Content="Od" HorizontalAlignment="Left" Margin="14,149,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prioritet*" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top"/>
+        <Label Content="Od*" HorizontalAlignment="Left" Margin="14,149,0,0" VerticalAlignment="Top"/>
         <DatePicker Name="Start" HorizontalAlignment="Left" Margin="110,150,0,0" VerticalAlignment="Top" Width="150">
             <DatePicker.SelectedDate>
                 <Binding Path="StartDate" NotifyOnValidationError="True">
@@ -57,7 +57,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <Label Content="Do" HorizontalAlignment="Left" Margin="14,186,0,0" VerticalAlignment="Top"/>
+        <Label Content="Do*" HorizontalAlignment="Left" Margin="14,186,0,0" VerticalAlignment="Top"/>
         <DatePicker Name="End" HorizontalAlignment="Left" Margin="110,192,0,0" VerticalAlignment="Top" Width="150" RenderTransformOrigin="0.463,1.21">
             <DatePicker.SelectedDate>
                 <Binding Path="EndDate" NotifyOnValidationError="True">

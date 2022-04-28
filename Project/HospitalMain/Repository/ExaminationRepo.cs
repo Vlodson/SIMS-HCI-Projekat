@@ -24,6 +24,19 @@ namespace Repository
             Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
             examinationList.Add(exam1);
             examinationList.Add(exam2);*/
+
+            Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 20, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
+            Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 50, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
+            Examination exam3 = new Examination("14", new DateTime(2022, 6, 6, 11, 00, 00), "3", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d11");
+
+            this.examinationList.Add(exam1);
+            this.examinationList.Add(exam2);
+            this.examinationList.Add(exam3);
+
+            if (File.Exists(dbPath))
+                LoadExamination();
+            //SaveExamination();
+
         }
 
         public ObservableCollection<Examination> GetAll()
@@ -31,16 +44,33 @@ namespace Repository
             return examinationList;
         }
 
+        public int generateID(ObservableCollection<Examination> examinations)
+        {
+            int maxID = 0;
+
+            foreach(Examination exam in examinations)
+            {
+                int examID = Int32.Parse(exam.Id);
+                if (maxID < examID)
+                {
+                    maxID = examID;
+                }
+            }
+
+            return maxID + 1;
+        }
+
         public void DeleteByPatient(String id)
         {
             examinationList.Remove(GetId(id));
+            SaveExamination();
         }
 
         public Examination GetId(String id)
         {
             foreach(Examination examination in examinationList)
             {
-                if(examination.Id == id)
+                if(examination.Id.Equals(id))
                 {
                     return examination;
                 }
@@ -51,13 +81,14 @@ namespace Repository
         {
             foreach(Examination exam in examinationList)
             {
-                if(exam.Id == examination.Id)
+                if(exam.Id.Equals(examination.Id))
                 {
                     return false;
                 }
             }
 
             examinationList.Add(examination);
+            SaveExamination();
             return true;
         }
 
@@ -65,7 +96,7 @@ namespace Repository
         {
             foreach(Examination examination in examinationList)
             {
-                if(examination.Id == examId)
+                if(examination.Id.Equals(examId))
                 {
                     return (examination);
                 }
@@ -79,7 +110,7 @@ namespace Repository
             
             foreach(Examination exam in examinationList)
             {
-                if (exam.Id == examID)
+                if (exam.Id.Equals(examID))
                 {
                     exam.Id = examination.Id;
                     exam.ExamRoomId = examination.ExamRoomId;
@@ -91,20 +122,20 @@ namespace Repository
                     break;
                 }
             }
-
+            SaveExamination();
         }
 
         public void DeleteExamination(Examination examination)
         {
             foreach(Examination exam in examinationList)
             {
-                if(exam.Id == examination.Id)
+                if(exam.Id.Equals(examination.Id))
                 {
                     examinationList.Remove(examination);
                     break;
                 }
             }
-
+            SaveExamination();
         }
 
         public bool LoadExamination()
@@ -207,7 +238,8 @@ namespace Repository
                     for (int i = 0; i < days + 1; ++i)
                     {
                         //date.AddDays(1);
-                        DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                        //DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                        DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
                         for (int j = 0; j < 16; ++j)
                         {
                             examinationsTime.Add(start.AddMinutes(j * 30));
@@ -281,7 +313,7 @@ namespace Repository
             for (int i = 1; i < 5; ++i)
             {
                 //date.AddDays(1);
-                DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
                 for (int j = 0; j < 16; ++j)
                 {
                     examinationsTime.Add(start.AddMinutes(j * 30));

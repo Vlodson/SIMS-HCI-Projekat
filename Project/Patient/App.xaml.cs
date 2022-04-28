@@ -10,6 +10,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using HospitalMain.Enums;
+using System.IO;
 
 namespace Patient
 {
@@ -28,6 +30,8 @@ namespace Patient
 
         public ExaminationRepo ExaminationRepo { get; set; }
         public RoomController RoomController { get; set; }
+        public MedicalRecordController MedicalRecordController { get; set; }
+        public EquipmentController EquipmentController { get; set; }
 
         public App()
         {
@@ -43,16 +47,37 @@ namespace Patient
             DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
             EquipmentRepo equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
+            MedicalRecordRepo medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
+            
 
             PatientService patientService = new PatientService(patientRepository, examinationRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo);
             RoomService roomService = new RoomService(roomRepo);
+            MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
+            EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
+            MedicalRecordController = new MedicalRecordController(medicalRecordService);
+            EquipmentController = new EquipmentController(equipmentService);
+
+            for (int i = 0; i < 20; i++)
+            {
+                int floor = 1;
+                if (i > 10)
+                    floor = 2;
+
+                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
+                EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
+            }
+
+            if (File.Exists(ExaminationRepo.dbPath))
+                ExaminationRepo.LoadExamination();
+
         }
     }
 }

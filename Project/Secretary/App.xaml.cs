@@ -5,6 +5,8 @@ using Utility;
 using System.Collections.ObjectModel;
 using Repository;
 using Service;
+using Secretary.Stores;
+using Secretary.ViewModel;
 
 namespace Secretary
 {
@@ -27,8 +29,14 @@ namespace Secretary
 
         public ExaminationRepo ExaminationRepo { get; set; }
 
+        public ExamController ExamController { get; set; }
+
+        //treba odraditi navigaciju kako valja
+        private readonly NavigationStore _navigationStore;
+
         public App()
         {
+            //_navigationStore = new NavigationStore();
             
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             PatientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
@@ -44,8 +52,26 @@ namespace Secretary
             MedicalRecordService medicalRecordService = new MedicalRecordService(MedicalRecordRepo);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
-        }
-         
+            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo);
+            ExamController = new ExamController(patientService, doctorService);
 
+        }
+
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+
+        //    //Treba ovo proveriti
+        //    //_navigationStore.CurrentViewModel = new MainViewModel(_navigationStore);
+
+        //    MainWindow = new MainWindow()
+        //    {
+        //        DataContext = new MainViewModel(_navigationStore)
+        //    };
+        //    //baca ovde excaption
+        //    //MainWindow.Show();
+
+        //    base.OnStartup(e);
+        //}
     }
 }

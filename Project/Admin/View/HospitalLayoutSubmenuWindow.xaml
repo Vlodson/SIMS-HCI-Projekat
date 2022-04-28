@@ -24,7 +24,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button Content="Back" />
+            <Button x:Name="backBtn" Content="Back" Click="backBtn_Click" />
         </StackPanel>
 
         <Grid x:Name="roomGrid" Grid.Row="2" Grid.Column="1">
