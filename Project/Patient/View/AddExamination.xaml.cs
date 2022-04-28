@@ -178,15 +178,34 @@ namespace Patient.View
                 
                 ExamsAvailable.ItemsSource = listExaminations;
             }
+            else
+            {
+                List<Doctor> doctors = _doctorController.GetAll().ToList();
+                List<Examination> listExaminations = new List<Examination>();
+                bool priority = false; //prioritet je datum jer lekar nije izabran
+                foreach (Doctor doctor in doctors)
+                {
+                    if (doctor.Type == (DoctorType)DoctorTypeSelected.SelectedIndex)
+                    {
+                        List<Examination> listExaminationsForDoctor = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        foreach (Examination exam in listExaminationsForDoctor)
+                        {
+                            exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                        }
+                        listExaminations.AddRange(listExaminationsForDoctor);
+                    }
+                }
+                ExamsAvailable.ItemsSource = listExaminations;
+            }
             
         }
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            
+            Model.Patient patient = _patientController.ReadPatient("2");
             if (ExamsAvailable.SelectedIndex != -1)
             {
-                Model.Patient patient = _patientController.ReadPatient("2");
+                
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
                 DateTime dt = selectedExamination.Date;
@@ -224,6 +243,7 @@ namespace Patient.View
                 ExaminationsList.Examinations = examinations;
                 this.Close();
             }
+            
 
         }
 
