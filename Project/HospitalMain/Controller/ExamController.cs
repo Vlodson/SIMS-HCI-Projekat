@@ -203,5 +203,10 @@ namespace Controller
             */
         }
 
+        public bool occupiedDate(DateTime dt)
+        {
+            return _doctorService.occupiedDate(dt);
+        }
+
     }
 }

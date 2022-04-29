@@ -377,6 +377,7 @@ namespace Repository
             return endedExams;
         }
 
+
         public List<Examination> getExamByTime(DateTime dateTime)
         {
             List<Examination> returnList = new List<Examination> ();
@@ -389,6 +390,18 @@ namespace Repository
             }
             return returnList;
         }
+
+        public bool occupiedDate(DateTime dt)
+        {
+            foreach(Examination exam in this.examinationList)
+            {
+                if (exam.Date.Equals(dt))
+                    return true;
+            }
+            return false;
+        }
+
+
 
     }
 }

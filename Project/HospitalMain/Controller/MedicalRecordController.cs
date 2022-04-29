@@ -46,9 +46,16 @@ namespace Controller
             return medRecordService.GetAllMedicalRecords();
         }
 
+
         public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
         {
             return medRecordService.GetNotificationTimes(medicalRecord);
+        }
+
+
+        public void AddNewReport(string id, Report report)
+        {
+            medRecordService.AddNewReport(id, report);
         }
 
     }

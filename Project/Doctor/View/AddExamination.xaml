@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="112,1,181,134" FontSize="20">ZAKAZI PREGLED</TextBlock>
         <Grid Grid.Column="0" Grid.Row="1">
-            <Grid Margin="113,53,86,-24">
+            <Grid Margin="113,53,175,-24">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
@@ -26,6 +26,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -47,8 +48,7 @@
                 </ComboBox>
                 <TextBlock Grid.Column="0" Grid.Row="3">Tip:</TextBlock>
                 <ComboBox Name ="TIP"  Grid.Column="1" Grid.Row="3">
-                    <ComboBoxItem>operacija</ComboBoxItem>
-                    <ComboBoxItem>kontrola</ComboBoxItem>
+                    
                 </ComboBox>
                 <TextBlock Grid.Column="0" Grid.Row="4">Soba:</TextBlock>
                 <ComboBox Name ="ComboBoxSoba" ItemsSource="{Binding Path = RoomsObs}" Grid.Column="1" Grid.Row="4">
@@ -59,9 +59,10 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Grid.Column="0" Grid.Row="5">Trajanje:</TextBlock>
-                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" ></TextBox>
+                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" PreviewTextInput="DUR_PreviewTextInput" ></TextBox>
             </Grid>
         </Grid>
-        <Button x:Name="Zakazi" Content="Zakazi " Grid.Row="2" Click="Zakazi_Click" Margin="186,47,186,-47"/>
+        <Button x:Name="Zakazi" Content="Zakazi " Grid.Row="2" Click="Zakazi_Click" Margin="186,47,186,-16"/>
+        <Label Name ="ErrorLabel" HorizontalAlignment="Left" Margin="280,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="25" FontSize="8" FontStyle="Normal" Foreground="#FFFF1616" FontFamily="Sitka Subheading"/>
     </Grid>
 </Page>

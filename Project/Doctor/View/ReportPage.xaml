@@ -44,9 +44,9 @@
             <ComboBoxItem>lek3</ComboBoxItem>
             <ComboBoxItem>lek4</ComboBoxItem>
         </ComboBox>
-        <TextBox Name ="textBoxDuration" HorizontalAlignment="Left" Margin="135,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"/>
-        <TextBox Name ="textBoxPerDay" HorizontalAlignment="Left" Margin="217,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
-        <CheckBox Name ="checkBoxPrescription" Content="CheckBox" HorizontalAlignment="Left" Margin="305,81,0,0" Grid.Row="4" VerticalAlignment="Top" Width="52"/>
+        <TextBox Name ="textBoxDuration" PreviewTextInput="validate_PreviewTextInput" HorizontalAlignment="Left" Margin="135,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"/>
+        <TextBox Name ="textBoxPerDay" PreviewTextInput="validate_PreviewTextInput" HorizontalAlignment="Left" Margin="217,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
+        <CheckBox Name ="checkBoxPrescription" Content="" HorizontalAlignment="Left" Margin="305,81,0,0" Grid.Row="4" VerticalAlignment="Top" Width="52"/>
         <Button Name ="add" Content="Dodaj" HorizontalAlignment="Left" Margin="394,81,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="48" Click="add_Click"/>
         <Button Name ="SaveReport" Content="Prosledi" HorizontalAlignment="Left" Margin="378,117,0,0" Grid.Row="4" VerticalAlignment="Top" Width="64" Click="SaveReport_Click"/>
 
