@@ -60,7 +60,7 @@ namespace Patient.View
                         for (int j = 0; j < therapy.PerDay; ++j)
                         {
                             //proveri je l to to vreme
-                            if(DateTime.Now.CompareTo(start.AddDays(i).AddHours(j * addingHours)) == 0)
+                            if((DateTime.Now.AddMinutes(10)).CompareTo(start.AddDays(i).AddHours(j * addingHours)) == 0)
                             {
                                 MessageBox.Show("Popiti lek" + therapy.Medicine);
                             }

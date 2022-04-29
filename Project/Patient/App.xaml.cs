@@ -50,9 +50,9 @@ namespace Patient
             MedicalRecordRepo medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
             
 
-            PatientService patientService = new PatientService(patientRepository, examinationRepo);
+            PatientService patientService = new PatientService(patientRepository, examinationRepo, roomRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
-            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo);
+            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo);
             RoomService roomService = new RoomService(roomRepo);
             MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);

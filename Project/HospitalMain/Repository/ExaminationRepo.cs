@@ -79,6 +79,7 @@ namespace Repository
         }
         public bool NewExamination(Examination examination)
         {
+            
             foreach(Examination exam in examinationList)
             {
                 if(exam.Id.Equals(examination.Id))
@@ -86,6 +87,8 @@ namespace Repository
                     return false;
                 }
             }
+            
+            
 
             examinationList.Add(examination);
             SaveExamination();
@@ -192,11 +195,12 @@ namespace Repository
             DateTime end = endDate.Date;
 
             //koliki je korak
-            int days = end.Day - date.Day;
+            //int days = end.Day - date.Day;
+            int days = Convert.ToInt32((end - date).TotalDays);
             for (int i = 0; i < days + 1; ++i)
             {
                 //za svaki dan generise koji sve termini postoje
-                DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
+                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
                 for(int j = 0; j < 16; ++j)
                 {
                     examinationsTime.Add(start.AddMinutes(j*30));
@@ -298,11 +302,11 @@ namespace Repository
 
         }
 
-        public List<Examination> MoveExamination(Examination examination)
+        public List<Examination> MoveExamination(Examination examination, Doctor doctor)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            //List<Examination> doctorsExaminations = examination.Doctor.Examinations;
+            List<Examination> doctorsExaminations = doctor.Examinations;
 
 
             //danasnji datum
@@ -321,10 +325,11 @@ namespace Repository
             }
 
             List<Examination> examinations = new List<Examination>();
+            //proverava da li su termini kod izabranog doktora zauzeti
             foreach (DateTime dt in examinationsTime)
             {
                 bool free = true;
-                foreach (Examination doctorsExamination in ExaminationsForDoctor(examination.DoctorId))
+                foreach (Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
                 {
                     if (doctorsExamination.Date == dt)
                     {
@@ -333,17 +338,18 @@ namespace Repository
                 }
                 if (free)
                 {
-                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", examination.DoctorId));
+                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
 
             }
             return examinations;
         }
 
-        public void EditExamination(string id, DateTime dateTime)
+        public void EditExamination(string id, DateTime dateTime, Room room)
         {
             Examination examination = GetId(id);
             examination.Date = dateTime;
+            examination.ExamRoomId = room.Id;
         }
 
         public void DoctorEditExamination(String id, Examination examination)
@@ -371,6 +377,20 @@ namespace Repository
             return endedExams;
         }
 
+
+        public List<Examination> getExamByTime(DateTime dateTime)
+        {
+            List<Examination> returnList = new List<Examination> ();
+            foreach(Examination examination in this.examinationList)
+            {
+                if (examination.Date.Equals(dateTime))
+                {
+                    returnList.Add(examination);
+                }
+            }
+            return returnList;
+        }
+
         public bool occupiedDate(DateTime dt)
         {
             foreach(Examination exam in this.examinationList)
@@ -380,6 +400,7 @@ namespace Repository
             }
             return false;
         }
+
 
 
     }

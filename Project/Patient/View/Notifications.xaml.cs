@@ -56,39 +56,9 @@ namespace Patient.View
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
-            foreach (Report report in patientMedicalRecord.Reports)
-            {
-                foreach(Therapy therapy in report.Therapy)
-                {
-                    //ovde dodje do terapije
-                    //DateTime start = report.CreateDate;
-                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
-
-                    //popuniti liste
-                    for(int i = 0; i < therapy.Duration; ++i)
-                    {
-                       for(int j = 0; j < therapy.PerDay; ++j)
-                        {
-                            notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
-                            notificationsList.Add("Popiti lek " + therapy.Medicine);
-                        }
-                    }
-                }
-            }
-
-            showingNotifications = new List<string>();
-            DateTime today = DateTime.Now;
-            for(int i = 0; i < notificationsTimeList.Count; ++i)
-            {
-                if(today.Date == notificationsTimeList[i].Date)
-                {
-                    ShowingNotifications.Add(notificationsList[i] + " u " + notificationsTimeList[i].ToString("HH:mm"));
-                }
-            }
             
-            NotificationList.ItemsSource = ShowingNotifications;
+            NotificationList.ItemsSource = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
+            
         }
     }
 }

@@ -46,10 +46,17 @@ namespace Service
             return medicalRecordRepo.ReadAllMedicalRecords();
         }
 
+
+        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        {
+            return medicalRecordRepo.GetNotificationTimes(medicalRecord);
+        }
+
         public void AddNewReport(string id, Report report)
         {
             medicalRecordRepo.AddNewReport(id, report);
         }
+
 
 
     }
