@@ -170,6 +170,45 @@ namespace Repository
             File.WriteAllText(DBPath, jsonString);
             return true;
         }
-      
+
+        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        {
+            List<String> showingList = new List<String>();
+            List<DateTime> dateTimeList = new List<DateTime>();
+            List<String> stringList = new List<string>();
+            foreach (Report report in medicalRecord.Reports)
+            {
+                foreach (Therapy therapy in report.Therapy)
+                {
+                    //ovde dodje do terapije
+                    //DateTime start = report.CreateDate;
+                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
+                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
+                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
+
+                    //popuniti liste
+                    for (int i = 0; i < therapy.Duration; ++i)
+                    {
+                        for (int j = 0; j < therapy.PerDay; ++j)
+                        {
+                            dateTimeList.Add(start.AddDays(i).AddHours(j * addingHours));
+                            stringList.Add("Popiti lek " + therapy.Medicine);
+                        }
+                    }
+                }
+            }
+
+            showingList = new List<string>();
+            DateTime today = DateTime.Now;
+            for (int i = 0; i < dateTimeList.Count; ++i)
+            {
+                if (today.Date == dateTimeList[i].Date && today.CompareTo(dateTimeList[i]) < 0)
+                {
+                    showingList.Add(stringList[i] + " u " + dateTimeList[i].ToString("HH:mm"));
+                }
+            }
+            return showingList;
+        }
+
     }
 }

@@ -56,6 +56,7 @@ namespace Patient.View
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+            /*
             foreach (Report report in patientMedicalRecord.Reports)
             {
                 foreach(Therapy therapy in report.Therapy)
@@ -70,10 +71,10 @@ namespace Patient.View
                     for(int i = 0; i < therapy.Duration; ++i)
                     {
                        for(int j = 0; j < therapy.PerDay; ++j)
-                        {
+                       {
                             notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
                             notificationsList.Add("Popiti lek " + therapy.Medicine);
-                        }
+                       }
                     }
                 }
             }
@@ -89,6 +90,9 @@ namespace Patient.View
             }
             
             NotificationList.ItemsSource = ShowingNotifications;
+            */
+            NotificationList.ItemsSource = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
+            
         }
     }
 }

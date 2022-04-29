@@ -45,5 +45,11 @@ namespace Controller
         {
             return medRecordService.GetAllMedicalRecords();
         }
+
+        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        {
+            return medRecordService.GetNotificationTimes(medicalRecord);
+        }
+
     }
 }
