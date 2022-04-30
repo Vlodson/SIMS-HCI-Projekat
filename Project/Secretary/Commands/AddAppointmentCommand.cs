@@ -31,7 +31,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return !string.IsNullOrEmpty(_addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.PatientID) && base.CanExecute(parameter);
+            return _examController.checkIfAppointmentExists(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor, _addAppointmentViewModel.PatientID, _addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.PatientID) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
@@ -63,7 +63,7 @@ namespace Secretary.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AddAppointmentViewModel.RoomID) || e.PropertyName == nameof(AddAppointmentViewModel.PatientID))
+            if (e.PropertyName == nameof(AddAppointmentViewModel.RoomID) || e.PropertyName == nameof(AddAppointmentViewModel.PatientID) || e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor))
             {
                 OnCanExecutedChanged();
             }

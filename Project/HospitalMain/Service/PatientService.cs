@@ -11,13 +11,13 @@ namespace Service
         //dodato
         private readonly PatientRepo _patientRepo;
         private readonly ExaminationRepo _examinationRepo;
-        private readonly RoomRepo _roomRepo;
+        private readonly DoctorRepo _doctorRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, RoomRepo roomRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
-            _roomRepo = roomRepo;
+            _doctorRepo = doctorRepo;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
@@ -45,9 +45,67 @@ namespace Service
             return _patientRepo.GetPatient(id);
         }
 
-        public void CreateExam(Examination examination)
+        public bool CheckIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
         {
-            _examinationRepo.NewExamination(examination);
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.GetAll();
+            ObservableCollection<Patient> patientsFromBase = _patientRepo.GetAllPatients();
+            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.GetAllDoctors();
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+                {
+                    //ne moze jedan doktor da ima dva pregleda u isto vreme
+                    return false;
+                } else if(res == 0 && PatientID.Equals(exam.PatientId))
+                {
+                    //ne moze jedan pacijent da ima dva pregleda u isto vreme
+                    return false;
+                } else if(res == 0 && RoomID.Equals(exam.ExamRoomId))
+                {
+                    //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CheckIfAppointmentExistsForEditing(String ExamID ,DateTime date, Doctor doctor, String PatientID, String RoomID)
+        {
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.GetAll();
+            ObservableCollection<Patient> patientsFromBase = _patientRepo.GetAllPatients();
+            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.GetAllDoctors();
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                if (exam.Id.Equals(ExamID))
+                {
+                    continue;
+                }
+                int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+                {
+                    //ne moze jedan doktor da ima dva pregleda u isto vreme
+                    return false;
+                }
+                else if (res == 0 && PatientID.Equals(exam.PatientId))
+                {
+                    //ne moze jedan pacijent da ima dva pregleda u isto vreme
+                    return false;
+                }
+                else if (res == 0 && RoomID.Equals(exam.ExamRoomId))
+                {
+                    //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool CreateExam(Examination examination)
+        {
+            return _examinationRepo.NewExamination(examination);
         }
 
         public void RemoveExam(Examination examination)

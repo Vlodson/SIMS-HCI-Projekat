@@ -23,6 +23,16 @@ namespace Controller
         {
             return _patientService.generateID(examinations);
         }
+
+        public bool checkIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
+        {
+            return _patientService.CheckIfAppointmentExists(date, doctor, PatientID, RoomID);
+        }
+
+        public bool checkIfAppointmentExistsForEditing(String ExamID, DateTime date, Doctor doctor, String PatientID, String RoomID)
+        {
+            return _patientService.CheckIfAppointmentExistsForEditing(ExamID ,date, doctor, PatientID, RoomID);
+        }
         public ObservableCollection<Examination> getAllExaminations()
         {
             return _patientService.getAllExaminations();
@@ -33,9 +43,9 @@ namespace Controller
             return _patientService.GetExam(examID);
         }
       
-        public void PatientCreateExam(Examination examination)
+        public bool PatientCreateExam(Examination examination)
         {
-            _patientService.CreateExam(examination);
+            return _patientService.CreateExam(examination);
         }
 
         public void DoctorCreateExam(Examination examination)

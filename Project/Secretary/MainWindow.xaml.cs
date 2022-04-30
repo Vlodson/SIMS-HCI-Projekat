@@ -16,6 +16,7 @@ using Secretary.View;
 using System.Diagnostics;
 using Secretary.Stores;
 using Secretary.Commands;
+using Secretary.ViewModel;
 
 namespace Secretary
 {

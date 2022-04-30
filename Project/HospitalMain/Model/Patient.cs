@@ -33,11 +33,6 @@ namespace Model
 
         }
 
-        public Patient() : base()
-        {
-
-        }
-
         public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
         {
             this.id = id;
