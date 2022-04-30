@@ -35,7 +35,6 @@ namespace Repository
 
             if (File.Exists(dbPath))
                 LoadExamination();
-            //SaveExamination();
 
         }
 

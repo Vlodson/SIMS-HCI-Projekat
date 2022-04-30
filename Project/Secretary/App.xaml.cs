@@ -53,7 +53,7 @@ namespace Secretary
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo);
             ExamController = new ExamController(patientService, doctorService);
 
         }

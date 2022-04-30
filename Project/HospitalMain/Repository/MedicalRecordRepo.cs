@@ -73,10 +73,9 @@ namespace Repository
             //this.MedicalRecords.Add(mr2);
             //this.MedicalRecords.Add(mr3);
 
-            
-            //if (File.Exists(dbPath))
-            //    LoadMedicalRecord();
-            
+            if (File.Exists(dbPath))
+                LoadMedicalRecord();
+
         }
 
         public bool NewMedicalRecord(MedicalRecord medRecord)
@@ -89,6 +88,7 @@ namespace Repository
                 }
             }
             MedicalRecords.Add(medRecord);
+            SaveMedicalRecord();
             return true;
         }
 
@@ -108,6 +108,7 @@ namespace Repository
                     oneMedRecord.Mail = medRecord.Mail;
                     oneMedRecord.DoB = medRecord.DoB;
                     oneMedRecord.Allergens = medRecord.Allergens;
+                    SaveMedicalRecord();
                     break;
                 }
             }
@@ -121,6 +122,7 @@ namespace Repository
                 if (medRecord.ID.Equals(medRecordID))
                 {
                     MedicalRecords.Remove(medRecord);
+                    SaveMedicalRecord();
                     return true;
                 }
             }
@@ -161,6 +163,7 @@ namespace Repository
         {
             using FileStream fileStream = File.OpenRead(DBPath);
             this.MedicalRecords = JsonSerializer.Deserialize<ObservableCollection<MedicalRecord>>(fileStream);
+
             return true;
         }
 

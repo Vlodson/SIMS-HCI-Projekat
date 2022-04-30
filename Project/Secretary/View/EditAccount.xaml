@@ -1,0 +1,72 @@
+﻿<Window x:Class="Secretary.View.EditAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Secretary.View"
+        mc:Ignorable="d"
+        Title="EditAccount" Height="450" Width="350" WindowStartupLocation="CenterScreen" Background="LightBlue">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="UCIN:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditUCIN" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding UCIN}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Name:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditName" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding Name}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="2" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Surname:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditSurname" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding Surname}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Adress:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditAdress" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding Adress}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Date of birth:" FontSize="12" FontWeight="SemiBold"/>
+            <DatePicker x:Name="datePickerEditDateOfBirth" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" SelectedDate="{Binding DateOfBirth}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="5" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Mail:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditMail" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding Mail}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="6" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Gender:" FontSize="12" FontWeight="SemiBold"/>
+            <ComboBox x:Name="textEditGender" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=GenderType}" SelectedValue="{Binding Path=Gender }" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="7" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Phone Number:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditPhoneNumber" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding PhoneNumber}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="8" VerticalAlignment="Center" Margin="25,0,25,0">
+            <Label Content="Medical Record ID:" FontSize="12" FontWeight="SemiBold"/>
+            <TextBox x:Name="textEditMedicalRecordID" Margin="10,0,0,0" Height="25" HorizontalAlignment="Right" Text="{Binding MedicalRecordID}" Width="140"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="9">
+            <Button Content="Izmeni nalog" Height="20" Width="100" Command="{Binding EditCommand}" FontSize="12"></Button>
+        </DockPanel>
+    </Grid>
+</Window>

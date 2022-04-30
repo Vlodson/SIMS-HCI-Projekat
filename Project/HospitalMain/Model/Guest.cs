@@ -25,6 +25,8 @@ namespace Model
 
         public Guest()
         {
+
         }
+
     }
 }

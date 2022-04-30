@@ -23,7 +23,10 @@ namespace Controller
             this.patientAccService = patientAccountService;
         }
 
-       
+      public int generateID()
+        {
+            return patientAccService.generateID();
+        } 
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {

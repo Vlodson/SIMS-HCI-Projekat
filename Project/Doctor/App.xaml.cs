@@ -47,7 +47,7 @@ namespace Doctor
             reportRepo = new ReportRepo(GlobalPaths.ReportDBPath);
             
 
-            var patientService = new PatientService(patientRepo, examRepo);
+            var patientService = new PatientService(patientRepo, examRepo, doctorRepo);
             var therapyService = new TherapyService(therapyRepo);
             var doctorService = new DoctorService(doctorRepo, examRepo);
             var roomService = new RoomService(roomRepo);

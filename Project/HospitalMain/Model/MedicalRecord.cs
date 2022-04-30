@@ -63,7 +63,7 @@ namespace Model
             get { return id; }
             set
             {
-                if(id != null)
+                if(id != value)
                 {
                     id = value;
                     //OnPropertyChanged("ID");
@@ -76,7 +76,7 @@ namespace Model
             get { return ucin; }
             set
             {
-                if(ucin != null)
+                if(ucin != value)
                 {
                     ucin = value;
                     OnPropertyChanged("UCIN");
@@ -89,7 +89,7 @@ namespace Model
             get { return name; }
             set
             {
-                if(name != null)
+                if(name != value)
                 {
                     name = value;
                     OnPropertyChanged("Name");
@@ -102,7 +102,7 @@ namespace Model
             get { return surname; }
             set
             {
-                if(surname != null)
+                if(surname != value)
                 {
                     surname = value;
                     OnPropertyChanged("Surname");

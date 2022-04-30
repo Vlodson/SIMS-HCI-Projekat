@@ -11,26 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using Secretary.View;
-using Controller;
-using System.Collections.ObjectModel;
-using Model;
-using Repository;
-using Secretary.ViewModel;
 
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for CRUDApointments.xaml
+    /// Interaction logic for EditAccount.xaml
     /// </summary>
-    public partial class CRUDApointments : Window
+    public partial class EditAccount : Window
     {
-        public CRUDApointments()
+        public EditAccount()
         {
             InitializeComponent();
-            this.DataContext = new CRUDAppointmentsViewModel();
-
         }
-
     }
 }

@@ -123,6 +123,7 @@ namespace Secretary.ViewModel
             doctorController = app.DoctorController;
             examController = app.ExamController;
             patientController = app.PatientController;
+            doctor = doctorController.GetDoctor("d1");
 
             _addApointment = addAppointment;
 

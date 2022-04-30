@@ -18,6 +18,11 @@ namespace Service
 
         }
 
+      public int generateID()
+        {
+            return patientRepo.generateID();
+        }
+
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
             Guest guest = new Guest(id);
@@ -31,8 +36,8 @@ namespace Service
       
       public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID)
       {
-            Guest guest = new Guest(patientId);
-            patientRepo.SetPaetient(patientId, new Patient(guest.ID, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID));
+            //Guest guest = new Guest(patientId);
+            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID));
       }
       
       public Model.Patient ReadPatient(String patientId)

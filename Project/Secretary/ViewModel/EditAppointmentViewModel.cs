@@ -140,7 +140,7 @@ namespace Secretary.ViewModel
             RoomID = cRUDAppointmentsViewModel.ExaminationViewModel.ExamRoomID;
             Date = Convert.ToDateTime(cRUDAppointmentsViewModel.ExaminationViewModel.Date);
             //DoctorType?
-            Doctor = doctorController.GetDoctor(cRUDAppointmentsViewModel.ExaminationViewModel.DoctorID);
+            Doctor = cRUDAppointmentsViewModel.ExaminationViewModel.Doctor;
             ExaminationTypeEnum = cRUDAppointmentsViewModel.ExaminationViewModel.Type;
 
             FillDoctorTypeComboBoxData();
