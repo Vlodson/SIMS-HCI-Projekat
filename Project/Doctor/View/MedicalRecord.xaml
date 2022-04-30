@@ -8,23 +8,41 @@
       d:DesignHeight="395" d:DesignWidth="452"
       Title="MedicalRecord">
 
-    <DockPanel>
-        <Grid DockPanel.Dock="Top">
-            <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="IZVESTAJI ODABRANOG PACIJENTA" VerticalAlignment="Top" FontSize="20"/>
-            <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="38,79,30,-128" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" DockPanel.Dock="Bottom" Height="177" Width="332">
-            <TextBox Name ="txtDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}" VerticalAlignment="Top" Width="283" Height="91" Margin="18,59,0,0"/>
-            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="257,155,0,0" VerticalAlignment="Top" Click="Save_Click"/>
-        </Grid>
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="IZVESTAJI ODABRANOG PACIJENTA" VerticalAlignment="Top" FontSize="20"/>
+        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,158,34,118" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
 
+        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" Margin="0,277,0,0">
+            <TextBox Name ="txtDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}" VerticalAlignment="Center" Width="283" Height="90" Margin="37,0,0,0"/>
+            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="342,84,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+        </Grid>
+        <Label Content="Id:" HorizontalAlignment="Left" Margin="34,44,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ucin:" HorizontalAlignment="Left" Margin="309,70,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ime:" HorizontalAlignment="Left" Margin="34,96,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prezime:" HorizontalAlignment="Left" Margin="34,70,0,0" VerticalAlignment="Top"/>
+        <Label Content="Broj telefona:" HorizontalAlignment="Left" Margin="309,44,0,0" VerticalAlignment="Top"/>
+        <Label Content="E-mail:" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top"/>
+        <Label Content="Adresa:" HorizontalAlignment="Left" Margin="188,96,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pol:" HorizontalAlignment="Left" Margin="188,44,0,0" VerticalAlignment="Top"/>
+        <Label Content="Datum rođenja:" HorizontalAlignment="Left" Margin="34,122,0,0" VerticalAlignment="Top"/>
+        <Label Content="Krvna grupa:" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top"/>
+        <Label Name="surnameLbl" HorizontalAlignment="Left" Margin="94,81,0,0" VerticalAlignment="Top" Width="67"/>
+        <Label Name="bloodLbl" HorizontalAlignment="Left" Margin="263,70,0,0" VerticalAlignment="Top"/>
+        <Label Name="emailLbl" HorizontalAlignment="Left" Margin="241,122,0,0" VerticalAlignment="Top" Width="81"/>
+        <Label Name="phoneLbl" HorizontalAlignment="Left" Margin="389,44,0,0" VerticalAlignment="Top" Width="53"/>
+        <Label Name="ucinLbl" HorizontalAlignment="Left" Margin="345,70,0,0" VerticalAlignment="Top" Width="97"/>
+        <Label Name="addressLbl" HorizontalAlignment="Left" Margin="237,96,0,0" VerticalAlignment="Top" Width="69"/>
+        <Label Name="dobLbl" HorizontalAlignment="Left" Margin="126,122,0,0" VerticalAlignment="Top" Width="57"/>
+        <Label Name="idLbl" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top"/>
+        <Label Name="nameLbl" HorizontalAlignment="Left" Margin="80,96,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Name="GenderLbl" HorizontalAlignment="Left" Margin="222,44,0,0" VerticalAlignment="Top"/>
+    </Grid>
 
-    </DockPanel>
 </Page>

@@ -169,13 +169,74 @@ namespace Patient.View
                 {
                     priority = false;
                 }
-                
+                /*
                 List<Examination> listExaminations = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                List<Examination> listExaminationsWithRooms = new List<Examination>();
+                //provera da li postoji slobodna prostorija za dati termin
+                
                 foreach(Examination exam in listExaminations)
+                {
+                    int counter = 0;
+                    foreach(Room room in _roomController.ReadAll())
+                    {
+                        if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                        {
+                            counter++;
+                        }
+                    }
+                    if(counter < _roomController.ReadAll().Count)
+                    {
+                        listExaminationsWithRooms.Add(exam);
+                    }
+                    //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                }
+                */
+                List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                //listExaminationsWithRooms = listExaminations;
+                foreach(Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
                 }
-                
+                ExamsAvailable.ItemsSource = listExaminationsWithRooms;
+            }
+            else
+            {
+                List<Doctor> doctors = _doctorController.GetAll().ToList();
+                List<Examination> listExaminations = new List<Examination>();
+                bool priority = false; //prioritet je datum jer lekar nije izabran
+                foreach (Doctor doctor in doctors)
+                {
+                    if (doctor.Type == (DoctorType)DoctorTypeSelected.SelectedIndex)
+                    {
+                        /*
+                        List<Examination> listExaminationsForDoctor = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        List<Examination> listExaminationsWithRooms = new List<Examination>();
+                        foreach (Examination exam in listExaminationsForDoctor)
+                        {
+                            bool add = true;
+                            foreach (Room room in _roomController.ReadAll())
+                            {
+                                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                                {
+                                    add = false;
+                                }
+                            }
+                            if (add == true)
+                            {
+                                listExaminationsWithRooms.Add(exam);
+                            }
+                            //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                        }
+                        */
+                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        foreach (Examination exam in listExaminationsWithRooms)
+                        {
+                            exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                        }
+                        listExaminations.AddRange(listExaminationsWithRooms);
+                    }
+                }
+
                 ExamsAvailable.ItemsSource = listExaminations;
             }
             
@@ -183,35 +244,75 @@ namespace Patient.View
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            
+            Model.Patient patient = _patientController.ReadPatient("2");
             if (ExamsAvailable.SelectedIndex != -1)
             {
-                Model.Patient patient = _patientController.ReadPatient("2");
+                
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
+                if (doctor == null)
+                {
+                    doctor = _doctorController.GetDoctor(selectedExamination.DoctorId);
+                }
                 DateTime dt = selectedExamination.Date;
                 
                 
                 Room getRoom = new Room();
+                /*
                 foreach (Room room in _roomController.ReadAll())
                 {
-                    //Console.WriteLine("nesto radi");
+                    
                     if (room.Occupancy == false && room.Type==HospitalMain.Enums.RoomTypeEnum.Patient_Room)
                     {
                         getRoom = room;
-                        _roomController.EditRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, true, room.Type);
+                        //_roomController.EditRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, true, room.Type);
                         break;
                     }
                 }
+                */
+                List<Room> patientRooms = new List<Room>();
+                foreach (Room room in _roomController.ReadAll())
+                {
+                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                    {
+                        patientRooms.Add(room);
+                    }
+                }
+                if(_patientController.GetExamByTime(dt).Count == 0)
+                {
+                    foreach (Room room in patientRooms)
+                    {
+                        if (room.Occupancy == false)
+                        {
+                             getRoom = room;
+                        }
+                    }
+                }
+                foreach (Examination examinationExists in _patientController.GetExamByTime(dt))
+                {
+                    bool take = false;
+                    foreach (Room room in patientRooms)
+                    {
+                        if (room.Occupancy == false)
+                        {
+                            if(examinationExists.ExamRoomId != room.Id)
+                            {
+                                take = true;
+                                getRoom = room;
+                            }
+                        }
+                    }
 
-                
+                }
+
                 int id = 0;
                 for(int i = 0; i < _examController.GetExaminations().Count; ++i)
                 {
                     ++id;
                 }
                 ++id;
-                Examination newExam = new Examination(getRoom.Id, dt, id.ToString(), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+                //Examination newExam = new Examination(getRoom.Id, dt, id.ToString(), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+                Examination newExam = new Examination(getRoom.Id, dt, RandomString(6), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
 
                 _examController.PatientCreateExam(newExam);
                 //_examinationRepo.SaveExamination();
@@ -224,6 +325,7 @@ namespace Patient.View
                 ExaminationsList.Examinations = examinations;
                 this.Close();
             }
+            
 
         }
 
