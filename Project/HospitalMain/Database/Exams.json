@@ -1,1 +1,1 @@
-[]
+[{"ExamRoomId":"15","Id":"BLONYC","Duration":2,"PatientId":"2","DoctorId":"idDoctor1","DoctorNameSurname":"nameDoctor1 surnameDoctor1","DoctorType":0,"EType":0,"Date":"2022-05-02T07:00:00"},{"ExamRoomId":"10","Id":"GYHDRY","Duration":2,"PatientId":"2","DoctorId":"idDoctor2","DoctorNameSurname":"nameDoctor2 surnameDoctor2","DoctorType":0,"EType":0,"Date":"2022-05-02T07:00:00"}]

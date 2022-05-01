@@ -12,12 +12,14 @@ namespace Service
         private readonly PatientRepo _patientRepo;
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
+        private readonly RoomRepo _roomRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
+            _roomRepo = roomRepo;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
