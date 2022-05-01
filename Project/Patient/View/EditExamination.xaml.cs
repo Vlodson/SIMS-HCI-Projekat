@@ -99,7 +99,7 @@ namespace Patient.View
                 }
             }
             */
-            _examController.PatientEditExam(ExaminationsList.selected, newDate);
+            _examController.PatientEditExamForMoving(ExaminationsList.selected, newDate);
             //_examinationRepo.SaveExamination();
             _examController.SaveExaminationRepo();
             

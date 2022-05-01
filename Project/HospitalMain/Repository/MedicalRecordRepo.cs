@@ -31,9 +31,9 @@ namespace Repository
             ts.Add(therapy2);
             ts.Add(therapy3);
 
-            //Report report = new Report("examId", "Neki opis", new DateTime(), "p1", "d1", ts);
-            //ObservableCollection<Report> reports = new ObservableCollection<Report>();
-            //reports.Add(report);
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
+            ObservableCollection<Report> reports = new ObservableCollection<Report>();
+            reports.Add(report);
 
             //String allergenName1 = "Prasina";
             //String allergenName2 = "Polen trave";
