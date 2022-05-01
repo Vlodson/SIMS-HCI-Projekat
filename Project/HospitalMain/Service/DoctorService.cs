@@ -33,12 +33,12 @@ namespace Service
 
         public void RemoveExam(Examination exam)
         {
-            _examinationRepo.DeleteExamination(exam);
+            _examinationRepo.DeleteExamination(exam.Id);
         }
 
         public void EditExams(string id, Examination exam)
         {
-            _examinationRepo.DoctorEditExamination(id,exam);
+            _examinationRepo.SetExamination(id,exam);
         }
 
         public List<Examination> ReadPatientExams(String patientId)
@@ -120,7 +120,7 @@ namespace Service
         public List<Examination> MoveExaminations(Examination examination)
         {
             Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
-            List<Examination> listForDoctor = _examinationRepo.MoveExamination(examination, doctor);
+            List<Examination> listForDoctor = _examinationRepo.GetMovingDatesForExamination(examination, doctor);
             List<Examination> listExaminationsWithRooms = new List<Examination>();
             foreach (Examination exam in listForDoctor)
             {
