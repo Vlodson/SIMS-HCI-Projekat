@@ -25,13 +25,13 @@ namespace Repository
             examinationList.Add(exam1);
             examinationList.Add(exam2);*/
 
-            Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 20, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
-            Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 50, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
-            Examination exam3 = new Examination("14", new DateTime(2022, 6, 6, 11, 00, 00), "3", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d11");
+            //Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 20, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
+            //Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 50, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
+            //Examination exam3 = new Examination("14", new DateTime(2022, 6, 6, 11, 00, 00), "3", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d11");
 
-            this.examinationList.Add(exam1);
-            this.examinationList.Add(exam2);
-            this.examinationList.Add(exam3);
+            //this.examinationList.Add(exam1);
+            //this.examinationList.Add(exam2);
+            //this.examinationList.Add(exam3);
 
             if (File.Exists(dbPath))
                LoadExamination();
@@ -59,13 +59,13 @@ namespace Repository
             return maxID + 1;
         }
 
-        public void DeleteByPatient(String id)
+        public void DeleteExamination(String id)
         {
-            examinationList.Remove(GetId(id));
+            examinationList.Remove(GetExaminationById(id));
             SaveExamination();
         }
 
-        public Examination GetId(String id)
+        public Examination GetExaminationById(String id)
         {
             foreach(Examination examination in examinationList)
             {
@@ -86,25 +86,9 @@ namespace Repository
                     return false;
                 }
             }
-            
-            
-
             examinationList.Add(examination);
             SaveExamination();
             return true;
-        }
-
-        public Examination GetExamination(String examId)
-        {
-            foreach(Examination examination in examinationList)
-            {
-                if(examination.Id.Equals(examId))
-                {
-                    return (examination);
-                }
-            }
-
-            return (null);
         }
 
         public void SetExamination(string examID, Examination examination)
@@ -121,19 +105,6 @@ namespace Repository
                     exam.DoctorId = examination.DoctorId;
                     exam.PatientId = examination.PatientId;
                     exam.EType = examination.EType;
-                    break;
-                }
-            }
-            SaveExamination();
-        }
-
-        public void DeleteExamination(Examination examination)
-        {
-            foreach(Examination exam in examinationList)
-            {
-                if(exam.Id.Equals(examination.Id))
-                {
-                    examinationList.Remove(examination);
                     break;
                 }
             }
@@ -177,10 +148,6 @@ namespace Repository
             }
             return examsForPatient;
         }
-
-        //public PatientService patientService;
-        //public DoctorService doctorService;
-
 
         public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
         {
@@ -294,14 +261,12 @@ namespace Repository
                     }
                 } 
             }
-            
-
 
             return examinations;
 
         }
 
-        public List<Examination> MoveExamination(Examination examination, Doctor doctor)
+        public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
             List<DateTime> examinationsTime = new List<DateTime>();
             List<DateTime> doctorsExaminationsTime = new List<DateTime>();
@@ -342,25 +307,6 @@ namespace Repository
 
             }
             return examinations;
-        }
-
-        public void EditExamination(string id, DateTime dateTime, Room room)
-        {
-            Examination examination = GetId(id);
-            examination.Date = dateTime;
-            examination.ExamRoomId = room.Id;
-        }
-
-        public void DoctorEditExamination(String id, Examination examination)
-        {
-            for (int i = 0; i < examinationList.Count; i++)
-            {
-                if (examinationList[i].Id.Equals(id))
-                {
-                    examinationList[i] = examination;
-                    break;
-                }
-            }
         }
 
         public ObservableCollection<Examination> ReadEndedExams()

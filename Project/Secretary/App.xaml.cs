@@ -36,6 +36,7 @@ namespace Secretary
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
 
+        public RoomRepo RoomRepo { get; set; }
         public App()
         {
             //_navigationStore = new NavigationStore();
@@ -55,7 +56,7 @@ namespace Secretary
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo);
             ExamController = new ExamController(patientService, doctorService);
 
         }
