@@ -36,7 +36,6 @@ namespace Secretary
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
 
-        public RoomRepo RoomRepo { get; set; }
         public App()
         {
             //_navigationStore = new NavigationStore();
