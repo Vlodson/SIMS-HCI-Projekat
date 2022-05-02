@@ -90,8 +90,9 @@ namespace Repository
             //            {
             //                for (int j = 0; j < therapy.PerDay; ++j)
             //                {
-            //                    String content = "Popiti lek " + therapy.Medicine;
-            //                    Notification notification = new Notification(content, false, start.AddDays(i).AddHours(j * addingHours));
+            //                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
+            //                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
+            //                    Notification notification = new Notification(content, false, dateTime);
             //                    mc.Notifications.Add(notification);
 
             //                }
@@ -138,6 +139,7 @@ namespace Repository
                     oneMedRecord.Mail = medRecord.Mail;
                     oneMedRecord.DoB = medRecord.DoB;
                     oneMedRecord.Allergens = medRecord.Allergens;
+                    oneMedRecord.Notifications = medRecord.Notifications;
                     SaveMedicalRecord();
                     break;
                 }
@@ -206,46 +208,46 @@ namespace Repository
 
         public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
         {
-            /*
-            List<String> showingList = new List<String>();
-            List<DateTime> dateTimeList = new List<DateTime>();
-            List<String> stringList = new List<string>();
-            foreach (Report report in medicalRecord.Reports)
-            {
-                foreach (Therapy therapy in report.Therapy)
-                {
-                    //ovde dodje do terapije
-                    //DateTime start = report.CreateDate;
-                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
-
-                    //popuniti liste
-                    for (int i = 0; i < therapy.Duration; ++i)
-                    {
-                        for (int j = 0; j < therapy.PerDay; ++j)
-                        {
-                            dateTimeList.Add(start.AddDays(i).AddHours(j * addingHours));
-                            stringList.Add("Popiti lek " + therapy.Medicine);
-                        }
-                    }
-                }
-            }
-
-            showingList = new List<string>();
-            DateTime today = DateTime.Now;
-            for (int i = 0; i < dateTimeList.Count; ++i)
-            {
-                if (today.Date == dateTimeList[i].Date && today.CompareTo(dateTimeList[i]) < 0)
-                {
-                    showingList.Add(stringList[i] + " u " + dateTimeList[i].ToString("HH:mm"));
-                }
-            }
-            return showingList;
-            */
+            
+            LoadMedicalRecord();
             return medicalRecord.Notifications.ToList();
         }
 
+        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            //medicalRecord.Notifications[index].IsRead = true;
+            /*
+            for(int i = 0; i < medicalRecord.Notifications.Count; i++)
+            {
+                if(i == index)
+                {
+                    Notification notification = medicalRecord.Notifications[i];
+                    notification.IsRead = true;
+                }
+            }
+            */
+            //notification.IsRead = true;
+            foreach (MedicalRecord oneMedRecord in MedicalRecords)
+            {
+                if (oneMedRecord.ID.Equals(medicalRecord.ID))
+                {
+                    
+                    foreach(Notification not in oneMedRecord.Notifications)
+                    {
+                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
+                        {
+                            oneMedRecord.Notifications.Remove(not);
+                            SaveMedicalRecord();
+                            break;
+                        }
+                    }
+                    
+                    
+                }
+            }
+            
+            //SaveMedicalRecord();
+        }
 
         public void AddNewReport(string id, Report report)
         {

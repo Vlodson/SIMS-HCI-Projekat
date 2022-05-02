@@ -1,15 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace HospitalMain.Model
 {
-    public class Notification
+    public class Notification : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         private String content;
-        private Boolean isRead;
         private DateTime dateTimeNotification;
 
         public String Content
@@ -21,19 +30,10 @@ namespace HospitalMain.Model
             set
             {
                 content = value;
+                OnPropertyChanged("Content");
             }
         }
-        public Boolean IsRead
-        {
-            get
-            {
-                return isRead;
-            }
-            set
-            {
-                isRead = value;
-            }
-        }
+
         public DateTime DateTimeNotification
         {
             get
@@ -43,14 +43,19 @@ namespace HospitalMain.Model
             set
             {
                 dateTimeNotification = value;
+                OnPropertyChanged("DateTimeNotification");
             }
         }
 
         public Notification(string content, bool isRead, DateTime dateTimeNotification)
         {
             Content = content;
-            IsRead = isRead;
             DateTimeNotification = dateTimeNotification;
+        }
+
+        public Notification()
+        {
+
         }
     }
 }

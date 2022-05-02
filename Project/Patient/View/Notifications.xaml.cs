@@ -58,9 +58,31 @@ namespace Patient.View
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 
+            List<String> notifications = new List<String>();
+            foreach(Notification notification in _medicalRecordController.GetNotificationTimes(patientMedicalRecord))
+            {
+                notifications.Add(notification.Content);
+            }
+            NotificationList.ItemsSource = notifications;
             
-            NotificationList.ItemsSource = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
-            
+        }
+
+        private void MarkAsRead(object sender, RoutedEventArgs e)
+        {
+            List<Notification> markNotifications = new List<Notification>();
+            String patientId = "2";
+            Model.Patient patient = _patientController.ReadPatient(patientId);
+            MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+
+            List<int> selectedItemIndexes = (from object o in NotificationList.SelectedItems select NotificationList.Items.IndexOf(o)).ToList();
+            foreach (int index in selectedItemIndexes)
+            {
+
+                Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
+                _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
+            }
+            //_medicalRecordController.SaveMedicalRecord();
+            this.Close();
         }
     }
 }

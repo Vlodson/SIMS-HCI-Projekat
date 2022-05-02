@@ -47,14 +47,15 @@ namespace Service
         }
 
 
-        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
         {
-            List<String> unreadNotifications = new List<String>();
+            List<Notification> unreadNotifications = new List<Notification>();
             foreach(Notification notification in medicalRecordRepo.GetNotificationTimes(medicalRecord))
             {
-                if(notification.IsRead == false && notification.DateTimeNotification.Day == DateTime.Now.Day)
+                if(notification.DateTimeNotification.CompareTo(DateTime.Now) < 0)
                 {
-                    unreadNotifications.Add(notification.Content + " u " + notification.DateTimeNotification.ToString("HH:mm"));
+                    //unreadNotifications.Add(notification.Content + " u " + notification.DateTimeNotification.ToString());
+                    unreadNotifications.Add(notification);
                 }
             }
             return unreadNotifications;
@@ -65,6 +66,10 @@ namespace Service
             medicalRecordRepo.AddNewReport(id, report);
         }
 
+        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            medicalRecordRepo.EditReadNotification(medicalRecord, notification);
+        }
 
 
     }

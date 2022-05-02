@@ -47,7 +47,7 @@ namespace Controller
         }
 
 
-        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
         {
             return medRecordService.GetNotificationTimes(medicalRecord);
         }
@@ -56,6 +56,11 @@ namespace Controller
         public void AddNewReport(string id, Report report)
         {
             medRecordService.AddNewReport(id, report);
+        }
+
+        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            medRecordService.EditReadNotification(medicalRecord, notification);
         }
 
     }
