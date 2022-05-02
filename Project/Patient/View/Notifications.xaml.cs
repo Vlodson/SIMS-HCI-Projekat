@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Model;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,7 @@ namespace Patient.View
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+
             
             NotificationList.ItemsSource = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
             

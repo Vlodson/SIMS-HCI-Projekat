@@ -91,7 +91,7 @@ namespace Secretary.View
                 allergens.Add(allergen);
             }
 
-            medicalRecordController.CreateMedicalRecord(id.ToString(), ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens);
+            medicalRecordController.CreateMedicalRecord(id.ToString(), ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens, new ObservableCollection<Notification>());
             
         }
 
@@ -128,7 +128,7 @@ namespace Secretary.View
                 }
                 selectedMedicalRecord.Allergens = allergens;
 
-                medicalRecordController.EditMedicalRecord(selectedMedicalRecord.ID, selectedMedicalRecord.UCIN, selectedMedicalRecord.Name, selectedMedicalRecord.Surname, selectedMedicalRecord.PhoneNumber, selectedMedicalRecord.Mail, selectedMedicalRecord.Adress, selectedMedicalRecord.Gender, selectedMedicalRecord.DoB, selectedMedicalRecord.BloodType, selectedMedicalRecord.Reports, selectedMedicalRecord.Allergens); ;
+                medicalRecordController.EditMedicalRecord(selectedMedicalRecord.ID, selectedMedicalRecord.UCIN, selectedMedicalRecord.Name, selectedMedicalRecord.Surname, selectedMedicalRecord.PhoneNumber, selectedMedicalRecord.Mail, selectedMedicalRecord.Adress, selectedMedicalRecord.Gender, selectedMedicalRecord.DoB, selectedMedicalRecord.BloodType, selectedMedicalRecord.Reports, selectedMedicalRecord.Allergens, selectedMedicalRecord.Notifications); ;
                 textAllergensMedicalRecord.Text = "";
             }
 
