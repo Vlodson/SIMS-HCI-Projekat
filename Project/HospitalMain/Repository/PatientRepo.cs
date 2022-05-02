@@ -28,8 +28,8 @@ namespace Repository
             this.Patients.Add(p2);
             this.Patients.Add(p3);
 
-            //if (File.Exists(dbPath))
-            //    LoadPatient();
+            if (File.Exists(dbPath))
+                LoadPatient();
         }
 
        public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
