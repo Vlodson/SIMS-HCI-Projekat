@@ -31,6 +31,8 @@ namespace Secretary
 
         public ExamController ExamController { get; set; }
 
+        public RoomRepo RoomRepo { get; set; }
+
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
 
