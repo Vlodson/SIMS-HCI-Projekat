@@ -1,11 +1,13 @@
 ﻿using Controller;
+using HospitalMain.Enums;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +16,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Doctor.View
@@ -21,105 +24,97 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for UpdateExamination.xaml
     /// </summary>
-    public partial class UpdateExamination : Window
+    public partial class UpdateExamination : Page
     {
-        public event PropertyChangedEventHandler PropertyChanged;
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
         private RoomController _roomController;
+        private ExaminationRepo _examRepo;
 
+        private ExaminationSchedule _examinationSchedule;
 
-        protected virtual void NotifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        private Examination _selectedExam { get; set; }
 
-        public static ObservableCollection<Patient> PatientsObs
-        {
-            get;
-            set;
-        }
-        public static ObservableCollection<Room> RoomsObs
-        {
-            get;
-            set;
-        }
-
-
-        public UpdateExamination(Examination selectedItem)
+        public ObservableCollection<Patient> PatientsObs { get; set; }
+        public ObservableCollection<Room> RoomsObs { get; set; }
+        public UpdateExamination(Examination selectedItem, ExaminationSchedule examinationSchedule)
         {
             InitializeComponent();
             this.DataContext = this;
-
-            RoomsObs = new ObservableCollection<Room>();
-            PatientsObs = new ObservableCollection<Patient>();
+            _examinationSchedule = examinationSchedule;
+            _selectedExam = selectedItem;
 
             var app = Application.Current as App;
-            _doctorController = app.DoctorController;
-            _examController = app.ExamController;
-            _patientController = app.PatientController;
-            _roomController = app.RoomController;
+            _doctorController = app.doctorController;
+            _examController = app.examController;
+            _patientController = app.patientController;
+            _roomController = app.roomController;
+            _examRepo = app.examRepo;
 
-            ComboBoxPacijent.Text = selectedItem.Patient.Name;
-            ComboBoxSoba.SelectedItem = selectedItem.ExamRoom;
+            ComboBoxPacijent.Text = selectedItem.PatientId;
+            //ComboBoxSoba.SelectedItem
             DUR.Text = selectedItem.Duration.ToString();
-            TIP.Text = selectedItem.Type;
+            TIP.SelectedItem = selectedItem.EType;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
-            timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
+            timePicker.SelectedValue = selectedItem.Date.ToString().Split(" ")[1];
 
-            foreach (var pom in _patientController.GetAll().ToList())
-            {
-                PatientsObs.Add(pom);
-            }
-            foreach (var pom in _roomController.ReadAll().ToList())
-            {
-                RoomsObs.Add(pom);
-            }
-
-
+            TIP.ItemsSource = Enum.GetValues(typeof(ExaminationTypeEnum));
+            PatientsObs = _patientController.ReadAllPatients();
+            RoomsObs = _roomController.ReadAll();
         }
 
-        private void Izmeni_Click(object sender, RoutedEventArgs e)
+        private void Update_Click(object sender, RoutedEventArgs e)
         {
 
-            Model.Doctor doctor = _doctorController.GetDoctor("222");
+            if ((Patient)ComboBoxPacijent.SelectedItem == null || (Room)ComboBoxSoba.SelectedItem == null || DUR.Text.Equals("") || timePicker.SelectedItem == null)
+            {
+                MessageBox.Show("Molimo popunite sva polja!");
+                return;
+            }
+            else
+            {
+            }
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
+            int res = DateTime.Compare(dt, DateTime.Now);
+            bool occupiedDate = _examController.occupiedDate(dt);
 
-            string roomId = ComboBoxSoba.SelectedItem.ToString();
-            Room r = _roomController.FindById(roomId);
-
-
-            string patientName = ComboBoxPacijent.SelectedItem.ToString();
-            Patient p = new Patient("246", patientName, "Nikic", new DateTime(1999, 1, 1, 12, 12, 12), new List<Examination>());
-
-            int duration = Int32.Parse(DUR.Text);
-
-            string type = TIP.Text;
-
-            Examination newExam = new Examination(r, dt, "ID5", duration, type, p, doctor);
-            _examController.DoctorEditExam(newExam);
-
-            //ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
-            //ExaminationSchedule.Examinations.Add(newExam);
-            convertEntityToView();
-            ExaminationSchedule.Examinations.Remove(ExaminationSchedule.SelectedItem);
             
-            this.Close();
-        }
+            if (res < 0)
+            {
+                ErrorLabel.Content = "Mozete izabrati samo buduce datume!";
+                return;
+            }
+            else if (occupiedDate)
+            {
+                ErrorLabel.Content = "Odabrani termin nije dostupan!";
+                return;
+            }
+            else
+            {
+                Room room = (Room)ComboBoxSoba.SelectedItem;
 
-        public void convertEntityToView()
+                Patient patient = (Patient)ComboBoxPacijent.SelectedItem;
+
+                int duration = Int32.Parse(DUR.Text);
+
+                ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
+
+                Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, "d1");
+                _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
+                _examRepo.SaveExamination();
+                _examinationSchedule = new ExaminationSchedule();
+                NavigationService.Navigate(_examinationSchedule);
+            }
+
+             
+            
+        }
+        private void DUR_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-          
-            ExaminationSchedule.Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                ExaminationSchedule.Examinations.Add(exam);
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

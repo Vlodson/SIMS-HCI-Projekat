@@ -14,4 +14,8 @@
     <Page Remove="Database\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -15,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Doctor.View
@@ -22,97 +23,56 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for ExaminationSchedule.xaml
     /// </summary>
-    public partial class ExaminationSchedule : Window
+    public partial class ExaminationSchedule : Page
     {
         private ExamController _examController;
         private ExaminationRepo _examRepo;
-
         public static Examination SelectedItem
         {
             get;
             set;
         }
-
-        public static ObservableCollection<Examination> Examinations
-        {
-            get;
-            set;
-        }
-
+        public static ObservableCollection<Examination> Examinations { get; set; }
         public ExaminationSchedule()
         {
             InitializeComponent();
             this.DataContext = this;
-            SelectedItem = null;
-
-            
-
-            string idDoc = "IDDOC";
 
             App app = Application.Current as App;
-            _examRepo = app.ExaminationRepo;
-            _examController = app.ExamController;
+            _examController = app.examController;
+            _examRepo = app.examRepo;
+
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
 
-            Examinations = _examController.ReadDoctorExams(idDoc);
-            //Equipment equipment1 = new Equipment("typeEquipment1", 2);
-
-            /*Room r1 = new Room("idRoom1", 2, 1, false, "typeRoom1");
-            List<Examination> examinationsDoctor1 = new List<Examination>();
-            DateTime dtDoctor1 = DateTime.Now;
-            Model.Doctor doctor = new Model.Doctor("idDoctor1", "nameDoctor1", "surnameDoctor1", dtDoctor1, DoctorType.Pulmonology, examinationsDoctor1);
-            List<Examination> examinationsPatient1 = new List<Examination>();
-            DateTime dtPatient1 = DateTime.Now;
-            Model.Patient patient = new Model.Patient("idPAtient1", "namePatient1", "surnamePatient1", dtPatient1, examinationsPatient1);
-            DateTime dtExam1 = DateTime.Now;
-            Examination exam1 = new Examination(r1, dtExam1, "idExam1", 2, "operacija", patient, doctor);
-            Examinations.Add(exam1);*/
-            
-
+            Examinations = _examController.ReadDoctorExams("d1");
         }
-
-        private void Zakazi_Click(object sender, RoutedEventArgs e)
+        private void add_Click(object sender, RoutedEventArgs e)
         {
-            AddExamination addExamination = new AddExamination();
-            addExamination.Show();
-            
-        }
-
-        private void Izmeni_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedItem = dataGridExaminations.SelectedItem as Examination;
-            UpdateExamination updateExamination = new UpdateExamination(SelectedItem);
-            updateExamination.Show();
-
-        }
-
-
-        private void Otkazi_Click(object sender, RoutedEventArgs e)
-        {
-            Examination selectedItem = dataGridExaminations.SelectedItem as Examination;
-            if (selectedItem != null)
-            {
-                _examController.DoctorRemoveExam(selectedItem);
-                Examinations.Remove(selectedItem);
-                convertEntityToView();
-            }
-
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
+            AddExamination addExamination = new AddExamination(this);
+            NavigationService.Navigate(addExamination);
             _examRepo.SaveExamination();
         }
 
-        public void convertEntityToView()
+        private void update_Click(object sender, RoutedEventArgs e)
         {
-            // stupid slow but i dont really care right now also probably needs a check to see if its null
-            Examinations.Clear();
-            string idDoc = "IDDOC";
-            List<Examination> exams = this._examController.ReadAll(idDoc);
-            foreach (Examination exam in exams)
-                Examinations.Add(exam);
+            SelectedItem = (Examination)dataGridExaminations.SelectedItem;
+            UpdateExamination updateExamination = new UpdateExamination(SelectedItem, this);
+            NavigationService.Navigate(updateExamination);
+            _examRepo.SaveExamination();
+        }
+
+
+        private void cancel_Click(object sender, RoutedEventArgs e)
+        {
+            Examination selectedItem = (Examination)dataGridExaminations.SelectedItem;
+            if (selectedItem != null)
+            {
+                _examController.DoctorRemoveExam(selectedItem);
+                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("d1");
+                _examRepo.SaveExamination();
+            }
+
         }
     }
 }
