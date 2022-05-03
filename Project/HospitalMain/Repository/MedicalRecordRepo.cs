@@ -23,17 +23,17 @@ namespace Repository
             this.DBPath = dbPath;
             this.MedicalRecords = new ObservableCollection<MedicalRecord>();
 
-            //Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
-            //Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
-            //Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
-            //ObservableCollection<Therapy> ts = new ObservableCollection<Therapy>();
-            //ts.Add(therapy1);
-            //ts.Add(therapy2);
-            //ts.Add(therapy3);
+            Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
+            Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
+            Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
+            ObservableCollection<Therapy> ts = new ObservableCollection<Therapy>();
+            ts.Add(therapy1);
+            ts.Add(therapy2);
+            ts.Add(therapy3);
 
-            //Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
-            //ObservableCollection<Report> reports = new ObservableCollection<Report>();
-            //reports.Add(report);
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
+            ObservableCollection<Report> reports = new ObservableCollection<Report>();
+            reports.Add(report);
 
             //foreach (MedicalRecord mc in MedicalRecords)
             //{
@@ -68,7 +68,7 @@ namespace Repository
             ObservableCollection<Allergens> allergens3 = new ObservableCollection<Allergens>();
 
             allergens1.Add(Allergens.Perje);
-            allergens1.Add(Allergens.Le�nici);
+            allergens1.Add(Allergens.Lešnici);
             allergens1.Add(Allergens.Polen);
 
             allergens2.Add(Allergens.Ambrozija);
@@ -85,9 +85,9 @@ namespace Repository
             DateTime dtDoctor2 = DateTime.Now;
             Doctor doctor2 = new Doctor("d11", "Marko", "Markovic", dtDoctor2, DoctorType.Pulmonology, examinationsDoctor2);
 
-            MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), "A", reports, allergens1, new ObservableCollection<Notification>());
-            MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), "B", reports, allergens2, new ObservableCollection<Notification>());
-            MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), "AB", reports, allergens3, new ObservableCollection<Notification>());
+            MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), BloodType.A_positive, reports, allergens1, new ObservableCollection<Notification>());
+            MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), BloodType.A_negative, reports, allergens2, new ObservableCollection<Notification>());
+            MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), BloodType.AB_negative, reports, allergens3, new ObservableCollection<Notification>());
 
             this.MedicalRecords.Add(mr1);
             this.MedicalRecords.Add(mr2);
