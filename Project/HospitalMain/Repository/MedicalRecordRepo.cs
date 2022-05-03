@@ -215,18 +215,6 @@ namespace Repository
 
         public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
         {
-            //medicalRecord.Notifications[index].IsRead = true;
-            /*
-            for(int i = 0; i < medicalRecord.Notifications.Count; i++)
-            {
-                if(i == index)
-                {
-                    Notification notification = medicalRecord.Notifications[i];
-                    notification.IsRead = true;
-                }
-            }
-            */
-            //notification.IsRead = true;
             foreach (MedicalRecord oneMedRecord in MedicalRecords)
             {
                 if (oneMedRecord.ID.Equals(medicalRecord.ID))
@@ -245,8 +233,7 @@ namespace Repository
                     
                 }
             }
-            
-            //SaveMedicalRecord();
+
         }
 
         public void AddNewReport(string id, Report report)

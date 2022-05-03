@@ -39,9 +39,6 @@ namespace Patient.View
         private DoctorController _doctorController;
         private PatientController _patientController;
         private RoomController _roomController;
-        //private ExaminationRepo _examinationRepo;
-
-        //public int id = 0;
         
         private List<String> doctorTypes;
 
@@ -120,7 +117,6 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
             _roomController = app.RoomController;
-            //_examinationRepo = app.ExaminationRepo;
 
             
             DoctorsObs = new ObservableCollection<Doctor>();
@@ -169,30 +165,9 @@ namespace Patient.View
                 {
                     priority = false;
                 }
-                /*
-                List<Examination> listExaminations = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
-                List<Examination> listExaminationsWithRooms = new List<Examination>();
-                //provera da li postoji slobodna prostorija za dati termin
-                
-                foreach(Examination exam in listExaminations)
-                {
-                    int counter = 0;
-                    foreach(Room room in _roomController.ReadAll())
-                    {
-                        if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
-                        {
-                            counter++;
-                        }
-                    }
-                    if(counter < _roomController.ReadAll().Count)
-                    {
-                        listExaminationsWithRooms.Add(exam);
-                    }
-                    //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                }
-                */
+
                 List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
-                //listExaminationsWithRooms = listExaminations;
+
                 foreach(Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
@@ -208,26 +183,7 @@ namespace Patient.View
                 {
                     if (doctor.Type == (DoctorType)DoctorTypeSelected.SelectedIndex)
                     {
-                        /*
-                        List<Examination> listExaminationsForDoctor = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
-                        List<Examination> listExaminationsWithRooms = new List<Examination>();
-                        foreach (Examination exam in listExaminationsForDoctor)
-                        {
-                            bool add = true;
-                            foreach (Room room in _roomController.ReadAll())
-                            {
-                                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
-                                {
-                                    add = false;
-                                }
-                            }
-                            if (add == true)
-                            {
-                                listExaminationsWithRooms.Add(exam);
-                            }
-                            //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                        }
-                        */
+                        
                         List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
                         foreach (Examination exam in listExaminationsWithRooms)
                         {
@@ -258,18 +214,7 @@ namespace Patient.View
                 
                 
                 Room getRoom = new Room();
-                /*
-                foreach (Room room in _roomController.ReadAll())
-                {
-                    
-                    if (room.Occupancy == false && room.Type==HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                    {
-                        getRoom = room;
-                        //_roomController.EditRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, true, room.Type);
-                        break;
-                    }
-                }
-                */
+
                 List<Room> patientRooms = new List<Room>();
                 foreach (Room room in _roomController.ReadAll())
                 {
@@ -311,11 +256,9 @@ namespace Patient.View
                     ++id;
                 }
                 ++id;
-                //Examination newExam = new Examination(getRoom.Id, dt, id.ToString(), 2,HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
                 Examination newExam = new Examination(getRoom.Id, dt, RandomString(6), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
 
                 _examController.PatientCreateExam(newExam);
-                //_examinationRepo.SaveExamination();
                 _examController.SaveExaminationRepo();
                 ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
                 foreach (Examination exam in examinations)

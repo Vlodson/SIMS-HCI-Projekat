@@ -81,7 +81,6 @@ namespace Patient.View
                 Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
                 _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
             }
-            //_medicalRecordController.SaveMedicalRecord();
             this.Close();
         }
     }

@@ -54,7 +54,6 @@ namespace Service
             {
                 if(notification.DateTimeNotification.CompareTo(DateTime.Now) < 0)
                 {
-                    //unreadNotifications.Add(notification.Content + " u " + notification.DateTimeNotification.ToString());
                     unreadNotifications.Add(notification);
                 }
             }
