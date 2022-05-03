@@ -24,11 +24,20 @@ namespace HospitalMain.Model
         private String _password;
         private UserType _type;
 
+        public UserAccount() { }
+
         public UserAccount(String username, String password, UserType type)
         {
             _username = username;
             _password = password;
             _type = type;
+        }
+
+        public UserAccount(UserAccount acc)
+        {
+            this._username = acc.UserName;
+            this._password = acc.Password;
+            this._type = acc.Type;
         }
 
         public String UserName
