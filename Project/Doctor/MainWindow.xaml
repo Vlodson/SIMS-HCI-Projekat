@@ -10,7 +10,7 @@
         <Button x:Name="LogIn" Content="Prijavi se" HorizontalAlignment="Left" Margin="390,164,0,0" VerticalAlignment="Top" Height="22" Width="70" Click="LogIn_Click"/>
         <Label Content="Username" HorizontalAlignment="Left" Margin="248,70,0,0" VerticalAlignment="Top"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="252,113,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="UsernameTxt" Text="{Binding Path=UID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Margin="0,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox Name="PasswordTxt" HorizontalAlignment="Center" Margin="0,113,0,0" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

@@ -9,7 +9,7 @@ using HospitalMain.Enums;
 using System.IO;
 using System.Text.Json;
 
-namespace HospitalMain.Repository
+namespace Repository
 {
     public class UserAccountRepo
     {
@@ -24,7 +24,7 @@ namespace HospitalMain.Repository
             UserAccount secretaryUser = new UserAccount("Srbija", "1312", UserType.Secretary);
             UserAccount adminUser = new UserAccount("Gromina", "69", UserType.Admin);
             UserAccount patientUser = new UserAccount("Sandra", "123", UserType.Patient);
-            UserAccount doctorUser = new UserAccount("Jelena", "1234", UserType.Doctor);
+            UserAccount doctorUser = new UserAccount("d1", "1234", UserType.Doctor);
 
             UserAccCollection.Add(doctorUser);
             UserAccCollection.Add(secretaryUser);

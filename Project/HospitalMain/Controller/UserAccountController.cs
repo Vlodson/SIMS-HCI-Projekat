@@ -8,7 +8,7 @@ using HospitalMain.Enums;
 using HospitalMain.Model;
 using Service;
 
-namespace HospitalMain.Controller
+namespace Controller
 {
     public class UserAccountController
     {
