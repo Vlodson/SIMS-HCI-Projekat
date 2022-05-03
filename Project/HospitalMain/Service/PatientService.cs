@@ -106,6 +106,11 @@ namespace Service
             return true;
         }
 
+        public bool CreateExamination(Examination examination)
+        {
+            return _examinationRepo.NewExamination(examination);
+        }
+
         public bool CreateExam(Examination examination, DateTime newDate)
         {
             Room getRoom = new Room();
