@@ -161,6 +161,7 @@ namespace Service
                         {
                             take = true;
                             getRoom = room;
+                            break;
                         }
                     }
                 }
