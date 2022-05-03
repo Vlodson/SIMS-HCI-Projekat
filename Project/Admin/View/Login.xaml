@@ -27,12 +27,12 @@
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="User ID" FontWeight="Bold" Margin="0,0,0,20" />
-            <TextBox x:Name="uidTextBox" Width="410" HorizontalAlignment="Left" Text="{Binding Path=UID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="uidTextBox" Text="{Binding Path=UID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
         
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Vertical">
             <TextBlock Text="Password" FontWeight="Bold" Margin="0,0,0,20" />
-            <TextBox x:Name="pwTextBox" Width="410" HorizontalAlignment="Left" Text="{Binding Path=PassWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <PasswordBox x:Name="pwPasswordBox" />
         </StackPanel>
 
         <Grid Grid.Row="4" Grid.Column="1">

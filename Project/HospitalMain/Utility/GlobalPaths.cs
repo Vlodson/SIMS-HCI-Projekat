@@ -20,6 +20,6 @@ namespace Utility
         public static String MedicalRecordDBPath = Path.Combine(DBPath, "MedicalRecords.json");
         public static String TherapyDBPath = Path.Combine(DBPath, "Therapy.json");
         public static String ReportDBPath = Path.Combine(DBPath, "Reports.json");
-        public static String UserDBPath = Path.Combine(DBPath, "Users.json")
+        public static String UserDBPath = Path.Combine(DBPath, "Users.json");
     }
 }

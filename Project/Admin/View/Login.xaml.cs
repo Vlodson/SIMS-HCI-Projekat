@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
+using HospitalMain.Model;
+using HospitalMain.Controller;
+using HospitalMain.Enums;
+
 namespace Admin.View
 {
     /// <summary>
@@ -29,6 +33,8 @@ namespace Admin.View
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
             }
         }
+
+        private UserAccountController _userAccountController;
 
         private String _uid;
         public String UID
@@ -62,28 +68,54 @@ namespace Admin.View
         {
             InitializeComponent();
             this.DataContext = this;
+
+            var app = Application.Current as App;
+            _userAccountController = app.userAccountController;
+
         }
 
         private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(String.IsNullOrEmpty(UID) || String.IsNullOrEmpty(Password));
+            e.CanExecute = !(String.IsNullOrEmpty(UID) || String.IsNullOrEmpty(pwPasswordBox.Password));
         }
 
         private void Execute_Record(object sender, ExecutedRoutedEventArgs e)
         {
+            if (_userAccountController.CheckUserType(UID) != UserType.Admin)
+            {
+                MessageBox.Show("Access not allowed for this user type");
+                return;
+            }
+
+            Password = pwPasswordBox.Password;
+            if(!_userAccountController.LogIn(UID, Password, UserType.Admin))
+            {
+                MessageBox.Show("User ID or password incorrect");
+                return;
+            }
+            else
+            {
+                MainMenuWindow mainMenuWindow = new MainMenuWindow();
+                Application.Current.MainWindow = mainMenuWindow;
+                this.Close();
+                Application.Current.MainWindow.Show();
+            }
+
         }
 
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
+            Password = pwPasswordBox.Password;
+            if(!_userAccountController.Register(UID, Password, UserType.Admin))
+            {
+                MessageBox.Show("Registration failed. Try different user ID");
+                return;
+            }
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(String.IsNullOrEmpty(UID) || String.IsNullOrEmpty(Password));
-        }
-
-        private void discardBtn_Click(object sender, RoutedEventArgs e)
-        {
+            e.CanExecute = !(String.IsNullOrEmpty(UID) || String.IsNullOrEmpty(pwPasswordBox.Password));
         }
     }
 }

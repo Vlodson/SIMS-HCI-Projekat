@@ -12,6 +12,8 @@ using Service;
 using Repository;
 using Utility;
 using HospitalMain.Enums;
+using HospitalMain.Controller;
+using HospitalMain.Repository;
 
 namespace Admin
 {
@@ -21,6 +23,7 @@ namespace Admin
         public EquipmentController equipmentController { get; set; }
         public EquipmentTransferController equipmentTransferController { get; set; }
         public RenovationController renovationController { get; set; }
+        public UserAccountController userAccountController { get; set; }
 
         public App()
         {
@@ -28,16 +31,19 @@ namespace Admin
             var roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
+            var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo);
             var renovationService = new RenovationService(renovationRepo, roomRepo);
+            var userAccountService = new UserAccountService(userAccountRepo);
             
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             renovationController = new RenovationController(renovationService);
+            userAccountController = new UserAccountController(userAccountService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
