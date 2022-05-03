@@ -35,7 +35,7 @@ namespace Model
 
         private BloodType bloodType;
         private ObservableCollection<Report> reports;
-        private ObservableCollection<Allergen> allergens;
+        private ObservableCollection<Allergens> allergens;
         private ObservableCollection<Notification> notifications;
 
 
@@ -44,7 +44,7 @@ namespace Model
         //    this.reports=reports;
         //}
 
-        public MedicalRecord(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens, ObservableCollection<Notification> notifications)
+        public MedicalRecord(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime dob, BloodType bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergens> allergens, ObservableCollection<Notification> notifications)
         {
             this.id = id;
             this.ucin = ucin;

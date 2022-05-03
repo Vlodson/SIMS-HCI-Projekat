@@ -1,0 +1,81 @@
+        private void addMedRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            String name = textNameMedRecord.Text;
+            String surname = textSurnameMedRecord.Text;
+            String ucin = textUCINMedRecord.Text;
+            String phoneNum = textPhoneNumMedRecord.Text;
+            String adress = textAdressMedRecord.Text;
+            String mail = textMailMedRecord.Text;
+            DateTime dob = Convert.ToDateTime(textDoBMedRecord.Text);
+            Enum.TryParse(textGenderMedRecord.Text, out Gender gender);
+            String bloodType = textBloodTypeMedRecord.Text;
+            id++;
+
+            //izvestaji
+            ObservableCollection<Report> reports = new ObservableCollection<Report>();
+
+            //novi alergeni
+            String[] stringAllergens = textAllergensMedicalRecord.Text.Split(", ");
+            ObservableCollection<Allergen> allergens = new ObservableCollection<Allergen>();
+            foreach (string al in stringAllergens)
+            {
+                Allergen allergen = new Allergen(al);
+                allergens.Add(allergen);
+            }
+
+            medicalRecordController.CreateMedicalRecord(id.ToString(), ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens, new ObservableCollection<Notification>());
+            
+        }
+
+        private void editMedRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            MedicalRecord selectedMedicalRecord = (MedicalRecord)dataGridMedicalRecords.SelectedItem;
+
+            if(selectedMedicalRecord != null)
+            {
+                selectedMedicalRecord.Name = textNameMedRecord.Text;
+                selectedMedicalRecord.Surname = textSurnameMedRecord.Text;
+                selectedMedicalRecord.UCIN = textUCINMedRecord.Text;
+                selectedMedicalRecord.PhoneNumber = textPhoneNumMedRecord.Text;
+                selectedMedicalRecord.Adress = textAdressMedRecord.Text;
+                selectedMedicalRecord.Mail = textMailMedRecord.Text;
+
+                selectedMedicalRecord.DoB = Convert.ToDateTime(textDoBMedRecord.Text);
+
+                Enum.TryParse(textGenderMedRecord.Text, out Gender gender);
+                selectedMedicalRecord.Gender = gender;
+                selectedMedicalRecord.BloodType = textBloodTypeMedRecord.Text;
+
+                //List<string> list = new List<string>();
+                //list.AddRange(listOfAllergensMedicalRecord.Items.OfType<string>().ToList());
+                //selectedMedicalRecord.Allergens = new ObservableCollection<string>(list);
+
+                //alergeni parsiranje
+                string[] stringAllergens = textAllergensMedicalRecord.Text.Split(", ");
+                ObservableCollection<Allergen> allergens = new ObservableCollection<Allergen>();
+                foreach (string al in stringAllergens)
+                {
+                    Allergen allergen = new Allergen(al);
+                    allergens.Add(allergen);
+                }
+                selectedMedicalRecord.Allergens = allergens;
+
+                medicalRecordController.EditMedicalRecord(selectedMedicalRecord.ID, selectedMedicalRecord.UCIN, selectedMedicalRecord.Name, selectedMedicalRecord.Surname, selectedMedicalRecord.PhoneNumber, selectedMedicalRecord.Mail, selectedMedicalRecord.Adress, selectedMedicalRecord.Gender, selectedMedicalRecord.DoB, selectedMedicalRecord.BloodType, selectedMedicalRecord.Reports, selectedMedicalRecord.Allergens, selectedMedicalRecord.Notifications); ;
+                textAllergensMedicalRecord.Text = "";
+            }
+
+            dataGridMedicalRecords.UnselectAll();
+        }
+
+        private void deleteMedRecordButton_Click(object sender, RoutedEventArgs e)
+        {
+            MedicalRecord selectedMedicalRecord = (MedicalRecord)dataGridMedicalRecords.SelectedItem;
+            if(selectedMedicalRecord != null)
+            {
+                if (medicalRecordController.DeleteMedicalRecord(selectedMedicalRecord.ID))
+                {
+                    textAllergensMedicalRecord.Text = "";
+                }
+>>>>>>> develop
+
+        }

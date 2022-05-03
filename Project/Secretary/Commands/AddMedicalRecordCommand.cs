@@ -34,7 +34,7 @@ namespace Secretary.Commands
             int newMedicalRecordID = _medicalRecordController.generateID();
 
             //pravljenje novog kartona
-            _medicalRecordController.CreateMedicalRecord(newMedicalRecordID.ToString(), _addMedicalRecordViewModel.UCIN, _addMedicalRecordViewModel.Name, _addMedicalRecordViewModel.Surname, _addMedicalRecordViewModel.PhoneNumber, _addMedicalRecordViewModel.Mail, _addMedicalRecordViewModel.Adress, _addMedicalRecordViewModel.Gender, _addMedicalRecordViewModel.DateOfBirth, _addMedicalRecordViewModel.BloodType, _addMedicalRecordViewModel.Reports, _addMedicalRecordViewModel.Allergens);
+            _medicalRecordController.CreateMedicalRecord(newMedicalRecordID.ToString(), _addMedicalRecordViewModel.UCIN, _addMedicalRecordViewModel.Name, _addMedicalRecordViewModel.Surname, _addMedicalRecordViewModel.PhoneNumber, _addMedicalRecordViewModel.Mail, _addMedicalRecordViewModel.Adress, _addMedicalRecordViewModel.Gender, _addMedicalRecordViewModel.DateOfBirth, _addMedicalRecordViewModel.BloodType, _addMedicalRecordViewModel.Reports, _addMedicalRecordViewModel.Allergens, new ObservableCollection<HospitalMain.Model.Notification>());
 
             //update tabele
             UpdateMedicalRecords();
