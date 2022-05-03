@@ -21,6 +21,11 @@ namespace Controller
             this.medRecordService = medRecordService;
         }
 
+        public int generateID()
+        {
+            return medRecordService.generateID();
+        }
+
         public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens, ObservableCollection<Notification> notifications)
         {
             return medRecordService.CreateMedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens, notifications);

@@ -21,6 +21,11 @@ namespace Service
             this.medicalRecordRepo = medicalRecordRepo;
         }
 
+        public int generateID()
+        {
+            return medicalRecordRepo.generateID();
+        }
+
         public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens, ObservableCollection<Notification> notifications)
         {
             return medicalRecordRepo.NewMedicalRecord(new MedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens, notifications));

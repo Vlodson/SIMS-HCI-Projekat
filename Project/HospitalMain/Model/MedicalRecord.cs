@@ -33,10 +33,11 @@ namespace Model
         private Gender gender;
         private DateTime dob;
 
-        private String bloodType;
+        private BloodType bloodType;
         private ObservableCollection<Report> reports;
         private ObservableCollection<Allergen> allergens;
         private ObservableCollection<Notification> notifications;
+
 
         //public MedicalRecord(ObservableCollection<Report> reports)
         //{
@@ -177,7 +178,7 @@ namespace Model
             }
         }
 
-        public String BloodType
+        public BloodType BloodType
         {
             get { return bloodType; }
             set
@@ -203,7 +204,7 @@ namespace Model
             }
         }
 
-        public ObservableCollection<Allergen> Allergens
+        public ObservableCollection<Allergens> Allergens
         {
             get { return allergens; }
             set
