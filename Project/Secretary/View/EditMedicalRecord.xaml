@@ -74,7 +74,19 @@
             </Grid.RowDefinitions>
 
             <Label FontSize="10" FontWeight="SemiBold" Content="Alergeni:"/>
-            <ListBox x:Name="listBoxEditMRAllergens" Grid.Row="1" Margin="10" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=AllergensComboBoxData}" SelectedItem="{Binding Path=Allergens}" SelectionMode="Multiple"/>
+            <ListBox Grid.Row="1" x:Name="listBoxEditAllergens" Margin="10" ItemsSource="{Binding AllergensListBoxData, NotifyOnSourceUpdated=True}" Width="210" Height="120" SelectionMode="Multiple">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Item}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+            <!--<ListBox x:Name="listBoxEditMRAllergens" Grid.Row="1" Margin="10" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=AllergensComboBoxData}" SelectedItem="{Binding Path=Allergens}" SelectionMode="Multiple"/>-->
         </Grid>
 
         <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="2">
@@ -88,7 +100,7 @@
         </Grid>
 
         <DockPanel Grid.Row="5" Grid.ColumnSpan="3">
-            <Button Content="Izmeni karton" Width="100" FontSize="10" Height="20"/>
+            <Button Content="Izmeni karton" Width="100" FontSize="10" Height="20" Command="{Binding EditCommand}"/>
         </DockPanel>
 
     </Grid>

@@ -4,6 +4,7 @@ using HospitalMain.Model;
 using Model;
 using Secretary.ComboBoxTemplate;
 using Secretary.Commands;
+using Secretary.ViewUtils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -134,11 +135,11 @@ namespace Secretary.ViewModel
         }
 
         //Alergeni
-        private List<ComboBoxData<Allergens>> allergensComboBoxData = new List<ComboBoxData<Allergens>>();
-        public List<ComboBoxData<Allergens>> AllergensComboBoxData
+        private ObservableCollection<SelectableItemWrapper<Allergens>> allergensListBoxData = new ObservableCollection<SelectableItemWrapper<Allergens>>();
+        public ObservableCollection<SelectableItemWrapper<Allergens>> AllergensListBoxData
         {
-            get { return allergensComboBoxData; }
-            set { allergensComboBoxData = value; OnPropertyChanged(nameof(AllergensComboBoxData)); }
+            get { return allergensListBoxData; }
+            set { allergensListBoxData = value; OnPropertyChanged(nameof(AllergensListBoxData)); }
         }
 
         private ObservableCollection<Allergens> _allergens;
@@ -152,8 +153,21 @@ namespace Secretary.ViewModel
         {
             foreach (Allergens allergen in Enum.GetValues<Allergens>())
             {
-                allergensComboBoxData.Add(new ComboBoxData<Allergens> { Name = allergen.ToString(), Value = allergen });
+                allergensListBoxData.Add(new SelectableItemWrapper<Allergens> { IsSelected = false, Item = allergen });
             }
+
+            //selektovanje alergena koje ima odabrani karton
+            foreach(Allergens allergen in Allergens)
+            {
+                foreach(SelectableItemWrapper<Allergens> al in AllergensListBoxData)
+                {
+                    if (al.Item.ToString().Equals(allergen.ToString()))
+                    {
+                        al.IsSelected = true;
+                    }
+                }
+            }
+          
         }
 
         //Izvestaji

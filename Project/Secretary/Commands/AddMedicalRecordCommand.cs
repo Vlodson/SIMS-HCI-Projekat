@@ -1,6 +1,8 @@
 ﻿using Controller;
+using HospitalMain.Enums;
 using Model;
 using Secretary.ViewModel;
+using Secretary.ViewUtils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,6 +34,15 @@ namespace Secretary.Commands
         public override void Execute(object? parameter)
         {
             int newMedicalRecordID = _medicalRecordController.generateID();
+
+            foreach(SelectableItemWrapper<Allergens> allergen in _addMedicalRecordViewModel.AllergensListBoxData)
+            {
+                //ako je selektovan alergen
+                if (allergen.IsSelected)
+                {
+                    _addMedicalRecordViewModel.Allergens.Add(allergen.Item);
+                }
+            }
 
             //pravljenje novog kartona
             _medicalRecordController.CreateMedicalRecord(newMedicalRecordID.ToString(), _addMedicalRecordViewModel.UCIN, _addMedicalRecordViewModel.Name, _addMedicalRecordViewModel.Surname, _addMedicalRecordViewModel.PhoneNumber, _addMedicalRecordViewModel.Mail, _addMedicalRecordViewModel.Adress, _addMedicalRecordViewModel.Gender, _addMedicalRecordViewModel.DateOfBirth, _addMedicalRecordViewModel.BloodType, _addMedicalRecordViewModel.Reports, _addMedicalRecordViewModel.Allergens, new ObservableCollection<HospitalMain.Model.Notification>());

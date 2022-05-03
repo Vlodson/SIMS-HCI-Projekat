@@ -106,8 +106,44 @@ namespace Service
             return true;
         }
 
-        public bool CreateExam(Examination examination)
+        public bool CreateExam(Examination examination, DateTime newDate)
         {
+            Room getRoom = new Room();
+            List<Room> patientRooms = new List<Room>();
+            foreach (Room room in _roomRepo.Rooms)
+            {
+                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+            if (_examinationRepo.getExamByTime(newDate).Count == 0)
+            {
+                foreach (Room room in patientRooms)
+                {
+                    if (room.Occupancy == false)
+                    {
+                        getRoom = room;
+                    }
+                }
+            }
+            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
+            {
+                bool take = false;
+                foreach (Room room in patientRooms)
+                {
+                    if (room.Occupancy == false)
+                    {
+                        if (examinationExists.ExamRoomId != room.Id)
+                        {
+                            take = true;
+                            getRoom = room;
+                            break;
+                        }
+                    }
+                }
+            }
+            examination.ExamRoomId = getRoom.Id;
             return _examinationRepo.NewExamination(examination);
         }
 
@@ -161,6 +197,7 @@ namespace Service
                         {
                             take = true;
                             getRoom = room;
+                            break;
                         }
                     }
                 }

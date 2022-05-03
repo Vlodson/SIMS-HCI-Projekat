@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Secretary.ViewUtils;
 
 namespace Secretary.ViewModel
 {
@@ -122,11 +123,11 @@ namespace Secretary.ViewModel
         }
 
         //Alergeni
-        private List<ComboBoxData<Allergens>> allergensComboBoxData = new List<ComboBoxData<Allergens>>();
-        public List<ComboBoxData<Allergens>> AllergensComboBoxData
+        private ObservableCollection<SelectableItemWrapper<Allergens>> allergensListBoxData = new ObservableCollection<SelectableItemWrapper<Allergens>>();
+        public ObservableCollection<SelectableItemWrapper<Allergens>> AllergensListBoxData
         {
-            get { return allergensComboBoxData; }
-            set { allergensComboBoxData = value; OnPropertyChanged(nameof(AllergensComboBoxData)); }
+            get { return allergensListBoxData; }
+            set { allergensListBoxData = value; OnPropertyChanged(nameof(AllergensListBoxData)); }
         }
 
         private ObservableCollection<Allergens> _allergens;
@@ -140,7 +141,7 @@ namespace Secretary.ViewModel
         {
             foreach(Allergens allergen in Enum.GetValues<Allergens>())
             {
-                allergensComboBoxData.Add(new ComboBoxData<Allergens> { Name = allergen.ToString(), Value = allergen});
+                allergensListBoxData.Add(new SelectableItemWrapper<Allergens> { IsSelected = false, Item = allergen});
             }
         }
 
@@ -161,6 +162,8 @@ namespace Secretary.ViewModel
             _medicalRecordController = app.MedicalRecordController;
 
             _addMedicalRecord = addMedicalRecord;
+
+            Allergens = new ObservableCollection<Allergens>();
 
             FillGenderTypeComboBoxData();
             FillBloodTypeComboBoxData();
