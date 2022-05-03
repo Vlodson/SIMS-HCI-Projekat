@@ -5,10 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="Obaveštenja" Height="450" Width="400">
-    <Grid Margin="0,78,0,0">
-        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="NotificationList" Margin="0,-11,0,0">
+        Title="Obaveštenja" Height="435" Width="400">
+    <Grid Margin="0,78,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="305*"/>
+            <ColumnDefinition Width="83*"/>
+            <ColumnDefinition Width="12*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="NotificationList" SelectionMode="Multiple" Margin="0,10,0,52" Grid.ColumnSpan="3">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="BorderThickness" Value="1"/>
@@ -21,6 +26,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Button Content="Oznaci kao procitano" HorizontalAlignment="Left" Margin="250,275,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="MarkAsRead"/>
+
+
+
+
 
 
     </Grid>

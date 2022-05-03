@@ -36,13 +36,14 @@ namespace Model
         private String bloodType;
         private ObservableCollection<Report> reports;
         private ObservableCollection<Allergen> allergens;
+        private ObservableCollection<Notification> notifications;
 
         //public MedicalRecord(ObservableCollection<Report> reports)
         //{
         //    this.reports=reports;
         //}
 
-        public MedicalRecord(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens)
+        public MedicalRecord(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens, ObservableCollection<Notification> notifications)
         {
             this.id = id;
             this.ucin = ucin;
@@ -56,6 +57,7 @@ namespace Model
             this.bloodType = bloodType;
             this.reports = reports;
             this.allergens = allergens;
+            this.notifications = notifications;
         }
 
         public String ID
@@ -211,6 +213,18 @@ namespace Model
                     allergens = value;
                     OnPropertyChanged("Allergens");
                 }
+            }
+        }
+
+        public ObservableCollection<Notification> Notifications
+        {
+            get
+            {
+                return notifications;
+            }
+            set
+            {
+                notifications = value;
             }
         }
 
