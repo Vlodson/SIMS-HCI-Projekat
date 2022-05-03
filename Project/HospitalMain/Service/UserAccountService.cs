@@ -19,6 +19,11 @@ namespace Service
             _userAccountRepo = repo;
         }
 
+        public UserType CheckUserType(String uid)
+        {
+            return _userAccountRepo.ReadUserAccount(uid).Type;
+        }
+
         public bool LogIn(String uid, String password, UserType type)
         {
             foreach(UserAccount user in _userAccountRepo.GetAllUserAccounts())

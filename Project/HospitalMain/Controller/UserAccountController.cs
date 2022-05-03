@@ -20,6 +20,11 @@ namespace HospitalMain.Controller
             _userAccountService = service;
         }
 
+        public UserType CheckUserType(String uid)
+        {
+            return _userAccountService.CheckUserType(uid);
+        }
+
         public bool LogIn(String uid, String password, UserType type)
         {
             return _userAccountService.LogIn(uid, password, type);
