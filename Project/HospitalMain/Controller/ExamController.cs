@@ -48,6 +48,11 @@ namespace Controller
             return _patientService.CreateExam(examination, newDate);
         }
 
+        public bool CreateExamination(Examination examination)
+        {
+            return _patientService.CreateExamination(examination);
+        }
+
         public void DoctorCreateExam(Examination examination)
         {
             _doctorService.CreateExam(examination);
