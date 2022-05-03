@@ -203,7 +203,7 @@ namespace Patient.View
             Model.Patient patient = _patientController.ReadPatient("2");
             if (ExamsAvailable.SelectedIndex != -1)
             {
-                
+
                 Doctor doctor = (Doctor)DoctorCombo.SelectedItem;
                 Examination selectedExamination = (Examination)ExamsAvailable.SelectedItem;
                 if (doctor == null)
@@ -213,42 +213,7 @@ namespace Patient.View
                 DateTime dt = selectedExamination.Date;
                 
                 
-                Room getRoom = new Room();
-
-                List<Room> patientRooms = new List<Room>();
-                foreach (Room room in _roomController.ReadAll())
-                {
-                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                    {
-                        patientRooms.Add(room);
-                    }
-                }
-                if(_patientController.GetExamByTime(dt).Count == 0)
-                {
-                    foreach (Room room in patientRooms)
-                    {
-                        if (room.Occupancy == false)
-                        {
-                             getRoom = room;
-                        }
-                    }
-                }
-                foreach (Examination examinationExists in _patientController.GetExamByTime(dt))
-                {
-                    bool take = false;
-                    foreach (Room room in patientRooms)
-                    {
-                        if (room.Occupancy == false)
-                        {
-                            if(examinationExists.ExamRoomId != room.Id)
-                            {
-                                take = true;
-                                getRoom = room;
-                            }
-                        }
-                    }
-
-                }
+                
 
                 int id = 0;
                 for(int i = 0; i < _examController.GetExaminations().Count; ++i)
@@ -256,9 +221,9 @@ namespace Patient.View
                     ++id;
                 }
                 ++id;
-                Examination newExam = new Examination(getRoom.Id, dt, RandomString(6), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
+                Examination newExam = new Examination(null, dt, RandomString(6), 2, HospitalMain.Enums.ExaminationTypeEnum.OrdinaryExamination, patient.ID, doctor.Id);
 
-                _examController.PatientCreateExam(newExam);
+                _examController.PatientCreateExam(newExam, dt);
                 _examController.SaveExaminationRepo();
                 ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
                 foreach (Examination exam in examinations)
