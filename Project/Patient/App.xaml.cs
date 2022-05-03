@@ -12,6 +12,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using HospitalMain.Enums;
 using System.IO;
+using HospitalMain.Controller;
+using HospitalMain.Repository;
 
 namespace Patient
 {
@@ -34,6 +36,8 @@ namespace Patient
         public MedicalRecordController MedicalRecordController { get; set; }
         public EquipmentController EquipmentController { get; set; }
 
+        public UserAccountController UserAccountController { get; set; }
+
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -49,6 +53,7 @@ namespace Patient
             EquipmentRepo equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
             MedicalRecordRepo medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
+            UserAccountRepo userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             
             DoctorRepo doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
 
@@ -58,6 +63,7 @@ namespace Patient
             RoomService roomService = new RoomService(roomRepo);
             MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);
+            UserAccountService userAccountService = new UserAccountService(userAccountRepo);
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
@@ -65,6 +71,7 @@ namespace Patient
             RoomController = new RoomController(roomService);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
             EquipmentController = new EquipmentController(equipmentService);
+            UserAccountController = new UserAccountController(userAccountService);
 
             for (int i = 0; i < 20; i++)
             {
