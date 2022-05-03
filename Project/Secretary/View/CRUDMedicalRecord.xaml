@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Secretary.View"
         mc:Ignorable="d"
-        Title="CRUDMedicalRecord" Height="700" Width="1024" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="CRUDMedicalRecord" Height="450" Width="800" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Grid Background="LightBlue">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="221*"/>
@@ -18,122 +18,33 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="91,20,0,10" HorizontalAlignment="Left" Grid.Column="1">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Left" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="20,0,0,0"></Setter>
                 </Style>
             </StackPanel.Resources>
 
-            <Button x:Name="addMedRecordButton" Content="Dodaj novi karton" Width="120" Click="addMedRecordButton_Click"/>
-            <Button x:Name="editMedRecordButton" Content="Izmeni karton" Width="120" Click="editMedRecordButton_Click"/>
-            <Button x:Name="deleteMedRecordButton" Content="Obrisi karton" Width="120" Click="deleteMedRecordButton_Click"/>
+            <Button x:Name="addMedRecordButton" Content="Dodaj novi karton" Width="120" Command="{Binding AddMedicalRecordCommand}"/>
+            <Button x:Name="editMedRecordButton" Content="Izmeni karton" Width="120" Command="{Binding EditMedicalRecordCommand}"/>
+            <Button x:Name="deleteMedRecordButton" Content="Obrisi karton" Width="120" Command="{Binding RemoveMedicalRecordCommand}"/>
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="30,30,30,30" Grid.ColumnSpan="3">
-            <DataGrid x:Name="dataGridMedicalRecords" SelectionMode="Single" AutoGenerateColumns="False" ItemsSource="{Binding MedicalRecords, Mode=OneWay}" IsReadOnly="True" Height="310" Width="900" SelectionChanged="dataGridMedicalRecords_SelectionChanged">
+            <DataGrid x:Name="dataGridMedicalRecords" SelectionMode="Single" AutoGenerateColumns="False" ItemsSource="{Binding MedicalRecords}" SelectedItem="{Binding MedicalRecordViewModel}" IsReadOnly="True" Height="310" Width="700" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ID, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Name" Width="auto" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Surname" Width="auto" Binding="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="UCIN" Width="auto" Binding="{Binding UCIN, UpdateSourceTrigger=PropertyChanged}"/>
                     <DataGridTextColumn Header="Adress" Width="*" Binding="{Binding Adress, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Phone number" Width="auto" Binding="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Date of birth" Width="*" Binding="{Binding DoB, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridTextColumn Header="Blood type" Width="auto" Binding="{Binding BloodType, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Gender" Width="auto" Binding="{Binding Gender, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Date of birth" Width="auto" Binding="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridTextColumn Header="Mail" Width="*" Binding="{Binding Mail, UpdateSourceTrigger=PropertyChanged}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10,10,10,10" DataContext="{Binding ElementName=dataGridMedicalRecords, Path=SelectedItem}" Grid.ColumnSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.Resources>
-                <Style TargetType="{x:Type StackPanel}">
-                    <Setter Property="Margin" Value="20,0,0,0"/>
-                </Style>
-            </Grid.Resources>
-
-            <DockPanel Margin="10" Grid.Row="0" Grid.Column="3">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Blood type:" />
-                <TextBox FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center" x:Name="textBloodTypeMedRecord" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="80" Text="{Binding BloodType, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="0" Grid.Column="0">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Name:" />
-                <TextBox FontSize="10" HorizontalAlignment="Right" VerticalContentAlignment="Center" x:Name="textNameMedRecord" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding Name, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="1" Grid.Column="0">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Surname:" />
-                <TextBox FontSize="10" HorizontalAlignment="Right" x:Name="textSurnameMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding Surname, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="2" Grid.Column="0">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="UCIN:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textUCINMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding UCIN, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="3" Grid.Column="0">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Adress:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textAdressMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding Adress, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="4" Grid.Column="0">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Mail adress:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textMailMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding Mail, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="0" Grid.Column="1">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Phone number:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textPhoneNumMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding PhoneNumber, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="1" Grid.Column="1">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Gender:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textGenderMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding Gender, Mode=OneWay}"/>
-            </DockPanel>
-
-            <DockPanel Margin="10" Grid.Row="0" Grid.Column="2">
-                <Label FontSize="12" VerticalContentAlignment="Center" FontWeight="SemiBold" Content="Date of birth:" />
-                <TextBox HorizontalAlignment="Right" FontSize="10" x:Name="textDoBMedRecord" VerticalContentAlignment="Center" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,0,0" Width="150" Text="{Binding DoB, Mode=OneWay}"/>
-            </DockPanel>
-
-            <Grid Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Content="Allergens:" FontSize="12" FontWeight="SemiBold"/>
-                <TextBox Grid.Row="1" FontSize="10" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textAllergensMedicalRecord" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,10,0" Height="70" Width="200" Text="{Binding Path=Allergens, Mode=OneWay}"/>
-                
-            </Grid>
-
-            <Grid Grid.Column="2" Grid.Row="2" Grid.RowSpan="3" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Content="Reports:" FontSize="12" FontWeight="SemiBold"/>
-                <TextBox Grid.Row="1" FontSize="10" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="textReportsMedicalRecord" BorderBrush="Black" BorderThickness="1.5" Margin="10,0,10,0" Height="70" Width="200" Text="{Binding Path=Reports, Mode=OneWay}"/>
-            </Grid>
-
-        </Grid>
 
     </Grid>
 </Window>

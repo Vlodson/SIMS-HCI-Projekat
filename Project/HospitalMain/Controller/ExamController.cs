@@ -43,9 +43,9 @@ namespace Controller
             return _patientService.GetExam(examID);
         }
       
-        public bool PatientCreateExam(Examination examination)
+        public bool PatientCreateExam(Examination examination, DateTime newDate)
         {
-            return _patientService.CreateExam(examination);
+            return _patientService.CreateExam(examination, newDate);
         }
 
         public void DoctorCreateExam(Examination examination)

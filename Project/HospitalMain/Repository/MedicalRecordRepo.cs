@@ -23,39 +23,59 @@ namespace Repository
             this.DBPath = dbPath;
             this.MedicalRecords = new ObservableCollection<MedicalRecord>();
 
-            Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
-            Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
-            Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
-            ObservableCollection<Therapy> ts = new ObservableCollection<Therapy>();
-            ts.Add(therapy1);
-            ts.Add(therapy2);
-            ts.Add(therapy3);
+            //Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
+            //Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
+            //Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
+            //ObservableCollection<Therapy> ts = new ObservableCollection<Therapy>();
+            //ts.Add(therapy1);
+            //ts.Add(therapy2);
+            //ts.Add(therapy3);
 
-            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
-            ObservableCollection<Report> reports = new ObservableCollection<Report>();
-            reports.Add(report);
+            //Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
+            //ObservableCollection<Report> reports = new ObservableCollection<Report>();
+            //reports.Add(report);
 
-            //String allergenName1 = "Prasina";
-            //String allergenName2 = "Polen trave";
-            //String allergenName3 = "Grinje";
-            //String allergenName4 = "Lesnici";
+            ////foreach (MedicalRecord mc in MedicalRecords)
+            ////{
 
-            //Allergen allergen1 = new Allergen(allergenName1);
-            //Allergen allergen2 = new Allergen(allergenName2);
-            //Allergen allergen3 = new Allergen(allergenName3);
-            //Allergen allergen4 = new Allergen(allergenName4);
+            ////    List<String> stringList = new List<string>();
+            ////    foreach (Report r in mc.Reports)
+            ////    {
+            ////        foreach (Therapy therapy in r.Therapy)
+            ////        {
 
-            //ObservableCollection<Allergen> allergens1 = new ObservableCollection<Allergen>();
-            //ObservableCollection<Allergen> allergens2 = new ObservableCollection<Allergen>();
-            //ObservableCollection<Allergen> allergens3 = new ObservableCollection<Allergen>();
+            ////            DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
+            ////            DateTime end = report.CreateDate.AddDays(therapy.Duration);
+            ////            int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
 
-            //allergens1.Add(allergen1);
-            //allergens1.Add(allergen2);
+            ////            for (int i = 0; i < therapy.Duration; ++i)
+            ////            {
+            ////                for (int j = 0; j < therapy.PerDay; ++j)
+            ////                {
+            ////                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
+            ////                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
+            ////                    Notification notification = new Notification(content, false, dateTime);
+            ////                    mc.Notifications.Add(notification);
 
-            //allergens2.Add(allergen3);
+            ////                }
+            ////            }
+            ////        }
+            ////    }
+            ////}
 
-            //allergens3.Add(allergen4);
-            //allergens3.Add(allergen1);
+            //ObservableCollection<Allergens> allergens1 = new ObservableCollection<Allergens>();
+            //ObservableCollection<Allergens> allergens2 = new ObservableCollection<Allergens>();
+            //ObservableCollection<Allergens> allergens3 = new ObservableCollection<Allergens>();
+
+            //allergens1.Add(Allergens.Perje);
+            //allergens1.Add(Allergens.Lešnici);
+            //allergens1.Add(Allergens.Polen);
+
+            //allergens2.Add(Allergens.Ambrozija);
+            //allergens2.Add(Allergens.Polen);
+            //allergens2.Add(Allergens.Bademi);
+
+            //allergens3.Add(Allergens.Grinje);
 
             //List<Examination> examinationsDoctor1 = new List<Examination>();
             //DateTime dtDoctor1 = DateTime.Now;
@@ -65,19 +85,36 @@ namespace Repository
             //DateTime dtDoctor2 = DateTime.Now;
             //Doctor doctor2 = new Doctor("d11", "Marko", "Markovic", dtDoctor2, DoctorType.Pulmonology, examinationsDoctor2);
 
-            //MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), "A", reports, allergens1);
-            //MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), "B", reports, allergens2);
-            //MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), "AB", reports, allergens3);
+            //MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), BloodType.A_positive, reports, allergens1, new ObservableCollection<Notification>());
+            //MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), BloodType.A_negative, reports, allergens2, new ObservableCollection<Notification>());
+            //MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), BloodType.AB_negative, reports, allergens3, new ObservableCollection<Notification>());
 
             //this.MedicalRecords.Add(mr1);
             //this.MedicalRecords.Add(mr2);
             //this.MedicalRecords.Add(mr3);
 
-            if (File.Exists(DBPath))
+            if (File.Exists(dbPath))
                 LoadMedicalRecord();
 
         }
 
+        public int generateID()
+        {
+            int maxID = 0;
+            ObservableCollection<MedicalRecord> medicicalRecords = MedicalRecords;
+
+            foreach(MedicalRecord medicalRecord in medicicalRecords)
+            {
+                int medicalRecordID = Int32.Parse(medicalRecord.ID);
+                if (medicalRecordID > maxID)
+                {
+                    maxID = medicalRecordID;
+                }
+            }
+          
+            return maxID + 1;
+        }
+        
         public bool NewMedicalRecord(MedicalRecord medRecord)
         {
             foreach(MedicalRecord oneMedRecord in MedicalRecords)
@@ -108,6 +145,7 @@ namespace Repository
                     oneMedRecord.Mail = medRecord.Mail;
                     oneMedRecord.DoB = medRecord.DoB;
                     oneMedRecord.Allergens = medRecord.Allergens;
+                    oneMedRecord.Notifications = medRecord.Notifications;
                     SaveMedicalRecord();
                     break;
                 }
@@ -174,45 +212,35 @@ namespace Repository
             return true;
         }
 
-        public List<String> GetNotificationTimes(MedicalRecord medicalRecord)
+        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
         {
-            List<String> showingList = new List<String>();
-            List<DateTime> dateTimeList = new List<DateTime>();
-            List<String> stringList = new List<string>();
-            foreach (Report report in medicalRecord.Reports)
-            {
-                foreach (Therapy therapy in report.Therapy)
-                {
-                    //ovde dodje do terapije
-                    //DateTime start = report.CreateDate;
-                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
-
-                    //popuniti liste
-                    for (int i = 0; i < therapy.Duration; ++i)
-                    {
-                        for (int j = 0; j < therapy.PerDay; ++j)
-                        {
-                            dateTimeList.Add(start.AddDays(i).AddHours(j * addingHours));
-                            stringList.Add("Popiti lek " + therapy.Medicine);
-                        }
-                    }
-                }
-            }
-
-            showingList = new List<string>();
-            DateTime today = DateTime.Now;
-            for (int i = 0; i < dateTimeList.Count; ++i)
-            {
-                if (today.Date == dateTimeList[i].Date && today.CompareTo(dateTimeList[i]) < 0)
-                {
-                    showingList.Add(stringList[i] + " u " + dateTimeList[i].ToString("HH:mm"));
-                }
-            }
-            return showingList;
+            
+            LoadMedicalRecord();
+            return medicalRecord.Notifications.ToList();
         }
 
+        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            foreach (MedicalRecord oneMedRecord in MedicalRecords)
+            {
+                if (oneMedRecord.ID.Equals(medicalRecord.ID))
+                {
+                    
+                    foreach(Notification not in oneMedRecord.Notifications)
+                    {
+                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
+                        {
+                            oneMedRecord.Notifications.Remove(not);
+                            SaveMedicalRecord();
+                            break;
+                        }
+                    }
+                    
+                    
+                }
+            }
+
+        }
 
         public void AddNewReport(string id, Report report)
         {
@@ -221,6 +249,26 @@ namespace Repository
                 if(mr.ID.Equals(id))
                 {
                     mr.Reports.Add(report);
+
+                    foreach (Therapy therapy in report.Therapy)
+                    {
+
+                        DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
+                        DateTime end = report.CreateDate.AddDays(therapy.Duration);
+                        int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
+
+                        for (int i = 0; i < therapy.Duration; ++i)
+                            {
+                                for (int j = 0; j < therapy.PerDay; ++j)
+                                {
+                                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
+                                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
+                                    Notification notification = new Notification(content, false, dateTime);
+                                    mr.Notifications.Add(notification);
+
+                                }
+                            }
+                        }
                     break;
                 }
             }

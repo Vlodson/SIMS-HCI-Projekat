@@ -18,7 +18,7 @@
                 <DataGridTextColumn Header="Vrsta" FontSize="18" Binding="{Binding DoctorType}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vreme" FontSize="18" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="AddExamination" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="177,695,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1"/>

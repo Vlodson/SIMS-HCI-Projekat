@@ -36,6 +36,7 @@ namespace Model
             set
             {
                 examRoomId = value;
+                OnPropertyChanged("ExamRoomId");
             }
         }
         public string Id { get => id; set => id = value; }
