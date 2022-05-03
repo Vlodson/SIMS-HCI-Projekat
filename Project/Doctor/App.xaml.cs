@@ -50,9 +50,9 @@ namespace Doctor
             medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
             
 
-            var patientService = new PatientService(patientRepo, examRepo, doctorRepo);
+            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo);
             var therapyService = new TherapyService(therapyRepo);
-            var doctorService = new DoctorService(doctorRepo, examRepo);
+            var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo);
             var roomService = new RoomService(roomRepo);
             var patientAccountService = new PatientAccountService(patientRepo);
             var reportService = new ReportService(reportRepo);

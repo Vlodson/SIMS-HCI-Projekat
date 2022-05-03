@@ -26,7 +26,7 @@ namespace Doctor
             InitializeComponent();
         }
 
-        private void Examinations_Click(object sender, RoutedEventArgs e)
+        private void LogIn_Click(object sender, RoutedEventArgs e)
         {
             DoctorNavBar doctorNavBar = new DoctorNavBar();
             doctorNavBar.Show();
