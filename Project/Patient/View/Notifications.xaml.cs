@@ -51,7 +51,7 @@ namespace Patient.View
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
 
-            String patientId = "2";
+            String patientId = Login.loggedId;
             notificationsTimeList = new List<DateTime>();
             notificationsList = new List<String>();
 
@@ -70,7 +70,7 @@ namespace Patient.View
         private void MarkAsRead(object sender, RoutedEventArgs e)
         {
             List<Notification> markNotifications = new List<Notification>();
-            String patientId = "2";
+            String patientId = Login.loggedId;
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 

@@ -21,15 +21,16 @@ namespace Repository
             DBPath = dbPath;
             UserAccCollection = new ObservableCollection<UserAccount>();
 
+
             UserAccount secretaryUser = new UserAccount("Srbija", "1312", UserType.Secretary);
             UserAccount adminUser = new UserAccount("Gromina", "69", UserType.Admin);
             UserAccount patientUser = new UserAccount("Sandra", "123", UserType.Patient);
             UserAccount doctorUser = new UserAccount("d1", "1234", UserType.Doctor);
 
-            UserAccCollection.Add(doctorUser);
-            UserAccCollection.Add(secretaryUser);
-            UserAccCollection.Add(adminUser);
-            UserAccCollection.Add(patientUser);
+            //UserAccCollection.Add(doctorUser);
+            //UserAccCollection.Add(secretaryUser);
+            //UserAccCollection.Add(adminUser);
+            //UserAccCollection.Add(patientUser);
 
             if (File.Exists(DBPath))
             {

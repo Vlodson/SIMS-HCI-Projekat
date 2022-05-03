@@ -49,7 +49,7 @@ namespace Patient.View
             //    _examinationRepo.LoadExamination();
 
 
-            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams("2");
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             foreach(Examination exam in examinations)
             {
                 exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
