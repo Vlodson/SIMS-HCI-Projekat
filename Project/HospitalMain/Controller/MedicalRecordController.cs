@@ -26,14 +26,14 @@ namespace Controller
             return medRecordService.generateID();
         }
 
-        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, BloodType bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergens> allergens)
+        public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, String bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergen> allergens, ObservableCollection<Notification> notifications)
         {
-            return medRecordService.CreateMedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens);
+            return medRecordService.CreateMedicalRecord(medRecordID, ucin, name, surname, phoneNum, mail, adress, gender, dob, bloodType, reports, allergens, notifications);
         }
 
-        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, BloodType newBloodType, ObservableCollection<Report> newReports, ObservableCollection<Allergens> newAllergens)
+        public void EditMedicalRecord(String medRecordID, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newBloodType, ObservableCollection<Report> newReports, ObservableCollection<Allergen> newAllergens, ObservableCollection<Notification> newNotifications)
         {
-            medRecordService.EditMedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newBloodType, newReports, newAllergens);
+            medRecordService.EditMedicalRecord(medRecordID, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newBloodType, newReports, newAllergens, newNotifications);
         }
 
         public bool DeleteMedicalRecord(String medRecordID)
@@ -50,5 +50,23 @@ namespace Controller
         {
             return medRecordService.GetAllMedicalRecords();
         }
+
+
+        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
+        {
+            return medRecordService.GetNotificationTimes(medicalRecord);
+        }
+
+
+        public void AddNewReport(string id, Report report)
+        {
+            medRecordService.AddNewReport(id, report);
+        }
+
+        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            medRecordService.EditReadNotification(medicalRecord, notification);
+        }
+
     }
 }

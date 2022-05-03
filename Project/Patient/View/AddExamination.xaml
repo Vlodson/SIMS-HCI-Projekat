@@ -14,7 +14,7 @@
 
         <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorNameSurname}" Width="*"/>
+                <DataGridTextColumn x:Name="DoctorNameSurname" Header="Lekar" Binding="{Binding DoctorNameSurname}" Width="*"/>
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -85,8 +85,8 @@
         </DatePicker>
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
-        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,235,0,0" VerticalAlignment="Top" IsChecked="True" RenderTransformOrigin="0.513,0.408"/>
-        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="173,235,0,0" VerticalAlignment="Top"/>
+        <RadioButton Content="lekar" x:Name="doctorPriority" GroupName="priority" HorizontalAlignment="Left" Margin="185,238,0,0" VerticalAlignment="Top"  RenderTransformOrigin="0.513,0.408"/>
+        <RadioButton Content="termin" x:Name="datePriority" GroupName="priority" HorizontalAlignment="Left" Margin="110,238,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <Label Content="Odeljenje*" HorizontalAlignment="Left" Margin="13,75,0,0" VerticalAlignment="Top"/>
         <ComboBox Name="DoctorTypeSelected" ItemsSource="{Binding DoctorTypes}"  HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150" SelectionChanged="ChangeType"/>
 

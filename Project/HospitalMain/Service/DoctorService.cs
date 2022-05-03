@@ -12,11 +12,13 @@ namespace Service
 
         private readonly DoctorRepo _doctorRepo;
         private readonly ExaminationRepo _examinationRepo;
+        private readonly RoomRepo _roomRepo;
 
-        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo)
+        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo, RoomRepo roomRepo)
         {
             _doctorRepo = doctorRepo;
             _examinationRepo = examinationRepo;
+            _roomRepo = roomRepo;
         }
 
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
@@ -31,12 +33,12 @@ namespace Service
 
         public void RemoveExam(Examination exam)
         {
-            _examinationRepo.DeleteExamination(exam);
+            _examinationRepo.DeleteExamination(exam.Id);
         }
 
         public void EditExams(string id, Examination exam)
         {
-            _examinationRepo.DoctorEditExamination(id,exam);
+            _examinationRepo.SetExamination(id,exam);
         }
 
         public List<Examination> ReadPatientExams(String patientId)
@@ -57,12 +59,87 @@ namespace Service
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
             ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
-            return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
+            List<Examination> listExaminations = _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
+            List<Examination> listExaminationsWithRooms = new List<Examination>();
+            //provera da li postoji slobodna prostorija za dati termin
+            
+            foreach (Examination exam in listExaminations)
+            {
+                /*
+                int patientRooms = 0;
+                int counter = 0;
+                foreach (Room room in _roomRepo.Rooms)
+                {
+                    if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                    {
+                        patientRooms++;
+                    }
+                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter < patientRooms)
+                {
+                    listExaminationsWithRooms.Add(exam);
+                }
+                */
+                List<Room> patientRooms = new List<Room>();
+                foreach(Room room in _roomRepo.Rooms)
+                {
+                    if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                    {
+                        patientRooms.Add(room);
+                    }
+                }
+                foreach (Examination examinationExists in _examinationRepo.getExamByTime(exam.Date))
+                {
+                    int counter = 0;
+                    foreach (Room room in patientRooms)
+                    {
+                        if (room.Occupancy == true)
+                        {
+                            ++counter;
+                        }
+                    }
+                    if (counter < patientRooms.Count)
+                    {
+                        listExaminationsWithRooms.Add(exam);
+                    }
+                }
+                if(_examinationRepo.getExamByTime(exam.Date).Count == 0)
+                {
+                    listExaminationsWithRooms.Add(exam);
+                }
+                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+            }
+            //return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
+            return listExaminationsWithRooms;
         }
 
         public List<Examination> MoveExaminations(Examination examination)
         {
-            return _examinationRepo.MoveExamination(examination);
+            Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
+            List<Examination> listForDoctor = _examinationRepo.GetMovingDatesForExamination(examination, doctor);
+            List<Examination> listExaminationsWithRooms = new List<Examination>();
+            foreach (Examination exam in listForDoctor)
+            {
+                int counter = 0;
+                foreach (Room room in _roomRepo.Rooms)
+                {
+                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+                    {
+                        counter++;
+                    }
+                }
+                if (counter < _roomRepo.Rooms.Count)
+                {
+                    listExaminationsWithRooms.Add(exam);
+                }
+                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+            }
+            //return _examinationRepo.MoveExamination(examination, doctor);
+            return listExaminationsWithRooms;
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
@@ -75,5 +152,9 @@ namespace Service
             return _examinationRepo.ReadEndedExams();
         }
 
+        public bool occupiedDate(DateTime dt)
+        {
+            return _examinationRepo.occupiedDate(dt);
+        }
     }
 }

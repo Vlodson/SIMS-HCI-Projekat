@@ -31,6 +31,8 @@ namespace Secretary
 
         public ExamController ExamController { get; set; }
 
+        public RoomRepo RoomRepo { get; set; }
+
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
 
@@ -44,7 +46,7 @@ namespace Secretary
             PatientController = new PatientController(patientAccService);
 
             DoctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
-            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo);
+            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo);
             DoctorController = new DoctorController(doctorService);
 
             ObservableCollection<MedicalRecord> medicicalRecords = new ObservableCollection<MedicalRecord>();
@@ -53,7 +55,7 @@ namespace Secretary
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo);
             ExamController = new ExamController(patientService, doctorService);
 
         }

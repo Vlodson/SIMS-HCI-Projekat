@@ -47,6 +47,11 @@ namespace Model
             this.medicalRecordID = medicalRecordID; 
         }
 
+        public Patient()
+        {
+
+        }
+
         public String ID
         {
             get

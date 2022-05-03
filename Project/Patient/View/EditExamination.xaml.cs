@@ -24,6 +24,8 @@ namespace Patient.View
     {
         private DoctorController _doctorController;
         private ExamController _examController;
+        private RoomController _roomController;
+        private PatientController _patientController;
         //private ExaminationRepo _examinationRepo;
 
         public EditExamination()
@@ -32,14 +34,14 @@ namespace Patient.View
             App app = Application.Current as App;
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
-            //_examinationRepo = app.ExaminationRepo;
+            _roomController = app.RoomController;
+            _patientController = app.PatientController;
 
-            //ExamsAvailable.ItemsSource = _doctorController.GetFreeGetFreeExaminations(ListExaminations.selected.Doctor);
             ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
             Odeljenje.Content = ExaminationsList.selected.DoctorType;
             Lekar.Content = ExaminationsList.selected.DoctorNameSurname;
             StariTermin.Content = ExaminationsList.selected.Date;
-            //AddExamination
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,8 +49,8 @@ namespace Patient.View
             
             Examination newExamination = (Examination)ExamsAvailable.SelectedItem;
             DateTime newDate = newExamination.Date;
-            _examController.PatientEditExam(ExaminationsList.selected, newDate);
-            //_examinationRepo.SaveExamination();
+
+            _examController.PatientEditExamForMoving(ExaminationsList.selected, newDate);
             _examController.SaveExaminationRepo();
             
             

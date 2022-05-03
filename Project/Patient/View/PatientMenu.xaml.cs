@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Model;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace Patient.View
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
 
-            Timer t = new Timer(TimerCallback, null, 0, 1000);
+            Timer t = new Timer(TimerCallback, null, 0, 60000);
         }
 
         private static void TimerCallback(Object o)
@@ -45,37 +46,20 @@ namespace Patient.View
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
-            foreach (Report report in patientMedicalRecord.Reports)
+            
+            foreach(Notification notification in medicalRecordController.GetNotificationTimes(patientMedicalRecord))
             {
-                foreach (Therapy therapy in report.Therapy)
+                if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
-                    //ovde dodje do terapije
-                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
-
-                    //popuniti liste
-                    for (int i = 0; i < therapy.Duration; ++i)
-                    {
-                        for (int j = 0; j < therapy.PerDay; ++j)
-                        {
-                            //proveri je l to to vreme
-                            if(DateTime.Now.CompareTo(start.AddDays(i).AddHours(j * addingHours)) == 0)
-                            {
-                                MessageBox.Show("Popiti lek" + therapy.Medicine);
-                            }
-                        }
-                    }
+                    MessageBox.Show(notification.Content);
                 }
             }
+            
+            
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Content = new ExaminationsList();
-            //ExaminationsList examinationsList = new ExaminationsList();
-
-            //ListExaminations listExaminations = new ListExaminations();
-            //listExaminations.Show();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

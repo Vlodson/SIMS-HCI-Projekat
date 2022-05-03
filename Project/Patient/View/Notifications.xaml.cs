@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Model;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -56,39 +57,31 @@ namespace Patient.View
 
             Model.Patient patient = _patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
-            foreach (Report report in patientMedicalRecord.Reports)
-            {
-                foreach(Therapy therapy in report.Therapy)
-                {
-                    //ovde dodje do terapije
-                    //DateTime start = report.CreateDate;
-                    DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                    DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                    int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
 
-                    //popuniti liste
-                    for(int i = 0; i < therapy.Duration; ++i)
-                    {
-                       for(int j = 0; j < therapy.PerDay; ++j)
-                        {
-                            notificationsTimeList.Add(start.AddDays(i).AddHours(j*addingHours));
-                            notificationsList.Add("Popiti lek " + therapy.Medicine);
-                        }
-                    }
-                }
-            }
-
-            showingNotifications = new List<string>();
-            DateTime today = DateTime.Now;
-            for(int i = 0; i < notificationsTimeList.Count; ++i)
+            List<String> notifications = new List<String>();
+            foreach(Notification notification in _medicalRecordController.GetNotificationTimes(patientMedicalRecord))
             {
-                if(today.Date == notificationsTimeList[i].Date)
-                {
-                    ShowingNotifications.Add(notificationsList[i] + " u " + notificationsTimeList[i].ToString("HH:mm"));
-                }
+                notifications.Add(notification.Content);
             }
+            NotificationList.ItemsSource = notifications;
             
-            NotificationList.ItemsSource = ShowingNotifications;
+        }
+
+        private void MarkAsRead(object sender, RoutedEventArgs e)
+        {
+            List<Notification> markNotifications = new List<Notification>();
+            String patientId = "2";
+            Model.Patient patient = _patientController.ReadPatient(patientId);
+            MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
+
+            List<int> selectedItemIndexes = (from object o in NotificationList.SelectedItems select NotificationList.Items.IndexOf(o)).ToList();
+            foreach (int index in selectedItemIndexes)
+            {
+
+                Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
+                _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
+            }
+            this.Close();
         }
     }
 }

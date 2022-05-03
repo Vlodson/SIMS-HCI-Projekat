@@ -27,8 +27,7 @@ namespace Secretary.View
             this.DataContext = new CRUDMedicalRecordViewModel();
 
             App app = Application.Current as App;
-            medicalRecordRepo = app.MedicalRecordRepo;
-
+            medicalRecordRepo = app.MedicalRecordRepo;         
         }
 
         private void Window_Closed(object sender, EventArgs e)

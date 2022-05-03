@@ -70,6 +70,7 @@ namespace Doctor.View
             {
                 _examController.DoctorRemoveExam(selectedItem);
                 dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("d1");
+                _examRepo.SaveExamination();
             }
 
         }

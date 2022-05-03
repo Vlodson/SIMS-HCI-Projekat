@@ -52,9 +52,9 @@ namespace Patient
             
             DoctorRepo doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
 
-            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepo);
+            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepo, roomRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
-            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo);
+            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo);
             RoomService roomService = new RoomService(roomRepo);
             MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);

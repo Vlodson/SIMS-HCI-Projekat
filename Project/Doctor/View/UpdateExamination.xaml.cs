@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -43,7 +44,6 @@ namespace Doctor.View
             this.DataContext = this;
             _examinationSchedule = examinationSchedule;
             _selectedExam = selectedItem;
-           // PatientsObs = new ObservableCollection<Patient>();
 
             var app = Application.Current as App;
             _doctorController = app.doctorController;
@@ -52,35 +52,69 @@ namespace Doctor.View
             _roomController = app.roomController;
             _examRepo = app.examRepo;
 
-            ComboBoxPacijent.Text = selectedItem.PatientId.ToString();
+            ComboBoxPacijent.Text = selectedItem.PatientId;
+            //ComboBoxSoba.SelectedItem
             DUR.Text = selectedItem.Duration.ToString();
-            TIP.Text = selectedItem.EType.ToString();
+            TIP.SelectedItem = selectedItem.EType;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
-            timePicker.Text = selectedItem.Date.ToString().Split(" ")[1];
+            timePicker.SelectedValue = selectedItem.Date.ToString().Split(" ")[1];
 
+            TIP.ItemsSource = Enum.GetValues(typeof(ExaminationTypeEnum));
             PatientsObs = _patientController.ReadAllPatients();
             RoomsObs = _roomController.ReadAll();
         }
 
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+
+            if ((Patient)ComboBoxPacijent.SelectedItem == null || (Room)ComboBoxSoba.SelectedItem == null || DUR.Text.Equals("") || timePicker.SelectedItem == null)
+            {
+                MessageBox.Show("Molimo popunite sva polja!");
+                return;
+            }
+            else
+            {
+            }
             string dateAndTime = datePicker.Text + " " + timePicker.Text;
             DateTime dt = DateTime.Parse(dateAndTime);
+            int res = DateTime.Compare(dt, DateTime.Now);
+            bool occupiedDate = _examController.occupiedDate(dt);
 
-            Room room = (Room)ComboBoxSoba.SelectedItem;
-
-            Patient patient = (Patient)ComboBoxPacijent.SelectedItem;
-
-            int duration = Int32.Parse(DUR.Text);
-
-            string type = TIP.Text;
-
-            Examination newExam = new Examination(room.Id, dt, _selectedExam.Id , duration, ExaminationTypeEnum.Surgery, patient.ID, "d1");
-            _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
-            _examRepo.SaveExamination();
-            _examinationSchedule = new ExaminationSchedule();
-            NavigationService.Navigate(_examinationSchedule);
             
+            if (res < 0)
+            {
+                ErrorLabel.Content = "Mozete izabrati samo buduce datume!";
+                return;
+            }
+            else if (occupiedDate)
+            {
+                ErrorLabel.Content = "Odabrani termin nije dostupan!";
+                return;
+            }
+            else
+            {
+                Room room = (Room)ComboBoxSoba.SelectedItem;
+
+                Patient patient = (Patient)ComboBoxPacijent.SelectedItem;
+
+                int duration = Int32.Parse(DUR.Text);
+
+                ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
+
+                Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, "d1");
+                _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
+                _examRepo.SaveExamination();
+                _examinationSchedule = new ExaminationSchedule();
+                NavigationService.Navigate(_examinationSchedule);
+            }
+
+             
+            
+        }
+        private void DUR_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

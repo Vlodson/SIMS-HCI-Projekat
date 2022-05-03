@@ -25,6 +25,7 @@ namespace Doctor
         public TherapyController therapyController { get; set;  }
         public RoomController roomController { get; set; }
         public ReportController reportController { get; set; }
+        public MedicalRecordController medicalRecordController { get; set; }
         public ExaminationRepo examRepo { get; set; }
         public RoomRepo roomRepo { get; set; }
         public PatientRepo patientRepo { get; set; }
@@ -32,6 +33,7 @@ namespace Doctor
         public DoctorRepo doctorRepo { get; set; }
         public ReportRepo reportRepo { get; set; } 
         public EquipmentRepo equipmentRepo { get; set; }
+        public MedicalRecordRepo medicalRecordRepo { get; set; }
 
 
 
@@ -45,6 +47,7 @@ namespace Doctor
             equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
             reportRepo = new ReportRepo(GlobalPaths.ReportDBPath);
+            medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
             
 
             var patientService = new PatientService(patientRepo, examRepo, doctorRepo);
@@ -53,6 +56,7 @@ namespace Doctor
             var roomService = new RoomService(roomRepo);
             var patientAccountService = new PatientAccountService(patientRepo);
             var reportService = new ReportService(reportRepo);
+            var medicalRecordService = new MedicalRecordService(medicalRecordRepo);
 
             examController = new ExamController(patientService, doctorService);
             doctorController = new DoctorController(doctorService);
@@ -60,6 +64,7 @@ namespace Doctor
             therapyController = new TherapyController(therapyService);
             roomController = new RoomController(roomService);
             reportController = new ReportController(reportService); 
+            medicalRecordController = new MedicalRecordController(medicalRecordService);
         }
     }
 }

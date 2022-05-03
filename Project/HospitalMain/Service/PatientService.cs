@@ -1,3 +1,4 @@
+using HospitalMain.Enums;
 using Model;
 using Repository;
 using System;
@@ -12,12 +13,14 @@ namespace Service
         private readonly PatientRepo _patientRepo;
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
+        private readonly RoomRepo _roomRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
+            _roomRepo = roomRepo;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
@@ -110,22 +113,62 @@ namespace Service
 
         public void RemoveExam(Examination examination)
         {
-             _examinationRepo.DeleteExamination(examination);
+             _examinationRepo.DeleteExamination(examination.Id);
+            //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
+            //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
         }
 
-        public void SetExam(string examID, Examination examination)
+        public void SetExam(string examID, DateTime date, String roomId, int duration, ExaminationTypeEnum examType, String patientId, String doctorId)
         {
+            Examination examination = new Examination(roomId, date, examID, duration, examType, patientId, doctorId);
             _examinationRepo.SetExamination(examID, examination);
         }
 
         public Examination GetExam(string examID)
         {
-            return _examinationRepo.GetExamination(examID);
+            return _examinationRepo.GetExaminationById(examID);
         }
 
-        public void EditExam(String examId, DateTime newDate)
+        public void EditExamForMoving(String examId, DateTime newDate)
         {
-            _examinationRepo.EditExamination(examId, newDate);
+            Room getRoom = new Room();
+            List<Room> patientRooms = new List<Room>();
+            foreach (Room room in _roomRepo.Rooms)
+            {
+                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+            if (_examinationRepo.getExamByTime(newDate).Count == 0)
+            {
+                foreach (Room room in patientRooms)
+                {
+                    if (room.Occupancy == false)
+                    {
+                        getRoom = room;
+                    }
+                }
+            }
+            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
+            {
+                bool take = false;
+                foreach (Room room in patientRooms)
+                {
+                    if (room.Occupancy == false)
+                    {
+                        if (examinationExists.ExamRoomId != room.Id)
+                        {
+                            take = true;
+                            getRoom = room;
+                        }
+                    }
+                }
+            }
+            Examination examination = _examinationRepo.GetExaminationById(examId);
+            examination.Date = newDate;
+            examination.ExamRoomId = getRoom.Id;
+            _examinationRepo.SetExamination(examId, examination);
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
@@ -142,7 +185,7 @@ namespace Service
 
             foreach(Examination exam in others)
             {
-                _examinationRepo.DeleteByPatient(exam.Id);
+                _examinationRepo.DeleteExamination(exam.Id);
             }
 
             //return _examinationRepo.ExaminationsForPatient(id);
@@ -157,6 +200,11 @@ namespace Service
         public ObservableCollection<Examination> GetExaminations()
         {
             return _examinationRepo.GetAll();
+        }
+
+        public List<Examination> GetExamByTime(DateTime dateTime)
+        {
+            return _examinationRepo.getExamByTime(dateTime);
         }
 
     }
