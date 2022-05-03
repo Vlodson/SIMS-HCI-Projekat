@@ -243,6 +243,26 @@ namespace Repository
                 if(mr.ID.Equals(id))
                 {
                     mr.Reports.Add(report);
+
+                    foreach (Therapy therapy in report.Therapy)
+                    {
+
+                        DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
+                        DateTime end = report.CreateDate.AddDays(therapy.Duration);
+                        int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
+
+                        for (int i = 0; i < therapy.Duration; ++i)
+                            {
+                                for (int j = 0; j < therapy.PerDay; ++j)
+                                {
+                                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
+                                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
+                                    Notification notification = new Notification(content, false, dateTime);
+                                    mr.Notifications.Add(notification);
+
+                                }
+                            }
+                        }
                     break;
                 }
             }
