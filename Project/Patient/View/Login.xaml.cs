@@ -34,5 +34,10 @@ namespace Patient.View
             
             //patientMenu.ShowsNavigationUI;
         }
+
+        private void RegistrationForm(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
