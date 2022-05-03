@@ -12,8 +12,6 @@ using Service;
 using Repository;
 using Utility;
 using HospitalMain.Enums;
-using HospitalMain.Controller;
-using HospitalMain.Repository;
 
 namespace Admin
 {

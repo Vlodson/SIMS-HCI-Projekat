@@ -14,8 +14,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 using HospitalMain.Model;
-using HospitalMain.Controller;
 using HospitalMain.Enums;
+using Controller;
 
 namespace Admin.View
 {

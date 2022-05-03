@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using HospitalMain.Repository;
 using HospitalMain.Enums;
 using HospitalMain.Model;
+using Repository;
 
 namespace Service
 {
