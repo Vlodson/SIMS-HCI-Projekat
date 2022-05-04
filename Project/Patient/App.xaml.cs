@@ -54,6 +54,7 @@ namespace Patient
             UserAccountRepo userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
+            DoctorRepo = doctorRepository;
 
             PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);

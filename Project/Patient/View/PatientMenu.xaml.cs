@@ -1,6 +1,7 @@
 ﻿using Controller;
 using HospitalMain.Model;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,20 +27,23 @@ namespace Patient.View
     {
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
+        private DoctorRepo _doctorRepo;
         public PatientMenu()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
-
+            _doctorRepo = app.DoctorRepo;
+            
+            _doctorRepo.SaveDoctor();
             Timer t = new Timer(TimerCallback, null, 0, 60000);
         }
 
         private static void TimerCallback(Object o)
         {
             //ovde isto kao za obavestenja
-            String patientId = "2";
+            String patientId = Login.loggedId;
             App app = Application.Current as App;
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
