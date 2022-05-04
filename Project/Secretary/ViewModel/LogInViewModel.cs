@@ -1,4 +1,4 @@
-﻿using HospitalMain.Controller;
+﻿using Controller;
 using HospitalMain.Enums;
 using Secretary.Commands;
 using System;
