@@ -8,7 +8,7 @@ using HospitalMain.Enums;
 using HospitalMain.Model;
 using Service;
 
-namespace HospitalMain.Controller
+namespace Controller
 {
     public class UserAccountController
     {
@@ -38,6 +38,10 @@ namespace HospitalMain.Controller
         public bool DeleteUser(String username)
         {
             return _userAccountService.DeleteUser(username);
+        }
+        public UserAccount ReadUserAccount(String username)
+        {
+            return _userAccountService.ReadUserAccount(username);
         }
 
     }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using HospitalMain.Repository;
 using HospitalMain.Enums;
 using HospitalMain.Model;
+using Repository;
 
 namespace Service
 {
@@ -50,6 +50,11 @@ namespace Service
         public bool DeleteUser(String username)
         {
             return _userAccountRepo.DeleteUserAccount(username);
+        }
+
+        public UserAccount ReadUserAccount(String username)
+        {
+            return _userAccountRepo.ReadUserAccount(username);
         }
 
     }

@@ -44,8 +44,8 @@ namespace Doctor.View
             _patientController = app.patientController;
             _patientRepo = app.patientRepo;
 
-            if (File.Exists(_patientRepo.DBPath))
-                _patientRepo.LoadPatient();
+            //if (File.Exists(_patientRepo.DBPath))
+              //  _patientRepo.LoadPatient();
             patients = _patientController.ReadAllPatients();
         }
         public void Choose_Click(object sender, RoutedEventArgs e)

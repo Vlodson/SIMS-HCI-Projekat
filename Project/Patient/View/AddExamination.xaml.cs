@@ -200,7 +200,7 @@ namespace Patient.View
 
         private void AddClick(object sender, RoutedEventArgs e)
         {
-            Model.Patient patient = _patientController.ReadPatient("2");
+            Model.Patient patient = _patientController.ReadPatient(Login.loggedId);
             if (ExamsAvailable.SelectedIndex != -1)
             {
 
@@ -225,7 +225,7 @@ namespace Patient.View
 
                 _examController.PatientCreateExam(newExam, dt);
                 _examController.SaveExaminationRepo();
-                ObservableCollection<Examination> examinations = _examController.ReadPatientExams("2");
+                ObservableCollection<Examination> examinations = _examController.ReadPatientExams(Login.loggedId);
                 foreach (Examination exam in examinations)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;

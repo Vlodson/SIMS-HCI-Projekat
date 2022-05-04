@@ -14,8 +14,8 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 
 using HospitalMain.Model;
-using HospitalMain.Controller;
 using HospitalMain.Enums;
+using Controller;
 
 namespace Admin.View
 {
@@ -81,6 +81,12 @@ namespace Admin.View
 
         private void Execute_Record(object sender, ExecutedRoutedEventArgs e)
         {
+            if(_userAccountController.ReadUserAccount(UID) == null)
+            {
+                MessageBox.Show("User ID does not exist");
+                return;
+            }
+
             if (_userAccountController.CheckUserType(UID) != UserType.Admin)
             {
                 MessageBox.Show("Access not allowed for this user type");

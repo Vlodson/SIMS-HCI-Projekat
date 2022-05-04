@@ -35,33 +35,7 @@ namespace Repository
             //ObservableCollection<Report> reports = new ObservableCollection<Report>();
             //reports.Add(report);
 
-            ////foreach (MedicalRecord mc in MedicalRecords)
-            ////{
-
-            ////    List<String> stringList = new List<string>();
-            ////    foreach (Report r in mc.Reports)
-            ////    {
-            ////        foreach (Therapy therapy in r.Therapy)
-            ////        {
-
-            ////            DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-            ////            DateTime end = report.CreateDate.AddDays(therapy.Duration);
-            ////            int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
-
-            ////            for (int i = 0; i < therapy.Duration; ++i)
-            ////            {
-            ////                for (int j = 0; j < therapy.PerDay; ++j)
-            ////                {
-            ////                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
-            ////                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
-            ////                    Notification notification = new Notification(content, false, dateTime);
-            ////                    mc.Notifications.Add(notification);
-
-            ////                }
-            ////            }
-            ////        }
-            ////    }
-            ////}
+            
 
             //ObservableCollection<Allergens> allergens1 = new ObservableCollection<Allergens>();
             //ObservableCollection<Allergens> allergens2 = new ObservableCollection<Allergens>();
@@ -92,6 +66,33 @@ namespace Repository
             //this.MedicalRecords.Add(mr1);
             //this.MedicalRecords.Add(mr2);
             //this.MedicalRecords.Add(mr3);
+            //foreach (MedicalRecord mc in MedicalRecords)
+            //{
+
+            //    List<String> stringList = new List<string>();
+            //    foreach (Report r in mc.Reports)
+            //    {
+            //        foreach (Therapy therapy in r.Therapy)
+            //        {
+
+            //            DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
+            //            DateTime end = report.CreateDate.AddDays(therapy.Duration);
+            //            int addingHours = 24 / therapy.PerDay; //ovoliko da se dodaje
+
+            //            for (int i = 0; i < therapy.Duration; ++i)
+            //            {
+            //                for (int j = 0; j < therapy.PerDay; ++j)
+            //                {
+            //                    DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
+            //                    String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
+            //                    Notification notification = new Notification(content, false, dateTime);
+            //                    mc.Notifications.Add(notification);
+
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
             if (File.Exists(dbPath))
                 LoadMedicalRecord();

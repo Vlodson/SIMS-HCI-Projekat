@@ -41,8 +41,7 @@ namespace Secretary.Commands
 
             //pravljenje novog pregleda
             Examination examination = new Examination(_addAppointmentViewModel.RoomID, _addAppointmentViewModel.Date, examID.ToString(), duration, _addAppointmentViewModel.ExaminationTypeEnum, _addAppointmentViewModel.PatientID, _addAppointmentViewModel.Doctor.Id);
-            _examController.PatientCreateExam(examination);
-
+            _examController.CreateExamination(examination);
             //update liste pregleda
             UpdateExaminations();
 
