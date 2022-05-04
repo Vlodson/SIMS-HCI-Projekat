@@ -97,6 +97,11 @@ namespace Doctor.View
             _medicalRecordController.AddNewReport(selectedExam.PatientId, report);
             _reportRepo.SaveReport();
             _medicalRecordRepo.SaveMedicalRecord();
+            EndedExaminations ended = new EndedExaminations();
+            EndedExaminations.examinations.Remove(SelectedExam);
+            ended.dataGridExams.ItemsSource = EndedExaminations.examinations;
+            NavigationService.Navigate(ended);
+
         }
 
         private void validate_PreviewTextInput(object sender, TextCompositionEventArgs e)
