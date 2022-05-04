@@ -7,9 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="Login">
-    
+
     <Grid>
-        
+
         <Rectangle Height="830" VerticalAlignment="Top" Margin="0,-75,464,0">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5,0">
@@ -36,15 +36,15 @@
         <Label Content="Prijava" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="171,227,0,0" VerticalAlignment="Top"/>
         <Label Content="Korisničko ime*" FontFamily="TimesNewRoman" FontSize="18" HorizontalAlignment="Left" Margin="69,306,0,0" VerticalAlignment="Top"/>
         <Label Content="Šifra*" FontFamily="TimesNewRoman"  FontSize="18" HorizontalAlignment="Left" Margin="69,343,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="username" HorizontalAlignment="Left" Margin="280,309,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="174">
+        <TextBox Name="username" HorizontalAlignment="Left" Margin="265,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"/>
                 </Style>
             </TextBox.Resources>
         </TextBox>
-        <PasswordBox Name ="password" Background="White" Height="18" HorizontalAlignment="Left" Margin="280,343,0,0" VerticalAlignment="Top" Width="174">
-            
+        <PasswordBox Name ="password" Background="White" Height="18" HorizontalAlignment="Left" Margin="265,341,0,0" VerticalAlignment="Top" Width="174">
+
             <PasswordBox.Style>
                 <Style TargetType="{x:Type PasswordBox}">
                     <Style.Resources>
@@ -84,12 +84,16 @@
                 </Style>
             </PasswordBox.Style>
         </PasswordBox>
-        <Button Content="Prijavi se" Background="White" FontFamily="TimesNewRoman" Click="Menu_Click" HorizontalAlignment="Left" Margin="346,384,0,0" VerticalAlignment="Top" Width="108">
+        <Button Content="Prijavi se" Background="White" FontFamily="TimesNewRoman" Click="Menu_Click" HorizontalAlignment="Left" Margin="337,379,0,0" VerticalAlignment="Top" Width="108">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="6"/>
                 </Style>
             </Button.Resources>
         </Button>
+        <Label x:Name="PasswordError" Content="Polje za šifru ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden"  HorizontalAlignment="Left" Margin="271,356,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="UsernameError" Content="Polje korisničkog imena ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="265,318,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="ProfileError" Content="Neispravni podaci" FontSize="10" Foreground="Red" HorizontalAlignment="Left" Visibility="Hidden" Margin="337,388,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

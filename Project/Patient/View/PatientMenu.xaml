@@ -8,24 +8,114 @@
       d:DesignHeight="768" d:DesignWidth="1024"
       Title="PatientMenu">
 
-    <Grid>
-        <Button Content="Termini" FontSize="32" Width="250" Height="65" Click="Button_Click" HorizontalAlignment="Left" Margin="32,319,0,0" VerticalAlignment="Top"/>
-        <Button HorizontalAlignment="Left" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+    <Page.Resources>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="FontSize" Value="32"/>
+
+            <Setter Property="FontFamily" Value="TimesNewRoman"/>
+        </Style>
+        <Style x:Key="Border" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="StyleCalanderDayButton" TargetType="{x:Type CalendarDayButton}">
+            <Setter Property="Height" Value="60"></Setter>
+            <Setter Property="Width" Value="85"></Setter>
+        </Style>
+        <Style x:Key="StyleCalanderButton" TargetType="{x:Type CalendarButton}">
+            <Setter Property="Height" Value="10"></Setter>
+            <Setter Property="Width" Value="10"></Setter>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style x:Key="StyleCalendar" TargetType="{x:Type Calendar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
+                        <Viewbox Height="500" Width="600" >
+                            <CalendarItem Width="600" Height="500" x:Name="PART_CalendarItem" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" FontStretch="Expanded"  >
+                            </CalendarItem>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CalendarDayButtonStyle"  Value="{StaticResource StyleCalanderDayButton}"></Setter>
+            <Setter Property="CalendarButtonStyle"  Value="{StaticResource StyleCalanderButton}"></Setter>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#008080" Offset="0"/>
+                        <GradientStop Color="White" Offset="0.1"/>
+                        <GradientStop Color="White" Offset="0.1"/>
+                        <GradientStop Color="#b2d8d8" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+    </Page.Resources>
+    <Grid Background="#66b2b2">
+
+        <Button Content="Termini" Style="{StaticResource Buttons}" FontSize="32" Width="250" Height="64" Click="Button_Click" HorizontalAlignment="Left" Margin="32,320,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
             <StackPanel>
                 <Image Source="/Images/bell.png"/>
             </StackPanel>
         </Button>
-        <Button Content="Karton" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,195,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ocene" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,472,0,0" VerticalAlignment="Top"/>
-        <Button Content="Podsetnici" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,620,0,0" VerticalAlignment="Top"/>
-        <Button Content="Izveštaji" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="366,620,0,0" VerticalAlignment="Top"/>
-        <Button Content="Tutorijal" FontSize="32" Width="250" Height="65" HorizontalAlignment="Left" Margin="716,620,0,0" VerticalAlignment="Top"/>
-        <Label Content="Bolnica" FontSize="40" HorizontalAlignment="Left" Margin="157,35,0,0" VerticalAlignment="Top"/>
+        <Button Content="Karton" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,174,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Ocene" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,481,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,640,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Izveštaji" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="358,649,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Tutorijal" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="703,650,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="162,53,0,0" VerticalAlignment="Top"/>
+        <Image Source="/Images/logo2.png"  Margin="5,10,859,614"></Image>
+        <Calendar Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
 
 
 

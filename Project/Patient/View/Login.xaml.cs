@@ -35,9 +35,12 @@ namespace Patient.View
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
-            if(username.Text.Equals("") || password.Password.ToString().Equals(""))
+            if(String.IsNullOrEmpty(username.Text))
             {
-
+                UsernameError.Visibility = Visibility.Visible;
+            }else if (password.Password.ToString().Length == 0)
+            {
+                PasswordError.Visibility = Visibility.Visible;
             }
             else
             {
@@ -45,6 +48,10 @@ namespace Patient.View
                 {
                     loggedId = _patientController.ReadPatient(username.Text).ID;
                     Window.GetWindow(this).Content = new PatientMenu();
+                }
+                else
+                {
+                    ProfileError.Visibility = Visibility.Visible;
                 }        
             }
             
