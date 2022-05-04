@@ -7,8 +7,6 @@ using Repository;
 using Service;
 using Secretary.Stores;
 using Secretary.ViewModel;
-using HospitalMain.Controller;
-using HospitalMain.Repository;
 
 namespace Secretary
 {
