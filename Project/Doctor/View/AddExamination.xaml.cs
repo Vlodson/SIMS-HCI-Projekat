@@ -87,7 +87,7 @@ namespace Doctor.View
 
                     ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
 
-                    Examination newExam = new Examination(room.Id, dt, (new Random()).Next(10000).ToString(), duration, type, patient.ID, "d1");
+                    Examination newExam = new Examination(room.Id, dt, (new Random()).Next(10000).ToString(), duration, type, patient.ID, MainWindow._uid);
 
                     _examController.DoctorCreateExam(newExam);
                     _examRepo.SaveExamination();

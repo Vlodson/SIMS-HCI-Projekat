@@ -36,7 +36,7 @@ namespace Doctor
         private UserAccountController _userAccountController;
         private UserAccountRepo _userAccountRepo;
 
-        private String _uid;
+        public static String _uid;
         public String UID
         {
             get { return _uid; }
@@ -89,6 +89,7 @@ namespace Doctor
                 MessageBox.Show("Wrong username or password for doctor type of user!");
                 return;
             }
+            this.Close();
             
         }
     }
