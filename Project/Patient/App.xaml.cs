@@ -12,8 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HospitalMain.Enums;
 using System.IO;
-using HospitalMain.Controller;
-using HospitalMain.Repository;
+
 
 namespace Patient
 {
