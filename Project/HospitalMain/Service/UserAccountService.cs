@@ -24,11 +24,20 @@ namespace Service
             return _userAccountRepo.ReadUserAccount(uid).Type;
         }
 
+        public bool CheckIfUserExist(String username)
+        {
+            if(_userAccountRepo.ReadUserAccount(username) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool LogIn(String uid, String password, UserType type)
         {
             foreach(UserAccount user in _userAccountRepo.GetAllUserAccounts())
             {
-                if (uid.Equals(user.UserName) && password.Equals(user.Password) && type == user.Type)
+                if (uid.Equals(user.UserName) && password.Equals(user.Password))
                     return true;
             }
 

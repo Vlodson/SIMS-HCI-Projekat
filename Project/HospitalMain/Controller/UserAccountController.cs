@@ -25,6 +25,11 @@ namespace HospitalMain.Controller
             return _userAccountService.CheckUserType(uid);
         }
 
+        public bool CheckIfUserExist(String username)
+        {
+            return _userAccountService.CheckIfUserExist(username);
+        }
+
         public bool LogIn(String uid, String password, UserType type)
         {
             return _userAccountService.LogIn(uid, password, type);
