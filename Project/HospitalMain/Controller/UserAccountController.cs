@@ -39,6 +39,10 @@ namespace Controller
         {
             return _userAccountService.DeleteUser(username);
         }
+        public UserAccount ReadUserAccount(String username)
+        {
+            return _userAccountService.ReadUserAccount(username);
+        }
 
     }
 }

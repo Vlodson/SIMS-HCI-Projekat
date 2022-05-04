@@ -62,6 +62,7 @@ namespace Patient.View
             Message.Visibility = Visibility.Hidden;
             AddExamination addExamination = new AddExamination();
             addExamination.ShowDialog();
+            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -88,7 +89,7 @@ namespace Patient.View
                 Message.Content = "Morate izabrati termin za pomeranje";
                 Message.Visibility = Visibility.Visible;
             }
-
+            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
@@ -103,6 +104,7 @@ namespace Patient.View
                     _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
                     //_examinationRepo.SaveExamination();
                     _examinationController.SaveExaminationRepo();
+                    dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
                 }
                 else
                 {
