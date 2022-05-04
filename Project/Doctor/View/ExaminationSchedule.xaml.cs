@@ -45,7 +45,7 @@ namespace Doctor.View
             if (File.Exists(_examRepo.dbPath))
                 _examRepo.LoadExamination();
 
-            Examinations = _examController.ReadDoctorExams("d1");
+            Examinations = _examController.ReadDoctorExams(MainWindow._uid);
         }
         private void add_Click(object sender, RoutedEventArgs e)
         {
@@ -69,7 +69,7 @@ namespace Doctor.View
             if (selectedItem != null)
             {
                 _examController.DoctorRemoveExam(selectedItem);
-                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams("d1");
+                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams(MainWindow._uid);
                 _examRepo.SaveExamination();
             }
 

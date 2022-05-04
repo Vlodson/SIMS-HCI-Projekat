@@ -101,7 +101,7 @@ namespace Doctor.View
 
                 ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
 
-                Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, "d1");
+                Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, MainWindow._uid);
                 _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
                 _examRepo.SaveExamination();
                 _examinationSchedule = new ExaminationSchedule();
