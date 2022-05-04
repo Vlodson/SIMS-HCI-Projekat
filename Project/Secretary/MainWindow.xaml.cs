@@ -30,7 +30,7 @@ namespace Secretary
         public MainWindow()
         {
             InitializeComponent();
-
+            this.DataContext = new MainViewModel();
             //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
 

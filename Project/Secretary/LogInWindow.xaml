@@ -5,8 +5,95 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Secretary"
         mc:Ignorable="d"
-        Title="LogInWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="LogInWindow" Height="350" Width="520" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Border>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="11*"/>
+                <ColumnDefinition Width="15*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="20 0 0 20">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="AliceBlue" Offset="0"/>
+                        <GradientStop Color="LightBlue" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid Margin="20,30,20,30">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Sign in to App" FontSize="24" FontFamily="Calibri" FontWeight="Bold" Foreground="#D80C82AB" VerticalAlignment="Center" HorizontalAlignment="Center" ></Label>
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Username" FontSize="12" FontFamily="Calibri" FontWeight="Bold" Foreground="#D80C82AB" Margin="10,0,0,0"/>
+
+                        <Border BorderThickness="1" Grid.Row="1" BorderBrush="#D80C82AB" Height="25" CornerRadius="5" Margin="15,0,15,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="Images/username.png" Height="15" Width="15" Margin="5,0,0,0"/>
+                                <TextBox Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Username}" CaretBrush="#D80C82AB" Margin="5,3,3,3" FontSize="10" Foreground="#D80C82AB"  Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Border}, Path=Background}" BorderThickness="0"></TextBox>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Content="Password" FontSize="12" FontFamily="Calibri" FontWeight="Bold" Foreground="#D80C82AB" Margin="10,0,0,0"/>
+
+                        <Border BorderThickness="1" Grid.Row="1" BorderBrush="#D80C82AB" Height="25" CornerRadius="5" Margin="15,0,15,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Column="0" Source="Images/password.png" Height="15" Width="15" Margin="5,0,0,0"/>
+                                <TextBox Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Text="{Binding Password}" CaretBrush="#D80C82AB" Margin="5,3,3,3" BorderThickness="0" FontSize="10" Foreground="#D80C82AB" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Border}, Path=Background}"></TextBox>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="3" Margin="20,10,20,0">
+                        <Button Style="{StaticResource SignInButton}" Command="{Binding SignInCommand}" Height="35" Content="Sign In" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Border}, Path=Background}" />
+                    </Grid>
+
+                    <Grid Grid.Row="4" Margin="20,10,20,0">
+                        <Button Style="{StaticResource SignInButton}" Command="{Binding RegisterCommand}" Height="35" Content="Register" Background="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Border}, Path=Background}" />
+                    </Grid>
+                    
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Border CornerRadius="0 20 20 0">
+                    <Border.Background>
+                        <ImageBrush ImageSource="Images/doctorApp.jfif"/>
+                    </Border.Background>
+                </Border>
+            </Grid>
+
+        </Grid>
+    </Border>
+
+
 </Window>
