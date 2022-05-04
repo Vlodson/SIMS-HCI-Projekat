@@ -52,5 +52,10 @@ namespace Service
             return _userAccountRepo.DeleteUserAccount(username);
         }
 
+        public UserAccount ReadUserAccount(String username)
+        {
+            return _userAccountRepo.ReadUserAccount(username);
+        }
+
     }
 }

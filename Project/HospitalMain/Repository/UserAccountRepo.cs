@@ -27,10 +27,10 @@ namespace Repository
             UserAccount patientUser = new UserAccount("Sandra", "123", UserType.Patient);
             UserAccount doctorUser = new UserAccount("d1", "1234", UserType.Doctor);
 
-            //UserAccCollection.Add(doctorUser);
-            //UserAccCollection.Add(secretaryUser);
-            //UserAccCollection.Add(adminUser);
-            //UserAccCollection.Add(patientUser);
+            UserAccCollection.Add(doctorUser);
+            UserAccCollection.Add(secretaryUser);
+            UserAccCollection.Add(adminUser);
+            UserAccCollection.Add(patientUser);
 
             if (File.Exists(DBPath))
             {

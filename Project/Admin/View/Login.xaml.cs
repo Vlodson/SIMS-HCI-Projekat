@@ -81,6 +81,12 @@ namespace Admin.View
 
         private void Execute_Record(object sender, ExecutedRoutedEventArgs e)
         {
+            if(_userAccountController.ReadUserAccount(UID) == null)
+            {
+                MessageBox.Show("User ID does not exist");
+                return;
+            }
+
             if (_userAccountController.CheckUserType(UID) != UserType.Admin)
             {
                 MessageBox.Show("Access not allowed for this user type");
