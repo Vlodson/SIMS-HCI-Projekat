@@ -17,7 +17,14 @@
   <ItemGroup>
     <None Remove="Images\arrow-small-left.png" />
     <None Remove="Images\bell.png" />
+    <None Remove="Images\login.jpg" />
     <None Remove="Images\sign-out-alt.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\login.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
