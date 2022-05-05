@@ -8,10 +8,7 @@
         xmlns:vms="clr-namespace:Secretary.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen" FontSize="14">
-    <Window.Resources>
-        <vms:MainViewModel x:Key="MainViewKey"/>
-    </Window.Resources>
-    
+
     <Border>
 
         <Grid>
@@ -72,7 +69,7 @@
                     <DockPanel>
                         <DockPanel HorizontalAlignment="Right">
                             <Image Source="Images/user.png" Margin="0,2,0,2"></Image>
-                            <Label FontWeight="DemiBold" BorderBrush="CornflowerBlue" Width="auto" VerticalAlignment="Center" FontSize="15" Margin="0,2,5,2" Background="CornflowerBlue">SecretaryUsername</Label>
+                            <Label FontWeight="DemiBold" BorderBrush="CornflowerBlue" Width="auto" VerticalAlignment="Center" FontSize="15" Margin="0,2,5,2" Content="{Binding Username}" Background="CornflowerBlue"></Label>
                         </DockPanel>
                     </DockPanel>
 

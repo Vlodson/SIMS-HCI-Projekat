@@ -25,11 +25,13 @@ namespace Secretary
     /// </summary>
     public partial class MainWindow : Window
     {
+        private String _username;
 
-        public MainWindow()
+        public MainWindow(LogInViewModel logInViewModel)
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+
+            DataContext = new MainViewModel(logInViewModel);
             //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
 
