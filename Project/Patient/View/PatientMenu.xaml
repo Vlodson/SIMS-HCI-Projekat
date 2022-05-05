@@ -11,7 +11,6 @@
     <Page.Resources>
         <Style x:Key="Buttons" TargetType="Button">
             <Setter Property="FontSize" Value="32"/>
-
             <Setter Property="FontFamily" Value="TimesNewRoman"/>
         </Style>
         <Style x:Key="Border" TargetType="Border">
@@ -123,7 +122,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="145,41,0,0" VerticalAlignment="Top"/>
-        <Image Source="/Images/logo2.png"  Margin="5,10,916,652"></Image>
+        <Image Source="/Images/logo2.png"  Margin="5,10,902,642"></Image>
         <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>

@@ -55,7 +55,7 @@ namespace Patient.View
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
-                    MessageBox.Show(notification.Content);
+                    //MessageBox.Show(notification.Content);
                 }
             }
             
