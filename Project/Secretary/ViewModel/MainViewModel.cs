@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.Toolkit.Mvvm;
+using Microsoft.Toolkit.Mvvm.Input;
+using Secretary.Commands;
 
 namespace Secretary.ViewModel
 {
@@ -11,22 +15,22 @@ namespace Secretary.ViewModel
     {
         private readonly NavigationStore _navigatiorStore;
 
-        public ViewModelBase CurrentViewModel { get; set; }
-        //public ViewModelBase CurrentViewModel => _navigatiorStore.CurrentViewModel;
+        private ViewModelBase _currentViewModel;
+
+        public ViewModelBase CurrentViewModel
+        {
+            get { return _currentViewModel; }
+            set { _currentViewModel = value; OnPropertyChanged(nameof(CurrentViewModel)); }
+        }
+
+        public ICommand UpdateViewCommand { get; set; }
 
         public MainViewModel()
         {
-            //_navigatiorStore = navigationStore;
-            
-            //CurrentViewModel = new AddAppointmentViewModel();
+            CurrentViewModel = new CRUDAppointmentsViewModel();
 
-            //_navigatiorStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            UpdateViewCommand = new UpdateViewCommand(this);
         }
-
-        //private void OnCurrentViewModelChanged()
-        //{
-        //    OnPropertyChanged(nameof(CurrentViewModel));
-        //}
 
     }
 }
