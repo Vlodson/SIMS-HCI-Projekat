@@ -57,42 +57,40 @@
             </Setter>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
-
+        <Style x:Key="MenuBarButtons" TargetType="Button">
+            <Setter Property="Background" Value="#b2d8d8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="105"/>
+        </Style>
     </Page.Resources>
-    <Grid Background="#66b2b2">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background1.jpg"/>
+        </Grid.Background>
+        <Button Content="Termini" Style="{StaticResource Buttons}" FontSize="32" Width="250" Height="64" Click="Button_Click" HorizontalAlignment="Left" Margin="89,320,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
-        <Button Content="Termini" Style="{StaticResource Buttons}" FontSize="32" Width="250" Height="64" Click="Button_Click" HorizontalAlignment="Left" Margin="32,320,0,0" VerticalAlignment="Top">
+        <Button Content="Karton" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="89,167,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
-            <StackPanel>
-                <Image Source="/Images/sign-out-alt.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
-            <StackPanel>
-                <Image Source="/Images/bell.png"/>
-            </StackPanel>
-        </Button>
-        <Button Content="Karton" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,174,0,0" VerticalAlignment="Top">
+        <Button Content="Ocene" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="89,490,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Ocene" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,481,0,0" VerticalAlignment="Top">
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
-        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="32,640,0,0" VerticalAlignment="Top">
+        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="82,650,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -113,10 +111,70 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="162,53,0,0" VerticalAlignment="Top"/>
-        <Image Source="/Images/logo2.png"  Margin="5,10,859,614"></Image>
-        <Calendar Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
 
+        <Calendar Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
+        <Rectangle HorizontalAlignment="Center" Height="120" Width="1024"  VerticalAlignment="Top" Margin="0,10,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="1024" Height="280" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="145,41,0,0" VerticalAlignment="Top"/>
+        <Image Source="/Images/logo2.png"  Margin="5,10,916,652"></Image>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+            <StackPanel>
+                <Image Source="/Images/sign-out-alt.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+            <StackPanel>
+                <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
+        <Rectangle HorizontalAlignment="Left" Height="786"  VerticalAlignment="Top" Width="50" Margin="10,110,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="50" Height="786" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <!--<StackPanel Width="50" Height="786" Margin="10,130,964,-148">-->
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0">
+            <StackPanel>
+                <Image Source="/Images/folder.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0">
+            <StackPanel>
+                <Image Source="/Images/appointments.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,340,0,0">
+            <StackPanel>
+                <Image Source="/Images/survey.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0">
+            <StackPanel>
+                <Image Source="/Images/clock.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left"  Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,550,0,0">
+            <StackPanel>
+                <Image Source="/Images/reportPdf.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,649,0,0">
+            <StackPanel>
+                <Image Source="/Images/tutorial.png"/>
+            </StackPanel>
+        </Button>
+        <!--</StackPanel>-->
 
 
     </Grid>
