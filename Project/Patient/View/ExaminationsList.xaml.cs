@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -96,7 +97,7 @@ namespace Patient.View
                 }
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
-            Calendar.DataContext = DatesExaminations;
+            
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -126,7 +127,7 @@ namespace Patient.View
                     }
                     ExaminationsForDate.Add(exam);
                 }
-                if (DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
                     DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
@@ -282,23 +283,28 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
         }
-    }
-    public class DateIsInListConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        private void calendarButton_Loaded(object sender, EventArgs e)
         {
-            if (values.Length < 2 || !(values[0] is DateTime) || !(values[1] is IEnumerable<DateTime>))
-                return false;
-
-            var date = (DateTime)values[0];
-            var dateList = (IEnumerable<DateTime>)values[1];
-
-            return dateList.Contains(date);
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+            button.DataContextChanged += new DependencyPropertyChangedEventHandler(calendarButton_DataContextChanged);
         }
 
-        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        private void HighlightDay(CalendarDayButton button, DateTime date)
         {
-            throw new NotImplementedException();
+            if (DatesExaminations.Contains(DateOnly.FromDateTime(date)))
+                button.Background = Brushes.LightBlue;
+            else
+                button.Background = Brushes.White;
+        }
+
+        private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
         }
     }
+   
 }

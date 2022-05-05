@@ -176,7 +176,7 @@
             </StackPanel>
         </Button>
         <!--</StackPanel>-->
-
+        <Frame x:Name="Menu" Margin="65,115,0,0"></Frame>
 
     </Grid>
 </Page>
