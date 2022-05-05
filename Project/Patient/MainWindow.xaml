@@ -6,14 +6,94 @@
         xmlns:local="clr-namespace:Patient"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" Closed="Window_Closed">
+    <Window.Resources>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman"/>
+        </Style>
+        <Style x:Key="Border" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="MenuBarButtons" TargetType="Button">
+            <Setter Property="Background" Value="#b2d8d8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="105"/>
+        </Style>
+    </Window.Resources>
     <Grid>
 
         <Frame x:Name="Main" Margin="0, 35, 0, 0"/>
+        <Rectangle HorizontalAlignment="Center" Height="100" Width="1024"  VerticalAlignment="Top" Margin="0,10,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="1024" Height="280" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Left" Height="806"  VerticalAlignment="Top" Width="50" Margin="10,68,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="50" Height="786" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="145,41,0,0" VerticalAlignment="Top"/>
+        <Image Source="/Images/logo2.png"  Margin="5,10,902,642"></Image>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0">
+            <StackPanel>
+                <Image Source="/Images/folder.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0">
+            <StackPanel>
+                <Image Source="/Images/appointments.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,340,0,0">
+            <StackPanel>
+                <Image Source="/Images/survey.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0">
+            <StackPanel>
+                <Image Source="/Images/clock.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left"  Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,550,0,0">
+            <StackPanel>
+                <Image Source="/Images/reportPdf.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,649,0,0">
+            <StackPanel>
+                <Image Source="/Images/tutorial.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="940,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+            <StackPanel>
+                <Image Source="/Images/sign-out-alt.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="900,35,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+            <StackPanel>
+                <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
+        
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background1.jpg"/>
+        </Grid.Background>
+
         
 
+        
 
-
-
-
+        
     </Grid>
 </Window>

@@ -58,5 +58,15 @@ namespace Patient
             Main.Content = new ExaminationsList();
             //patientMenu.ShowsNavigationUI;
         }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new Login();
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            Notifications notifications = new Notifications();
+            notifications.ShowDialog();
+        }
     }
 }
