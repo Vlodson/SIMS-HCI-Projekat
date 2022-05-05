@@ -15,7 +15,7 @@ namespace Secretary.Commands
         private LogInViewModel _logInViewModel;
         private UserAccountController _userAccountController;
         private Window _window;
-        
+
         public SignInCommand(LogInViewModel logInViewModel, UserAccountController userAccountController, Window logInWindow)
         {
             _logInViewModel = logInViewModel;
@@ -40,7 +40,7 @@ namespace Secretary.Commands
             if (_userAccountController.LogIn(_logInViewModel.Username, _logInViewModel.Password, _logInViewModel.Type))
             {
                 //otvaranje aplikacije
-                MainWindow _mainWindow = new MainWindow();
+                MainWindow _mainWindow = new MainWindow(_logInViewModel);
                 Application.Current.MainWindow = _mainWindow;
                 _mainWindow.Show();
 
