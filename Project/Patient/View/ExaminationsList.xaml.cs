@@ -54,6 +54,7 @@ namespace Patient.View
         {
             InitializeComponent();
             this.DataContext = this;
+            
             App app = Application.Current as App;
            //_examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
@@ -253,7 +254,8 @@ namespace Patient.View
 
         private void MenuClick(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Content = new PatientMenu();
+            //Window.GetWindow(this).Content = new PatientMenu();
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void ChangeSelected(object sender, SelectionChangedEventArgs e)

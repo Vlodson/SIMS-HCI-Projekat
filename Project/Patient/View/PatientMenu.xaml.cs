@@ -65,6 +65,7 @@ namespace Patient.View
         {
             //Window.GetWindow(this).Content = new ExaminationsList();
             Menu.Content = new ExaminationsList();
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
