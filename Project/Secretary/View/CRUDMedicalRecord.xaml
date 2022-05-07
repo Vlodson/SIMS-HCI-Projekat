@@ -37,14 +37,14 @@
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1">
-                <TextBox Margin="30,0,0,55" VerticalContentAlignment="Center" Style="{StaticResource SearchRecordsTheme}">
+                <TextBox Margin="30,0,0,55" VerticalContentAlignment="Center" Width="200" Height="35" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}">
 
                 </TextBox>
             </Grid>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
 
-                <DataGrid x:Name="dataGridPatientRecords" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding MedicalRecords}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
+                <DataGrid x:Name="dataGridPatientRecords" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
 
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
