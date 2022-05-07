@@ -104,15 +104,16 @@ namespace Patient.View
         private void AddExamination_Click(object sender, RoutedEventArgs e)
         {
             Message.Visibility = Visibility.Hidden;
+            DateTime selected = (DateTime)Calendar.SelectedDate;
             AddExamination addExamination = new AddExamination();
             addExamination.ShowDialog();
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
-            DateTime today = DateTime.Now;
+            
             ExaminationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
             {
-                if (exam.Date.Date == today.Date)
+                if (exam.Date.Date == selected.Date)
                 {
                     if (exam.DoctorType == DoctorType.Pulmonology)
                     {
@@ -134,13 +135,13 @@ namespace Patient.View
                 }
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
-            
+            Calendar.DataContext = DatesExaminations;
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
         {
             selected = (Examination)dataGridExaminations.SelectedItem;
-
+            DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
@@ -167,7 +168,7 @@ namespace Patient.View
             ExaminationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
             {
-                if (exam.Date.Date == today.Date)
+                if (exam.Date.Date == selectedInCalendar.Date)
                 {
                     if (exam.DoctorType == DoctorType.Pulmonology)
                     {
@@ -189,12 +190,13 @@ namespace Patient.View
                 }
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
             selected = (Examination)dataGridExaminations.SelectedItem;
-
+            DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
@@ -217,11 +219,11 @@ namespace Patient.View
                 Message.Visibility = Visibility.Visible;
             }
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
-            DateTime today = DateTime.Now;
             ExaminationsForDate = new List<Examination>();
+            DatesExaminations = new List<DateOnly>();
             foreach (Examination exam in examinations)
             {
-                if (exam.Date.Date == today.Date)
+                if (exam.Date.Date == selectedInCalendar.Date)
                 {
                     if (exam.DoctorType == DoctorType.Pulmonology)
                     {
@@ -243,7 +245,10 @@ namespace Patient.View
                 }
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
-
+            Calendar.DataContext = DatesExaminations;
+            //Window.GetWindow(this).Content = new PatientMenu();
+            calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
+            
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -254,8 +259,8 @@ namespace Patient.View
 
         private void MenuClick(object sender, RoutedEventArgs e)
         {
-            //Window.GetWindow(this).Content = new PatientMenu();
-            this.Visibility = Visibility.Collapsed;
+            Window.GetWindow(this).Content = new PatientMenu();
+            //this.Visibility = Visibility.Hidden;
         }
 
         private void ChangeSelected(object sender, SelectionChangedEventArgs e)
@@ -307,6 +312,9 @@ namespace Patient.View
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
         }
+
+
     }
+    
    
 }
