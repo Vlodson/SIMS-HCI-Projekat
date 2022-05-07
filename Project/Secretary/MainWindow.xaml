@@ -7,44 +7,141 @@
         xmlns:views="clr-namespace:Secretary.View"
         xmlns:vms="clr-namespace:Secretary.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" FontSize="14">
-    <Grid Background="LightBlue">
-        <Grid.Resources>
-            <DataTemplate DataType="{x:Type vms:MainViewModel}">
-                <local:MainWindow/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:CRUDAppointmentsViewModel}">
-                <views:CRUDApointments/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:AddAppointmentViewModel}">
-                <views:AddApointment/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type vms:EditAppointmentViewModel}">
-                <views:EditAppointment/>
-            </DataTemplate>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Margin" Value="20,0,0,0"/>
-            </Style>
-        </Grid.Resources>
+        Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen" FontSize="14">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Border>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
-        <Button BorderBrush="Black" BorderThickness="1" x:Name="CRUDAcc" Grid.Column="1" Grid.Row="1" Content="CRUD account options"  Click="CRUDAcc_Click"/>
-        <Button BorderBrush="Black" BorderThickness="1" x:Name="CRUDMedRecords" Grid.Column="2" Grid.Row="1" Content="CRUD medical records" Click="CRUDMedRecords_Click" />
-        <Button BorderBrush="Black" BorderThickness="1" x:Name="CRUDAppointments" Grid.Column="3" Grid.Row="1" Content="CRUDApointments" Click="CRUDAppointments_Click" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="220"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <ContentControl Content="{Binding CurrentViewModel}"/>
-    </Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border BorderBrush="DarkGray" Background="CornflowerBlue" BorderThickness="0 0 0 1.5" Grid.Row="0" Grid.ColumnSpan="2" >
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Images/hospitalCar.png" Margin="0,5,10,5"/>
+                        <TextBlock FontWeight="DemiBold" FontSize="20" VerticalAlignment="Center" Foreground="Black">Hospital</TextBlock>
+                        <Image Source="/Images/hospital.png" Margin="10,5,0,5" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!--<Border Grid.Row ="1" Grid.ColumnSpan="2" BorderBrush="DarkGray" BorderThickness="0 0 0 2">
+                <Grid Background="LightBlue">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10" />
+                                </Style>
+                            </Button.Resources>
+                            Back</Button>
+                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10" />
+                                </Style>
+                            </Button.Resources>
+                            Forward</Button>
+                        <Separator Margin="15,10,0,10" BorderBrush="DarkGray" BorderThickness="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
+                        <TextBox Margin="15,10,0,10" Width="780" ></TextBox>
+                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="10" />
+                                </Style>
+                            </Button.Resources>
+                        Refresh</Button>
+                    </StackPanel>
+                </Grid>
+            </Border>-->
+
+            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="DarkGray" BorderThickness="0 0 0 1.5">
+                <Grid Background="CornflowerBlue" >
+
+                    <DockPanel>
+                        <DockPanel HorizontalAlignment="Right">
+                            <Image Source="Images/user.png" Margin="0,2,0,2"></Image>
+                            <Label FontWeight="DemiBold" BorderBrush="CornflowerBlue" Width="auto" VerticalAlignment="Center" FontSize="15" Margin="0,2,5,2" Content="{Binding Username}" Background="CornflowerBlue"></Label>
+                        </DockPanel>
+                    </DockPanel>
+
+                </Grid>
+
+            </Border>
+
+            <Grid Grid.Row="3" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <RadioButton Grid.Row="0" Foreground="Black" Content="Početna strana" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" IsChecked="True">
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="1" Foreground="Black" Content="Zakazivanja" IsChecked="True" Command="{Binding UpdateViewCommand}" CommandParameter="Appointments" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}">
+
+                </RadioButton>
+
+
+                <RadioButton Grid.Row="2" Foreground="Black" Content="Hitni slučajevi" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}">
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="3" Foreground="Black" Content="Nalozi korisnika" Command="{Binding UpdateViewCommand}" CommandParameter="UserAccounts" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" >
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="4" Foreground="Black" Content="Zdravstveni kartoni" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" Command="{Binding UpdateViewCommand}" CommandParameter="MedicalRecords" >
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="5"  Foreground="Black" Content="Zahtevi" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" >
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="6" Foreground="Black" Content="Obaveštenja" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" >
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="7" Foreground="Black" Content="Pomoć" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" >
+
+                </RadioButton>
+
+                <RadioButton Grid.Row="8" Foreground="Black" Content="Odjava" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" >
+
+                </RadioButton>
+
+            </Grid>
+
+            <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="3" Grid.Column="1" Background="LightBlue">
+
+            </ContentControl>
+
+        </Grid>
+    </Border>
 </Window>
