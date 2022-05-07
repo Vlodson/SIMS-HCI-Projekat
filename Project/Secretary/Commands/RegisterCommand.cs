@@ -34,7 +34,7 @@ namespace Secretary.Commands
             if (_userAccountController.Register(_logInViewModel.Username, _logInViewModel.Password, UserType.Secretary))
             {
                 //otvaranje aplikacije
-                MainWindow _mainWindow = new MainWindow();
+                MainWindow _mainWindow = new MainWindow(_logInViewModel);
                 Application.Current.MainWindow = _mainWindow;
                 _mainWindow.Show();
 

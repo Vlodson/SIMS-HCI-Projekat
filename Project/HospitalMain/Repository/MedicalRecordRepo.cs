@@ -35,7 +35,7 @@ namespace Repository
             //ObservableCollection<Report> reports = new ObservableCollection<Report>();
             //reports.Add(report);
 
-            
+
 
             //ObservableCollection<Allergens> allergens1 = new ObservableCollection<Allergens>();
             //ObservableCollection<Allergens> allergens2 = new ObservableCollection<Allergens>();
@@ -59,9 +59,9 @@ namespace Repository
             //DateTime dtDoctor2 = DateTime.Now;
             //Doctor doctor2 = new Doctor("d11", "Marko", "Markovic", dtDoctor2, DoctorType.Pulmonology, examinationsDoctor2);
 
-            //MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Male, new DateTime(1994, 05, 06), BloodType.A_positive, reports, allergens1, new ObservableCollection<Notification>());
-            //MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Male, new DateTime(1985, 08, 08), BloodType.A_negative, reports, allergens2, new ObservableCollection<Notification>());
-            //MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Male, new DateTime(2001, 11, 11), BloodType.AB_negative, reports, allergens3, new ObservableCollection<Notification>());
+            //MedicalRecord mr1 = new MedicalRecord("1", "0605994802463", "Pera", "Peric", "4098240", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muški, new DateTime(1994, 05, 06), BloodType.A_positive, reports, allergens1, new ObservableCollection<Notification>());
+            //MedicalRecord mr2 = new MedicalRecord("2", "0808985802463", "Ivan", "Ivic", "4489965", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muški, new DateTime(1985, 08, 08), BloodType.A_negative, reports, allergens2, new ObservableCollection<Notification>());
+            //MedicalRecord mr3 = new MedicalRecord("3", "1111001802463", "Zika", "Zikic", "41478115", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muški, new DateTime(2001, 11, 11), BloodType.AB_negative, reports, allergens3, new ObservableCollection<Notification>());
 
             //this.MedicalRecords.Add(mr1);
             //this.MedicalRecords.Add(mr2);

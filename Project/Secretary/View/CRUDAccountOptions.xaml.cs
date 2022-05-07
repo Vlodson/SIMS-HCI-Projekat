@@ -13,7 +13,7 @@ namespace Secretary
     /// <summary>
     /// Interaction logic for CRUDAccountOptions.xaml
     /// </summary>
-    public partial class CRUDAccountOptions : Window
+    public partial class CRUDAccountOptions
     {
         //private PatientRepo patientRepo;
 
@@ -22,14 +22,7 @@ namespace Secretary
             InitializeComponent();
             this.DataContext = new CRUDAccountOptionsViewModel();
 
-            //App app = Application.Current as App;
-            //patientRepo = app.PatientRepo;
-
         }
 
-        //private void Window_Closed(object sender, EventArgs e)
-        //{
-        //    patientRepo.SavePatient();
-        //}
     }
 }
