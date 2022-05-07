@@ -2,10 +2,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using HospitalMain.Enums;
+using HospitalMain.Model;
 
 namespace Model
 {
-    public class Patient : Guest, INotifyPropertyChanged
+    public class Patient : UserAccount, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -28,10 +29,10 @@ namespace Model
         private DateTime doB;
         private String medicalRecordID;
 
-        public Patient(Guest guest) : base(guest.ID)
-        {
+        //public Patient(Guest guest) : base(guest.ID)
+        //{
 
-        }
+        //}
 
         public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
         {
@@ -44,7 +45,7 @@ namespace Model
             this.adress = adress;
             this.gender = gender;
             this.doB = doB;
-            this.medicalRecordID = medicalRecordID; 
+            this.medicalRecordID = medicalRecordID;
         }
 
         public Patient()

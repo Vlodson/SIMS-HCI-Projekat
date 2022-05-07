@@ -30,13 +30,13 @@
                     </StackPanel>
 
                     <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBox VerticalContentAlignment="Center" Style="{StaticResource SearchTheme}">
+                        <TextBox VerticalContentAlignment="Center" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Height="35" Width="200" Background="LightBlue" BorderBrush="LightBlue" BorderThickness="1">
 
                         </TextBox>
                     </Grid>
 
                     <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="30">
-                        <DataGrid x:Name="dataGridPatientAccounts" ItemsSource="{Binding PatientList}" CanUserResizeColumns="False" CanUserResizeRows="False" RowStyle="{StaticResource DataGridRowTheme}" SelectedItem="{Binding PatientViewModel}" AutoGenerateColumns="False" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="LightBlue" IsReadOnly="True" BorderThickness="3">
+                        <DataGrid x:Name="dataGridPatientAccounts" ItemsSource="{Binding DataGridCollection}" CanUserResizeColumns="False" CanUserResizeRows="False" RowStyle="{StaticResource DataGridRowTheme}" SelectedItem="{Binding PatientViewModel}" AutoGenerateColumns="False" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="LightBlue" IsReadOnly="True" BorderThickness="3">
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="FontSize" Value="14"></Setter>
