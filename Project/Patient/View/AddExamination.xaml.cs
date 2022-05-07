@@ -230,7 +230,7 @@ namespace Patient.View
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
                 }
-                ExaminationsList.Examinations = examinations;
+                //ExaminationsList.Examinations = examinations;
                 this.Close();
             }
             

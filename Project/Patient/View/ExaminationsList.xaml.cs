@@ -4,12 +4,14 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -36,10 +38,23 @@ namespace Patient.View
             set;
         }
 
+        public static List<Examination> ExaminationsForDate
+        {
+            get;
+            set;
+        }
+
+        public static List<DateOnly> DatesExaminations
+        {
+            get;
+            set;
+        }
+
         public ExaminationsList()
         {
             InitializeComponent();
             this.DataContext = this;
+            
             App app = Application.Current as App;
            //_examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
@@ -55,20 +70,78 @@ namespace Patient.View
                 exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
             }
             Examinations = examinations;
+
+            DateTime today = DateTime.Now;
+            ExaminationsForDate = new List<Examination>();
+            DatesExaminations = new List<DateOnly>();
+            foreach(Examination exam in examinations)
+            {
+                if(exam.Date.Date == today.Date)
+                {
+                    if(exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                {
+                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    
+                }
+            }
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
         {
             Message.Visibility = Visibility.Hidden;
+            DateTime selected = (DateTime)Calendar.SelectedDate;
             AddExamination addExamination = new AddExamination();
             addExamination.ShowDialog();
-            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+            //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            
+            ExaminationsForDate = new List<Examination>();
+            foreach (Examination exam in examinations)
+            {
+                if (exam.Date.Date == selected.Date)
+                {
+                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }
+                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                {
+                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                }
+            }
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
         {
             selected = (Examination)dataGridExaminations.SelectedItem;
-
+            DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
@@ -89,13 +162,41 @@ namespace Patient.View
                 Message.Content = "Morate izabrati termin za pomeranje";
                 Message.Visibility = Visibility.Visible;
             }
-            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+            //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            DateTime today = DateTime.Now;
+            ExaminationsForDate = new List<Examination>();
+            foreach (Examination exam in examinations)
+            {
+                if (exam.Date.Date == selectedInCalendar.Date)
+                {
+                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }
+                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                {
+                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                }
+            }
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
         {
             selected = (Examination)dataGridExaminations.SelectedItem;
-
+            DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
                 if (selected.Date.CompareTo(DateTime.Now) >= 0)
@@ -117,6 +218,36 @@ namespace Patient.View
                 Message.Content = "Morate izabrati termin za otkazivanje";
                 Message.Visibility = Visibility.Visible;
             }
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            ExaminationsForDate = new List<Examination>();
+            DatesExaminations = new List<DateOnly>();
+            foreach (Examination exam in examinations)
+            {
+                if (exam.Date.Date == selectedInCalendar.Date)
+                {
+                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }
+                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                {
+                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                }
+            }
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
+            //Window.GetWindow(this).Content = new PatientMenu();
+            calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
             
         }
 
@@ -129,6 +260,61 @@ namespace Patient.View
         private void MenuClick(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Content = new PatientMenu();
+            //this.Visibility = Visibility.Hidden;
         }
+
+        private void ChangeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime selected = (DateTime)Calendar.SelectedDate;
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            DateTime today = DateTime.Now;
+            ExaminationsForDate = new List<Examination>();
+            foreach (Examination exam in examinations)
+            {
+                if (exam.Date.Date == selected.Date)
+                {
+                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }
+                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+            }
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+        }
+        private void calendarButton_Loaded(object sender, EventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+            button.DataContextChanged += new DependencyPropertyChangedEventHandler(calendarButton_DataContextChanged);
+        }
+
+        private void HighlightDay(CalendarDayButton button, DateTime date)
+        {
+            if (DatesExaminations.Contains(DateOnly.FromDateTime(date)))
+                button.Background = Brushes.LightBlue;
+            else
+                button.Background = Brushes.White;
+        }
+
+        private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+        }
+
+
     }
+    
+   
 }

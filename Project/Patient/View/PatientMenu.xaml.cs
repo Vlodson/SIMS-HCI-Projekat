@@ -55,7 +55,7 @@ namespace Patient.View
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
-                    MessageBox.Show(notification.Content);
+                    //MessageBox.Show(notification.Content);
                 }
             }
             
@@ -63,7 +63,9 @@ namespace Patient.View
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Content = new ExaminationsList();
+            //Window.GetWindow(this).Content = new ExaminationsList();
+            Menu.Content = new ExaminationsList();
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)

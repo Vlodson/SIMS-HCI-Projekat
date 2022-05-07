@@ -81,6 +81,7 @@ namespace Model
             }
         }
 
+        public String DoctorTypeString { get; set; }
         public DateTime Date
         {
             get
@@ -93,6 +94,8 @@ namespace Model
                 OnPropertyChanged("Date");
             }
         }
+
+        
         public Examination(String examRoom, DateTime date, string id, int duration, ExaminationTypeEnum type, String patient, String doctor)
         {
             this.ExamRoomId = examRoom;
