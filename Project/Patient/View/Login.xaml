@@ -36,14 +36,35 @@
         <Label Content="Prijava" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="171,227,0,0" VerticalAlignment="Top"/>
         <Label Content="Korisničko ime*" FontFamily="TimesNewRoman" FontSize="18" HorizontalAlignment="Left" Margin="69,306,0,0" VerticalAlignment="Top"/>
         <Label Content="Šifra*" FontFamily="TimesNewRoman"  FontSize="18" HorizontalAlignment="Left" Margin="69,343,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="username" HorizontalAlignment="Left" Margin="265,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174">
+        <TextBox Name="username" HorizontalAlignment="Left" Margin="265,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" LostFocus="CheckUsername">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"/>
                 </Style>
             </TextBox.Resources>
+            <Binding Path="Username" NotifyOnValidationError="True">
+                <Binding.ValidationRules>
+                    <local:USernameValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="username"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
         </TextBox>
-        <PasswordBox Name ="password" Background="White" Height="18" HorizontalAlignment="Left" Margin="265,341,0,0" VerticalAlignment="Top" Width="174">
+        <PasswordBox Name ="password" Background="White" Height="18" HorizontalAlignment="Left" Margin="265,341,0,0" VerticalAlignment="Top" Width="174" LostFocus="CheckPassword">
 
             <PasswordBox.Style>
                 <Style TargetType="{x:Type PasswordBox}">
@@ -94,6 +115,9 @@
         <Label x:Name="PasswordError" Content="Polje za šifru ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden"  HorizontalAlignment="Left" Margin="271,356,0,0" VerticalAlignment="Top"/>
         <Label x:Name="UsernameError" Content="Polje korisničkog imena ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="265,318,0,0" VerticalAlignment="Top"/>
         <Label x:Name="ProfileError" Content="Neispravni podaci" FontSize="10" Foreground="Red" HorizontalAlignment="Left" Visibility="Hidden" Margin="337,388,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="UsernameValidation" Content="Morate useti podatke" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="265,318,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="PasswordValidation" Content="Morate uneti podatke" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="266,355,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="AccountValidation" Content="Nepostojeći/neispravni podaci" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="266,393,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
