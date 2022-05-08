@@ -137,7 +137,7 @@ namespace Admin.View
         {
             TableGrid.Columns.Clear();
             EquipmentTransferList = _equipmentTransferController.ReadAll();
-            ObservableCollection<EquipmentTransfer> signedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(EquipmentTransferList.Where(eq => !String.IsNullOrEmpty(eq.Signature)));
+            ObservableCollection<EquipmentTransfer> signedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(EquipmentTransferList);
 
             TableGrid.ItemsSource = signedEquipmentTransfers;
 
@@ -168,14 +168,8 @@ namespace Admin.View
             DataGridTextColumn endDate = new DataGridTextColumn()
             {
                 Header = "End Date",
-                Binding = new Binding("EndDate")
-            };
-
-            DataGridTextColumn Signature = new DataGridTextColumn()
-            {
-                Header = "Signature",
                 Width = new DataGridLength(1, DataGridLengthUnitType.Star),
-                Binding = new Binding("Signature")
+                Binding = new Binding("EndDate")
             };
 
             TableGrid.Columns.Add(id_col);
@@ -183,14 +177,13 @@ namespace Admin.View
             TableGrid.Columns.Add(destinationId);
             TableGrid.Columns.Add(equipmentId);
             TableGrid.Columns.Add(endDate);
-            TableGrid.Columns.Add(Signature);
         }
 
         private void renovationsBtn_Click(object sender, RoutedEventArgs e)
         {
             TableGrid.Columns.Clear();
             RenovationList = _renovationController.ReadAll();
-            ObservableCollection<Renovation> signedRenovations = new ObservableCollection<Renovation>(RenovationList.Where(reno => !String.IsNullOrEmpty(reno.Signature)));
+            ObservableCollection<Renovation> signedRenovations = new ObservableCollection<Renovation>(RenovationList);
 
             TableGrid.ItemsSource = signedRenovations;
 
@@ -215,21 +208,14 @@ namespace Admin.View
             DataGridTextColumn endDate_col = new DataGridTextColumn()
             {
                 Header = "End Date",
-                Binding = new Binding("EndDate")
-            };
-
-            DataGridTextColumn signature_col = new DataGridTextColumn()
-            {
-                Header = "Signature",
                 Width = new DataGridLength(1, DataGridLengthUnitType.Star),
-                Binding = new Binding("Signature")
+                Binding = new Binding("EndDate")
             };
 
             TableGrid.Columns.Add(id_col);
             TableGrid.Columns.Add(originRoomNb_col);
             TableGrid.Columns.Add(type_col);
             TableGrid.Columns.Add(endDate_col);
-            TableGrid.Columns.Add(signature_col);
         }
     }
 }

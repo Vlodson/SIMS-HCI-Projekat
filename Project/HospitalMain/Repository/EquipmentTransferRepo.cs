@@ -44,7 +44,7 @@ namespace Repository
             return null;
         }
 
-        public void SetEquipmentTransfer(String equipmentTransferId, Room newOriginRoom, Room newDestinationRoom, Equipment newEquipment, DateOnly newStartDate, DateOnly newEndDate, String newSignature)
+        public void SetEquipmentTransfer(String equipmentTransferId, Room newOriginRoom, Room newDestinationRoom, Equipment newEquipment, DateOnly newStartDate, DateOnly newEndDate)
         {
             for(int i = 0; i < equipmentTransfers.Count; i++)
             {
@@ -55,7 +55,6 @@ namespace Repository
                     equipmentTransfers[i].Equipment = newEquipment;
                     equipmentTransfers[i].StartDate = newStartDate;
                     equipmentTransfers[i].EndDate = newEndDate;
-                    equipmentTransfers[i].Signature = newSignature;
                     break;
                 }
             }

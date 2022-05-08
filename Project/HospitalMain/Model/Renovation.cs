@@ -25,7 +25,6 @@ namespace Model
         private RenovationTypeEnum _type;
         private DateOnly _startDate;
         private DateOnly _endDate;
-        private String _signature;
 
         public String Id
         {
@@ -92,28 +91,14 @@ namespace Model
             }
         }
 
-        public String Signature
-        {
-            get { return _signature; }
-            set
-            {
-                if(value != _signature)
-                {
-                    _signature = value;
-                    OnPropertyChanged("Signature");
-                }
-            }
-        }
-
         public Renovation() { }
-        public Renovation(String id, Room originRoom, RenovationTypeEnum type, DateOnly start, DateOnly end, String signature)
+        public Renovation(String id, Room originRoom, RenovationTypeEnum type, DateOnly start, DateOnly end)
         {
             Id = id;
             OriginRoom = originRoom;
             Type = type;
             StartDate = start;
             EndDate = end;
-            Signature = signature;
         }
         public Renovation(Renovation renovation)
         {
@@ -122,7 +107,6 @@ namespace Model
             Type = renovation.Type;
             StartDate = renovation.StartDate;
             EndDate = renovation.EndDate;
-            Signature = renovation.Signature;
         }
         public Renovation(RenovationAnnotation renovationAnnotation)
         {
@@ -131,7 +115,6 @@ namespace Model
             this.Type = renovationAnnotation.Type;
             this.StartDate = DateOnly.Parse(renovationAnnotation.StartDate);
             this.EndDate = DateOnly.Parse(renovationAnnotation.EndDate);
-            this.Signature = renovationAnnotation.Signature;
         }
 
     }

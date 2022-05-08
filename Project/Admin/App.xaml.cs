@@ -69,7 +69,7 @@ namespace Admin
             for (int i = 0; i < 20; i++)
             {
                 equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i + 1) % 20).ToString(), i.ToString(), new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
-                equipmentTransferController.RecordTransfer(i.ToString(), "Pera");
+                equipmentTransferController.RecordTransfer(i.ToString());
             }
 
         }

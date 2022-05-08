@@ -23,9 +23,9 @@ namespace Controller
             return _equipmentTransferService.ScheduleTransfer(id, originRoomId, destinationRoomId, equipmentId, startDate, endDate);
         }
 
-        public bool RecordTransfer(String trainsferId, String signature)
+        public bool RecordTransfer(String trainsferId)
         {
-            return _equipmentTransferService.RecordTransfer(trainsferId, signature);
+            return _equipmentTransferService.RecordTransfer(trainsferId);
         }
 
         public bool DeleteEquipmentTransfer(String equipmentTransferId)

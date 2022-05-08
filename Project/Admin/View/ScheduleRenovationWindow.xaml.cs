@@ -85,7 +85,7 @@ namespace Admin.View
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
 
-            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate, ""));
+            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)

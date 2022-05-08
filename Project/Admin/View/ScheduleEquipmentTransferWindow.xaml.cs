@@ -103,7 +103,7 @@ namespace Admin.View
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
             Equipment eq = equipmentComboBox.SelectedItem as Equipment;
 
-            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, Equipment, StartDate, EndDate, ""));
+            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, Equipment, StartDate, EndDate));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)

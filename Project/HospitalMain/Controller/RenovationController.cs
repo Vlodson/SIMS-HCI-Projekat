@@ -24,9 +24,9 @@ namespace Controller
             return _renovationService.ScheduleRenovation(id, originRoomId, type, startDate, endDate);
         }
 
-        public bool RecordRenovation(String renovationId, String signature)
+        public bool RecordRenovation(String renovationId)
         {
-            return _renovationService.RecordRenovation(renovationId, signature);
+            return _renovationService.RecordRenovation(renovationId);
         }
 
         public bool DeleteRenovation(String renovationId)
