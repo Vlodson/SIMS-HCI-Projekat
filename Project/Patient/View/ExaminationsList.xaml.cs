@@ -138,6 +138,7 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
+            
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)

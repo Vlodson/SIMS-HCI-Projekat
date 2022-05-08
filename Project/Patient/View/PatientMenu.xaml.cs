@@ -4,12 +4,14 @@ using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,19 +29,77 @@ namespace Patient.View
     {
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
+        private ExamController _examinationController;
+        private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+
+        public static ObservableCollection<Examination> Examinations
+        {
+            get;
+            set;
+        }
+
+        public static List<Examination> ExaminationsForDate
+        {
+            get;
+            set;
+        }
+
+        public static List<DateOnly> DatesExaminations
+        {
+            get;
+            set;
+        }
         public PatientMenu()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
+            _examinationController = app.ExamController;
+            _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
             
             _doctorRepo.SaveDoctor();
             Timer t = new Timer(TimerCallback, null, 0, 60000);
 
-            //initialize pages
+            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            foreach (Examination exam in examinations)
+            {
+                exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
+            }
+            Examinations = examinations;
+
+            DateTime today = DateTime.Now;
+            ExaminationsForDate = new List<Examination>();
+            DatesExaminations = new List<DateOnly>();
+            MenuCalendar.SelectedDate = DateTime.Now;
+            foreach (Examination exam in examinations)
+            {
+                if (exam.Date.Date == today.Date)
+                {
+                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    {
+                        exam.DoctorTypeString = "Pulmologija";
+                    }
+                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    {
+                        exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else
+                    {
+                        exam.DoctorTypeString = "Opšta praksa";
+                    }
+                    ExaminationsForDate.Add(exam);
+                }
+                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                {
+                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+
+                }
+            }
+            MenuCalendar.DataContext = DatesExaminations;
+            //dataGridExaminations.ItemsSource = ExaminationsForDate;
         }
 
         private static void TimerCallback(Object o)
@@ -78,6 +138,28 @@ namespace Patient.View
         {
             Notifications notifications = new Notifications();
             notifications.ShowDialog();
+        }
+        private void calendarButton_Loaded(object sender, EventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
+            button.DataContextChanged += new DependencyPropertyChangedEventHandler(calendarButton_DataContextChanged);
+        }
+
+        private void HighlightDay(CalendarDayButton button, DateTime date)
+        {
+            if (DatesExaminations.Contains(DateOnly.FromDateTime(date)))
+                button.Background = Brushes.LightBlue;
+            else
+                button.Background = Brushes.White;
+        }
+
+        private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            CalendarDayButton button = (CalendarDayButton)sender;
+            DateTime date = (DateTime)button.DataContext;
+            HighlightDay(button, date);
         }
     }
 }
