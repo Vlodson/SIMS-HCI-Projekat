@@ -106,8 +106,11 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             DateTime selected = (DateTime)Calendar.SelectedDate;
+            if (selected == null){
+                selected = DateTime.Now.AddDays(1);
+            }
+            AddExamination addExamination = new AddExamination(selected);
             
-            AddExamination addExamination = new AddExamination();
             addExamination.ShowDialog();
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
@@ -138,7 +141,6 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
-            
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -315,6 +317,7 @@ namespace Patient.View
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
         }
+
 
 
     }

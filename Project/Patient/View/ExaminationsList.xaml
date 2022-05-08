@@ -126,7 +126,6 @@
             </Button.Resources>
         </Button>
         <Calendar x:Name="Calendar" Style="{StaticResource StyleCalendar}" Width="900" Height="400" Grid.ColumnSpan="2" Margin="23,58,36,195" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate" >
-
         </Calendar>
         <Rectangle HorizontalAlignment="Left" Height="63"  VerticalAlignment="Top" Width="958" Grid.ColumnSpan="2" Margin="-6,10,0,0">
             <Rectangle.Fill>
