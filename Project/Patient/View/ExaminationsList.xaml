@@ -74,7 +74,7 @@
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
         <!--ItemsSource="{Binding Path= Examinations, Mode=TwoWay}"-->
-        <DataGrid x:Name="dataGridExaminations"  IsReadOnly="True" SelectionMode="Single" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,69" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dataGridExaminations" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,69" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

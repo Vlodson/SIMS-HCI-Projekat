@@ -38,14 +38,14 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Označi kao pročitano" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="228,275,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="MarkAsRead" Width="138">
+        <Button Content="Označi kao pročitano" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="230,295,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="MarkAsRead" Width="138">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Label x:Name="ErrorLabel" Content="Morate izabrati obaveštenja" Visibility="Visible" Foreground="Red" HorizontalAlignment="Left" Margin="0,269,0,0" VerticalAlignment="Top" />
+        <Label x:Name="ErrorLabel" Content="Morate izabrati obaveštenja" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="0,269,0,0" VerticalAlignment="Top" />
 
 
 

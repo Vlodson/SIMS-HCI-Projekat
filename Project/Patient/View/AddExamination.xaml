@@ -19,7 +19,7 @@
         <Grid.Background>
             <SolidColorBrush Color="#66b2b2"/>
         </Grid.Background>
-        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
+        <DataGrid x:Name="ExamsAvailable" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="DoctorNameSurname" Header="Lekar" Binding="{Binding DoctorNameSurname}" Width="*"/>
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}" Width="*"/>
