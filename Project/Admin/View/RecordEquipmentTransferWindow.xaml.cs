@@ -37,6 +37,7 @@ namespace Admin.View
             _roomController = app.roomController;
 
             Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
             Title.Text = "Record trasnfer for room\n" + OriginRoom.RoomNb;
 
             // last one in list is always the one that needs to be worked here

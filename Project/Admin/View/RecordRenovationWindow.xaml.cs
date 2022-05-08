@@ -39,6 +39,7 @@ namespace Admin.View
             renovation = _renovationController.ReadAll().Last();
 
             Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
             Title.Text = "Record renovation for room\n" + OriginRoom.RoomNb;
 
             renoTypeTextBox.Text = renovation.Type.ToString();

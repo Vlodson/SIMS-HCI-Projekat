@@ -42,7 +42,8 @@ namespace Admin.View
 
 
             OriginRoom = _roomController.GetClipboardRoom();
-            Title.Text = "Schedule Renovation for room\n" + OriginRoom.RoomNb;
+            Title.TextWrapping = TextWrapping.Wrap;
+            Title.Text = "Schedule renovation for room\n" + OriginRoom.RoomNb;
 
             renoTypeComboBox.Items.Clear();
             renoTypeComboBox.ItemsSource = Enum.GetValues<RenovationTypeEnum>();
