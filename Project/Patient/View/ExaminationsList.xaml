@@ -108,7 +108,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>
+        <!--<Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>-->
 
 
 
@@ -138,5 +138,6 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Zakazani termini" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" x:Name="Message" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="64,589,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

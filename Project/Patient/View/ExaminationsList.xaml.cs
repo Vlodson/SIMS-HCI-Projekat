@@ -74,6 +74,7 @@ namespace Patient.View
             DateTime today = DateTime.Now;
             ExaminationsForDate = new List<Examination>();
             DatesExaminations = new List<DateOnly>();
+            Calendar.SelectedDate = DateTime.Now;
             foreach(Examination exam in examinations)
             {
                 if(exam.Date.Date == today.Date)
@@ -105,6 +106,7 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             DateTime selected = (DateTime)Calendar.SelectedDate;
+            
             AddExamination addExamination = new AddExamination();
             addExamination.ShowDialog();
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
@@ -247,7 +249,7 @@ namespace Patient.View
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             //Window.GetWindow(this).Content = new PatientMenu();
-            calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
+            //calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
             
         }
 
