@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
         Title="Obaveštenja" Height="435" Width="400">
+    <Window.Resources>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman"/>
+        </Style>
+    </Window.Resources>
     <Grid Margin="0,78,0,-6">
+        <Grid.Background>
+            <SolidColorBrush Color="#66b2b2"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="305*"/>
             <ColumnDefinition Width="83*"/>
@@ -14,6 +23,9 @@
         </Grid.ColumnDefinitions>
         <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="0,-69,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
         <ListBox x:Name="NotificationList" SelectionMode="Multiple" Margin="0,10,0,52" Grid.ColumnSpan="3">
+            <ListBox.Background>
+                <SolidColorBrush Color="#66b2b2"/>
+            </ListBox.Background>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="BorderThickness" Value="1"/>
@@ -26,8 +38,14 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Content="Oznaci kao procitano" HorizontalAlignment="Left" Margin="250,275,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="MarkAsRead"/>
-
+        <Button Content="Označi kao pročitano" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="228,275,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Click="MarkAsRead" Width="138">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label x:Name="ErrorLabel" Content="Morate izabrati obaveštenja" Visibility="Visible" Foreground="Red" HorizontalAlignment="Left" Margin="0,269,0,0" VerticalAlignment="Top" />
 
 
 
