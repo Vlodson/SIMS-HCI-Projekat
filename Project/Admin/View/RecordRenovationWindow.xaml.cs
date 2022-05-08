@@ -25,6 +25,7 @@ namespace Admin.View
         public Renovation renovation { get; set; }
 
         private RenovationController _renovationController;
+        private RoomController _roomController;
 
         public RecordRenovationWindow()
         {
@@ -33,8 +34,12 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _renovationController = app.renovationController;
+            _roomController = app.roomController;
 
             renovation = _renovationController.ReadAll().Last();
+
+            Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.Text = "Record renovation for room\n" + OriginRoom.RoomNb;
 
             renoTypeTextBox.Text = renovation.Type.ToString();
             //parcellingTextBox.Text = "";

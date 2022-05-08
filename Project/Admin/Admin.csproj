@@ -15,7 +15,27 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Icons\biotech-16.png" />
+    <None Remove="Icons\buy-16.png" />
+    <None Remove="Icons\flagpole-16.png" />
+    <None Remove="Icons\health-data-16.png" />
+    <None Remove="Icons\logout-16.png" />
+    <None Remove="Icons\presentation-16.png" />
+    <None Remove="Icons\question-mark-16.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\biotech-16.png" />
+    <Resource Include="Icons\buy-16.png" />
+    <Resource Include="Icons\flagpole-16.png" />
+    <Resource Include="Icons\health-data-16.png" />
+    <Resource Include="Icons\logout-16.png" />
+    <Resource Include="Icons\presentation-16.png" />
+    <Resource Include="Icons\question-mark-16.png" />
   </ItemGroup>
 
 </Project>

@@ -43,8 +43,7 @@
             <Button Content="Main menu" />
         </StackPanel>
 
-        <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="28">
-            Schedule Room Renovation
+        <TextBlock x:Name="Title" Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="28">
         </TextBlock>
 
         <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">

@@ -42,6 +42,8 @@ namespace Admin.View
             _roomController = app.roomController;
 
             OriginRoom = _roomController.GetClipboardRoom();
+            Title.Text = "Schedule renovation for room\n" + OriginRoom.RoomNb;
+
             equipmentComboBox.Items.Clear();
             foreach (Equipment equipment in OriginRoom.Equipment)
             {

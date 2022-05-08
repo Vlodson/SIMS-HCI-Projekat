@@ -40,7 +40,10 @@ namespace Admin.View
             _renovationController = app.renovationController;
             _roomController = app.roomController;
 
+
             OriginRoom = _roomController.GetClipboardRoom();
+            Title.Text = "Schedule Renovation for room\n" + OriginRoom.RoomNb;
+
             renoTypeComboBox.Items.Clear();
             renoTypeComboBox.ItemsSource = Enum.GetValues<RenovationTypeEnum>();
         }

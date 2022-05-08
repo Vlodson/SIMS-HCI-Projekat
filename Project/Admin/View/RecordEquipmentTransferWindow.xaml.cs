@@ -25,6 +25,7 @@ namespace Admin.View
         public EquipmentTransfer equipmentTransfer { get; set; }
         
         private EquipmentTransferController _equipmentTransferController;
+        private RoomController _roomController;
 
         public RecordEquipmentTransferWindow()
         {
@@ -33,6 +34,10 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _equipmentTransferController = app.equipmentTransferController;
+            _roomController = app.roomController;
+
+            Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.Text = "Record trasnfer for room\n" + OriginRoom.RoomNb;
 
             // last one in list is always the one that needs to be worked here
             equipmentTransfer = _equipmentTransferController.ReadAll().Last();

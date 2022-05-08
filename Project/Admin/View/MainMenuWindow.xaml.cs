@@ -55,7 +55,7 @@ namespace Admin.View
                 Border room = new Border();
                 room.BorderBrush = Brushes.Black;
                 room.BorderThickness = new Thickness(1);
-                room.Background = Brushes.Transparent;
+                room.Background = (Brush)new BrushConverter().ConvertFrom("#ececec");
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetClipboardRoom(r);
