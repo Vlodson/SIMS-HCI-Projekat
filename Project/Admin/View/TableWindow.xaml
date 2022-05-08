@@ -25,13 +25,38 @@
 
         <!-- Take care of this with style later so that the whole stack panel is the same colour and there is no button border
         so that it looks like a continious button bar -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
-            <Button x:Name="addEquipment" Content="Add Equipment" />
-            <Button x:Name="removeEquipment" Content="Remove Equipment" />
-        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0,0,10,0">
+                <Image Source="..\Icons\home-16.png" />
+            </Button>
+            
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
+                <Image Source="..\Icons\export-pdf-16.png" />
+            </Button>
+            
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="3" Margin="0, 0">
+                <Image Source="..\Icons\logout-16.png" />
+            </Button>
+        </Grid>
 
         <!-- Stylize with icon and transparent/lightgray text -->
-        <TextBox x:Name="queryBox" Grid.Row="2" Grid.Column="1" Text="Search" Margin="0,0,0,10" />
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="queryBox" Text="Search" Grid.Column="0" Background="#F5F5F5" />
+            <Image Source="..\Icons\search-16.png" Grid.Column="1" />
+
+        </Grid>
 
         <DataGrid x:Name="TableGrid" Grid.Row="3"  Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10">
         </DataGrid>
