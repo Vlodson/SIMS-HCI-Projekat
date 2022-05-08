@@ -38,6 +38,8 @@ namespace Patient.View
             
             _doctorRepo.SaveDoctor();
             Timer t = new Timer(TimerCallback, null, 0, 60000);
+
+            //initialize pages
         }
 
         private static void TimerCallback(Object o)
@@ -65,7 +67,6 @@ namespace Patient.View
         {
             //Window.GetWindow(this).Content = new ExaminationsList();
             Menu.Content = new ExaminationsList();
-            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
