@@ -60,7 +60,7 @@ namespace Secretary.ViewModel
             return true;
         }
 
-        public CRUDAccountOptionsViewModel()
+        public CRUDAccountOptionsViewModel(AccountsViewModel accountsViewModel)
         {
             
             var app = System.Windows.Application.Current as App;
@@ -69,9 +69,9 @@ namespace Secretary.ViewModel
             _patientList = new ObservableCollection<PatientViewModel>();
             DataGridCollection = CollectionViewSource.GetDefaultView(PatientList);
 
-            AddAccountCommand = new GoToAddAccountCommand(this);
+            AddAccountCommand = new GoToAddAccountCommand(this, accountsViewModel);
             DeleteAccountCommand = new DeleteAccountCommand(this, _patientController);
-            EditAccountCommand = new GoToEditAccountCommand(this);
+            EditAccountCommand = new GoToEditAccountCommand(this, accountsViewModel);
 
             ObservableCollection<Patient> patientsFromBase = _patientController.ReadAllPatients();
             foreach(Patient patient in patientsFromBase)

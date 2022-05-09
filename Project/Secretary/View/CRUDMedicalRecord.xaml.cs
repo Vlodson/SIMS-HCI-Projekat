@@ -23,7 +23,7 @@ namespace Secretary.View
         public CRUDMedicalRecord()
         {
             InitializeComponent();
-            this.DataContext = new CRUDMedicalRecordViewModel();
+            //this.DataContext = new CRUDMedicalRecordViewModel();
         
         }
 

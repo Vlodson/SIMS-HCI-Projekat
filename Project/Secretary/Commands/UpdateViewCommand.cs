@@ -24,11 +24,11 @@ namespace Secretary.Commands
             } 
             else if(parameter.ToString() == "UserAccounts")
             {
-                _mainViewModel.CurrentViewModel = new CRUDAccountOptionsViewModel();
+                _mainViewModel.CurrentViewModel = new AccountsViewModel();
             } 
             else if (parameter.ToString() == "MedicalRecords")
             {
-                _mainViewModel.CurrentViewModel = new CRUDMedicalRecordViewModel();
+                _mainViewModel.CurrentViewModel = new MedicalRecordsViewModel();
             }
         }
     }

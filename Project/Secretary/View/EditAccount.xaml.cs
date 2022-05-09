@@ -17,7 +17,7 @@ namespace Secretary.View
     /// <summary>
     /// Interaction logic for EditAccount.xaml
     /// </summary>
-    public partial class EditAccount : Window
+    public partial class EditAccount
     {
         public EditAccount()
         {

@@ -24,13 +24,13 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal" Margin="30,40,40,40" Grid.Column="0" Grid.Row="0">
-                        <Button Width="100" Height="30" Content="Dodaj" Command="{Binding AddAccountCommand}"></Button>
-                        <Button Width="100" Height="30" Content="Izmeni" Command="{Binding EditAccountCommand}"></Button>
+                        <Button Width="100" Height="30" Content="Dodaj" Command="{Binding AddAccountCommand}" CommandParameter="AddPatientUser"></Button>
+                        <Button Width="100" Height="30" Content="Izmeni" Command="{Binding EditAccountCommand}" CommandParameter="EditPatientUser"></Button>
                         <Button Width="100" Height="30" Content="Obriši" Command="{Binding DeleteAccountCommand}"></Button>
                     </StackPanel>
 
                     <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBox VerticalContentAlignment="Center" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Height="35" Width="200" Background="LightBlue" BorderBrush="LightBlue" BorderThickness="1">
+                        <TextBox VerticalContentAlignment="Center" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Height="35" Width="200" Style="{StaticResource SearchTheme}" Background="LightBlue" BorderBrush="LightBlue" BorderThickness="1">
 
                         </TextBox>
                     </Grid>

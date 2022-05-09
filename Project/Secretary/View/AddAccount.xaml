@@ -1,4 +1,4 @@
-﻿<Window x:Class="Secretary.View.AddAccount"
+﻿<UserControl x:Class="Secretary.View.AddAccount"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:Secretary.View"
         xmlns:converters="clr-namespace:Secretary.Converter"
         mc:Ignorable="d"
-        Title="AddAccount" Height="667" Width="804" WindowStartupLocation="CenterScreen" Background="LightBlue">
-    <Window.Resources>
+        Height="667" Width="804" Background="LightBlue">
+    <UserControl.Resources>
         <converters:GenderConverter x:Key="genderConverter"/>
-    </Window.Resources>
+    </UserControl.Resources>
     
     <Grid>
         <GroupBox Margin="30" Header="Dodavanje naloga pacijentu" Background="White" Style="{StaticResource GroupBoxTheme}">
@@ -98,14 +98,14 @@
 
 
                 <StackPanel Margin="0,50,0,0" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4" Grid.ColumnSpan="3">
-                    <Button Width="100" Height="30" Command="{Binding AddCommand}" VerticalContentAlignment="Center" Content="Potvrdi" FontSize="18">
+                    <Button Width="100" Height="30" Command="{Binding AddCommand}" CommandParameter="Add" VerticalContentAlignment="Center" Content="Potvrdi" FontSize="18">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5" />
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Width="100" Height="30" VerticalContentAlignment="Center" Content="Odustani" FontSize="18" Margin="100,0,0,0">
+                    <Button Width="100" Height="30" VerticalContentAlignment="Center" CommandParameter="Cancel" Command="{Binding CancelCommand}" Content="Odustani" FontSize="18" Margin="100,0,0,0">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5" />
@@ -118,4 +118,4 @@
 
         </GroupBox>
     </Grid>
-</Window>
+</UserControl>
