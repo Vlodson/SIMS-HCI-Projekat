@@ -8,8 +8,8 @@ namespace HospitalMain.Enums
 {
     public enum Gender
     {
-        Male,
-        Female
+        Muški,
+        Ženski
     }
 
 }

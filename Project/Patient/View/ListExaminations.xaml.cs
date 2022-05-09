@@ -50,8 +50,8 @@ namespace Patient.View
         }
         private void AddExamination_Click(object sender, RoutedEventArgs e)
         {
-            AddExamination addExamination = new AddExamination();
-            addExamination.Show();
+            //AddExamination addExamination = new AddExamination();
+            //addExamination.Show();
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
