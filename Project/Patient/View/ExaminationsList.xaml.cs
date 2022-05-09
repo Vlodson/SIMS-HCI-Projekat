@@ -141,6 +141,9 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
+            //Window.GetWindow(this).Content = new PatientMenu();
+            Calendar.SelectedDate = selected.AddDays(1);
+            Calendar.SelectedDate = selected;
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -196,6 +199,8 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
+            Calendar.SelectedDate = selectedInCalendar.AddDays(1);
+            Calendar.SelectedDate = selectedInCalendar;
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
@@ -252,8 +257,8 @@ namespace Patient.View
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             //Window.GetWindow(this).Content = new PatientMenu();
-            //calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
-            
+            Calendar.SelectedDate = selectedInCalendar.AddDays(1);
+            Calendar.SelectedDate = selectedInCalendar;
         }
 
         private void Window_Closed(object sender, EventArgs e)
