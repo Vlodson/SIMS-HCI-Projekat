@@ -5,6 +5,8 @@ using Service;
 using System.IO;
 using System.Text.Json;
 using HospitalMain.Enums;
+using System.Collections.Generic;
+using HospitalMain.Model;
 
 namespace Repository
 {
@@ -37,7 +39,7 @@ namespace Repository
             this.DBPath=dbPath;
             this.Patients = patientCollection;
             Guest guest = new Guest("123");
-            Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Ženski, new DateTime(2000, 11, 1), "4");
+            Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Ženski, new DateTime(2000, 11, 1), "4", new List<Answer>());
             this.Patients.Add(p1);
        }
 

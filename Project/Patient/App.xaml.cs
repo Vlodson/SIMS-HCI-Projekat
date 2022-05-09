@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using HospitalMain.Enums;
 using System.IO;
+using HospitalMain.Repository;
 
 namespace Patient
 {
@@ -30,6 +31,7 @@ namespace Patient
 
         public ExaminationRepo ExaminationRepo { get; set; }
         public DoctorRepo DoctorRepo { get; set; }
+        public QuestionnaireRepo QuestionnaireRepo { get; set; }
         public RoomController RoomController { get; set; }
         public MedicalRecordController MedicalRecordController { get; set; }
         public EquipmentController EquipmentController { get; set; }
@@ -52,6 +54,8 @@ namespace Patient
             RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
             MedicalRecordRepo medicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
             UserAccountRepo userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
+            QuestionnaireRepo questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
+            QuestionnaireRepo = questionnaireRepo;
             
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;

@@ -1,5 +1,6 @@
 ﻿using Controller;
 using HospitalMain.Model;
+using HospitalMain.Repository;
 using Model;
 using Repository;
 using System;
@@ -32,6 +33,7 @@ namespace Patient.View
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+        
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -59,6 +61,7 @@ namespace Patient.View
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
+            
             
             _doctorRepo.SaveDoctor();
             Timer t = new Timer(TimerCallback, null, 0, 60000);

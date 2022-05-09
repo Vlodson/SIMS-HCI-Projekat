@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using HospitalMain.Enums;
@@ -28,13 +29,14 @@ namespace Model
         private Gender gender;
         private DateTime doB;
         private String medicalRecordID;
+        private List<Answer> answers;
 
         //public Patient(Guest guest) : base(guest.ID)
         //{
 
         //}
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
         {
             this.id = id;
             this.ucin = ucin;
@@ -46,6 +48,7 @@ namespace Model
             this.gender = gender;
             this.doB = doB;
             this.medicalRecordID = medicalRecordID;
+            this.answers = answers;
         }
 
         public Patient()
@@ -191,6 +194,19 @@ namespace Model
                     doB = value;
                     OnPropertyChanged("DoB");
                 }
+            }
+        }
+
+        public List<Answer> Answers
+        {
+            get
+            {
+                return answers;
+            }
+            set
+            {
+                answers = value;
+                OnPropertyChanged("Answers");
             }
         }
 
