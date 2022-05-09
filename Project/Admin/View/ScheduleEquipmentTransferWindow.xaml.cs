@@ -84,9 +84,10 @@ namespace Admin.View
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
-            Equipment eq = equipmentComboBox.SelectedItem as Equipment;
+            Equipment equipment = equipmentComboBox.SelectedItem as Equipment;
 
-            _equipmentTransferController.ScheduleTransfer(id.ToString(), OriginRoom.Id, DestinationRoom.Id, eq.Id, start, end);
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end);
+            _equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             this.Close();
             RecordEquipmentTransferWindow recordEquipmentTransferWindow = new RecordEquipmentTransferWindow();
             recordEquipmentTransferWindow.Owner = App.Current.MainWindow;
@@ -104,9 +105,9 @@ namespace Admin.View
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
-            Equipment eq = equipmentComboBox.SelectedItem as Equipment;
+            Equipment equipment = equipmentComboBox.SelectedItem as Equipment;
 
-            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, Equipment, StartDate, EndDate));
+            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)

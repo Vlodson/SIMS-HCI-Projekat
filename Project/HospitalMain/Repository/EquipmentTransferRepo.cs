@@ -44,17 +44,17 @@ namespace Repository
             return null;
         }
 
-        public void SetEquipmentTransfer(String equipmentTransferId, Room newOriginRoom, Room newDestinationRoom, Equipment newEquipment, DateOnly newStartDate, DateOnly newEndDate)
+        public void SetEquipmentTransfer(EquipmentTransfer newEquipmentTransfer)
         {
             for(int i = 0; i < equipmentTransfers.Count; i++)
             {
-                if (equipmentTransfers[i].Id.Equals(equipmentTransferId))
+                if (equipmentTransfers[i].Id.Equals(newEquipmentTransfer.Id))
                 {
-                    equipmentTransfers[i].OriginRoom = newOriginRoom;
-                    equipmentTransfers[i].DestinationRoom = newDestinationRoom;
-                    equipmentTransfers[i].Equipment = newEquipment;
-                    equipmentTransfers[i].StartDate = newStartDate;
-                    equipmentTransfers[i].EndDate = newEndDate;
+                    equipmentTransfers[i].OriginRoom = newEquipmentTransfer.OriginRoom;
+                    equipmentTransfers[i].DestinationRoom = newEquipmentTransfer.DestinationRoom;
+                    equipmentTransfers[i].Equipment = newEquipmentTransfer.Equipment;
+                    equipmentTransfers[i].StartDate = newEquipmentTransfer.StartDate;
+                    equipmentTransfers[i].EndDate = newEquipmentTransfer.EndDate;
                     break;
                 }
             }
