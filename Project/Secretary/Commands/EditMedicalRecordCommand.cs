@@ -19,14 +19,14 @@ namespace Secretary.Commands
         private readonly MedicalRecordController _medicalRecordController;
         private readonly CRUDMedicalRecordViewModel _cRUDMedicalRecordViewModel;
         private readonly EditMedicalRecordViewModel _editMedicalRecordViewModel;
-        private Window _editMedicalRecord;
+        private readonly MedicalRecordsViewModel _medicalRecordsViewModel;
 
-        public EditMedicalRecordCommand(EditMedicalRecordViewModel editMedicalRecordViewModel, CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordController medicalRecordController, Window editMedicalRecord)
+        public EditMedicalRecordCommand(EditMedicalRecordViewModel editMedicalRecordViewModel, CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordController medicalRecordController, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             _medicalRecordController = medicalRecordController;
             _editMedicalRecordViewModel = editMedicalRecordViewModel;
             _cRUDMedicalRecordViewModel = cRUDMedicalRecordViewModel;
-            _editMedicalRecord = editMedicalRecord;
+            _medicalRecordsViewModel = medicalRecordsViewModel;
 
             _editMedicalRecordViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -43,6 +43,11 @@ namespace Secretary.Commands
                 }
             }
 
+            if(parameter.ToString() == "Edit")
+            {
+                _medicalRecordsViewModel.CurrentCRUDMedRecView = new CRUDMedicalRecordViewModel(_medicalRecordsViewModel);
+            }
+
             //izmena kartona
             _medicalRecordController.EditMedicalRecord(_editMedicalRecordViewModel.ID, _editMedicalRecordViewModel.UCIN, _editMedicalRecordViewModel.Name, _editMedicalRecordViewModel.Surname, _editMedicalRecordViewModel.PhoneNumber, _editMedicalRecordViewModel.Mail, _editMedicalRecordViewModel.Adress, _editMedicalRecordViewModel.Gender, _editMedicalRecordViewModel.DateOfBirth, _editMedicalRecordViewModel.BloodType, _editMedicalRecordViewModel.Reports, _editMedicalRecordViewModel.Allergens, new ObservableCollection<HospitalMain.Model.Notification>());
 
@@ -50,7 +55,7 @@ namespace Secretary.Commands
             UpdateMedicalRecords();
 
             //zatvaranje prozora
-            _editMedicalRecord.Close();
+            //_editMedicalRecord.Close();
         }
 
         public override bool CanExecute(object? parameter)

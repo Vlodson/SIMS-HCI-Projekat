@@ -19,6 +19,7 @@ namespace Secretary.ViewModel
         private readonly CRUDAccountOptionsViewModel _cruDAccountOptionsViewModel;
 
         public ICommand EditCommand { get; }
+        public ICommand CancelCommand { get; }
 
         //ID
         private String _id;
@@ -115,14 +116,10 @@ namespace Secretary.ViewModel
             set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); }
         }
 
-        private Window _editAccount;
-
-        public EditAccountViewModel(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, Window editAccount)
+        public EditAccountViewModel(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, AccountsViewModel accountsViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
-            
-            _editAccount = editAccount;
 
             ID = cRUDAccountOptionsViewModel.PatientViewModel.ID;
             UCIN = cRUDAccountOptionsViewModel.PatientViewModel.UCIN;
@@ -138,7 +135,8 @@ namespace Secretary.ViewModel
             FillGenderTypeComboBoxData();
 
             //inicijalizacija komande i binding u xamlu
-            EditCommand = new EditAccountCommand(this, cRUDAccountOptionsViewModel, _patientController, _editAccount);
+            EditCommand = new EditAccountCommand(this, cRUDAccountOptionsViewModel, _patientController, accountsViewModel);
+            CancelCommand = new CancelAccountCommand(accountsViewModel);
         }
 
     }

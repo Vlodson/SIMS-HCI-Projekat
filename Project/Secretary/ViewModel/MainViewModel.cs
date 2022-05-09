@@ -38,7 +38,7 @@ namespace Secretary.ViewModel
 
         public MainViewModel(LogInViewModel logInViewModel)
         {
-            CurrentViewModel = new CRUDAppointmentsViewModel();
+            CurrentViewModel = new AccountsViewModel();
 
             Username = logInViewModel.Username;
 

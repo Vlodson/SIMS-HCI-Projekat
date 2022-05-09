@@ -17,7 +17,7 @@ namespace Secretary.View
     /// <summary>
     /// Interaction logic for EditMedicalRecord.xaml
     /// </summary>
-    public partial class EditMedicalRecord : Window
+    public partial class EditMedicalRecord
     {
         public EditMedicalRecord()
         {

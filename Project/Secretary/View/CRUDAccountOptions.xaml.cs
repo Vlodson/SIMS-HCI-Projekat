@@ -20,7 +20,7 @@ namespace Secretary
         public CRUDAccountOptions()
         {
             InitializeComponent();
-            this.DataContext = new CRUDAccountOptionsViewModel();
+            //this.DataContext = new CRUDAccountOptionsViewModel();
 
         }
 

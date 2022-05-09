@@ -55,7 +55,7 @@ namespace Secretary.ViewModel
             return true;
         }
 
-        public CRUDMedicalRecordViewModel()
+        public CRUDMedicalRecordViewModel(MedicalRecordsViewModel medicalRecordsViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _medicalRecordController = app.MedicalRecordController;
@@ -63,8 +63,8 @@ namespace Secretary.ViewModel
             _medicalRecords = new ObservableCollection<MedicalRecordViewModel>();
             DataGridCollection = CollectionViewSource.GetDefaultView(MedicalRecords);
 
-            AddMedicalRecordCommand = new GoToAddMedicalRecordCommand(this);
-            EditMedicalRecordCommand = new  GoToEditMedicalRecordCommand(this);
+            AddMedicalRecordCommand = new GoToAddMedicalRecordCommand(this, medicalRecordsViewModel);
+            EditMedicalRecordCommand = new  GoToEditMedicalRecordCommand(this, medicalRecordsViewModel);
             RemoveMedicalRecordCommand = new DeleteMedicalRecordCommand(this, _medicalRecordController);
 
             ObservableCollection<MedicalRecord> medicalRecordsFromBase = _medicalRecordController.GetAllMedicalRecords();
