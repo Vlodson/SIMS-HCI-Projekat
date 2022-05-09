@@ -77,14 +77,8 @@ namespace Doctor.View
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            string medicine = comboBoxMedicine.Text;
-            int duration = Int32.Parse(textBoxDuration.Text);
-            int perDay = Int32.Parse(textBoxPerDay.Text);
-            bool prescription = (bool)checkBoxPrescription.IsChecked;
-
-            Therapy therapy = new Therapy(selectedExam.Id, medicine, duration, perDay, prescription);
-            _therapyController.NewTherapy(therapy);
-            dataGridTherapy.ItemsSource = _therapyController.findById(selectedExam.Id);
+            AddMedicineToTherapy amtt = new AddMedicineToTherapy(this, selectedExam);
+            NavigationService.Navigate(amtt);
         }
 
         private void SaveReport_Click(object sender, RoutedEventArgs e)

@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:Doctor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="ResourceDictionaries/Dictionary.xaml"/>
+
     </Application.Resources>
 </Application>

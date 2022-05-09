@@ -20,6 +20,7 @@ namespace Model
         private String surname;
         private DateTime doB;
         private DoctorType type;
+        private int freeDaysLeft;
 
         
         //public Examination[] examination;
@@ -73,6 +74,22 @@ namespace Model
                 {
                     name = value;
                     OnPropertyChanged("Name");
+                }
+            }
+        }
+
+        public int FreeDaysLeft
+        {
+            get
+            {
+                return freeDaysLeft;
+            }
+            set
+            {
+                if (value != freeDaysLeft)
+                {
+                    freeDaysLeft = value;
+                    OnPropertyChanged("FreeDaysLeft");
                 }
             }
         }

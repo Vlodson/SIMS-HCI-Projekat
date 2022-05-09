@@ -5,31 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Doctor.View" 
       mc:Ignorable="d" 
-      d:DesignHeight="395" d:DesignWidth="452"
+      d:DesignHeight="692" d:DesignWidth="710"
       Title="Report">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Foreground="Black" Margin="89,0,34,216" FontSize="24" Grid.RowSpan="2">UNESI PODATKE O PREGLEDU</TextBlock>
+        <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="93" Canvas.Top="12" VerticalAlignment="Center" >UNESI PODATKE O PREGLEDU</TextBlock>
+        </Canvas>
         <Grid Grid.Row="1" Margin="0,41,0,151">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Foreground="Black" Margin="10,0,335,82" FontSize="15">Pacijent:</TextBlock>
-            <TextBlock Grid.Row="0" Foreground="Black" Margin="96,0,226,88" FontSize="15" Text="{Binding PatientBind}" ></TextBlock>
-            <TextBlock Foreground="Black" Margin="10,20,166,68" FontSize="15" >Datum i vreme pregleda:</TextBlock>
-            <TextBlock Grid.Row="0" Foreground="Black" Margin="204,20,56,68" FontSize="15" Text="{Binding DateBind}"></TextBlock>
+            <TextBlock Grid.Row="0" Foreground="Black" Margin="20,0,614,82" >Pacijent:</TextBlock>
+            <TextBlock Grid.Row="0" Foreground="Black" Margin="120,0,247,82" Text="{Binding PatientBind}" ></TextBlock>
+            <TextBlock Foreground="Black" Margin="20,39,455,48">Datum i vreme pregleda:</TextBlock>
+            <TextBlock Grid.Row="0" Foreground="Black" Margin="280,39,134,48" Text="{Binding DateBind}"></TextBlock>
         </Grid>
-        <TextBox Name="textBoxDescription" HorizontalAlignment="Left" Margin="10,84,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Unesi izvestaj sa pregleda..."  GotKeyboardFocus="TextBox_GotKeyboardFocus" VerticalAlignment="Top" Width="408" Height="83"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,180,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Terapija:" VerticalAlignment="Top" Height="18"/>
-        <DataGrid Name ="dataGridTherapy" ItemsSource="{Binding therapyBind, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="1" Margin="10,203,34,109" Grid.RowSpan="4">
+        <TextBox Name="textBoxDescription" HorizontalAlignment="Left" Margin="20,126,0,0" FontSize="22" Grid.Row="1" TextWrapping="Wrap" Text="Unesi izvestaj sa pregleda..."  GotKeyboardFocus="TextBox_GotKeyboardFocus" VerticalAlignment="Top" Width="628" Height="149"/>
+        <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Terapija:" VerticalAlignment="Top"/>
+        <DataGrid Name ="dataGridTherapy" ItemsSource="{Binding therapyBind, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="4" Margin="20,10,281,90">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Medicine}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje(dana)" Binding="{Binding Duration}"></DataGridTextColumn>
@@ -38,17 +40,8 @@
                 </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <ComboBox Name ="comboBoxMedicine" HorizontalAlignment="Left" Margin="21,74,0,0" Grid.Row="4" VerticalAlignment="Top" Width="90">
-            <ComboBoxItem>lek2</ComboBoxItem>
-            <ComboBoxItem>lek3</ComboBoxItem>
-            <ComboBoxItem>lek4</ComboBoxItem>
-        </ComboBox>
-        <TextBox Name ="textBoxDuration" PreviewTextInput="validate_PreviewTextInput" HorizontalAlignment="Left" Margin="135,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"/>
-        <TextBox Name ="textBoxPerDay" PreviewTextInput="validate_PreviewTextInput" HorizontalAlignment="Left" Margin="217,78,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="64"/>
-        <CheckBox Name ="checkBoxPrescription" Content="" HorizontalAlignment="Left" Margin="305,81,0,0" Grid.Row="4" VerticalAlignment="Top" Width="52"/>
-        <Button Name ="add" Content="Dodaj" HorizontalAlignment="Left" Margin="394,81,0,0" Grid.Row="4" VerticalAlignment="Top" Height="23" Width="48" Click="add_Click"/>
-        <Button Name ="SaveReport" Content="Prosledi" HorizontalAlignment="Left" Margin="378,117,0,0" Grid.Row="4" VerticalAlignment="Top" Width="64" Click="SaveReport_Click"/>
+        <Button Name ="add" Content="Dodaj lek" HorizontalAlignment="Left" Margin="434,10,0,0" Grid.Row="4" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Height="49" Width="148" Click="add_Click"/>
+        <Button Grid.Row="4" Name="SaveReport" Content="Prosledi" Template="{StaticResource BasicButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Click="SaveReport_Click" Height="42" Margin="0,220,0,0"/>
 
     </Grid>
 </Page>
