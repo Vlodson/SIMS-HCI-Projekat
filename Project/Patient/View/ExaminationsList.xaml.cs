@@ -74,6 +74,7 @@ namespace Patient.View
             DateTime today = DateTime.Now;
             ExaminationsForDate = new List<Examination>();
             DatesExaminations = new List<DateOnly>();
+            Calendar.SelectedDate = DateTime.Now;
             foreach(Examination exam in examinations)
             {
                 if(exam.Date.Date == today.Date)
@@ -105,7 +106,11 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             DateTime selected = (DateTime)Calendar.SelectedDate;
-            AddExamination addExamination = new AddExamination();
+            if (selected == null){
+                selected = DateTime.Now.AddDays(1);
+            }
+            AddExamination addExamination = new AddExamination(selected);
+            
             addExamination.ShowDialog();
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
@@ -136,6 +141,9 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
+            //Window.GetWindow(this).Content = new PatientMenu();
+            Calendar.SelectedDate = selected.AddDays(1);
+            Calendar.SelectedDate = selected;
         }
 
         private void EditExamination_Click(object sender, RoutedEventArgs e)
@@ -191,6 +199,8 @@ namespace Patient.View
             }
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
+            Calendar.SelectedDate = selectedInCalendar.AddDays(1);
+            Calendar.SelectedDate = selectedInCalendar;
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
@@ -247,8 +257,8 @@ namespace Patient.View
             dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             //Window.GetWindow(this).Content = new PatientMenu();
-            calendarButton_Loaded((CalendarDayButton)sender, (EventArgs)e);
-            
+            Calendar.SelectedDate = selectedInCalendar.AddDays(1);
+            Calendar.SelectedDate = selectedInCalendar;
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -312,6 +322,7 @@ namespace Patient.View
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
         }
+
 
 
     }

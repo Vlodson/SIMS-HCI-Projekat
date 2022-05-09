@@ -74,7 +74,7 @@
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
         <!--ItemsSource="{Binding Path= Examinations, Mode=TwoWay}"-->
-        <DataGrid x:Name="dataGridExaminations"  IsReadOnly="True" SelectionMode="Single" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,69" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dataGridExaminations" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,69" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -108,7 +108,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>
+        <!--<Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>-->
 
 
 
@@ -126,7 +126,6 @@
             </Button.Resources>
         </Button>
         <Calendar x:Name="Calendar" Style="{StaticResource StyleCalendar}" Width="900" Height="400" Grid.ColumnSpan="2" Margin="23,58,36,195" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate" >
-
         </Calendar>
         <Rectangle HorizontalAlignment="Left" Height="63"  VerticalAlignment="Top" Width="958" Grid.ColumnSpan="2" Margin="-6,10,0,0">
             <Rectangle.Fill>
@@ -138,5 +137,6 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Zakazani termini" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" x:Name="Message" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="64,589,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

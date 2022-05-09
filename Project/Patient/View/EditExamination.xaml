@@ -18,7 +18,7 @@
             <SolidColorBrush Color="#66b2b2"/>
         </Grid.Background>
         <Label Content="Izmena termina" FontSize="32" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
-        <DataGrid x:Name="ExamsAvailable"  AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="270" Margin="338,87,0,0" VerticalAlignment="Top" Width="446">
+        <DataGrid x:Name="ExamsAvailable" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="270" Margin="338,87,0,0" VerticalAlignment="Top" Width="446">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"/>
             </DataGrid.Columns>
