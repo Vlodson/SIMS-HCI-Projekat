@@ -5,7 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Doctor.View"
         mc:Ignorable="d"
-        Title="DoctorNavBar" Height="450" Width="688" Closed="Window_Closed">
+        Title="DoctorNavBar" ResizeMode="NoResize" Height="768" Width="1024" Closed="Window_Closed">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="FontSize" Value="19"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Height" Value="90"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -16,8 +25,8 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="210" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="222" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
@@ -28,9 +37,14 @@
 
                     <Grid Grid.Row="1">
 
-                        <Grid>
+                        <Grid Margin="0,0,-70,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="241*"/>
+                                <ColumnDefinition Width="9*"/>
+                            </Grid.ColumnDefinitions>
 
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="55"/>
                                 <RowDefinition Height="55"/>
                                 <RowDefinition Height="55"/>
                                 <RowDefinition Height="55"/>
@@ -41,19 +55,61 @@
                             </Grid.RowDefinitions>
 
 
-                            <Button Content="Raspored" Grid.Row="0" Click="ButtonSchedule" />
+                            <Button Click="ButtonSchedule" Grid.Row="0" Height="90" VerticalAlignment="Top" Margin="0,-22,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                                <DockPanel Height="56" Width="240">
+                                    <Image Source="/View/schedule.png" Height="41" Width="52"/>
+                                    <TextBlock Height="30" HorizontalAlignment="Center"> Raspored</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Rukovanje pregledima" Grid.Row="1" Click="ButtonExaminations"/>
+                            <Button Grid.Row="1" Click="ButtonExaminations" Margin="0,13,0,7" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="250">
+                                    <Image Source="/View/exams.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Pregledi</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Podnosenje zahteva" Grid.Row="2" Click="ButtonRequests"/>
+                            <Button Grid.Row="2" Click="ButtonRequests" Margin="0,48,0,27" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="250">
+                                    <Image Source="/View/requests.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Podnosenje zahteva</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Kartoni pacijenata" Grid.Row="3" Click="ButtonPatients"/>
+                            <Button Grid.Row="4" Click="ButtonPatients" Margin="0,28,0,47" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="240">
+                                    <Image Source="/View/patients.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Kartoni pacijenta</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Pomoc" Grid.Row="4"/>
+                            <Button Grid.Row="6" Click="ButtonVerification" Margin="0,7,0,13" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+                                <DockPanel Height="56" Width="250">
+                                    <Image Source="/View/verification.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Verifikovanje lekova</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Obavestenja" Grid.Row="5" Click="ButtonNotifications"/>
+                            <Button Grid.Row="7" Margin="0,42,0,-77" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="240">
+                                    <Image Source="/View/help.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Pomoc</TextBlock>
+                                </DockPanel>
+                            </Button>
 
-                            <Button Content="Odjavi se" Grid.Row="6" Click="ButtonLogOut"/>
+                            <Button Grid.Row="7" Click="ButtonNotifications" Margin="0,133,0,-168" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="240">
+                                    <Image Source="/View/notification.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Obavestenja</TextBlock>
+                                </DockPanel>
+                            </Button>
+
+                            <Button Grid.Row="7" Click="ButtonLogOut" Margin="0,223,0,-258" Grid.ColumnSpan="2">
+                                <DockPanel Height="56" Width="240">
+                                    <Image Source="/View/logOut.png" Height="47" Width="55"/>
+                                    <TextBlock Height="28" HorizontalAlignment="Center"> Odjavi se</TextBlock>
+                                </DockPanel>
+                            </Button>
 
 
                         </Grid>
@@ -61,15 +117,15 @@
                 </Grid>
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0,-19,0,0">
                 <Grid Margin="0,0,26,10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid Grid.Row="1" Background="Azure">
+                    <Grid Margin="66,0,0,10">
 
-                        <Frame x:Name="Main" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" Width="452"/>
+                        <Frame x:Name="Main" NavigationUIVisibility="Hidden" HorizontalAlignment="Center" Width="710" Margin="0,0,0,10" Background="#FFD8ECEC"/>
 
                     </Grid>
 
