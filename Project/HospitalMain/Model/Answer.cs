@@ -19,7 +19,7 @@ namespace HospitalMain.Model
         }
 
         private String idDoctor;
-        private List<String> grades;
+        private List<int> grades;
 
         public String IdDoctor
         {
@@ -33,20 +33,20 @@ namespace HospitalMain.Model
                 OnPropertyChanged("IdDoctor");
             }
         }
-        public List<String> Grades
+        public List<int> Grades
         {
             get
             {
-                return Grades;
+                return grades;
             }
             set
             {
-                Grades = value;
+                grades = value;
                 OnPropertyChanged("Grades");
             }
         }
 
-        public Answer(string idDoctor, List<string> grades)
+        public Answer(string idDoctor, List<int> grades)
         {
             this.idDoctor = idDoctor;
             this.grades = grades;

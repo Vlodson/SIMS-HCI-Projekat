@@ -31,6 +31,7 @@ namespace Patient
 
         public ExaminationRepo ExaminationRepo { get; set; }
         public DoctorRepo DoctorRepo { get; set; }
+        public PatientRepo PatientRepo { get; set; }
         public QuestionnaireRepo QuestionnaireRepo { get; set; }
         public RoomController RoomController { get; set; }
         public MedicalRecordController MedicalRecordController { get; set; }
@@ -49,6 +50,7 @@ namespace Patient
             ExaminationRepo examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             ExaminationRepo = examinationRepo;
             PatientRepo patientRepository = new PatientRepo(GlobalPaths.PatientsDBPath);
+            PatientRepo = patientRepository;
             //DoctorRepo doctorRepository = new DoctorRepo("...", doctors);
             EquipmentRepo equipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo roomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, equipmentRepo);
@@ -60,7 +62,7 @@ namespace Patient
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
 
-            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo);
+            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo);
             RoomService roomService = new RoomService(roomRepo);

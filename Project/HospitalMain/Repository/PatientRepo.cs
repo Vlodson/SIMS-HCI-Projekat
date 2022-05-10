@@ -20,15 +20,15 @@ namespace Repository
 
             this.DBPath = dbPath;
             this.Patients = new ObservableCollection<Patient>();
-            //Guest guest = new Guest("1");
+            Guest guest = new Guest("1");
 
-            //Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muški, new DateTime(1994, 05, 06), "1");
-            //Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muški, new DateTime(1985, 08, 08), "2");
-            //Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muški, new DateTime(2001, 11, 11), "3");
+            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muški, new DateTime(1994, 05, 06), "1", new List<Answer>());
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muški, new DateTime(1985, 08, 08), "2", new List<Answer>());
+            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muški, new DateTime(2001, 11, 11), "3", new List<Answer>());
 
-            //this.Patients.Add(p1);
-            //this.Patients.Add(p2);
-            //this.Patients.Add(p3);
+            this.Patients.Add(p1);
+            this.Patients.Add(p2);
+            this.Patients.Add(p3);
 
             if (File.Exists(dbPath))
                 LoadPatient();
@@ -147,6 +147,31 @@ namespace Repository
             return true;
       }
       
+      public Answer ContainsAnswer(String idPatient, String idAnswer)
+      {
+            foreach(Answer answer in GetPatient(idPatient).Answers)
+            {
+                if (idAnswer.Equals(answer.IdDoctor))
+                {
+                    return answer;
+                }
+            }
+            return null;
+      }
+      public void AddAnswer(String idPatient, Answer answer)
+      {
+            Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
+            if (existing == null)
+            {
+                GetPatient(idPatient).Answers.Add(answer);
+            }
+            else
+            {
+                GetPatient(idPatient).Answers.Remove(existing);
+                GetPatient(idPatient).Answers.Add(answer);
+            }
+            SavePatient();
+      }
       //public PatientAccountService patientAccountService;
    
    }

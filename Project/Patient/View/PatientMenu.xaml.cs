@@ -2,6 +2,7 @@
 using HospitalMain.Model;
 using HospitalMain.Repository;
 using Model;
+using Patient.Views;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -163,6 +164,12 @@ namespace Patient.View
             CalendarDayButton button = (CalendarDayButton)sender;
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
+        }
+
+        private void GradingsClick(object sender, RoutedEventArgs e)
+        {
+            //Menu.Content = new Questionnaires();
+            Menu.Content = new QuestionnairePage();
         }
     }
 }

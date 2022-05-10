@@ -119,5 +119,19 @@ namespace Controller
             return patientService.GetExamByTime(dateTime);
         }
 
+        public Questionnaire GetHospitalQuestionnaire()
+        {
+            return patientService.GetHospitalQuestionnaire();
+        }
+
+        public Questionnaire GetDoctorQuestionnaire()
+        {
+            return patientService.GetDoctorQuestionnaire();
+        }
+        public void AddAnswer(String patientId, Answer answer)
+        {
+            patientService.AddAnswer(patientId, answer);
+        }
+
     }
 }

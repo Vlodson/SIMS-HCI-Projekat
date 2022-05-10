@@ -1,4 +1,6 @@
 using HospitalMain.Enums;
+using HospitalMain.Model;
+using HospitalMain.Repository;
 using Model;
 using Repository;
 using System;
@@ -14,13 +16,15 @@ namespace Service
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
+        private readonly QuestionnaireRepo _questionaryRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
+            _questionaryRepo = questionnaireRepo;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
@@ -152,6 +156,8 @@ namespace Service
             return _examinationRepo.NewExamination(examination);
         }
 
+        
+
         public void RemoveExam(Examination examination)
         {
              _examinationRepo.DeleteExamination(examination.Id);
@@ -251,5 +257,19 @@ namespace Service
             return _examinationRepo.getExamByTime(dateTime);
         }
 
+        public Questionnaire GetHospitalQuestionnaire()
+        {
+            return _questionaryRepo.GetHospitalQuestionnaire();
+        }
+
+        public Questionnaire GetDoctorQuestionnaire()
+        {
+            return _questionaryRepo.GetDoctorQuestionnaire();
+        }
+
+        public void AddAnswer(String idPatient, Answer answer)
+        {
+            _patientRepo.AddAnswer(idPatient, answer);
+        }
     }
 }

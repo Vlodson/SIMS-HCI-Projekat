@@ -1,0 +1,93 @@
+﻿<Page x:Class="Patient.View.QuestionnairePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Patient.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="653" d:DesignWidth="959"
+      Title="QuestionnairePage">
+
+    <Grid Background="White">
+        <Label Content="Ocena bolnice" FontSize="32" HorizontalAlignment="Left" Margin="33,50,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ocena lekara" FontSize="32" HorizontalAlignment="Left" Margin="447,50,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="bolnica1" Content="Label" HorizontalAlignment="Left" Margin="0,139,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="bolnica2" Content="Label" HorizontalAlignment="Left" Margin="0,193,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="bolnica3" Content="Label" HorizontalAlignment="Left" Margin="0,249,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="bolnica4" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Label x:Name="bolnica5" Content="Label" HorizontalAlignment="Left" Margin="0,360,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="hospital11" GroupName="hospital1" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital12"  GroupName="hospital1" Content="2" HorizontalAlignment="Left" Margin="188,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital13"  GroupName="hospital1" Content="3" HorizontalAlignment="Left" Margin="218,140,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital14"  GroupName="hospital1" Content="4" HorizontalAlignment="Left" Margin="248,140,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital15"  GroupName="hospital1" Content="5" HorizontalAlignment="Left" Margin="278,141,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="hospital21" GroupName="hospital2" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,195,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital22"  GroupName="hospital2" Content="2" HorizontalAlignment="Left" Margin="188,195,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital23" GroupName="hospital2" Content="3" HorizontalAlignment="Left" Margin="218,194,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital24" GroupName="hospital2" Content="4" HorizontalAlignment="Left" Margin="248,194,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital25" GroupName="hospital2" Content="5" HorizontalAlignment="Left" Margin="278,195,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="hospital31" GroupName="hospital3" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,246,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital32"  GroupName="hospital3" Content="2" HorizontalAlignment="Left" Margin="188,246,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital33" GroupName="hospital3" Content="3" HorizontalAlignment="Left" Margin="218,245,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital34" GroupName="hospital3" Content="4" HorizontalAlignment="Left" Margin="248,245,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital35" GroupName="hospital3" Content="5" HorizontalAlignment="Left" Margin="278,246,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="hospital41" GroupName="hospital4" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,310,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital42"  GroupName="hospital4" Content="2" HorizontalAlignment="Left" Margin="188,310,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital43"  GroupName="hospital4" Content="3" HorizontalAlignment="Left" Margin="218,309,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital44"  GroupName="hospital4" Content="4" HorizontalAlignment="Left" Margin="248,309,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital45"  GroupName="hospital4" Content="5" HorizontalAlignment="Left" Margin="278,310,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="hospital51" GroupName="hospital5" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,362,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital52"  GroupName="hospital5" Content="2" HorizontalAlignment="Left" Margin="188,362,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital53"  GroupName="hospital5" Content="3" HorizontalAlignment="Left" Margin="218,360,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital54" GroupName="hospital5" Content="4" HorizontalAlignment="Left" Margin="248,360,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital55" GroupName="hospital5" Content="5" HorizontalAlignment="Left" Margin="278,362,0,0" VerticalAlignment="Top"/>
+        <Button Content="Predaj" HorizontalAlignment="Left" Margin="264,408,0,0" VerticalAlignment="Top" Click="Add_Answers"/>
+
+
+        <Label x:Name="doktor1" Content="Label" HorizontalAlignment="Center" Margin="0,139,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="doktor2" Content="Label" HorizontalAlignment="Center" Margin="0,193,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="doktor3" Content="Label" HorizontalAlignment="Center" Margin="0,249,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="doktor4" Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Label x:Name="doktor5" Content="Label" HorizontalAlignment="Center" Margin="0,360,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="doctor11" GroupName="hospital1" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="650,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor12"  GroupName="hospital1" Content="2" HorizontalAlignment="Left" Margin="680,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor13"  GroupName="hospital1" Content="3" HorizontalAlignment="Left" Margin="710,140,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor14"  GroupName="hospital1" Content="4" HorizontalAlignment="Left" Margin="740,140,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor15"  GroupName="hospital1" Content="5" HorizontalAlignment="Left" Margin="770,141,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="doctor21" GroupName="hospital2" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="650,195,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor22"  GroupName="hospital2" Content="2" HorizontalAlignment="Left" Margin="680,195,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor23" GroupName="hospital2" Content="3" HorizontalAlignment="Left" Margin="710,194,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor24" GroupName="hospital2" Content="4" HorizontalAlignment="Left" Margin="740,194,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor25" GroupName="hospital2" Content="5" HorizontalAlignment="Left" Margin="770,195,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="doctor31" GroupName="hospital3" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="650,246,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor32"  GroupName="hospital3" Content="2" HorizontalAlignment="Left" Margin="680,246,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor33" GroupName="hospital3" Content="3" HorizontalAlignment="Left" Margin="710,245,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor34" GroupName="hospital3" Content="4" HorizontalAlignment="Left" Margin="740,245,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hoctor35" GroupName="hospital3" Content="5" HorizontalAlignment="Left" Margin="770,246,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="doctor41" GroupName="hospital4" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="650,310,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor42"  GroupName="hospital4" Content="2" HorizontalAlignment="Left" Margin="680,310,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor43"  GroupName="hospital4" Content="3" HorizontalAlignment="Left" Margin="710,309,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor44"  GroupName="hospital4" Content="4" HorizontalAlignment="Left" Margin="740,309,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor45"  GroupName="hospital4" Content="5" HorizontalAlignment="Left" Margin="770,310,0,0" VerticalAlignment="Top"/>
+
+        <RadioButton x:Name="doctor51" GroupName="hospital5" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="650,362,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor52"  GroupName="hospital5" Content="2" HorizontalAlignment="Left" Margin="680,362,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor53"  GroupName="hospital5" Content="3" HorizontalAlignment="Left" Margin="710,360,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor54" GroupName="hospital5" Content="4" HorizontalAlignment="Left" Margin="740,360,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="doctor55" GroupName="hospital5" Content="5" HorizontalAlignment="Left" Margin="770,362,0,0" VerticalAlignment="Top"/>
+        <Button Content="Predaj" HorizontalAlignment="Left" Margin="753,403,0,0" VerticalAlignment="Top" Click="AddDoctorAnswer"/>
+
+
+
+
+    </Grid>
+</Page>
