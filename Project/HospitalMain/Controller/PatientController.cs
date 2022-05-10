@@ -133,5 +133,9 @@ namespace Controller
             patientService.AddAnswer(patientId, answer);
         }
 
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            return patientService.GetPatientsDoctors(patientId);
+        }
     }
 }

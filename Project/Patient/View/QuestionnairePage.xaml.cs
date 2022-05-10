@@ -1,5 +1,6 @@
 ﻿using Controller;
 using HospitalMain.Model;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,20 @@ namespace Patient.View
     {
         public List<String> HospitalQuestionnary { get; set; }
         public List<String> DoctorQuestionnary { get; set; }
+
+        public List<Doctor> DoctorsAvailable { get; set; }
         public PatientController _patientController;
+        public DoctorController _doctorController;
 
         public QuestionnairePage()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _patientController = app.PatientController;
+            _doctorController = app.DoctorController;
+
             HospitalQuestionnary = _patientController.GetHospitalQuestionnaire().Questions;
+
             bolnica1.Content = HospitalQuestionnary[0];
             bolnica2.Content = HospitalQuestionnary[1];
             bolnica3.Content = HospitalQuestionnary[2];
@@ -43,7 +50,19 @@ namespace Patient.View
             doktor2.Content = DoctorQuestionnary[1];
             doktor3.Content = DoctorQuestionnary[2];
             doktor4.Content = DoctorQuestionnary[3];
-            doktor5.Content = DoctorQuestionnary[4];
+
+            DoctorsAvailable = new List<Doctor>();
+            foreach(String idDoctor in _patientController.GetPatientsDoctors(Login.loggedId))
+            {
+                DoctorsAvailable.Add(_doctorController.GetDoctor(idDoctor));
+            }
+
+            List<String> names = new List<String>();
+            foreach(Doctor doctor in DoctorsAvailable)
+            {
+                names.Add(doctor.Name + " " + doctor.Surname);
+            }
+            Doctors.ItemsSource = names;
         }
 
         private void Add_Answers(object sender, RoutedEventArgs e)
@@ -157,7 +176,95 @@ namespace Patient.View
 
         private void AddDoctorAnswer(object sender, RoutedEventArgs e)
         {
+            List<int> answers = new List<int>();
+            if (doctor11.IsChecked == true)
+            {
+                answers.Add(1);
+            }
+            else if (doctor12.IsChecked == true)
+            {
+                answers.Add(2);
+            }
+            else if (doctor13.IsChecked == true)
+            {
+                answers.Add(3);
+            }
+            else if (doctor14.IsChecked == true)
+            {
+                answers.Add(4);
+            }
+            else
+            {
+                answers.Add(5);
+            }
 
+            if (doctor21.IsChecked == true)
+            {
+                answers.Add(1);
+            }
+            else if (doctor22.IsChecked == true)
+            {
+                answers.Add(2);
+            }
+            else if (doctor23.IsChecked == true)
+            {
+                answers.Add(3);
+            }
+            else if (doctor24.IsChecked == true)
+            {
+                answers.Add(4);
+            }
+            else
+            {
+                answers.Add(5);
+            }
+
+            if (doctor31.IsChecked == true)
+            {
+                answers.Add(1);
+            }
+            else if (doctor32.IsChecked == true)
+            {
+                answers.Add(2);
+            }
+            else if (doctor33.IsChecked == true)
+            {
+                answers.Add(3);
+            }
+            else if (doctor34.IsChecked == true)
+            {
+                answers.Add(4);
+            }
+            else
+            {
+                answers.Add(5);
+            }
+
+            if (doctor41.IsChecked == true)
+            {
+                answers.Add(1);
+            }
+            else if (doctor42.IsChecked == true)
+            {
+                answers.Add(2);
+            }
+            else if (doctor43.IsChecked == true)
+            {
+                answers.Add(3);
+            }
+            else if (doctor44.IsChecked == true)
+            {
+                answers.Add(4);
+            }
+            else
+            {
+                answers.Add(5);
+            }
+
+            int index = Doctors.SelectedIndex;
+            Doctor doctor = DoctorsAvailable[index];
+            Answer doctorAnswer = new Answer(doctor.Id, answers);
+            _patientController.AddAnswer(Login.loggedId, doctorAnswer);
         }
     }
 }

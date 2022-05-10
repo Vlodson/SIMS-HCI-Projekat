@@ -271,5 +271,10 @@ namespace Service
         {
             _patientRepo.AddAnswer(idPatient, answer);
         }
+
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            return _examinationRepo.GetPatientsDoctors(patientId);
+        }
     }
 }

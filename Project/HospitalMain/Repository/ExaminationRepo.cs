@@ -346,7 +346,32 @@ namespace Repository
             return false;
         }
 
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            List<String> doctors = new List<String>();
+            foreach(Examination examination in ExaminationsForPatient(patientId))
+            {
+                if(!DoctorExists(examination.DoctorId, doctors) && (examination.Date.CompareTo(DateTime.Now) < 0))
+                {
+                    doctors.Add(examination.DoctorId);
+                } 
+            }
+            return doctors;
+        }
 
+        public bool DoctorExists(String doctorId, List<String> doctors)
+        {
+            bool exists = false;
+            foreach (String id in doctors)
+            {
+                if (id.Equals(doctorId))
+                {
+                    exists = true;
+                    break;
+                }
+            }
+            return exists;
+        }
 
     }
 }
