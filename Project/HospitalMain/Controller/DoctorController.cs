@@ -18,6 +18,16 @@ namespace Controller
             _doctorService = doctorService;
         }
 
+        public bool AddExaminationToDoctor(String doctorID, Examination exam)
+        {
+            return _doctorService.AddExaminationToDoctor(doctorID, exam);
+        }
+
+        public void EditDoctorsExamination(String doctorID, Examination newExam)
+        {
+            _doctorService.EditDoctorsExamination(doctorID, newExam);
+        }
+
         public ObservableCollection<Doctor> GetAll()
         {
             return _doctorService.GetDoctors();

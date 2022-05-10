@@ -26,6 +26,16 @@ namespace Service
             throw new NotImplementedException();
         }
 
+        public bool AddExaminationToDoctor(String doctorId, Examination examination)
+        {
+            return _doctorRepo.AddExaminationToDoctor(doctorId, examination);
+        }
+
+        public void EditDoctorsExamination(String doctorID, Examination newExamination)
+        {
+            _doctorRepo.EditDoctorsExamination(doctorID, newExamination);
+        }
+
         public void CreateExam(Examination exam)
         {
             _examinationRepo.NewExamination(exam);
@@ -55,6 +65,21 @@ namespace Service
         {
             return _doctorRepo.GetDoctor(id);
         }
+
+        //public ObservableCollection<Examination> GetDox(DateTime dateTime, DoctorType doctorType)
+        //{
+        //    ObservableCollection<Doctor> listOfDoctors = _doctorRepo.GetDoctorsByType(doctorType);
+
+        //    bool flag = false;
+
+        //    foreach(Doctor doctor in listOfDoctors)
+        //    {
+        //        foreach(Examination examinationofDoctor in doctor.Examinations)
+        //        {
+
+        //        }
+        //    }
+        //}
 
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {

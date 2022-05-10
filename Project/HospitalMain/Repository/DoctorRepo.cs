@@ -50,6 +50,21 @@ namespace Repository
             return doctorList;
         }
 
+        public ObservableCollection<Doctor> GetDoctorsByType(DoctorType doctorType)
+        {
+            ObservableCollection<Doctor> listOfDoctors = new ObservableCollection<Doctor>();
+
+            foreach(Doctor doctor in this.doctorList)
+            {
+                if(doctor.Type == doctorType)
+                {
+                    listOfDoctors.Add(doctor);
+                }
+            }
+
+            return listOfDoctors;
+        }
+
         public Doctor GetDoctor(string id)
         {
             foreach(Doctor doctor in this.doctorList)
@@ -62,6 +77,43 @@ namespace Repository
             return null;
         }
 
+        public bool AddExaminationToDoctor(String doctorID, Examination examination)
+        {
+            foreach(Doctor doctor in this.doctorList)
+            {
+                if (doctorID.Equals(doctor.Id))
+                {
+                    doctor.Examinations.Add(examination);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void EditDoctorsExamination(String doctorID, Examination newExamination)
+        {
+            foreach (Doctor doctor in this.doctorList)
+            {
+                if (doctorID.Equals(doctor.Id))
+                {
+                    foreach(Examination exam in doctor.Examinations)
+                    {
+                        if (exam.Id.Equals(newExamination.Id))
+                        {
+                            exam.Id = newExamination.Id;
+                            exam.ExamRoomId = newExamination.ExamRoomId;
+                            exam.Duration = newExamination.Duration;
+                            exam.Date = newExamination.Date;
+                            exam.PatientId = newExamination.PatientId;
+                            exam.EType = newExamination.EType;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
         public bool LoadDoctor()
         {
 
@@ -70,6 +122,8 @@ namespace Repository
 
             return true;
         }
+
+
 
         public bool SaveDoctor()
         {

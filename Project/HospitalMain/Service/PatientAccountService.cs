@@ -25,8 +25,13 @@ namespace Service
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
-            Guest guest = new Guest(id);
-            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID));
+            //Guest guest = new Guest(id);
+            return patientRepo.NewPatient(new Patient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false));
+      }
+
+      public bool CreateGuest(String id, String name, String surname, Gender gender)
+      {
+            return patientRepo.NewPatient(new Patient(id, "", name, surname, "", "", "", gender, new DateTime(), "", true));
       }
       
       public bool RemovePatient(String patientId)
@@ -37,7 +42,7 @@ namespace Service
       public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID)
       {
             //Guest guest = new Guest(patientId);
-            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID));
+            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID, false));
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -52,8 +57,8 @@ namespace Service
       
       public bool UpgradeGuest(String guestId, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
-            Guest guest = new Guest("guestID");
-            Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID);
+            //Guest guest = new Guest("guestID");
+            Patient patient = new Patient(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false);
             return patientRepo.NewPatient(patient);
       }
    

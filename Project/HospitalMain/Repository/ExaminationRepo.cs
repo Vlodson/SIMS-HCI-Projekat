@@ -25,8 +25,8 @@ namespace Repository
             examinationList.Add(exam1);
             examinationList.Add(exam2);*/
 
-            //Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 20, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
-            //Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 50, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
+            //Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
+            //Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 30, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
             //Examination exam3 = new Examination("14", new DateTime(2022, 6, 6, 11, 00, 00), "3", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d11");
 
             //this.examinationList.Add(exam1);

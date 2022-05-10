@@ -28,13 +28,14 @@ namespace Model
         private Gender gender;
         private DateTime doB;
         private String medicalRecordID;
+        private bool isGuest;
 
         //public Patient(Guest guest) : base(guest.ID)
         //{
 
         //}
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, bool isGuest)
         {
             this.id = id;
             this.ucin = ucin;
@@ -46,6 +47,7 @@ namespace Model
             this.gender = gender;
             this.doB = doB;
             this.medicalRecordID = medicalRecordID;
+            this.isGuest = isGuest;
         }
 
         public Patient()
@@ -84,6 +86,19 @@ namespace Model
                 }
             }
 
+        }
+
+        public bool IsGuest
+        {
+            get { return isGuest; }
+            set
+            {
+                if(value != isGuest)
+                {
+                    isGuest = value;
+                    OnPropertyChanged("IsGuest");
+                }
+            }
         }
 
         public String MedicalRecordID

@@ -132,7 +132,7 @@ namespace Secretary.ViewModel
             FillExamTypeComboBoxData();
 
             //this treba kao param
-            AddCommand = new AddAppointmentCommand(this, cRUDAppointmentsViewModel, examController, _addApointment);
+            AddCommand = new AddAppointmentCommand(this, cRUDAppointmentsViewModel, examController, _addApointment, doctorController);
         }
     }
 }

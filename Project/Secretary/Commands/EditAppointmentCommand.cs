@@ -17,14 +17,16 @@ namespace Secretary.Commands
         private readonly CRUDAppointmentsViewModel _crudAppointmentsViewModel;
         private readonly ExamController _examController;
         private readonly EditAppointmentViewModel _editAppointmentViewModel;
+        private readonly DoctorController _doctorController;
         private Window _editApointment;
 
-        public EditAppointmentCommand(EditAppointmentViewModel editAppointmentViewModel, CRUDAppointmentsViewModel cRUDAppointmentsViewModel,ExamController examController, Window editAppointment)
+        public EditAppointmentCommand(EditAppointmentViewModel editAppointmentViewModel, CRUDAppointmentsViewModel cRUDAppointmentsViewModel,ExamController examController, Window editAppointment, DoctorController doctorController)
         {
             _crudAppointmentsViewModel = cRUDAppointmentsViewModel;
             _editAppointmentViewModel = editAppointmentViewModel;
             _examController = examController;
             _editApointment = editAppointment;
+            _doctorController = doctorController;
 
             _editAppointmentViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -37,7 +39,8 @@ namespace Secretary.Commands
             Examination newExamination = new Examination(_editAppointmentViewModel.RoomID, _editAppointmentViewModel.Date, _crudAppointmentsViewModel.ExaminationViewModel.ID, _crudAppointmentsViewModel.ExaminationViewModel.Duration, _editAppointmentViewModel.ExaminationTypeEnum, _editAppointmentViewModel.PatientID, _editAppointmentViewModel.Doctor.Id);
 
             _examController.EditExam(_editAppointmentViewModel.ExamID ,newExamination);
-            
+            _doctorController.EditDoctorsExamination(_editAppointmentViewModel.Doctor.Id ,newExamination);
+
             //update liste pregleda
             UpdateExaminations();
 
