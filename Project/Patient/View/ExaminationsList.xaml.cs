@@ -112,11 +112,20 @@ namespace Patient.View
                 selected = DateTime.Now.AddDays(1);
             }
 
-            if (_patientController.CheckStatus(Login.loggedId))
+            if (_patientController.CheckStatusCancelled(Login.loggedId))
             {
-                Message.Visibility = Visibility.Hidden;
-                AddExamination addExamination = new AddExamination(selected);
-                addExamination.ShowDialog();
+                if (_patientController.CheckStatusAdded(Login.loggedId))
+                {
+                    Message.Visibility = Visibility.Hidden;
+                    AddExamination addExamination = new AddExamination(selected);
+                    addExamination.ShowDialog();
+                }
+                else
+                {
+                    Message.Content = "Blokirano je zakazivanje";
+                    Message.Visibility = Visibility.Visible;
+                }
+                
             }
             else
             {
@@ -164,7 +173,7 @@ namespace Patient.View
             DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
-                if (_patientController.CheckStatus(Login.loggedId))
+                if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
@@ -230,7 +239,7 @@ namespace Patient.View
             DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
-                if (_patientController.CheckStatus(Login.loggedId))
+                if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {

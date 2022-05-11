@@ -153,6 +153,8 @@ namespace Service
                 }
             }
             examination.ExamRoomId = getRoom.Id;
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberNewExams += 1;
             return _examinationRepo.NewExamination(examination);
         }
 
@@ -219,6 +221,7 @@ namespace Service
             Examination examination = _examinationRepo.GetExaminationById(examId);
             examination.Date = newDate;
             examination.ExamRoomId = getRoom.Id;
+            _patientRepo.GetPatient(examination.PatientId).NumberCanceling += 1;
             _examinationRepo.SetExamination(examId, examination);
         }
 
@@ -280,9 +283,14 @@ namespace Service
             return _examinationRepo.GetPatientsDoctors(patientId);
         }
 
-        public bool CheckStatus(String id)
+        public bool CheckStatusCancelled(String id)
         {
-            return _patientRepo.CheckStatus(id);
+            return _patientRepo.CheckStatusCancelled(id);
+        }
+
+        public bool CheckStatusAdded(String id)
+        {
+            return _patientRepo.CheckStatusAdded(id);
         }
     }
 }

@@ -31,14 +31,15 @@ namespace Model
         private String medicalRecordID;
         private List<Answer> answers;
         private String currentMonth;
-        int numberCanceling;
+        private int numberCanceling;
+        private int numberNewExams;
 
         //public Patient(Guest guest) : base(guest.ID)
         //{
 
         //}
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling, int numberNewExams)
         {
             this.id = id;
             this.ucin = ucin;
@@ -53,6 +54,7 @@ namespace Model
             this.answers = answers;
             this.currentMonth = currentMonth;
             this.numberCanceling = numberCanceling;
+            this.numberNewExams = numberNewExams;
         }
 
         public Patient()
@@ -237,6 +239,19 @@ namespace Model
             {
                 numberCanceling = value;
                 OnPropertyChanged("NumberCanceling");
+            }
+        }
+
+        public int NumberNewExams
+        {
+            get
+            {
+                return numberNewExams;
+            }
+            set
+            {
+                numberNewExams = value;
+                OnPropertyChanged("NumberNewExams");
             }
         }
         
