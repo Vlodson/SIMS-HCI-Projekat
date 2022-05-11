@@ -17,22 +17,14 @@ namespace Secretary.View
     /// <summary>
     /// Interaction logic for CRUDMedicalRecord.xaml
     /// </summary>
-    public partial class CRUDMedicalRecord : Window
+    public partial class CRUDMedicalRecord
     {
-        private MedicalRecordRepo medicalRecordRepo;
 
         public CRUDMedicalRecord()
         {
             InitializeComponent();
-            this.DataContext = new CRUDMedicalRecordViewModel();
-
-            App app = Application.Current as App;
-            medicalRecordRepo = app.MedicalRecordRepo;         
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            medicalRecordRepo.SaveMedicalRecord();
+            //this.DataContext = new CRUDMedicalRecordViewModel();
+        
         }
 
     }

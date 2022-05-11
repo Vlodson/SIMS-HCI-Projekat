@@ -29,9 +29,9 @@ namespace Patient.View
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             DateTime selected = (DateTime)value;
-            if (selected.CompareTo(DateTime.Now.AddDays(7)) > 0)
+            if (selected.CompareTo(DateTime.Now.AddDays(10)) > 0)
             {
-                return new ValidationResult(false, "Ne mozete zakazati vise od sedam dana unapred");
+                return new ValidationResult(false, "Ne mozete zakazati vise od deset dana unapred");
             }
             else if(selected.CompareTo(AddExamination.startDate) < 0)
             {

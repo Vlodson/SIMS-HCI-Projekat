@@ -108,7 +108,7 @@ namespace Patient.View
             }
             return builder.ToString();
         }
-        public AddExamination()
+        public AddExamination(DateTime sDate)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -121,10 +121,12 @@ namespace Patient.View
             
             DoctorsObs = new ObservableCollection<Doctor>();
             doctorTypes = new List<string>();
-            StartDate = DateTime.Now.AddDays(1);
-            EndDate = DateTime.Now.AddDays(7);
+            //StartDate = DateTime.Now.AddDays(1);
+            StartDate = sDate;
+            //EndDate = DateTime.Now.AddDays(7);
+            EndDate = sDate.AddDays(7);
             List<Doctor> doctors = _doctorController.GetAll().ToList();
-
+            
             DoctorTypeSelected.SelectedIndex = 0;
             foreach (Doctor doctor in doctors)
             {
@@ -230,7 +232,7 @@ namespace Patient.View
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
                 }
-                ExaminationsList.Examinations = examinations;
+                //ExaminationsList.Examinations = examinations;
                 this.Close();
             }
             

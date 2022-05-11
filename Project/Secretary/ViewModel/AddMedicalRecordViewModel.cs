@@ -153,15 +153,13 @@ namespace Secretary.ViewModel
             set { _reports = value; OnPropertyChanged(nameof(Reports)); }
         }
 
-        private Window _addMedicalRecord;
         public ICommand AddCommand { get; }
+        public ICommand CancelCommand { get; }
 
-        public AddMedicalRecordViewModel(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, Window addMedicalRecord)
+        public AddMedicalRecordViewModel(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _medicalRecordController = app.MedicalRecordController;
-
-            _addMedicalRecord = addMedicalRecord;
 
             Allergens = new ObservableCollection<Allergens>();
 
@@ -169,7 +167,8 @@ namespace Secretary.ViewModel
             FillBloodTypeComboBoxData();
             FillAllergensListBox();
 
-            AddCommand = new AddMedicalRecordCommand(this, cRUDMedicalRecordViewModel, _medicalRecordController, _addMedicalRecord);
+            AddCommand = new AddMedicalRecordCommand(this, cRUDMedicalRecordViewModel, _medicalRecordController, medicalRecordsViewModel);
+            CancelCommand = new CancelMedRecordCommand(medicalRecordsViewModel);
         }
 
     }

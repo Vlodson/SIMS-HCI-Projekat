@@ -103,20 +103,21 @@ namespace Secretary.ViewModel
             set { _phoneNumber = value; OnPropertyChanged(nameof(PhoneNumber)); }
         }
 
-        private Window _addAccount;
         public ICommand AddCommand { get; }
+        public ICommand CancelCommand { get; }
 
-        public AddAccountViewModel(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, Window addAccount)
+        public AddAccountViewModel(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, AccountsViewModel accountsViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
 
-            _addAccount = addAccount;
+            //_addAccount = addAccount;
 
             FillGenderTypeComboBoxData();
 
             //jos inicijalizacija komande i u xamlu binding
-            AddCommand = new AddAccountCommand(this, cRUDAccountOptionsViewModel, _patientController, addAccount);
+            AddCommand = new AddAccountCommand(this, cRUDAccountOptionsViewModel, _patientController, accountsViewModel);
+            CancelCommand = new CancelAccountCommand(accountsViewModel);
         }
     }
 }

@@ -15,9 +15,44 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\appointments.png" />
     <None Remove="Images\arrow-small-left.png" />
+    <None Remove="Images\background.jpg" />
+    <None Remove="Images\background1.jpg" />
     <None Remove="Images\bell.png" />
+    <None Remove="Images\bell1.png" />
+    <None Remove="Images\clock.png" />
+    <None Remove="Images\folder.png" />
+    <None Remove="Images\login.jpg" />
+    <None Remove="Images\logo2.png" />
+    <None Remove="Images\reportPdf.png" />
     <None Remove="Images\sign-out-alt.png" />
+    <None Remove="Images\survey.png" />
+    <None Remove="Images\tutorial.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\appointments.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\background.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\background1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\bell1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\clock.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="Images\folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\login.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +70,19 @@
     <Resource Include="Images\bell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\logo2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\reportPdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\sign-out-alt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\survey.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\tutorial.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

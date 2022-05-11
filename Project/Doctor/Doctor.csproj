@@ -8,7 +8,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="View\exams.png" />
+    <None Remove="View\help.png" />
+    <None Remove="View\logOut.png" />
+    <None Remove="View\notification.png" />
+    <None Remove="View\patients.png" />
+    <None Remove="View\requests.png" />
+    <None Remove="View\schedule.png" />
+    <None Remove="View\verification.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\exams.png" />
+    <Resource Include="View\help.png" />
+    <Resource Include="View\logOut.png" />
+    <Resource Include="View\notification.png" />
+    <Resource Include="View\patients.png" />
+    <Resource Include="View\requests.png" />
+    <Resource Include="View\schedule.png" />
+    <Resource Include="View\verification.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>

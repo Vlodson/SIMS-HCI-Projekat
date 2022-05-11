@@ -22,7 +22,7 @@ namespace Secretary.ViewModel
         private MedicalRecordController _medicalRecordController;
 
         public ICommand EditCommand { get; }
-        private Window _editMedicalRecord;
+        public ICommand CancelCommand { get; }
 
         //ID
         private String _id;
@@ -178,12 +178,10 @@ namespace Secretary.ViewModel
             set { _reports = value; OnPropertyChanged(nameof(Reports)); }
         }
 
-        public EditMedicalRecordViewModel(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, Window editMedicalRecord)
+        public EditMedicalRecordViewModel(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _medicalRecordController = app.MedicalRecordController;
-
-            _editMedicalRecord = editMedicalRecord;
 
             ID = cRUDMedicalRecordViewModel.MedicalRecordViewModel.ID;
             UCIN = cRUDMedicalRecordViewModel.MedicalRecordViewModel.UCIN;
@@ -202,7 +200,8 @@ namespace Secretary.ViewModel
             FillBloodTypeComboBoxData();
             FillAllergensListBox();
 
-            EditCommand = new EditMedicalRecordCommand(this, cRUDMedicalRecordViewModel, _medicalRecordController, _editMedicalRecord);
+            EditCommand = new EditMedicalRecordCommand(this, cRUDMedicalRecordViewModel, _medicalRecordController, medicalRecordsViewModel);
+            CancelCommand = new CancelMedRecordCommand(medicalRecordsViewModel);
         }
     }
 }

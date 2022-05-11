@@ -31,6 +31,10 @@ namespace Secretary
 
         public ExamController ExamController { get; set; }
 
+        public UserAccountRepo UserAccountRepo { get; set; }
+
+        public UserAccountController UserAccountController { get; set; }
+        
         public RoomRepo RoomRepo { get; set; }
 
         //treba odraditi navigaciju kako valja
@@ -58,6 +62,9 @@ namespace Secretary
             PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo);
             ExamController = new ExamController(patientService, doctorService);
 
+            UserAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
+            UserAccountService userAccountService = new UserAccountService(UserAccountRepo);
+            UserAccountController = new UserAccountController(userAccountService);
         }
 
         //protected override void OnStartup(StartupEventArgs e)

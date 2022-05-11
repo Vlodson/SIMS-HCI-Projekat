@@ -28,12 +28,14 @@ namespace Patient
     {
 
         private ExaminationRepo _examinationRepo;
+        private DoctorRepo _doctorRepo;
 
         public MainWindow()
         {
             InitializeComponent();
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
+            _doctorRepo = app.DoctorRepo;
             Main.Content = new Login();
         }
 
@@ -42,6 +44,7 @@ namespace Patient
         private void Window_Closed(object sender, EventArgs e)
         {
             _examinationRepo.SaveExamination();
+            _doctorRepo.SaveDoctor();
         }
 
         private void ListExaminations_Click(object sender, RoutedEventArgs e)
@@ -54,6 +57,16 @@ namespace Patient
         {
             Main.Content = new ExaminationsList();
             //patientMenu.ShowsNavigationUI;
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new Login();
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            Notifications notifications = new Notifications();
+            notifications.ShowDialog();
         }
     }
 }
