@@ -36,8 +36,8 @@ namespace Doctor
         private UserAccountController _userAccountController;
         private UserAccountRepo _userAccountRepo;
 
-        public static String _uid;
-        public String UID
+        public static string _uid;
+        public string UID
         {
             get { return _uid; }
             set

@@ -1,3 +1,1 @@
-
-[{"ExamRoomId":"0d","Id":"6919","Duration":7,"PatientId":"1","DoctorId":"d1","DoctorNameSurname":null,"DoctorType":0,"EType":1,"Date":"2022-04-28T10:30:00"},{"ExamRoomId":"0d","Id":"9785","Duration":5,"PatientId":"2","DoctorId":"d1","DoctorNameSurname":null,"DoctorType":0,"EType":0,"Date":"2022-04-22T07:00:00"},{"ExamRoomId":"0d","Id":"3751","Duration":90,"PatientId":"3","DoctorId":"d1","DoctorNameSurname":null,"DoctorType":0,"EType":1,"Date":"2022-04-29T10:30:10"}]
-]
+[]
