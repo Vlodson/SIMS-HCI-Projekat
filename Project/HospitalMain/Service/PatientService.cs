@@ -160,7 +160,10 @@ namespace Service
 
         public void RemoveExam(Examination examination)
         {
-             _examinationRepo.DeleteExamination(examination.Id);
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberCanceling += 1;
+            _patientRepo.SavePatient();
+            _examinationRepo.DeleteExamination(examination.Id);
             //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
             //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
         }
@@ -275,6 +278,11 @@ namespace Service
         public List<String> GetPatientsDoctors(String patientId)
         {
             return _examinationRepo.GetPatientsDoctors(patientId);
+        }
+
+        public bool CheckStatus(String id)
+        {
+            return _patientRepo.CheckStatus(id);
         }
     }
 }

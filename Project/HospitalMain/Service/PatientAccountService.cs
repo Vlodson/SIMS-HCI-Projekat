@@ -28,7 +28,7 @@ namespace Service
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {
             Guest guest = new Guest(id);
-            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers));
+            return patientRepo.NewPatient(new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers, DateTime.Now.ToString("MM"), 0));
       }
       
       public bool RemovePatient(String patientId)
@@ -36,10 +36,10 @@ namespace Service
             return patientRepo.DeletePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID, List<Answer> answers)
+      public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling)
       {
             //Guest guest = new Guest(patientId);
-            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID, answers));
+            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID, answers, currentMonth, numberCanceling));
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -55,7 +55,7 @@ namespace Service
       public bool UpgradeGuest(String guestId, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {
             Guest guest = new Guest("guestID");
-            Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers);
+            Patient patient = new Patient(guest.ID, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers, DateTime.Now.ToString("MM"), 0);
             return patientRepo.NewPatient(patient);
       }
    

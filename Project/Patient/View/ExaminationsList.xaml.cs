@@ -30,6 +30,7 @@ namespace Patient.View
         private ExamController _examinationController;
         //private ExaminationRepo _examinationRepo;
         private DoctorController _doctorController;
+        private PatientController _patientController;
         public static Examination selected;
 
         public static ObservableCollection<Examination> Examinations
@@ -59,6 +60,7 @@ namespace Patient.View
            //_examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
+            _patientController = app.PatientController;
 
             //if (File.Exists(_examinationRepo.dbPath))
             //    _examinationRepo.LoadExamination();
@@ -109,9 +111,19 @@ namespace Patient.View
             if (selected == null){
                 selected = DateTime.Now.AddDays(1);
             }
-            AddExamination addExamination = new AddExamination(selected);
-            
-            addExamination.ShowDialog();
+
+            if (_patientController.CheckStatus(Login.loggedId))
+            {
+                Message.Visibility = Visibility.Hidden;
+                AddExamination addExamination = new AddExamination(selected);
+                addExamination.ShowDialog();
+            }
+            else
+            {
+                Message.Content = "Blokirani ste";
+                Message.Visibility = Visibility.Visible;
+            }
+           
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             
@@ -152,17 +164,26 @@ namespace Patient.View
             DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
-                if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                if (_patientController.CheckStatus(Login.loggedId))
                 {
-                    Message.Visibility = Visibility.Hidden;
-                    EditExamination editExamination = new EditExamination();
-                    editExamination.ShowDialog();
+                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                    {
+                        Message.Visibility = Visibility.Hidden;
+                        EditExamination editExamination = new EditExamination();
+                        editExamination.ShowDialog();
+                    }
+                    else
+                    {
+                        Message.Content = "Ne mozete pomeriti danasnji termin";
+                        Message.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
-                    Message.Content = "Ne mozete pomeriti danasnji termin";
+                    Message.Content = "Blokirani ste";
                     Message.Visibility = Visibility.Visible;
                 }
+                
 
             }
             else
@@ -209,19 +230,28 @@ namespace Patient.View
             DateTime selectedInCalendar = (DateTime)Calendar.SelectedDate;
             if (selected != null)
             {
-                if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                if (_patientController.CheckStatus(Login.loggedId))
                 {
-                    Message.Visibility = Visibility.Hidden;
-                    _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
-                    //_examinationRepo.SaveExamination();
-                    _examinationController.SaveExaminationRepo();
-                    dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                    {
+                        Message.Visibility = Visibility.Hidden;
+                        _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
+                        //_examinationRepo.SaveExamination();
+                        _examinationController.SaveExaminationRepo();
+                        dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                    }
+                    else
+                    {
+                        Message.Content = "Ne mozete otkazati danasnji termin";
+                        Message.Visibility = Visibility.Visible;
+                    }
                 }
                 else
                 {
-                    Message.Content = "Ne mozete otkazati danasnji termin";
+                    Message.Content = "Blokirani ste";
                     Message.Visibility = Visibility.Visible;
                 }
+                
             }
             else
             {

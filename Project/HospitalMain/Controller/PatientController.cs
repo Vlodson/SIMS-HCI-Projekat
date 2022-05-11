@@ -40,9 +40,9 @@ namespace Controller
             return patientAccService.RemovePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID, List<Answer> answers)
+      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling)
       {
-            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, answers);
+            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, answers, currentMonth, numberCanceling);
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -136,6 +136,11 @@ namespace Controller
         public List<String> GetPatientsDoctors(String patientId)
         {
             return patientService.GetPatientsDoctors(patientId);
+        }
+
+        public bool CheckStatus(String id)
+        {
+            return patientService.CheckStatus(id);
         }
     }
 }

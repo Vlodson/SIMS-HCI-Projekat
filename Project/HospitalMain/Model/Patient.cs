@@ -30,13 +30,15 @@ namespace Model
         private DateTime doB;
         private String medicalRecordID;
         private List<Answer> answers;
+        private String currentMonth;
+        int numberCanceling;
 
         //public Patient(Guest guest) : base(guest.ID)
         //{
 
         //}
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling)
         {
             this.id = id;
             this.ucin = ucin;
@@ -49,6 +51,8 @@ namespace Model
             this.doB = doB;
             this.medicalRecordID = medicalRecordID;
             this.answers = answers;
+            this.currentMonth = currentMonth;
+            this.numberCanceling = numberCanceling;
         }
 
         public Patient()
@@ -210,10 +214,37 @@ namespace Model
             }
         }
 
+        public String CurrentMonth
+        {
+            get
+            {
+                return currentMonth;
+            }
+            set
+            {
+                currentMonth = value;
+                OnPropertyChanged("CurrentMonth");
+            }
+        }
+
+        public int NumberCanceling
+        {
+            get
+            {
+                return numberCanceling;
+            }
+            set
+            {
+                numberCanceling = value;
+                OnPropertyChanged("NumberCanceling");
+            }
+        }
+        
         public override string ToString()
         {
             return Name;
         }
 
+        
     }
 }

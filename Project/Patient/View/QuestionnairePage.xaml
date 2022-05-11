@@ -17,7 +17,7 @@
         <Label x:Name="bolnica4" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         <Label x:Name="bolnica5" Content="Label" HorizontalAlignment="Left" Margin="0,360,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton x:Name="hospital11" GroupName="hospital1" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,141,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="hospital11"  GroupName="hospital1" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="158,141,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="hospital12"  GroupName="hospital1" Content="2" HorizontalAlignment="Left" Margin="188,141,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="hospital13"  GroupName="hospital1" Content="3" HorizontalAlignment="Left" Margin="218,140,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="hospital14"  GroupName="hospital1" Content="4" HorizontalAlignment="Left" Margin="248,140,0,0" VerticalAlignment="Top"/>

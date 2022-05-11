@@ -22,9 +22,9 @@ namespace Repository
             this.Patients = new ObservableCollection<Patient>();
             Guest guest = new Guest("1");
 
-            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muški, new DateTime(1994, 05, 06), "1", new List<Answer>());
-            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muški, new DateTime(1985, 08, 08), "2", new List<Answer>());
-            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muški, new DateTime(2001, 11, 11), "3", new List<Answer>());
+            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muški, new DateTime(1994, 05, 06), "1", new List<Answer>(), DateTime.Now.ToString("MM"), 0);
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muški, new DateTime(1985, 08, 08), "2", new List<Answer>(), DateTime.Now.ToString("MM"), 0);
+            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muški, new DateTime(2001, 11, 11), "3", new List<Answer>(), DateTime.Now.ToString("MM"), 0);
 
             this.Patients.Add(p1);
             this.Patients.Add(p2);
@@ -39,7 +39,7 @@ namespace Repository
             this.DBPath=dbPath;
             this.Patients = patientCollection;
             Guest guest = new Guest("123");
-            Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Ženski, new DateTime(2000, 11, 1), "4", new List<Answer>());
+            Patient p1 = new Patient(guest.ID, "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Ženski, new DateTime(2000, 11, 1), "4", new List<Answer>(), DateTime.Now.ToString("MM"), 0);
             this.Patients.Add(p1);
        }
 
@@ -158,6 +158,7 @@ namespace Repository
             }
             return null;
       }
+
       public void AddAnswer(String idPatient, Answer answer)
       {
             Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
@@ -172,7 +173,24 @@ namespace Repository
             }
             SavePatient();
       }
-      //public PatientAccountService patientAccountService;
-   
-   }
+        public void CheckMonth(Patient patient)
+        {
+            if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
+            {
+                patient.CurrentMonth = DateTime.Now.ToString("MM");
+                patient.NumberCanceling = 0;
+            }
+        }
+        //public PatientAccountService patientAccountService;
+
+        public bool CheckStatus(String id)
+        {
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberCanceling > 5)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
 }
