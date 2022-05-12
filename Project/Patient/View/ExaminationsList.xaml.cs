@@ -189,8 +189,10 @@ namespace Patient.View
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
-                        EditExamination editExamination = new EditExamination();
-                        editExamination.ShowDialog();
+                        //EditExamination editExamination = new EditExamination();
+                        //editExamination.ShowDialog();
+                        EditExaminationMVVM editExamiantion = new EditExaminationMVVM();
+                        editExamiantion.ShowDialog();
                     }
                     else
                     {
@@ -238,10 +240,11 @@ namespace Patient.View
                     DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
-            Calendar.DataContext = DatesExaminations;
             Calendar.SelectedDate = selectedInCalendar.AddDays(1);
             Calendar.SelectedDate = selectedInCalendar;
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
+            
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
