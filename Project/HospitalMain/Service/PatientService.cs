@@ -27,6 +27,21 @@ namespace Service
             _questionaryRepo = questionnaireRepo;
         }
 
+        public Examination getTemporaryExam()
+        {
+            return _examinationRepo.TemporaryExam;
+        }
+
+        public int getValidationCounter()
+        {
+            return _examinationRepo.ValidationCounter;
+        }
+
+        public void setValidationCounter(int value)
+        {
+            _examinationRepo.ValidationCounter = value;
+        }
+
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _examinationRepo.generateID(examinations);
@@ -60,16 +75,19 @@ namespace Service
 
             foreach (Examination exam in examinationsFromBase)
             {
-                int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
+                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
+
+                //int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher)
                 {
                     //ne moze jedan doktor da ima dva pregleda u isto vreme
                     return false;
-                } else if(res == 0 && PatientID.Equals(exam.PatientId))
+                } else if(date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
                 {
                     //ne moze jedan pacijent da ima dva pregleda u isto vreme
                     return false;
-                } else if(res == 0 && RoomID.Equals(exam.ExamRoomId))
+                } else if(date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
                 {
                     //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
                     return false;
@@ -90,18 +108,22 @@ namespace Service
                 {
                     continue;
                 }
-                int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+
+                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
+                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
+
+                //int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher )
                 {
                     //ne moze jedan doktor da ima dva pregleda u isto vreme
                     return false;
                 }
-                else if (res == 0 && PatientID.Equals(exam.PatientId))
+                else if (date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
                 {
                     //ne moze jedan pacijent da ima dva pregleda u isto vreme
                     return false;
                 }
-                else if (res == 0 && RoomID.Equals(exam.ExamRoomId))
+                else if (date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
                 {
                     //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
                     return false;

@@ -4,6 +4,7 @@ namespace Model
 {
    public enum DoctorType
    {
+      None,
       Pulmonology,
       specialistCheckup,
       Cardiology,

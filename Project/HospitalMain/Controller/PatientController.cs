@@ -35,6 +35,11 @@ namespace Controller
             return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers);
       }
       
+      public bool CreateGuest(String id, String name, String surname, Gender gender)
+      {
+            return patientAccService.CreateGuest(id, name, surname, gender);
+      }
+
       public bool RemovePatient(String patientId)
       {
             return patientAccService.RemovePatient(patientId);

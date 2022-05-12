@@ -147,7 +147,7 @@ namespace Secretary.ViewModel
             FillDoctorComboBoxData();
             FillExamTypeComboBoxData();
 
-            EditCommand = new EditAppointmentCommand(this, _crudAppointmentsViewModel, examController, _editApointment);
+            EditCommand = new EditAppointmentCommand(this, _crudAppointmentsViewModel, examController, _editApointment, doctorController);
         }
     }
 }
