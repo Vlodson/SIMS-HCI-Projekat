@@ -176,95 +176,99 @@ namespace Patient.View
 
         private void AddDoctorAnswer(object sender, RoutedEventArgs e)
         {
-            List<int> answers = new List<int>();
-            if (doctor11.IsChecked == true)
+            if(Doctors.SelectedIndex != -1)
             {
-                answers.Add(1);
-            }
-            else if (doctor12.IsChecked == true)
-            {
-                answers.Add(2);
-            }
-            else if (doctor13.IsChecked == true)
-            {
-                answers.Add(3);
-            }
-            else if (doctor14.IsChecked == true)
-            {
-                answers.Add(4);
-            }
-            else
-            {
-                answers.Add(5);
-            }
+                List<int> answers = new List<int>();
+                if (doctor11.IsChecked == true)
+                {
+                    answers.Add(1);
+                }
+                else if (doctor12.IsChecked == true)
+                {
+                    answers.Add(2);
+                }
+                else if (doctor13.IsChecked == true)
+                {
+                    answers.Add(3);
+                }
+                else if (doctor14.IsChecked == true)
+                {
+                    answers.Add(4);
+                }
+                else
+                {
+                    answers.Add(5);
+                }
 
-            if (doctor21.IsChecked == true)
-            {
-                answers.Add(1);
-            }
-            else if (doctor22.IsChecked == true)
-            {
-                answers.Add(2);
-            }
-            else if (doctor23.IsChecked == true)
-            {
-                answers.Add(3);
-            }
-            else if (doctor24.IsChecked == true)
-            {
-                answers.Add(4);
-            }
-            else
-            {
-                answers.Add(5);
-            }
+                if (doctor21.IsChecked == true)
+                {
+                    answers.Add(1);
+                }
+                else if (doctor22.IsChecked == true)
+                {
+                    answers.Add(2);
+                }
+                else if (doctor23.IsChecked == true)
+                {
+                    answers.Add(3);
+                }
+                else if (doctor24.IsChecked == true)
+                {
+                    answers.Add(4);
+                }
+                else
+                {
+                    answers.Add(5);
+                }
 
-            if (doctor31.IsChecked == true)
-            {
-                answers.Add(1);
-            }
-            else if (doctor32.IsChecked == true)
-            {
-                answers.Add(2);
-            }
-            else if (doctor33.IsChecked == true)
-            {
-                answers.Add(3);
-            }
-            else if (doctor34.IsChecked == true)
-            {
-                answers.Add(4);
-            }
-            else
-            {
-                answers.Add(5);
-            }
+                if (doctor31.IsChecked == true)
+                {
+                    answers.Add(1);
+                }
+                else if (doctor32.IsChecked == true)
+                {
+                    answers.Add(2);
+                }
+                else if (doctor33.IsChecked == true)
+                {
+                    answers.Add(3);
+                }
+                else if (doctor34.IsChecked == true)
+                {
+                    answers.Add(4);
+                }
+                else
+                {
+                    answers.Add(5);
+                }
 
-            if (doctor41.IsChecked == true)
-            {
-                answers.Add(1);
-            }
-            else if (doctor42.IsChecked == true)
-            {
-                answers.Add(2);
-            }
-            else if (doctor43.IsChecked == true)
-            {
-                answers.Add(3);
-            }
-            else if (doctor44.IsChecked == true)
-            {
-                answers.Add(4);
-            }
-            else
-            {
-                answers.Add(5);
-            }
+                if (doctor41.IsChecked == true)
+                {
+                    answers.Add(1);
+                }
+                else if (doctor42.IsChecked == true)
+                {
+                    answers.Add(2);
+                }
+                else if (doctor43.IsChecked == true)
+                {
+                    answers.Add(3);
+                }
+                else if (doctor44.IsChecked == true)
+                {
+                    answers.Add(4);
+                }
+                else
+                {
+                    answers.Add(5);
+                }
 
-            int index = Doctors.SelectedIndex;
-            Doctor doctor = DoctorsAvailable[index];
-            Answer doctorAnswer = new Answer(doctor.Id, answers);
-            _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+                int index = Doctors.SelectedIndex;
+                Doctor doctor = DoctorsAvailable[index];
+                Answer doctorAnswer = new Answer(doctor.Id, answers);
+                _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+            }
+            
         }
     }
 }
