@@ -17,7 +17,7 @@
 
 
         <Grid Margin="174,268,30,51">
-            <Border Background="#FF437182" Opacity="0.5" CornerRadius="30" Margin="-126,-21,26,144">
+            <Border Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="-126,-21,26,144">
                 <Grid Margin="26,0,202,38">
                     <Label Content="Lek:" Margin="100,6,209,154" />
                     <Label Content="Trajanje(dana):" Margin="0,52,219,100" />

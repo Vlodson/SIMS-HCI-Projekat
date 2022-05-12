@@ -1,6 +1,8 @@
 ﻿using Controller;
 using HospitalMain.Model;
+using HospitalMain.Repository;
 using Model;
+using Patient.Views;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -32,6 +34,7 @@ namespace Patient.View
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+        
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -59,6 +62,7 @@ namespace Patient.View
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
+            
             
             _doctorRepo.SaveDoctor();
             Timer t = new Timer(TimerCallback, null, 0, 60000);
@@ -136,8 +140,10 @@ namespace Patient.View
 
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
-            Notifications notifications = new Notifications();
-            notifications.ShowDialog();
+            //Notifications notifications = new Notifications();
+            //notifications.ShowDialog();
+            NotificationsMVVM notificationsMVVM = new NotificationsMVVM();
+            notificationsMVVM.ShowDialog();
         }
         private void calendarButton_Loaded(object sender, EventArgs e)
         {
@@ -160,6 +166,12 @@ namespace Patient.View
             CalendarDayButton button = (CalendarDayButton)sender;
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
+        }
+
+        private void GradingsClick(object sender, RoutedEventArgs e)
+        {
+            //Menu.Content = new Questionnaires();
+            Menu.Content = new QuestionnairePage();
         }
     }
 }

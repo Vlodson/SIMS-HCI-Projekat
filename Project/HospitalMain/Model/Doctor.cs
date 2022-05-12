@@ -50,7 +50,6 @@ namespace Model
             }
         }
         
-
         public String Id
         {
             get
@@ -140,7 +139,7 @@ namespace Model
                 OnPropertyChanged("NameSurname");
             }
         }
-        public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, List<Examination> examination)
+        public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, int freeDaysLeft, List<Examination> examination)
         {
             /*
             this.id = id;
@@ -155,6 +154,7 @@ namespace Model
             Surname = surname;  
             DoB = doB;
             Type = type;
+            FreeDaysLeft = freeDaysLeft;
             Examinations = examination;
         }
 
