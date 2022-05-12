@@ -101,7 +101,7 @@
                 </RadioButton>
 
 
-                <RadioButton Grid.Row="2" Foreground="Black" Content="Hitni slučajevi" FontSize="18"
+                <RadioButton Grid.Row="2" Foreground="Black" Content="Hitni slučajevi" FontSize="18" Command="{Binding UpdateViewCommand}" CommandParameter="Emergency"
                              Style="{StaticResource MenuButtonTheme}">
 
                 </RadioButton>

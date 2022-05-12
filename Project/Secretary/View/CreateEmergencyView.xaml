@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="Secretary.View.CreateEmergencyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:Secretary.Converter"
+             xmlns:local="clr-namespace:Secretary.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
+    <UserControl.Resources>
+        <converters:DoctorFullNameConverter x:Key="doctorFullNameConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <GroupBox Margin="30" Header="Kreiranje hitnog slučaja" Background="White" Style="{StaticResource GroupBoxTheme}">
+
+            <Grid Margin="30,20,30,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="220"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,0,10,0">
+                    <Label Margin="-3 1 0 0" Content="Pacijenti" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
+                    <Border BorderBrush="Black" BorderThickness="1.5">
+                        <ComboBox x:Name="comboBoxAddEmergencyPatients" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=PatientComboBox}" SelectedValue="{Binding Path=SelectedPatient }"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,25,0,0">
+                    <Button Width="180" Height="30" VerticalContentAlignment="Center" CommandParameter="CreateGuest" Command="{Binding GoToCreateGuestFormCommand}" Content="Napravi guest nalog" FontSize="18">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="4" Margin="10,0,10,0">
+                    <Label Margin="-3 1 0 0" Content="Datum i vreme" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
+                    <DatePicker x:Name="dateAddEmergencyDateTime" SelectedDate="{Binding DateTime}" FontSize="18" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="3" Margin="10,0,10,0">
+                    <Label Margin="-3 1 0 0" Content="Specijalizacija" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
+                    <Border BorderBrush="Black" BorderThickness="1.5">
+                        <ComboBox x:Name="comboBoxAddEmergencyDoctorType" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=DoctorTypeComboBox}" SelectedValue="{Binding Path=DoctorType}"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="5" Margin="10,0,10,0">
+                    <Label Margin="-3 1 0 0" Content="Vrsta pregleda" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
+                    <Border BorderBrush="Black" BorderThickness="1.5">
+                        <ComboBox x:Name="comboBoxAddEmergencyExamType" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=ExamTypeComboBox}" SelectedValue="{Binding Path=SelectedExamType}"/>
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,0">
+                    <Label Margin="-3 1 0 0" Content="Soba" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
+                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"></TextBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,25,0,0">
+                    <Button Width="230" Height="30" VerticalContentAlignment="Center" Command="{Binding ShowSuggestedAppointmentsCommand}" Content="Prikazi slobodne termine" FontSize="18">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Grid.RowSpan="5" Grid.Row="1" Margin="35,25,25,25">
+                    <ListView Height="335" BorderBrush="CornflowerBlue" BorderThickness="2" SelectedItem="{Binding SelectedAppointment}" ItemsSource="{Binding SuggestedAppointments}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Background="White">
+                        <ListView.View>
+                            <GridView>
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="18"/>
+                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        <Setter Property="Margin" Value="5,0,5,0"/>
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                
+                                <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding Date}" Width="190"/>
+                                <GridViewColumn Header="Doktor" Width="190" DisplayMemberBinding="{Binding Doctor, Converter={StaticResource doctorFullNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,25,25,0">
+                    <Button Width="230" Height="30" VerticalContentAlignment="Center" CommandParameter="AddEmergency" Command="{Binding AddEmergencyCommand}" Content="Zakaži hitan slučaj" FontSize="18">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            
+        </GroupBox>
+    </Grid>
+</UserControl>

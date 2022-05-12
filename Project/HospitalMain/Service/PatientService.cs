@@ -23,6 +23,21 @@ namespace Service
             _roomRepo = roomRepo;
         }
 
+        public Examination getTemporaryExam()
+        {
+            return _examinationRepo.TemporaryExam;
+        }
+
+        public int getValidationCounter()
+        {
+            return _examinationRepo.ValidationCounter;
+        }
+
+        public void setValidationCounter(int value)
+        {
+            _examinationRepo.ValidationCounter = value;
+        }
+
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _examinationRepo.generateID(examinations);

@@ -2,6 +2,7 @@
 using HospitalMain.Enums;
 using Model;
 using Secretary.ComboBoxTemplate;
+using Secretary.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,11 +16,12 @@ namespace Secretary.ViewModel
     public class EmergencyViewModel : ViewModelBase
     {
         private readonly PatientController _patientController;
+        private readonly DoctorController _doctorController;
+        private readonly ExamController _examController;
 
-        public ICommand CreateGuestAccCommand { get; }
-        public ICommand CreateMedRecordCommand { get; }
-        public ICommand EditExistingExamCommand { get; }
+        public ICommand ShowSuggestedAppointmentsCommand { get; }
         public ICommand AddEmergencyCommand { get; }
+        public ICommand GoToCreateGuestFormCommand { get; }
 
         //broj sobe
         private String roomID;
@@ -30,7 +32,7 @@ namespace Secretary.ViewModel
         }
 
         //datum i vreme hitnog slucaja
-        private DateTime dateTime;
+        private DateTime dateTime = DateTime.Now;
         public DateTime DateTime
         {
             get { return dateTime; }
@@ -114,20 +116,41 @@ namespace Secretary.ViewModel
             }
         }
 
-        public EmergencyViewModel()
+        //predlozeni termini pregleda
+        private ObservableCollection<ExaminationViewModel> suggestedAppointments = new ObservableCollection<ExaminationViewModel>();
+        public ObservableCollection<ExaminationViewModel> SuggestedAppointments
+        {
+            get { return suggestedAppointments; }
+            set { suggestedAppointments = value; OnPropertyChanged(nameof(SuggestedAppointments)); }
+        }
+
+        //selektovan odabran termin
+        private ExaminationViewModel selectedAppointement;
+        public ExaminationViewModel SelectedAppointment
+        {
+            get { return selectedAppointement; }
+            set { selectedAppointement = value; OnPropertyChanged(nameof(SelectedAppointment)); }
+        }
+
+        private EmergencyGeneralViewModel _emergencyGeneralViewModel;
+
+        public EmergencyViewModel(EmergencyGeneralViewModel emergencyGeneralViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
+            _doctorController = app.DoctorController;
+            _examController = app.ExamController;
+            _emergencyGeneralViewModel = emergencyGeneralViewModel;
+            doctorType = DoctorType.Pulmonology;
 
             FillPatientsComboBoxData();
             FillExamTypeComboBoxData();
             FillDoctorTypeComboBoxData();
 
             //komande
-            //CreateGuestAccCommand =
-            //CreateMedRecordCommand =
-            //EditExistingExamCommand =
-            //AddEmergencyCommand = 
+            ShowSuggestedAppointmentsCommand = new ShowSuggestedEACommand(this, _doctorController);
+            AddEmergencyCommand = new AddEmergencyCommand(this, _examController, _doctorController, emergencyGeneralViewModel);
+            GoToCreateGuestFormCommand = new GoToCreateGuestFormCommand(this, emergencyGeneralViewModel);
         }
     }
 }

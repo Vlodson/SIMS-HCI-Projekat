@@ -14,6 +14,8 @@ namespace Repository
     {
         public String dbPath { get; set; }
         public ObservableCollection<Examination> examinationList { get; set; }
+        public Examination TemporaryExam { get; set; }
+        public int ValidationCounter { get; set; }
 
         public ExaminationRepo(String dbPath)
         {
@@ -25,13 +27,27 @@ namespace Repository
             examinationList.Add(exam1);
             examinationList.Add(exam2);*/
 
-            //Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
-            //Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 30, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
-            //Examination exam3 = new Examination("14", new DateTime(2022, 6, 6, 11, 00, 00), "3", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d11");
+            Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
+            Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 30, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
+            Examination exam3 = new Examination("14", new DateTime(2022, 6, 5, 11, 00, 00), "3", 30, ExaminationTypeEnum.Surgery, "3", "d13");
+            Examination exam4 = new Examination("14", new DateTime(2022, 6, 5, 15, 00, 00), "4", 30, ExaminationTypeEnum.Surgery, "2", "d13");
+            Examination exam5 = new Examination("10A", new DateTime(2022, 6, 6, 11, 00, 00), "5", 30, ExaminationTypeEnum.OrdinaryExamination, "4", "d12");
+            Examination exam6 = new Examination("15", new DateTime(2022, 6, 6, 8, 30, 00), "6", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d11");
+            Examination exam7 = new Examination("14", new DateTime(2022, 6, 6, 8, 30, 00), "7", 30, ExaminationTypeEnum.Surgery, "4", "d13");
+            Examination exam8 = new Examination("12", new DateTime(2022, 6, 6, 9, 00, 00), "8", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d12");
+            Examination exam9 = new Examination("10A", new DateTime(2022, 6, 7, 14, 00, 00), "9", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d1");
+            Examination exam10 = new Examination("11", new DateTime(2022, 6, 7, 10, 00, 00), "10", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d14");
 
-            //this.examinationList.Add(exam1);
-            //this.examinationList.Add(exam2);
-            //this.examinationList.Add(exam3);
+            this.examinationList.Add(exam1);
+            this.examinationList.Add(exam2);
+            this.examinationList.Add(exam3);
+            this.examinationList.Add(exam4);
+            this.examinationList.Add(exam5);
+            this.examinationList.Add(exam6);
+            this.examinationList.Add(exam7);
+            this.examinationList.Add(exam8);
+            this.examinationList.Add(exam9);
+            this.examinationList.Add(exam10);
 
             if (File.Exists(dbPath))
                 LoadExamination();
@@ -147,6 +163,93 @@ namespace Repository
                 if (exam.PatientId.Equals(id)) examsForPatient.Add(exam);
             }
             return examsForPatient;
+        }
+
+        public ObservableCollection<Examination> GetFreeExaminations(DateTime startDate, DateTime endDate, ObservableCollection<Doctor> doctorsWithSameSpecialization)
+        {
+            //Svi termini pregleda u ustanovi u zadatom periodu
+            ObservableCollection<DateTime> examinationsInSomeRange = new ObservableCollection<DateTime>();
+
+            //Vremena
+            DateTime start = startDate.Date;
+            DateTime end = endDate.Date;
+
+            //opseg dana
+            int days = Convert.ToInt32((end - start).TotalDays);
+            for(int i = 0; i < days + 1; i++)
+            {
+                //za svaki dan se generisu termini
+                DateTime firstExamInDay = new DateTime(start.AddDays(i).Year, start.AddDays(i).Month, start.AddDays(i).Day, 7, 0, 0);
+                for(int j = 0; j < 16; j++)
+                {
+                    examinationsInSomeRange.Add(firstExamInDay.AddMinutes(j*30));
+                }
+            }
+
+            ObservableCollection<Examination> examinations = new ObservableCollection<Examination>();
+
+            foreach (Doctor doctor in doctorsWithSameSpecialization)
+            {
+                foreach(DateTime dt in examinationsInSomeRange)
+                {
+                    bool freeExam = true;
+                    foreach(Examination exam in ExaminationsForDoctor(doctor.Id))
+                    {
+                        int com = DateTime.Compare(dt, exam.Date);
+                        if(com == 0)
+                        {
+                            freeExam = false;
+                            break;
+                        }
+                    }
+                    if (freeExam)
+                    {
+                        examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
+                    }
+
+                }
+            }
+
+            //situuacija ako prvog dana nema nijedan slobodan termin, trazice u narednim danima sve dok ne nadje neki slobodan
+            while(examinations.Count == 0)
+            {
+                end = end.AddDays(1);
+
+                days = Convert.ToInt32((end - start).TotalDays);
+                for (int i = 0; i < days + 1; i++)
+                {
+                    //za svaki dan se generisu termini
+                    DateTime firstExamInDay = new DateTime(start.AddDays(i).Year, start.AddDays(i).Month, start.AddDays(i).Day, 7, 0, 0);
+                    for (int j = 0; j < 16; j++)
+                    {
+                        examinationsInSomeRange.Add(firstExamInDay.AddMinutes(j * 30));
+                    }
+                }
+
+                foreach (Doctor doctor in doctorsWithSameSpecialization)
+                {
+                    foreach (DateTime dt in examinationsInSomeRange)
+                    {
+                        bool freeExam = true;
+                        foreach (Examination exam in ExaminationsForDoctor(doctor.Id))
+                        {
+                            int com = DateTime.Compare(dt, exam.Date);
+                            if (com == 0)
+                            {
+                                freeExam = false;
+                                break;
+                            }
+                        }
+                        if (freeExam)
+                        {
+                            examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
+                        }
+
+                    }
+                }
+            }
+
+            return examinations;
         }
 
         public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
