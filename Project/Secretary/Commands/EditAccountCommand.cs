@@ -18,14 +18,14 @@ namespace Secretary.Commands
         private readonly PatientController _patientController;
         private readonly CRUDAccountOptionsViewModel _cruDAccountOptionsViewModel;
         private readonly EditAccountViewModel _editAccountViewModel;
-        private Window _editAccount;
+        private readonly AccountsViewModel _accountsViewModel;
 
-        public EditAccountCommand(EditAccountViewModel editAccountViewModel, CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, PatientController patientController, Window editAccount)
+        public EditAccountCommand(EditAccountViewModel editAccountViewModel, CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, PatientController patientController, AccountsViewModel accountsViewModel)
         {
             _cruDAccountOptionsViewModel = cRUDAccountOptionsViewModel;
             _patientController = patientController;
             _editAccountViewModel = editAccountViewModel;
-            _editAccount = editAccount;
+            _accountsViewModel = accountsViewModel;
 
             _editAccountViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -43,8 +43,13 @@ namespace Secretary.Commands
             //update liste pacijenata
             UpdatePatients();
         
+            if(parameter.ToString() == "Edit")
+            {
+                _accountsViewModel.CurrentCRUDAccView = new CRUDAccountOptionsViewModel(_accountsViewModel);
+            }
+
             //zatvaranje prozora
-            _editAccount.Close();
+            //_editAccount.Close();
         }
 
         private void UpdatePatients()

@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for AddMedicalRecord.xaml
+    /// Interaction logic for MedicalRecordsView.xaml
     /// </summary>
-    public partial class AddMedicalRecord
+    public partial class MedicalRecordsView
     {
-        public AddMedicalRecord()
+        public MedicalRecordsView()
         {
             InitializeComponent();
         }

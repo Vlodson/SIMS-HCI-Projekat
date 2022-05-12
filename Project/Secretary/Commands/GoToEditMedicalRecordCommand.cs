@@ -12,19 +12,26 @@ namespace Secretary.Commands
     public class GoToEditMedicalRecordCommand : CommandBase
     {
         private readonly CRUDMedicalRecordViewModel _cRUDMedicalRecordViewModel;
+        private readonly MedicalRecordsViewModel _medicalRecordsViewModel;
 
-        public GoToEditMedicalRecordCommand(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel)
+        public GoToEditMedicalRecordCommand(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             _cRUDMedicalRecordViewModel = cRUDMedicalRecordViewModel;
+            _medicalRecordsViewModel = medicalRecordsViewModel;
 
             _cRUDMedicalRecordViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override void Execute(object? parameter)
         {
-            EditMedicalRecord editMedicalRecord = new EditMedicalRecord();
-            editMedicalRecord.DataContext = new EditMedicalRecordViewModel(_cRUDMedicalRecordViewModel, editMedicalRecord);
-            editMedicalRecord.ShowDialog();
+            if(parameter.ToString() == "EditMedRecord")
+            {
+                _medicalRecordsViewModel.CurrentCRUDMedRecView = new EditMedicalRecordViewModel(_cRUDMedicalRecordViewModel, _medicalRecordsViewModel);
+            }
+
+            //EditMedicalRecord editMedicalRecord = new EditMedicalRecord();
+            //editMedicalRecord.DataContext = new EditMedicalRecordViewModel(_cRUDMedicalRecordViewModel, editMedicalRecord);
+            //editMedicalRecord.ShowDialog();
         }
 
         public override bool CanExecute(object? parameter)

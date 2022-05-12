@@ -11,17 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Secretary.ViewModel;
 
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for AddMedicalRecord.xaml
+    /// Interaction logic for AccountsView.xaml
     /// </summary>
-    public partial class AddMedicalRecord
+    public partial class AccountsView
     {
-        public AddMedicalRecord()
+        public AccountsView()
         {
             InitializeComponent();
+            this.DataContext = new AccountsViewModel();
         }
     }
 }

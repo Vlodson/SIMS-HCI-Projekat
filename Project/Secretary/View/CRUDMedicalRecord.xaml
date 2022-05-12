@@ -25,8 +25,8 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Margin="20,0,0,15" Grid.Row="0" Orientation="Horizontal" >
-                    <Button Background="White" FontSize="18" Content="Dodaj" Command="{Binding AddMedicalRecordCommand}" Height="30" Width="120"/>
-                    <Button Background="White" FontSize="18" Content="Izmeni" Command="{Binding EditMedicalRecordCommand}" Height="30" Width="120"/>
+                    <Button Background="White" FontSize="18" Content="Dodaj" Command="{Binding AddMedicalRecordCommand}" CommandParameter="AddMedRecord" Height="30" Width="120"/>
+                    <Button Background="White" FontSize="18" Content="Izmeni" Command="{Binding EditMedicalRecordCommand}" CommandParameter="EditMedRecord" Height="30" Width="120"/>
                     <Button Background="White" FontSize="18" Content="Obriši" Command="{Binding RemoveMedicalRecordCommand}" Height="30" Width="120"/>
                 </StackPanel>
 

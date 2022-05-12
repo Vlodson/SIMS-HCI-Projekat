@@ -11,10 +11,12 @@ namespace Secretary.Commands
     public class GoToAddMedicalRecordCommand : CommandBase
     {
         private readonly CRUDMedicalRecordViewModel _cRUDMedicalRecordViewModel;
+        private readonly MedicalRecordsViewModel _medicalRecordsViewModel;
 
-        public GoToAddMedicalRecordCommand(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel)
+        public GoToAddMedicalRecordCommand(CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             _cRUDMedicalRecordViewModel = cRUDMedicalRecordViewModel;
+            _medicalRecordsViewModel = medicalRecordsViewModel;
         }
 
         public override void Execute(object? parameter)
@@ -22,9 +24,14 @@ namespace Secretary.Commands
             //unselect tabele
             _cRUDMedicalRecordViewModel.MedicalRecordViewModel = null;
         
-            AddMedicalRecord addMedicalRecord = new AddMedicalRecord();
-            addMedicalRecord.DataContext = new AddMedicalRecordViewModel(_cRUDMedicalRecordViewModel, addMedicalRecord);
-            addMedicalRecord.ShowDialog();
+            if(parameter.ToString() == "AddMedRecord")
+            {
+                _medicalRecordsViewModel.CurrentCRUDMedRecView = new AddMedicalRecordViewModel(_cRUDMedicalRecordViewModel, _medicalRecordsViewModel);
+            }
+
+            //AddMedicalRecord addMedicalRecord = new AddMedicalRecord();
+            //addMedicalRecord.DataContext = new AddMedicalRecordViewModel(_cRUDMedicalRecordViewModel, addMedicalRecord);
+            //addMedicalRecord.ShowDialog();
         }
     }
 }

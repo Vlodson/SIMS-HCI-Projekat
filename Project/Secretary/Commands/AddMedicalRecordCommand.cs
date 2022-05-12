@@ -19,14 +19,14 @@ namespace Secretary.Commands
         private readonly AddMedicalRecordViewModel _addMedicalRecordViewModel;
         private readonly MedicalRecordController _medicalRecordController;
         private readonly CRUDMedicalRecordViewModel _crudMedicalRecordViewModel;
-        private Window _addMedicalRecord;
+        private readonly MedicalRecordsViewModel _medicalRecordsViewModel;
 
-        public AddMedicalRecordCommand(AddMedicalRecordViewModel addMedicalRecordViewModel, CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordController medicalRecordController, Window addMedicalRecord)
+        public AddMedicalRecordCommand(AddMedicalRecordViewModel addMedicalRecordViewModel, CRUDMedicalRecordViewModel cRUDMedicalRecordViewModel, MedicalRecordController medicalRecordController, MedicalRecordsViewModel medicalRecordsViewModel)
         {
             _addMedicalRecordViewModel = addMedicalRecordViewModel;
             _medicalRecordController = medicalRecordController;
             _crudMedicalRecordViewModel = cRUDMedicalRecordViewModel;
-            _addMedicalRecord = addMedicalRecord;
+            _medicalRecordsViewModel = medicalRecordsViewModel;
 
             _addMedicalRecordViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -50,8 +50,12 @@ namespace Secretary.Commands
             //update tabele
             UpdateMedicalRecords();
 
+            if(parameter.ToString() == "Add")
+            {
+                _medicalRecordsViewModel.CurrentCRUDMedRecView = new CRUDMedicalRecordViewModel(_medicalRecordsViewModel);
+            }
             //zatvaranje prozora
-            _addMedicalRecord.Close();
+            //_addMedicalRecord.Close();
         }
 
         public override bool CanExecute(object? parameter)

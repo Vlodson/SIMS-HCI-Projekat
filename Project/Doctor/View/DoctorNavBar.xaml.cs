@@ -67,7 +67,7 @@ namespace Doctor.View
 
         private void ButtonRequests(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new FreeDaysRequestPage();
         }
 
         private void ButtonVerification(object sender, RoutedEventArgs e)

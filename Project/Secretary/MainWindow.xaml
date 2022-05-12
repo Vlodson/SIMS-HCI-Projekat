@@ -95,7 +95,7 @@
 
                 </RadioButton>
 
-                <RadioButton Grid.Row="1" Foreground="Black" Content="Zakazivanja" IsChecked="True" Command="{Binding UpdateViewCommand}" CommandParameter="Appointments" FontSize="18"
+                <RadioButton Grid.Row="1" Foreground="Black" Content="Zakazivanja" Command="{Binding UpdateViewCommand}" CommandParameter="Appointments" FontSize="18"
                              Style="{StaticResource MenuButtonTheme}">
 
                 </RadioButton>
@@ -106,7 +106,7 @@
 
                 </RadioButton>
 
-                <RadioButton Grid.Row="3" Foreground="Black" Content="Nalozi korisnika" Command="{Binding UpdateViewCommand}" CommandParameter="UserAccounts" FontSize="18"
+                <RadioButton Grid.Row="3" Foreground="Black" Content="Nalozi korisnika" Command="{Binding UpdateViewCommand}" IsChecked="True" CommandParameter="UserAccounts" FontSize="18"
                              Style="{StaticResource MenuButtonTheme}" >
 
                 </RadioButton>

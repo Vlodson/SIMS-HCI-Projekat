@@ -29,6 +29,30 @@
             <DataTemplate DataType="{x:Type viewmodels:CRUDAppointmentsViewModel}">
                 <view:CRUDApointments/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AccountsViewModel}">
+                <view:AccountsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddAccountViewModel}">
+                <view:AddAccount/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditAccountViewModel}">
+                <view:EditAccount/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:MedicalRecordsViewModel}">
+                <view:MedicalRecordsView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:EditMedicalRecordViewModel}">
+                <view:EditMedicalRecord/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddMedicalRecordViewModel}">
+                <view:AddMedicalRecord/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
