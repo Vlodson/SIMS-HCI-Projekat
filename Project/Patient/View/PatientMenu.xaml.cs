@@ -140,8 +140,10 @@ namespace Patient.View
 
         private void Notifications_Click(object sender, RoutedEventArgs e)
         {
-            Notifications notifications = new Notifications();
-            notifications.ShowDialog();
+            //Notifications notifications = new Notifications();
+            //notifications.ShowDialog();
+            NotificationsMVVM notificationsMVVM = new NotificationsMVVM();
+            notificationsMVVM.ShowDialog();
         }
         private void calendarButton_Loaded(object sender, EventArgs e)
         {

@@ -1,5 +1,6 @@
 ﻿using Controller;
 using Model;
+using Patient.Views;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -77,31 +78,39 @@ namespace Patient.View
             ExaminationsForDate = new List<Examination>();
             DatesExaminations = new List<DateOnly>();
             Calendar.SelectedDate = DateTime.Now;
-            foreach(Examination exam in examinations)
+            //foreach(Examination exam in examinations)
+            //{
+            //    if(exam.Date.Date == today.Date)
+            //    {
+            //        if(exam.DoctorType == DoctorType.Pulmonology)
+            //        {
+            //            exam.DoctorTypeString = "Pulmologija";
+            //        }else if (exam.DoctorType == DoctorType.Cardiology)
+            //        {
+            //            exam.DoctorTypeString = "Kardiologija";
+            //        }
+            //        else
+            //        {
+            //            exam.DoctorTypeString = "Opšta praksa";
+            //        }
+            //        ExaminationsForDate.Add(exam);
+            //    }
+            //    if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+            //    {
+            //        DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+
+            //    }
+            //}
+            //dataGridExaminations.ItemsSource = ExaminationsForDate;
+            foreach(Examination exam in Examinations)
             {
-                if(exam.Date.Date == today.Date)
-                {
-                    if(exam.DoctorType == DoctorType.Pulmonology)
-                    {
-                        exam.DoctorTypeString = "Pulmologija";
-                    }else if (exam.DoctorType == DoctorType.Cardiology)
-                    {
-                        exam.DoctorTypeString = "Kardiologija";
-                    }
-                    else
-                    {
-                        exam.DoctorTypeString = "Opšta praksa";
-                    }
-                    ExaminationsForDate.Add(exam);
-                }
                 if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
                     DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
-                    
+
                 }
             }
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
-            
+
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -117,8 +126,10 @@ namespace Patient.View
                 if (_patientController.CheckStatusAdded(Login.loggedId))
                 {
                     Message.Visibility = Visibility.Hidden;
-                    AddExamination addExamination = new AddExamination(selected);
-                    addExamination.ShowDialog();
+                    //AddExamination addExamination = new AddExamination(selected);
+                    //addExamination.ShowDialog();
+                    AddExaminationMVVM addExaminationMVVM = new AddExaminationMVVM(selected);
+                    addExaminationMVVM.ShowDialog();
                 }
                 else
                 {
@@ -178,8 +189,10 @@ namespace Patient.View
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
-                        EditExamination editExamination = new EditExamination();
-                        editExamination.ShowDialog();
+                        //EditExamination editExamination = new EditExamination();
+                        //editExamination.ShowDialog();
+                        EditExaminationMVVM editExamiantion = new EditExaminationMVVM();
+                        editExamiantion.ShowDialog();
                     }
                     else
                     {
@@ -227,10 +240,11 @@ namespace Patient.View
                     DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
-            Calendar.DataContext = DatesExaminations;
             Calendar.SelectedDate = selectedInCalendar.AddDays(1);
             Calendar.SelectedDate = selectedInCalendar;
+            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            Calendar.DataContext = DatesExaminations;
+            
         }
 
         private void RemoveExamination_Click(object sender, RoutedEventArgs e)
