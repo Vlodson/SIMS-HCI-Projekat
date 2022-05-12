@@ -1,4 +1,6 @@
 using HospitalMain.Enums;
+using HospitalMain.Model;
+using HospitalMain.Repository;
 using Model;
 using Repository;
 using System;
@@ -14,13 +16,15 @@ namespace Service
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
+        private readonly QuestionnaireRepo _questionaryRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
+            _questionaryRepo = questionnaireRepo;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
@@ -149,12 +153,19 @@ namespace Service
                 }
             }
             examination.ExamRoomId = getRoom.Id;
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberNewExams += 1;
             return _examinationRepo.NewExamination(examination);
         }
 
+        
+
         public void RemoveExam(Examination examination)
         {
-             _examinationRepo.DeleteExamination(examination.Id);
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberCanceling += 1;
+            _patientRepo.SavePatient();
+            _examinationRepo.DeleteExamination(examination.Id);
             //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
             //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
         }
@@ -210,6 +221,7 @@ namespace Service
             Examination examination = _examinationRepo.GetExaminationById(examId);
             examination.Date = newDate;
             examination.ExamRoomId = getRoom.Id;
+            _patientRepo.GetPatient(examination.PatientId).NumberCanceling += 1;
             _examinationRepo.SetExamination(examId, examination);
         }
 
@@ -251,5 +263,34 @@ namespace Service
             return _examinationRepo.getExamByTime(dateTime);
         }
 
+        public Questionnaire GetHospitalQuestionnaire()
+        {
+            return _questionaryRepo.GetHospitalQuestionnaire();
+        }
+
+        public Questionnaire GetDoctorQuestionnaire()
+        {
+            return _questionaryRepo.GetDoctorQuestionnaire();
+        }
+
+        public void AddAnswer(String idPatient, Answer answer)
+        {
+            _patientRepo.AddAnswer(idPatient, answer);
+        }
+
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            return _examinationRepo.GetPatientsDoctors(patientId);
+        }
+
+        public bool CheckStatusCancelled(String id)
+        {
+            return _patientRepo.CheckStatusCancelled(id);
+        }
+
+        public bool CheckStatusAdded(String id)
+        {
+            return _patientRepo.CheckStatusAdded(id);
+        }
     }
 }

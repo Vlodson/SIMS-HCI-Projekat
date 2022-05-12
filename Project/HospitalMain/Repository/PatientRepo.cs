@@ -5,6 +5,8 @@ using Service;
 using System.IO;
 using System.Text.Json;
 using HospitalMain.Enums;
+using System.Collections.Generic;
+using HospitalMain.Model;
 
 namespace Repository
 {
@@ -18,19 +20,21 @@ namespace Repository
 
             this.DBPath = dbPath;
             this.Patients = new ObservableCollection<Patient>();
-            //Guest guest = new Guest("1");
+            Guest guest = new Guest("1");
 
-            //Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Muöki, new DateTime(1994, 05, 06), "1");
-            //Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Muöki, new DateTime(1985, 08, 08), "2");
-            //Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Muöki, new DateTime(2001, 11, 11), "3");
+            Patient p1 = new Patient(guest.ID, "0605994802463", "Pera", "Peric", "0605235548", "pera@mail.com", "Partizanska 13, Novi Sad", Gender.Mu≈°ki, new DateTime(1994, 05, 06), "1", new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
+            Patient p2 = new Patient("2", "0808985802463", "Ivan", "Ivic", "0605234548", "ivan@mail.com", "Partizanska 14, Novi Sad", Gender.Mu≈°ki, new DateTime(1985, 08, 08), "2", new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
+            Patient p3 = new Patient("3", "1111001802463", "Zika", "Zikic", "0605235598", "zika@mail.com", "Partizanska 15, Novi Sad", Gender.Mu≈°ki, new DateTime(2001, 11, 11), "3", new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
 
-            //this.Patients.Add(p1);
-            //this.Patients.Add(p2);
-            //this.Patients.Add(p3);
+            this.Patients.Add(p1);
+            this.Patients.Add(p2);
+            this.Patients.Add(p3);
 
             if (File.Exists(dbPath))
                 LoadPatient();
         }
+
+
       public bool NewPatient(Patient patient)
       {
 
@@ -133,5 +137,66 @@ namespace Repository
             File.WriteAllText(DBPath, jsonString);
             return true;
       }
+
+      
+      public Answer ContainsAnswer(String idPatient, String idAnswer)
+      {
+            foreach(Answer answer in GetPatient(idPatient).Answers)
+            {
+                if (idAnswer.Equals(answer.IdDoctor))
+                {
+                    return answer;
+                }
+            }
+            return null;
+      }
+
+      public void AddAnswer(String idPatient, Answer answer)
+      {
+            Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
+            if (existing == null)
+            {
+                GetPatient(idPatient).Answers.Add(answer);
+            }
+            else
+            {
+                GetPatient(idPatient).Answers.Remove(existing);
+                GetPatient(idPatient).Answers.Add(answer);
+            }
+            SavePatient();
+      }
+        public void CheckMonth(Patient patient)
+        {
+            if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
+            {
+                patient.CurrentMonth = DateTime.Now.ToString("MM");
+                patient.NumberCanceling = 0;
+                patient.NumberNewExams = 0;
+            }
+        }
+        //public PatientAccountService patientAccountService;
+
+        public bool CheckStatusCancelled(String id)
+        {
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberCanceling > 5)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool CheckStatusAdded(String id)
+        {
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberNewExams > 10)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
    }
+
 }
