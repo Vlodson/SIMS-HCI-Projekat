@@ -25,7 +25,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition MaxWidth="270"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -64,7 +64,7 @@
                     <StackPanel  Orientation="Horizontal" Margin="0,2,0,0">
                         <RadioButton x:Name="radioEditMedRecordMale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Muški}" FontSize="20" Content="Muški" ></RadioButton>
                         <Image Height="25" Width="30" Source="/Images/male.png"/>
-                        <RadioButton x:Name="radioEditMedRecordFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="40,0,0,0" FontSize="20" Content="Ženski"></RadioButton>
+                        <RadioButton x:Name="radioEditMedRecordFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="10,0,0,0" FontSize="20" Content="Ženski"></RadioButton>
                         <Image Height="25" Width="30" Source="/Images/female.png"/>
                     </StackPanel>
                 </StackPanel>

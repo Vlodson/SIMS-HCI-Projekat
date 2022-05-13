@@ -25,7 +25,7 @@
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition MaxWidth="270"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -51,7 +51,7 @@
                         <Image Source="/Images/adress.png"></Image>
                     </StackPanel>
                     <Border BorderBrush="Black" BorderThickness="1.5">
-                        <TextBox TextWrapping="Wrap" Text="{Binding Adress}" Height="50" Background="White" x:Name="textAddMedRecordAdresa" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="18" ></TextBox>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Adress}" Height="60" Background="White" x:Name="textAddMedRecordAdresa" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="18" ></TextBox>
                     </Border>
 
                 </StackPanel>
@@ -69,7 +69,7 @@
                     <StackPanel  Orientation="Horizontal" Margin="0,2,0,0">
                         <RadioButton x:Name="radioAddMedRecordMale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Muški}" FontSize="20" Content="Muški" ></RadioButton>
                         <Image Height="25" Width="25" Margin="5,0,0,0" Source="/Images/male.png"/>
-                        <RadioButton x:Name="radioAddMedRecordFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="40,0,0,0" FontSize="20" Content="Ženski"></RadioButton>
+                        <RadioButton x:Name="radioAddMedRecordFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="10,0,0,0" FontSize="20" Content="Ženski"></RadioButton>
                         <Image Height="25" Width="25" Margin="5,0,0,0" Source="/Images/female.png"/>
                     </StackPanel>
                 </StackPanel>

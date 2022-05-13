@@ -18,12 +18,12 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition MaxWidth="230"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
@@ -43,7 +43,7 @@
                         <Label Margin="-3 0 0 0" Content="Adresa" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Source="/Images/adress.png"></Image>
                     </StackPanel>
-                    <TextBox Margin="0,0,0,0" x:Name="textAddUserAccAdresa" Text="{Binding Adress}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textAddUserAccAdresa" Height="60" TextWrapping="Wrap" Text="{Binding Adress}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="50,10,10,10">
@@ -74,7 +74,7 @@
                     <StackPanel  Orientation="Horizontal" Margin="0,2,0,0">
                         <RadioButton x:Name="radioAddUserAccMale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Muški}"  FontSize="18" Content="Muški" ></RadioButton>
                         <Image Height="25" Width="25" Margin="5,0,0,0" Source="/Images/male.png"/>
-                        <RadioButton x:Name="radioAddUserAccFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="20,0,0,0" FontSize="18">Ženski</RadioButton>
+                        <RadioButton x:Name="radioAddUserAccFemale" VerticalContentAlignment="Center" IsChecked="{Binding Gender, Converter={StaticResource ResourceKey=genderConverter}, ConverterParameter=Ženski}" Margin="15,0,0,0" FontSize="18">Ženski</RadioButton>
                         <Image Height="25" Width="25" Margin="5,0,0,0" Source="/Images/female.png"/>
                     </StackPanel>
                 </StackPanel>
