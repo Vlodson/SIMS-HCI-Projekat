@@ -5,6 +5,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,13 +27,22 @@ namespace Patient.View
     /// <summary>
     /// Interaction logic for ExaminationsList.xaml
     /// </summary>
-    public partial class ExaminationsList : Page
+    public partial class ExaminationsList : Page, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
         private ExamController _examinationController;
         //private ExaminationRepo _examinationRepo;
         private DoctorController _doctorController;
         private PatientController _patientController;
         public static Examination selected;
+        public static bool remove;
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -78,6 +88,7 @@ namespace Patient.View
             ExaminationsForDate = new List<Examination>();
             DatesExaminations = new List<DateOnly>();
             Calendar.SelectedDate = DateTime.Now;
+            Calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990, 1, 1),DateTime.Now.AddDays(-1)));
             //foreach(Examination exam in examinations)
             //{
             //    if(exam.Date.Date == today.Date)
@@ -102,7 +113,7 @@ namespace Patient.View
             //    }
             //}
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
-            foreach(Examination exam in Examinations)
+            foreach (Examination exam in Examinations)
             {
                 if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
@@ -110,7 +121,7 @@ namespace Patient.View
 
                 }
             }
-
+            remove = false;
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -152,11 +163,12 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selected.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
@@ -221,6 +233,7 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
+
                     if (exam.DoctorType == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
@@ -258,10 +271,15 @@ namespace Patient.View
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
-                        _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
-                        //_examinationRepo.SaveExamination();
-                        _examinationController.SaveExaminationRepo();
-                        dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                        WesNowRemove yesNoRemove = new WesNowRemove();
+                        yesNoRemove.ShowDialog();
+                        if (remove)
+                        {
+                            _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
+                            //_examinationRepo.SaveExamination();
+                            _examinationController.SaveExaminationRepo();
+                            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                        }
                     }
                     else
                     {
@@ -336,11 +354,12 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selected.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }

@@ -270,5 +270,10 @@ namespace Patient.View
             }
             
         }
+
+        private void MenuClick(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new PatientMenu();
+        }
     }
 }
