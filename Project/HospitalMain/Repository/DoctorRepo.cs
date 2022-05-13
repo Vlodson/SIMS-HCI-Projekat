@@ -26,19 +26,19 @@ namespace Repository
 
             List<Examination> examinationsDoctor2 = new List<Examination>();
             DateTime dtDoctor2 = DateTime.Now;
-            Doctor doctor2 = new Doctor("d11", "Jovan", "Petrovic", dtDoctor2, DoctorType.Cardiology, examinationsDoctor2);
+            Doctor doctor2 = new Doctor("d11", "Jovan", "Petrovic", dtDoctor2, DoctorType.Cardiology, 20, examinationsDoctor2);
 
             List<Examination> examinationsDoctor3 = new List<Examination>();
             DateTime dtDoctor3 = DateTime.Now;
-            Doctor doctor3 = new Doctor("d12", "Miroslav", "Katic", dtDoctor3, DoctorType.specialistCheckup, examinationsDoctor3);
+            Doctor doctor3 = new Doctor("d12", "Miroslav", "Katic", dtDoctor3, DoctorType.specialistCheckup, 20, examinationsDoctor3);
 
             List<Examination> examinationsDoctor4 = new List<Examination>();
             DateTime dtDoctor4 = DateTime.Now;
-            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.operation, examinationsDoctor4);
+            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.operation, 20, examinationsDoctor4);
 
             List<Examination> examinationsDoctor5 = new List<Examination>();
             DateTime dtDoctor5 = DateTime.Now;
-            Doctor doctor5 = new Doctor("d14", "Milos", "Gravara", dtDoctor5, DoctorType.Pulmonology, examinationsDoctor5);
+            Doctor doctor5 = new Doctor("d14", "Milos", "Gravara", dtDoctor5, DoctorType.Pulmonology, 20, examinationsDoctor5);
 
             this.doctorList.Add(doctor1);
             this.doctorList.Add(doctor2);

@@ -7,6 +7,7 @@ using Repository;
 using Service;
 using Secretary.Stores;
 using Secretary.ViewModel;
+using HospitalMain.Repository;
 
 namespace Secretary
 {
@@ -33,6 +34,8 @@ namespace Secretary
 
         public UserAccountRepo UserAccountRepo { get; set; }
 
+        public QuestionnaireRepo QuestionnaireRepo { get; set; }
+
         public UserAccountController UserAccountController { get; set; }
         
         public RoomRepo RoomRepo { get; set; }
@@ -47,6 +50,7 @@ namespace Secretary
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, EquipmentRepo);
+            QuestionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
 
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             PatientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
@@ -62,7 +66,7 @@ namespace Secretary
             MedicalRecordService medicalRecordService = new MedicalRecordService(MedicalRecordRepo);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo, QuestionnaireRepo);
             ExamController = new ExamController(patientService, doctorService);
 
             UserAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
