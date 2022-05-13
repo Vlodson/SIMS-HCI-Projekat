@@ -42,6 +42,7 @@ namespace Patient.View
         private DoctorController _doctorController;
         private PatientController _patientController;
         public static Examination selected;
+        public static bool remove;
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -120,6 +121,7 @@ namespace Patient.View
 
                 }
             }
+            remove = false;
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
@@ -269,10 +271,15 @@ namespace Patient.View
                     if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
-                        _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
-                        //_examinationRepo.SaveExamination();
-                        _examinationController.SaveExaminationRepo();
-                        dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                        WesNowRemove yesNoRemove = new WesNowRemove();
+                        yesNoRemove.ShowDialog();
+                        if (remove)
+                        {
+                            _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
+                            //_examinationRepo.SaveExamination();
+                            _examinationController.SaveExaminationRepo();
+                            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                        }
                     }
                     else
                     {
