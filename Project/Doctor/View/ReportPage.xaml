@@ -41,7 +41,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Name ="add" Content="Dodaj lek" HorizontalAlignment="Left" Margin="434,10,0,0" Grid.Row="4" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Height="49" Width="148" Click="add_Click"/>
-        <Button Grid.Row="4" Name="SaveReport" Content="Prosledi" Template="{StaticResource BasicButton}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="200" Click="SaveReport_Click" Height="42" Margin="0,220,0,0"/>
-
+        <Button Grid.Row="4" Name="SaveReport" Content="Prosledi" Template="{StaticResource BasicButton}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Click="SaveReport_Click" Height="42" Margin="0,220,0,0"/>
+        <Button Grid.Row="4" Name="AddReferral" Content="Izdaj uput" Template="{StaticResource BasicButton}" HorizontalAlignment="Left" Margin="60,206,0,-13" Click="AddReferral_Click"/>
     </Grid>
 </Page>

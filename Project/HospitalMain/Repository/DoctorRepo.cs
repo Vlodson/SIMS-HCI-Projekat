@@ -13,12 +13,12 @@ namespace Repository
     public class DoctorRepo
     {
         private string dbPath { get; set; }
-        private ObservableCollection<Doctor> doctorList { get; set; }
+        public ObservableCollection<Doctor> DoctorList { get; set; }
 
         public DoctorRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            this.doctorList = new ObservableCollection<Doctor>();
+            this.DoctorList = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -53,7 +53,7 @@ namespace Repository
 
         public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return doctorList;
+            return DoctorList;
         }
 
         public ObservableCollection<Doctor> GetDoctorsByType(DoctorType doctorType)
@@ -85,7 +85,7 @@ namespace Repository
 
         public Doctor GetDoctor(string id)
         {
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if (doctor.Id.Equals(id))
                 {
@@ -136,7 +136,7 @@ namespace Repository
         {
 
             using FileStream stream = File.OpenRead(dbPath);
-            this.doctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
+            this.DoctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
 
             return true;
         }
@@ -145,7 +145,7 @@ namespace Repository
 
         public bool SaveDoctor()
         {
-            string jsonString = JsonSerializer.Serialize(doctorList);
+            string jsonString = JsonSerializer.Serialize(DoctorList);
 
             File.WriteAllText(dbPath, jsonString);
             return true;

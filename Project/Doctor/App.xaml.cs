@@ -28,6 +28,7 @@ namespace Doctor
         public ReportController reportController { get; set; }
         public MedicalRecordController medicalRecordController { get; set; }
         public FreeDaysRequestController requestController { get; set; }
+        public ReferralController referralController { get; set; }
         public ExaminationRepo examRepo { get; set; }
         public RoomRepo roomRepo { get; set; }
         public PatientRepo patientRepo { get; set; }
@@ -37,6 +38,7 @@ namespace Doctor
         public EquipmentRepo equipmentRepo { get; set; }
         public MedicalRecordRepo medicalRecordRepo { get; set; }
         public FreeDaysRequestRepo requestRepo { get; set; }
+        public ReferralRepo referralRepo { get; set; }
 
         public UserAccountController userAccountController { get; set; }
         public UserAccountRepo userAccountRepo { get; set; }
@@ -62,6 +64,7 @@ namespace Doctor
             userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             transferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             requestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
+            referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
             
 
             var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo);
@@ -75,6 +78,7 @@ namespace Doctor
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(transferRepo, roomRepo, equipmentRepo);
             var requestService = new FreeDaysRequestService(requestRepo);
+            var referralService = new ReferralService(referralRepo);
 
             examController = new ExamController(patientService, doctorService);
             doctorController = new DoctorController(doctorService);
@@ -87,6 +91,7 @@ namespace Doctor
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             requestController = new FreeDaysRequestController(requestService);
+            referralController = new ReferralController(referralService);
 
             for (int i = 0; i < 20; i++)
             {

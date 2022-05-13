@@ -61,11 +61,6 @@ namespace Service
             _examinationRepo.SetExamination(id,exam);
         }
 
-        public List<Examination> ReadPatientExams(String patientId)
-        {
-            throw new NotImplementedException();
-        }
-
         public ObservableCollection<Doctor> GetDoctors()
         {
             return _doctorRepo.GetAllDoctors();
@@ -283,6 +278,18 @@ namespace Service
         public bool occupiedDate(DateTime dt)
         {
             return _examinationRepo.occupiedDate(dt);
+        }
+        public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType type)
+        {
+            ObservableCollection<string> list = new ObservableCollection<string>();
+            foreach(Doctor doctor in _doctorRepo.DoctorList)
+            {
+                if(type == doctor.Type)
+                {
+                    list.Add(doctor.Id);
+                }
+            }
+            return list;
         }
     }
 }
