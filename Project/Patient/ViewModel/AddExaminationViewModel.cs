@@ -42,6 +42,7 @@ namespace Patient.ViewModel
         public MyICommand DoctorPriorityCommand { get; set; }
         public MyICommand DatePriorityCommand { get; set; }
         public MyICommand AddExaminationCommand { get; set; }
+        public MyICommand TypeChangedCommand    { get; set; }
         
 
         
@@ -67,6 +68,15 @@ namespace Patient.ViewModel
             {
                 selectedType = value;
                 OnPropertyChanged("SelectedType");
+                doctors = new List<Doctor>();
+                foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                {
+                    if (doctor.Type == SelectedType)
+                    {
+                        doctors.Add(doctor);
+                    }
+                }
+                OnPropertyChanged("Doctors");
             }
         }
 
@@ -79,6 +89,7 @@ namespace Patient.ViewModel
             set
             {
                 doctors = value;
+                OnPropertyChanged("Doctors");
             }
         }
 
@@ -187,6 +198,7 @@ namespace Patient.ViewModel
             doctorTypes.Add(DoctorType.Cardiology);
             doctorTypes.Add(DoctorType.specialistCheckup);
 
+            SelectedType = DoctorType.Pulmonology;
             doctors = new List<Doctor>();
             foreach(Doctor doctor in _doctorController.GetAll().ToList())
             {
@@ -198,12 +210,13 @@ namespace Patient.ViewModel
             StartDate = sDate;
             EndDate = sDate.AddDays(7);
 
-
+           
             ShowExaminationsCommand = new MyICommand(OnShowExaminations);
             priority = false;
             DoctorPriorityCommand = new MyICommand(OnDoctorPriority);
             DatePriorityCommand = new MyICommand(OnDatePriority);
             AddExaminationCommand = new MyICommand(OnAddExamination, CanAddExamination);
+            TypeChangedCommand = new MyICommand(OnTypeChanged, CanTypeChanged);
             thisWindow = window;
         }
 
@@ -267,6 +280,21 @@ namespace Patient.ViewModel
             thisWindow.Close();
         }
 
+        private bool CanTypeChanged()
+        {
+            return SelectedDoctor != null;
+        }
+        private void OnTypeChanged()
+        {
+            doctors = new List<Doctor>();
+            foreach (Doctor doctor in _doctorController.GetAll().ToList())
+            {
+                if (doctor.Type == SelectedType)
+                {
+                    doctors.Add(doctor);
+                }
+            }
+        }
         
     }
 }

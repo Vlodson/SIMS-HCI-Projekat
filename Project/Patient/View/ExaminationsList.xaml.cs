@@ -152,11 +152,12 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selected.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
@@ -221,6 +222,7 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
+
                     if (exam.DoctorType == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
@@ -336,11 +338,12 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selected.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }

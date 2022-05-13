@@ -28,7 +28,7 @@
         </ComboBox>
 
         <Label Content="Lekar*" HorizontalAlignment="Left" Margin="13,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="-10.984,-14.112"/>
-        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor}" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top" Width="150">
+        <ComboBox x:Name="DoctorCombo" ItemsSource="{Binding Doctors}" SelectedItem="{Binding SelectedDoctor, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="110,110,0,0" VerticalAlignment="Top" Width="150">
             <ComboBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
