@@ -22,5 +22,6 @@ namespace Utility
         public static String ReportDBPath = Path.Combine(DBPath, "Reports.json");
         public static String UserDBPath = Path.Combine(DBPath, "Users.json");
         public static String RequestDBPath = Path.Combine(DBPath, "Request.json");
+        public static String ReferralDBPath = Path.Combine(DBPath, "Referrals.json");
     }
 }

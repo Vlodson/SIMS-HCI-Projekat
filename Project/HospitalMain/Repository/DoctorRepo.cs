@@ -13,12 +13,12 @@ namespace Repository
     public class DoctorRepo
     {
         private string dbPath { get; set; }
-        private ObservableCollection<Doctor> doctorList { get; set; }
+        public ObservableCollection<Doctor> DoctorList { get; set; }
 
         public DoctorRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            this.doctorList = new ObservableCollection<Doctor>();
+            this.DoctorList = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -28,8 +28,8 @@ namespace Repository
             DateTime dtDoctor2 = DateTime.Now;
             Doctor doctor2 = new Doctor("d11", "Jovan", "Petrovic", dtDoctor2, DoctorType.Pulmonology, 30,  examinationsDoctor2);
 
-            this.doctorList.Add(doctor1);
-            this.doctorList.Add(doctor2);
+            this.DoctorList.Add(doctor1);
+            this.DoctorList.Add(doctor2);
 
             //if (File.Exists(dbPath))
             //    LoadDoctor();
@@ -38,12 +38,12 @@ namespace Repository
 
         public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return doctorList;
+            return DoctorList;
         }
 
         public Doctor GetDoctor(string id)
         {
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if (doctor.Id.Equals(id))
                 {
@@ -57,14 +57,14 @@ namespace Repository
         {
 
             using FileStream stream = File.OpenRead(dbPath);
-            this.doctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
+            this.DoctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
 
             return true;
         }
 
         public bool SaveDoctor()
         {
-            string jsonString = JsonSerializer.Serialize(doctorList);
+            string jsonString = JsonSerializer.Serialize(DoctorList);
 
             File.WriteAllText(dbPath, jsonString);
             return true;

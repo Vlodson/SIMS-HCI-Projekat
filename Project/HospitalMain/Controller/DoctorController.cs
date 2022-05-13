@@ -37,5 +37,9 @@ namespace Controller
         {
             return _doctorService.MoveExaminations(examination);
         }
+        public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType selectedSpec)
+        {
+            return _doctorService.GetDoctorsBySpecialization(selectedSpec);
+        }
     }
 }
