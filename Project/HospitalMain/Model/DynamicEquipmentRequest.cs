@@ -24,14 +24,17 @@ namespace HospitalMain.Model
         private int _quantity;
         private DynamicEquipmentTypeEnum _equipmentType;
         private String _shortDescription;
+        private DateTime _orderDate;
 
         public DynamicEquipmentRequest() { }
 
-        public DynamicEquipmentRequest(int quantity, DynamicEquipmentTypeEnum dynamicEquipmentTypeEnum, String shortDescription)
+        public DynamicEquipmentRequest(String id, int quantity, DynamicEquipmentTypeEnum dynamicEquipmentTypeEnum, String shortDescription, DateTime orderDate)
         {
+            _id = id;
             _quantity = quantity;
             _equipmentType = dynamicEquipmentTypeEnum;
             _shortDescription = shortDescription;
+            _orderDate = orderDate;
         }
 
         public String ID
@@ -56,6 +59,12 @@ namespace HospitalMain.Model
         {
             get { return _shortDescription; }
             set { _shortDescription = value; OnPropertyChanged(nameof(ShortDescription)); }
+        }
+
+        public DateTime OrderDate
+        {
+            get { return _orderDate; }
+            set { _orderDate = value; OnPropertyChanged(nameof(OrderDate)); }
         }
     }
 }

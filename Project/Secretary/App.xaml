@@ -65,6 +65,14 @@
             <DataTemplate DataType="{x:Type viewmodels:CreateGuestViewModel}">
                 <view:CreateGuestView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:RequestsViewModel}">
+                <view:RequestView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:OrderDynamicEquipmentViewModel}">
+                <view:NewDynamicEquipmentOrderView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -21,6 +21,28 @@ namespace HospitalMain.Repository
             DynamicEquipment = new ObservableCollection<DynamicEquipmentRequest>();
         }
 
+        public int generateID()
+        {
+            int maxID = 0;
+            ObservableCollection<DynamicEquipmentRequest> equipment = DynamicEquipment;
+
+            foreach (DynamicEquipmentRequest order in equipment)
+            {
+                int orderID = Int32.Parse(order.ID);
+                if (orderID > maxID)
+                {
+                    maxID = orderID;
+                }
+            }
+
+            return maxID + 1;
+        }
+
+        public ObservableCollection<DynamicEquipmentRequest> getAllRequests()
+        {
+            return DynamicEquipment;
+        }
+
         public bool OrderNewDynamicEquipmentRequest(DynamicEquipmentRequest dynamicEquipmentRequest)
         {
             foreach(DynamicEquipmentRequest dynamicEquipment in DynamicEquipment)
@@ -45,6 +67,7 @@ namespace HospitalMain.Repository
                     dynamicEquipment.Quantity = newOrder.Quantity;
                     dynamicEquipment.ShortDescription = newOrder.ShortDescription;
                     dynamicEquipment.EquipmentType = newOrder.EquipmentType;
+                    dynamicEquipment.OrderDate = newOrder.OrderDate;
                     break;
                 }
             }

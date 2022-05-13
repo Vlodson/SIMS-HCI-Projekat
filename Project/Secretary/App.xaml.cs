@@ -8,6 +8,8 @@ using Service;
 using Secretary.Stores;
 using Secretary.ViewModel;
 using HospitalMain.Repository;
+using HospitalMain.Service;
+using HospitalMain.Controller;
 
 namespace Secretary
 {
@@ -19,6 +21,10 @@ namespace Secretary
             
         public PatientController PatientController { get; set; }
         public PatientRepo PatientRepo { get; set; }
+
+        public DynamicEquipmentRepo DynamicEquipmentRepo { get; set; }
+        public DynamicEquipmentService DynamicEquipmentService { get; set; }
+        public DynamicEquipmentController DynamicEquipmentController { get; set; }
 
         public MedicalRecordController MedicalRecordController { get; set; }
 
@@ -51,6 +57,9 @@ namespace Secretary
             EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, EquipmentRepo);
             QuestionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
+            DynamicEquipmentRepo = new DynamicEquipmentRepo(GlobalPaths.DynamicEquipmentDBPath);
+            DynamicEquipmentService = new DynamicEquipmentService(DynamicEquipmentRepo, EquipmentRepo, RoomRepo);
+            DynamicEquipmentController = new DynamicEquipmentController(DynamicEquipmentService);
 
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             PatientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);

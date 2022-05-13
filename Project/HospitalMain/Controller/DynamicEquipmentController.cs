@@ -16,6 +16,16 @@ namespace HospitalMain.Controller
         {
             _dynamicEquipmentService = dynamicEquipmentService;
         }
+        
+        public void CheckIfOrderArrived()
+        {
+            _dynamicEquipmentService.CheckIfOrderArrived();
+        }
+
+        public int generateID()
+        {
+            return _dynamicEquipmentService.generateID();
+        }
 
         public bool NewOrder(DynamicEquipmentRequest dynamicEquipmentRequest)
         {
