@@ -173,5 +173,10 @@ namespace Patient.View
             //Menu.Content = new Questionnaires();
             Menu.Content = new QuestionnairePage();
         }
+
+        private void MedicalREcordClick(object sender, RoutedEventArgs e)
+        {
+            Menu.Content = new MedicalRecordMVVM();
+        }
     }
 }
