@@ -120,8 +120,6 @@ namespace Patient.View
 
                 }
             }
-
-            blackoutStartDate = today;
         }
 
         private void AddExamination_Click(object sender, RoutedEventArgs e)
