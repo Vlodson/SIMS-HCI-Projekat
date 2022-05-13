@@ -27,12 +27,12 @@ namespace Service
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {
-            return patientRepo.NewPatient(new Patient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false));
+            return patientRepo.NewPatient(new Patient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false, answers, DateTime.Now.ToString("MM"), 0, 0));
       }
 
-      public bool CreateGuest(String id, String name, String surname, Gender gender)
+      public bool CreateGuest(String id, String name, String surname, Gender gender, List<Answer> answers)
       {
-            return patientRepo.NewPatient(new Patient(id, "", name, surname, "", "", "", gender, new DateTime(), "", true, answers, DateTime.Now.ToString("MM"), 0, 0)));
+            return patientRepo.NewPatient(new Patient(id, "", name, surname, "", "", "", gender, new DateTime(), "", true, answers, DateTime.Now.ToString("MM"), 0, 0));
       }
       
       public bool RemovePatient(String patientId)

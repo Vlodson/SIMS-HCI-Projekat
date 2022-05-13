@@ -30,14 +30,14 @@ namespace Controller
             return patientAccService.generateID();
         } 
 
-      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
+      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
-            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers);
+            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, new List<Answer>());
       }
       
       public bool CreateGuest(String id, String name, String surname, Gender gender)
       {
-            return patientAccService.CreateGuest(id, name, surname, gender);
+            return patientAccService.CreateGuest(id, name, surname, gender, new List<Answer>());
       }
 
       public bool RemovePatient(String patientId)
@@ -45,9 +45,9 @@ namespace Controller
             return patientAccService.RemovePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling, int numberNewExams)
+      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID)
       {
-            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, answers, currentMonth, numberCanceling, numberNewExams);
+            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
       }
       
       public Model.Patient ReadPatient(String patientId)

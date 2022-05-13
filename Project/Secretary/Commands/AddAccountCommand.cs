@@ -10,6 +10,7 @@ using Model;
 using System.ComponentModel;
 using HospitalMain.Enums;
 using System.Windows;
+using HospitalMain.Model;
 
 namespace Secretary.Commands
 {

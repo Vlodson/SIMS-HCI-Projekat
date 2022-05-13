@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Model;
 using Secretary.ViewModel;
 using System;
 using System.Collections.Generic;
