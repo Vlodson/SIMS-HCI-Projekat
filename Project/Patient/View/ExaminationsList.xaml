@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Patient.View"
       mc:Ignorable="d" 
-      d:DesignHeight="653" d:DesignWidth="959"
+      d:DesignHeight="703" d:DesignWidth="959"
       Title="ExaminationsList">
 
     <Page.Resources>
@@ -74,7 +74,7 @@
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
         <!--ItemsSource="{Binding Path= Examinations, Mode=TwoWay}"-->
-        <DataGrid x:Name="dataGridExaminations" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,69" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dataGridExaminations" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,51" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -87,21 +87,21 @@
                 <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="AddExamination" Style="{StaticResource Buttons}" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="124,589,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1">
+        <Button x:Name="AddExamination" Style="{StaticResource Buttons}" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="131,634,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="EditExamination" Style="{StaticResource Buttons}" Content="Izmeni" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="260,589,0,0" VerticalAlignment="Top" Click="EditExamination_Click" Grid.Column="1">
+        <Button x:Name="EditExamination" Style="{StaticResource Buttons}" Content="Izmeni" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="260,634,0,0" VerticalAlignment="Top" Click="EditExamination_Click" Grid.Column="1">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="RemoveExamination" Style="{StaticResource Buttons}" Content="Otkazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="383,589,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click" Grid.Column="1">
+        <Button x:Name="RemoveExamination" Style="{StaticResource Buttons}" Content="Otkazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="383,634,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click" Grid.Column="1">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -115,7 +115,7 @@
 
 
 
-        <Button Background="#b2d8d8" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,589,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
+        <Button Background="#b2d8d8" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
             <StackPanel>
                 <Image Source="/Images/arrow-small-left.png"/>
             </StackPanel>
@@ -137,6 +137,6 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Zakazani termini" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" x:Name="Message" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="64,589,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" x:Name="Message" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="36,608,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>
