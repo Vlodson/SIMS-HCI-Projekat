@@ -6,8 +6,10 @@ namespace Model
    {
       None,
       Pulmonology,
-      specialistCheckup,
+      General,
       Cardiology,
-      operation
+      Neurology,
+      Dermatology,
+      None
     }
 }

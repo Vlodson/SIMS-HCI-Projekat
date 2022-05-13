@@ -104,5 +104,10 @@ namespace Doctor.View
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void AddReferral_Click(object sender, RoutedEventArgs e)
+        {
+            ReferralPage referralPage = new ReferralPage(selectedExam);
+            NavigationService.Navigate(referralPage);
+        }
     }
 }
