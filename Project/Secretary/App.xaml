@@ -53,6 +53,18 @@
             <DataTemplate DataType="{x:Type viewmodels:AddMedicalRecordViewModel}">
                 <view:AddMedicalRecord/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EmergencyGeneralViewModel}">
+                <view:EmergencyView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EmergencyViewModel}">
+                <view:CreateEmergencyView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:CreateGuestViewModel}">
+                <view:CreateGuestView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

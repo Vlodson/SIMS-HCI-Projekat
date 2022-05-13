@@ -19,6 +19,21 @@ namespace Controller
             this._doctorService = doctorService;
         }
       
+        public Examination getTemporaryExam()
+        {
+            return _patientService.getTemporaryExam();
+        }
+
+        public int getValidationCounter()
+        {
+            return _patientService.getValidationCounter();
+        }
+
+        public void setValidationCounter(int value)
+        {
+            _patientService.setValidationCounter(value);
+        }
+
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _patientService.generateID(examinations);
@@ -65,6 +80,11 @@ namespace Controller
         public void DoctorRemoveExam(Examination exam)
         {
             _doctorService.RemoveExam(exam);
+        }
+
+        public void DeleteExam(string examID)
+        {
+            _doctorService.RemoveExam(examID);
         }
 
         public ObservableCollection<Examination> ReadPatientExams(string id)

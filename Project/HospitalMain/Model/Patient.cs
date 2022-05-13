@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using HospitalMain.Enums;
@@ -28,13 +29,18 @@ namespace Model
         private Gender gender;
         private DateTime doB;
         private String medicalRecordID;
+        private bool isGuest;
+        private List<Answer> answers;
+        private String currentMonth;
+        private int numberCanceling;
+        private int numberNewExams;
 
         //public Patient(Guest guest) : base(guest.ID)
         //{
 
         //}
 
-        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
+        public Patient(String id, String ucin, String name, String surname, String phone_number, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, bool isGuest, List<Answer> answers, String currentMonth, int numberCanceling, int numberNewExams)
         {
             this.id = id;
             this.ucin = ucin;
@@ -46,6 +52,11 @@ namespace Model
             this.gender = gender;
             this.doB = doB;
             this.medicalRecordID = medicalRecordID;
+            this.isGuest = isGuest;
+            this.answers = answers;
+            this.currentMonth = currentMonth;
+            this.numberCanceling = numberCanceling;
+            this.numberNewExams = numberNewExams;
         }
 
         public Patient()
@@ -84,6 +95,19 @@ namespace Model
                 }
             }
 
+        }
+
+        public bool IsGuest
+        {
+            get { return isGuest; }
+            set
+            {
+                if(value != isGuest)
+                {
+                    isGuest = value;
+                    OnPropertyChanged("IsGuest");
+                }
+            }
         }
 
         public String MedicalRecordID
@@ -194,10 +218,63 @@ namespace Model
             }
         }
 
+        public List<Answer> Answers
+        {
+            get
+            {
+                return answers;
+            }
+            set
+            {
+                answers = value;
+                OnPropertyChanged("Answers");
+            }
+        }
+
+        public String CurrentMonth
+        {
+            get
+            {
+                return currentMonth;
+            }
+            set
+            {
+                currentMonth = value;
+                OnPropertyChanged("CurrentMonth");
+            }
+        }
+
+        public int NumberCanceling
+        {
+            get
+            {
+                return numberCanceling;
+            }
+            set
+            {
+                numberCanceling = value;
+                OnPropertyChanged("NumberCanceling");
+            }
+        }
+
+        public int NumberNewExams
+        {
+            get
+            {
+                return numberNewExams;
+            }
+            set
+            {
+                numberNewExams = value;
+                OnPropertyChanged("NumberNewExams");
+            }
+        }
+        
         public override string ToString()
         {
             return Name;
         }
 
+        
     }
 }

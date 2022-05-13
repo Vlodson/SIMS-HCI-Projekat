@@ -30,6 +30,10 @@ namespace Secretary.Commands
             {
                 _mainViewModel.CurrentViewModel = new MedicalRecordsViewModel();
             }
+            else if (parameter.ToString() == "Emergency")
+            {
+                _mainViewModel.CurrentViewModel = new EmergencyGeneralViewModel();
+            }
         }
     }
 }

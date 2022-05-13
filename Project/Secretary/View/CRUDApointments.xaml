@@ -30,11 +30,12 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Width="auto" Binding="{Binding ID, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Room ID" Width="auto" Binding="{Binding ExamRoomID, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Date and time" Width="*" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Date and time" Width="auto" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Doctor" Width="auto" Binding="{Binding Doctor, Converter={StaticResource doctorFullNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Patient ID" Width="auto" Binding="{Binding PatientID, UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Duration" Width="auto" Binding="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="ExaminationType"  Width="*" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="ExaminationType"  Width="auto" Binding="{Binding Type, UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="DoctorType"  Width="*" Binding="{Binding DoctorType, UpdateSourceTrigger=PropertyChanged}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

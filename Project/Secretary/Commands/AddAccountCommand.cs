@@ -10,6 +10,7 @@ using Model;
 using System.ComponentModel;
 using HospitalMain.Enums;
 using System.Windows;
+using HospitalMain.Model;
 
 namespace Secretary.Commands
 {
@@ -42,6 +43,7 @@ namespace Secretary.Commands
             //pravljenje novog pacijenta
             _patientController.CreatePatient(newPatientID.ToString(), _addAccountViewModel.UCIN, _addAccountViewModel.Name, _addAccountViewModel.Surname, _addAccountViewModel.PhoneNumber, _addAccountViewModel.Mail, _addAccountViewModel.Adress, _addAccountViewModel.Gender, Convert.ToDateTime(_addAccountViewModel.DateOfBirth), _addAccountViewModel.MedicalRecordID);
 
+            //nepotrebno update jer se instancira novi viewModel CRUDAcc
             //update liste pacijenata
             UpdatePatients();
 

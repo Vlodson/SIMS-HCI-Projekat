@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using Model;
 using HospitalMain.Enums;
 using System.Collections.Generic;
+using HospitalMain.Model;
 
 namespace Controller
 {
@@ -31,9 +32,14 @@ namespace Controller
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
       {
-            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID);
+            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, new List<Answer>());
       }
       
+      public bool CreateGuest(String id, String name, String surname, Gender gender)
+      {
+            return patientAccService.CreateGuest(id, name, surname, gender, new List<Answer>());
+      }
+
       public bool RemovePatient(String patientId)
       {
             return patientAccService.RemovePatient(patientId);
@@ -41,7 +47,7 @@ namespace Controller
       
       public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID)
       {
-            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID);
+            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -54,9 +60,9 @@ namespace Controller
             return patientAccService.ReadAllPatients();
       }
       
-      public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
+      public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {
-            return patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID);
+            return patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers);
       }
       
       public System.Collections.ArrayList patientAccountService;
@@ -118,5 +124,33 @@ namespace Controller
             return patientService.GetExamByTime(dateTime);
         }
 
+        public Questionnaire GetHospitalQuestionnaire()
+        {
+            return patientService.GetHospitalQuestionnaire();
+        }
+
+        public Questionnaire GetDoctorQuestionnaire()
+        {
+            return patientService.GetDoctorQuestionnaire();
+        }
+        public void AddAnswer(String patientId, Answer answer)
+        {
+            patientService.AddAnswer(patientId, answer);
+        }
+
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            return patientService.GetPatientsDoctors(patientId);
+        }
+
+        public bool CheckStatusCancelled(String id)
+        {
+            return patientService.CheckStatusCancelled(id);
+        }
+
+        public bool CheckStatusAdded(String id)
+        {
+            return patientService.CheckStatusAdded(id);
+        }
     }
 }

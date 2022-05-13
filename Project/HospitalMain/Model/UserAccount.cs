@@ -9,7 +9,7 @@ using Model;
 
 namespace HospitalMain.Model
 {
-    public class UserAccount : Guest, INotifyPropertyChanged
+    public class UserAccount : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
     

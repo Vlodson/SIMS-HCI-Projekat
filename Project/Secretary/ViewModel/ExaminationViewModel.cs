@@ -16,12 +16,13 @@ namespace Secretary.ViewModel
         private readonly DoctorController _doctorController;
 
         public String ExamRoomID => _examination.ExamRoomId;
-        public String Date => _examination.Date.ToString("f");
+        public String Date => _examination.Date.ToString("g");
         public String ID => _examination.Id;
         public int Duration => _examination.Duration;
         public ExaminationTypeEnum Type => _examination.EType;
         public String PatientID => _examination.PatientId;
         public Doctor Doctor => _doctorController.GetDoctor(_examination.DoctorId);
+        public DoctorType DoctorType => _doctorController.GetDoctorsType(_examination.DoctorId);
 
         public ExaminationViewModel(Examination examination)
         {
