@@ -33,6 +33,11 @@ namespace Controller
             return _renovationService.OccupiedAtTheTime(renovation);
         }
 
+        public void FinishRenovation()
+        {
+            _renovationService.FinishRenovation();
+        }
+
         public bool DeleteRenovation(String renovationId)
         {
             return _renovationService.DeleteRenovation(renovationId);

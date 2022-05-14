@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Threading;
 
 using Controller;
 using Service;
@@ -63,7 +64,7 @@ namespace Admin
                 if (i > 10)
                     floor = 2;
 
-                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
+                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
                 equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
             }
@@ -78,6 +79,8 @@ namespace Admin
                 equipmentTransferController.RecordTransfer(i.ToString());
             }
 
+
+            var finishRenovations = new Timer(state => renovationController.FinishRenovation(), null, 0, 6000);
         }
 
         public static Window GetSpecificWindowType<T>()
