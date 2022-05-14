@@ -77,7 +77,14 @@ namespace Admin.View
 
         private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+            bool can_record = false;
+            if (OriginRoom != null)
+            {
+                Renovation renovation = new Renovation("0", OriginRoom, RenovationType, StartDate, EndDate);
+                can_record = _renovationController.OccupiedAtTheTime(renovation);
+            }
+
+            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
         }
 
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
@@ -94,7 +101,14 @@ namespace Admin.View
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+            bool can_record = false;
+            if (OriginRoom != null)
+            {
+                Renovation renovation = new Renovation("0", OriginRoom, RenovationType, StartDate, EndDate);
+                can_record = _renovationController.OccupiedAtTheTime(renovation);
+            }
+
+            e.CanExecute = !(renoTypeComboBox.SelectedItem is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

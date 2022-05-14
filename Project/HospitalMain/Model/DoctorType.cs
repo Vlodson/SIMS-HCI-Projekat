@@ -10,6 +10,7 @@ namespace Model
       Cardiology,
       Neurology,
       Dermatology,
-      None
+      specialistCheckup,
+      operation
     }
 }

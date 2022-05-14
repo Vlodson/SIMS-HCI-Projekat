@@ -31,11 +31,12 @@ namespace Admin
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
+            var examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
-            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo);
-            var renovationService = new RenovationService(renovationRepo, roomRepo);
+            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo, examinationRepo);
+            var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
             
             roomController = new RoomController(roomService);
@@ -72,7 +73,7 @@ namespace Admin
                 Room OriginRoom = roomController.ReadRoom(i.ToString());
                 Room DestinationRoom = roomController.ReadRoom(((i + 1) % 20).ToString());
                 Equipment equipment = equipmentController.ReadEquipment(i.ToString());
-                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 10, 10, 13, 0, 0));
                 equipmentTransferController.ScheduleTransfer(equipmentTransfer);
                 equipmentTransferController.RecordTransfer(i.ToString());
             }

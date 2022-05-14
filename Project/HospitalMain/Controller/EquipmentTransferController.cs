@@ -28,6 +28,11 @@ namespace Controller
             return _equipmentTransferService.RecordTransfer(trainsferId);
         }
 
+        public bool OccupiedAtTheTime(EquipmentTransfer equipmentTransfer)
+        {
+            return _equipmentTransferService.OccupiedAtTheTime(equipmentTransfer);
+        }
+
         public bool DeleteEquipmentTransfer(String equipmentTransferId)
         {
             return _equipmentTransferService.DeleteEquipmentTransfer(equipmentTransferId);

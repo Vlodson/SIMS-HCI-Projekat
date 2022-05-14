@@ -40,11 +40,11 @@ namespace Repository
             DateTime dtDoctor5 = DateTime.Now;
             Doctor doctor5 = new Doctor("d14", "Milos", "Gravara", dtDoctor5, DoctorType.Pulmonology, 20, examinationsDoctor5);
 
-            this.doctorList.Add(doctor1);
-            this.doctorList.Add(doctor2);
-            this.doctorList.Add(doctor3);
-            this.doctorList.Add(doctor4);
-            this.doctorList.Add(doctor5);
+            this.DoctorList.Add(doctor1);
+            this.DoctorList.Add(doctor2);
+            this.DoctorList.Add(doctor3);
+            this.DoctorList.Add(doctor4);
+            this.DoctorList.Add(doctor5);
 
             if (File.Exists(dbPath))
                 LoadDoctor();
@@ -60,7 +60,7 @@ namespace Repository
         {
             ObservableCollection<Doctor> listOfDoctors = new ObservableCollection<Doctor>();
 
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if(doctor.Type == doctorType)
                 {
@@ -73,7 +73,7 @@ namespace Repository
 
         public DoctorType GetDoctorsType(string doctorID)
         {
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if (doctor.Id.Equals(doctorID))
                 {
@@ -97,7 +97,7 @@ namespace Repository
 
         public bool AddExaminationToDoctor(String doctorID, Examination examination)
         {
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if (doctorID.Equals(doctor.Id))
                 {
@@ -110,7 +110,7 @@ namespace Repository
 
         public void EditDoctorsExamination(String doctorID, Examination newExamination)
         {
-            foreach (Doctor doctor in this.doctorList)
+            foreach (Doctor doctor in this.DoctorList)
             {
                 if (doctorID.Equals(doctor.Id))
                 {
