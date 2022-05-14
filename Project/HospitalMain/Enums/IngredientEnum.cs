@@ -8,6 +8,12 @@ namespace Enums
 {
     public enum IngredientEnum
     {
-
+        Cipofloxacin,
+        Losartan,
+        Cetirizine,
+        Metopropol,
+        Enrofloxacin,
+        Citalopram,
+        Norfloxacin
     }
 }
