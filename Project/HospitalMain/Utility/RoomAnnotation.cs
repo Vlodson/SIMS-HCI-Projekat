@@ -18,6 +18,7 @@ namespace Utility
         public int RoomNb { get; set; }
         public bool Occupancy { get; set; }
         public RoomTypeEnum Type { get; set; }
+        public RoomTypeEnum PreviousType { get; set; }
 
         public RoomAnnotation() { }
         public RoomAnnotation(Room r)
@@ -27,12 +28,13 @@ namespace Utility
             RoomNb = r.RoomNb;
             Occupancy = r.Occupancy;
             Type = r.Type;
+            PreviousType = r.PreviousType;
 
             Equipment = new List<string>();
             foreach(Equipment equipment in r.Equipment)
                 Equipment.Add(equipment.Id);
         }
-        public RoomAnnotation(String id, List<String> equipment, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
+        public RoomAnnotation(String id, List<String> equipment, int floor, int roomNb, bool occupancy, RoomTypeEnum type, RoomTypeEnum previousType)
         {
             this.Id = id;
             this.Equipment = equipment;
@@ -40,6 +42,7 @@ namespace Utility
             this.RoomNb = roomNb;
             this.Occupancy = occupancy;
             this.Type = type;
+            this.PreviousType = previousType;
 
         }
         public RoomAnnotation(RoomAnnotation roomAnnotation)
@@ -50,6 +53,7 @@ namespace Utility
             this.RoomNb = roomAnnotation.RoomNb;
             this.Occupancy = roomAnnotation.Occupancy;
             this.Type = roomAnnotation.Type;
+            this.PreviousType = roomAnnotation.PreviousType;
         }
 
     }

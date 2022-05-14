@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
+
 
 using Repository;
 using Model;
@@ -36,7 +38,7 @@ namespace Service
             Renovation renovation = _renovationRepo.GetRenovation(renovationId);
             Room originRoom = renovation.OriginRoom;
             
-            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative);
+            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative, originRoom.PreviousType);
             _renovationRepo.SetRenovation(renovation.Id, renovation.OriginRoom, renovation.Type, renovation.StartDate, renovation.EndDate);
             
             return true;
@@ -53,6 +55,15 @@ namespace Service
             }
 
             return true;
+        }
+
+        public void FinishRenovation(object sender)
+        {
+            foreach(Renovation renovation in _renovationRepo.Renovations)
+            {
+                if(renovation.EndDate >= DateOnly.Parse(DateTime.Now.ToString()))
+                    _roomRepo.SetRoom(renovation.OriginRoom.Id, renovation.OriginRoom.Equipment, renovation.OriginRoom.Floor, renovation.OriginRoom.RoomNb, renovation.OriginRoom.Occupancy, renovation.OriginRoom.PreviousType, renovation.OriginRoom.PreviousType)
+            }
         }
 
         public bool DeleteRenovation(String renovationId)

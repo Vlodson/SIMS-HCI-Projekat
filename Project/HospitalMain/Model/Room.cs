@@ -22,6 +22,7 @@ namespace Model
         private int _roomnb;
         private bool _occupancy;
         private RoomTypeEnum _type;
+        private RoomTypeEnum _previousType;
 
         public String Id
         {
@@ -84,10 +85,22 @@ namespace Model
                 }
             }
         }
+        public RoomTypeEnum PreviousType
+        {
+            get { return _previousType; }
+            set
+            {
+                if (_previousType != value)
+                {
+                    _previousType = value;
+                    OnPropertyChanged("PreviousType");
+                }
+            }
+        }
 
         public Room() { }
 
-        public Room(String id, int floor, int room_nb, bool occ, RoomTypeEnum type)
+        public Room(String id, int floor, int room_nb, bool occ, RoomTypeEnum type, RoomTypeEnum previousType)
         {
             Id = id;
             Equipment = new ObservableCollection<Equipment>();
@@ -95,6 +108,7 @@ namespace Model
             RoomNb = room_nb;
             Occupancy = occ;
             Type = type;
+            PreviousType = previousType;
         }
 
         public Room(Room r)
@@ -105,6 +119,7 @@ namespace Model
             RoomNb = r.RoomNb;
             Occupancy = r.Occupancy;
             Type = r.Type;
+            PreviousType = r.PreviousType;
         }
 
         public Room(RoomAnnotation roomAnnotation)
@@ -115,6 +130,7 @@ namespace Model
             this.RoomNb = roomAnnotation.RoomNb;
             this.Occupancy = roomAnnotation.Occupancy;
             this.Type = roomAnnotation.Type;
+            this.PreviousType = roomAnnotation.PreviousType;
         }
    }
 }
