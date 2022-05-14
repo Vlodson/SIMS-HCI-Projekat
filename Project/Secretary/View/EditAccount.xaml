@@ -29,12 +29,24 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="10">
                     <Label Margin="-3 0 0 0" Content="Ime" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textEditUserAccIme" Text="{Binding Name}" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox x:Name="textEditUserAccIme" Text="{Binding Name}" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" Margin="10">
                     <Label Margin="-3 0 0 0" Content="Prezime" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textEditUserAccPrezime" Text="{Binding Surname}" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox x:Name="textEditUserAccPrezime" Text="{Binding Surname}" Margin="0,0,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="2" Margin="10">
@@ -42,7 +54,13 @@
                         <Label Margin="-3 0 0 0" Content="Adresa" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Source="/Images/adress.png"></Image>
                     </StackPanel>
-                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccAdresa" TextWrapping="Wrap" Height="60" Text="{Binding Adress}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccAdresa" TextWrapping="Wrap" Height="60" Text="{Binding Adress}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="50,10,10,10">
@@ -50,22 +68,46 @@
                         <Label Margin="-3 0 0 0" Content="Mail adresa" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Width="25" Height="25" Source="/Images/mail.png"/>
                     </StackPanel>
-                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccMail" Text="{Binding Mail}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccMail" Text="{Binding Mail}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="2" Margin="30,10,10,10">
                     <Label Margin="-3 0 0 0" Content="Lozinka" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccLozinka" IsReadOnly="True" Text="bolnica" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccLozinka" IsReadOnly="True" Text="bolnica" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="3" Margin="30,10,10,10">
                     <Label Margin="-3 0 0 0" Content="Broj kartona" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccMedicalRecordID" Text="{Binding MedicalRecordID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textEditUserAccMedicalRecordID" Text="{Binding MedicalRecordID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="2" Margin="50,10,10,10">
                     <Label Margin="-3 0 0 0" Content="JMBG" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox Margin="0,0,0,0" Text="{Binding UCIN}" x:Name="textEditUserAccJMBG" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" Text="{Binding UCIN}" x:Name="textEditUserAccJMBG" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="3" Margin="10">
@@ -80,7 +122,13 @@
 
                 <StackPanel Grid.Column="1" Grid.Row="0" Margin="50,5,10,10">
                     <Label Margin="-3 1 0 0" Content="Datum rođenja" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <DatePicker x:Name="dateEditUserAcc" SelectedDate="{Binding DateOfBirth}" FontSize="18" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short"/>
+                    <DatePicker x:Name="dateEditUserAcc" SelectedDate="{Binding DateOfBirth}" FontSize="18" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="3" Margin="50,10,10,10">
@@ -88,10 +136,16 @@
                         <Label Margin="-3 0 0 0" Content="Broj telefona" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Height="25" Width="25" Source="/Images/phoneNumber.png"></Image>
                     </StackPanel>
-                    <TextBox x:Name="textEditUserAccPhoneNum" Margin="0,0,0,0" Text="{Binding PhoneNumber}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox x:Name="textEditUserAccPhoneNum" Margin="0,0,0,0" Text="{Binding PhoneNumber}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
-                <Border Height="150" Margin="30,0,0,20" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" BorderThickness="1.5" BorderBrush="Black">
+                <Border Height="150" Margin="30,0,0,20" CornerRadius="5" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" BorderThickness="1.5" BorderBrush="Black">
                     <Image Source="/Images/patient.png"/>
                 </Border>
 

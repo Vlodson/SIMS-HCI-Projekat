@@ -32,12 +32,24 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="10,5,10,5">
                     <Label Margin="-3 0 0 0" Content="Ime" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textEditMedRecordIme" Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"></TextBox>
+                    <TextBox x:Name="textEditMedRecordIme" Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="10,5,10,5">
                     <Label Margin="-3 0 0 0" Content="Prezime" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textEditMedRecordPrezime" Text="{Binding Surname}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"></TextBox>
+                    <TextBox x:Name="textEditMedRecordPrezime" Text="{Binding Surname}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="2" Margin="10,5,10,5">
@@ -46,7 +58,13 @@
                         <Image Source="/Images/adress.png"></Image>
                     </StackPanel>
                     <Border BorderBrush="Black" BorderThickness="1.5">
-                        <TextBox TextWrapping="Wrap" Text="{Binding Adress}" Height="50" Background="White" x:Name="textEditMedRecordAdresa" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="18" ></TextBox>
+                        <TextBox TextWrapping="Wrap" Text="{Binding Adress}" Height="50" Background="White" x:Name="textEditMedRecordAdresa" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="18" >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
                     </Border>
 
                 </StackPanel>
@@ -56,7 +74,13 @@
                         <Label Margin="-3 0 0 0" Content="Broj telefona" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Source="/Images/phoneNumber.png"></Image>
                     </StackPanel>
-                    <TextBox x:Name="textEditMedRecordPhoneNum" Text="{Binding PhoneNumber}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox x:Name="textEditMedRecordPhoneNum" Text="{Binding PhoneNumber}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Grid.Row="4" Margin="10,0,10,25">
@@ -94,6 +118,11 @@
 
                     <Label Margin="20,0,0,0" FontWeight="SemiBold" FontSize="20" Grid.Row="0" Content="Alergeni"/>
                     <ListBox x:Name="listBoxEditMedRecordAllergens" SelectionMode="Multiple" BorderBrush="Black"  ItemsSource="{Binding AllergensListBoxData, NotifyOnSourceUpdated=True}" BorderThickness="1.5" Margin="20,5,30,20" Grid.Row="1">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </ListBox.Resources>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock FontSize="18" Text="{Binding Item}"/>
@@ -109,7 +138,13 @@
 
                 <StackPanel Grid.Column="1" Grid.Row="0" Margin="20,0,10,10">
                     <Label Margin="-3 1 0 0" Content="Datum rođenja" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <DatePicker x:Name="dateEditMedRecord" FontSize="18" SelectedDate="{Binding DateOfBirth}" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short"/>
+                    <DatePicker x:Name="dateEditMedRecord" FontSize="18" SelectedDate="{Binding DateOfBirth}" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Grid.Row="1" Margin="20,5,10,5">
@@ -117,12 +152,24 @@
                         <Label Margin="-3 0 0 0" Content="Mail adresa" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
                         <Image Width="35" Height="35" Source="/Images/mail.png"/>
                     </StackPanel>
-                    <TextBox Margin="0,0,0,0" x:Name="textEditMedRecordMail" Text="{Binding Mail}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" ></TextBox>
+                    <TextBox Margin="0,0,0,0" x:Name="textEditMedRecordMail" Text="{Binding Mail}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" >
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="2" Margin="20,0,10,10">
                     <Label Margin="-3 1 0 0" Content="JMBG" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textEditMedRecordJMBG" Text="{Binding UCIN}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"></TextBox>
+                    <TextBox x:Name="textEditMedRecordJMBG" Text="{Binding UCIN}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" Grid.Row="1" Margin="20,0,10,10">

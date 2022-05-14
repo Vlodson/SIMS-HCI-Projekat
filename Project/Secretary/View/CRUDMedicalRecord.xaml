@@ -25,9 +25,21 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Margin="20,0,0,15" Grid.Row="0" Orientation="Horizontal" >
-                    <Button Background="White" FontSize="18" Content="Dodaj" Command="{Binding AddMedicalRecordCommand}" CommandParameter="AddMedRecord" Height="30" Width="120"/>
+                    <Button Background="White" FontSize="18" Content="Dodaj" Command="{Binding AddMedicalRecordCommand}" CommandParameter="AddMedRecord" Height="30" Width="120">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5 0 0 5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                     <Button Background="White" FontSize="18" Content="Izmeni" Command="{Binding EditMedicalRecordCommand}" CommandParameter="EditMedRecord" Height="30" Width="120"/>
-                    <Button Background="White" FontSize="18" Content="Obriši" Command="{Binding RemoveMedicalRecordCommand}" Height="30" Width="120"/>
+                    <Button Background="White" FontSize="18" Content="Obriši" Command="{Binding RemoveMedicalRecordCommand}" Height="30" Width="120">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="0 5 5 0" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </StackPanel>
 
                 <Label Content="Pacijenti:" FontFamily="Roboto" FontSize="24" FontWeight="SemiBold" Grid.Row="1">
@@ -38,13 +50,22 @@
 
             <Grid Grid.Row="0" Grid.Column="1">
                 <TextBox Margin="30,0,0,55" VerticalContentAlignment="Center" Width="200" Height="35" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}">
-
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </TextBox.Resources>
                 </TextBox>
             </Grid>
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
 
                 <DataGrid x:Name="dataGridPatientRecords" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </DataGrid.Resources>
 
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">

@@ -33,17 +33,41 @@
 
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="20,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Količina" FontSize="20" Width="200" FontWeight="SemiBold" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="textNewOrderQuantity" Text="{Binding Quantity}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"/>
+                    <TextBox x:Name="textNewOrderQuantity" Text="{Binding Quantity}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="1" Margin="20,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Opis" FontSize="20" Width="200" FontWeight="SemiBold" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="textNewOrderShortDescription" Margin="0,0,0,40" Height="80" TextWrapping="Wrap" Text="{Binding ShortDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"/>
+                    <TextBox x:Name="textNewOrderShortDescription" Margin="0,0,0,40" Height="80" TextWrapping="Wrap" Text="{Binding ShortDescription}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="10,20,10,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                    <Button Width="220" Height="30" Content="Prikaži stanje u skladištu" FontSize="18"/>
-                    <Button Width="80" Height="30" Content="Poruči" Margin="40,0,0,0" CommandParameter="NewOrder" Command="{Binding OrderCommand}" FontSize="18"/>
+                    <Button Width="220" Height="30" Content="Prikaži stanje u skladištu" FontSize="18">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Width="80" Height="30" Content="Poruči" Margin="40,0,0,0" CommandParameter="NewOrder" Command="{Binding OrderCommand}" FontSize="18">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
                 </StackPanel>
             </Grid>
         </GroupBox>
