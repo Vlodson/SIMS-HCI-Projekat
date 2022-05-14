@@ -113,6 +113,6 @@ namespace Model
             this.Status = medicine.Status;
             this.Comment = medicine.Comment;
         }
-, 
+ 
     }
 }
