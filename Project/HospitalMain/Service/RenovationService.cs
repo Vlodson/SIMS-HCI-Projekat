@@ -57,7 +57,7 @@ namespace Service
             return true;
         }
 
-        public void FinishRenovation(object sender)
+        public void FinishRenovation()
         {
             foreach(Renovation renovation in _renovationRepo.Renovations)
             {

@@ -9,6 +9,10 @@ namespace Enums
     public enum MedicineTypeEnum
     {
         Analgesic,
-        Antibiotic
+        Antibiotic,
+        Diuretic,
+        Bronchodilator,
+        Antihypertensive,
+        Erythromycin
     }
 }

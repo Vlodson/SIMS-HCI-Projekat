@@ -24,6 +24,7 @@ namespace Admin
         public EquipmentTransferController equipmentTransferController { get; set; }
         public RenovationController renovationController { get; set; }
         public UserAccountController userAccountController { get; set; }
+        public MedicineController medicineController { get; set; }
 
         public App()
         {
@@ -33,18 +34,21 @@ namespace Admin
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             var examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo, examinationRepo);
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
+            var medicineService = new MedicineService(medicineRepo);
             
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             renovationController = new RenovationController(renovationService);
             userAccountController = new UserAccountController(userAccountService);
+            medicineController = new MedicineController(medicineService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
@@ -57,6 +61,9 @@ namespace Admin
 
             if(File.Exists(GlobalPaths.RenovationDBPath))
                 renovationController.LoadRenovation();
+
+            if(File.Exists(GlobalPaths.MedicineDBPath))
+                medicineController.LoadMedicine();
 
             for (int i = 0; i < 20; i++)
             {
