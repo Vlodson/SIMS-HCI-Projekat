@@ -172,6 +172,14 @@ namespace Patient.View
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
+                    else if (doctor.Type == DoctorType.Neurology)
+                    {
+                        exam.DoctorTypeString = "Neurologija";
+                    }
+                    else if (doctor.Type == DoctorType.Dermatology)
+                    {
+                        exam.DoctorTypeString = "Dermatologija";
+                    }
                     else
                     {
                         exam.DoctorTypeString = "Opšta praksa";
@@ -340,8 +348,9 @@ namespace Patient.View
 
         private void MenuClick(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Content = new PatientMenu();
+            //Window.GetWindow(this).Content = new PatientMenu();
             //this.Visibility = Visibility.Hidden;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void ChangeSelected(object sender, SelectionChangedEventArgs e)
