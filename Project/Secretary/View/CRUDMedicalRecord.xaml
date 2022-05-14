@@ -48,13 +48,16 @@
 
             </Grid>
 
-            <Grid Grid.Row="0" Grid.Column="1">
-                <TextBox Margin="30,0,0,55" VerticalContentAlignment="Center" Width="200" Height="35" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="5" />
-                        </Style>
-                    </TextBox.Resources>
+            <Grid Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox Margin="30,0,0,55"
+                         VerticalContentAlignment="Center"
+                         Height="35"
+                         Width="200"
+                         Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"
+                         Style="{StaticResource SearchRecordsTheme}"
+                         Background="White"
+                         BorderBrush="White"
+                         BorderThickness="0">
                 </TextBox>
             </Grid>
 

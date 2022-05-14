@@ -67,7 +67,7 @@
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Soba" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18">
+                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" Height="30">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>

@@ -2,31 +2,22 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="{x:Type TextBox}" x:Key="SearchTheme">
+        
+        <Style.Resources>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Background" Value="LightBlue"/>
+            </Style>
+        </Style.Resources>
 
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border CornerRadius="8" Background="LightBlue" Width="200" Height="35">
-
-                        <Grid>
-                            <Rectangle StrokeThickness="1"></Rectangle>
-                            <TextBox Margin="1"
-                                     BorderThickness="0"
-                                     Background="Transparent"
-                                     VerticalContentAlignment="Center"
-                                     Padding="5"
-                                     Foreground="Black"
-                                     x:Name="SearchBox"
-                                      />
-                            <!--Text="{Binding}"-->
-
-
-                        </Grid>
-
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="1"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Foreground" Value="Black"/>
 
     </Style>
 
