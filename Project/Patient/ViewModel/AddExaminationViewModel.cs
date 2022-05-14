@@ -196,6 +196,8 @@ namespace Patient.ViewModel
             doctorTypes = new List<DoctorType>();
             doctorTypes.Add(DoctorType.Pulmonology);
             doctorTypes.Add(DoctorType.Cardiology);
+            doctorTypes.Add(DoctorType.Dermatology);
+            doctorTypes.Add(DoctorType.Neurology);
             doctorTypes.Add(DoctorType.specialistCheckup);
 
             SelectedType = DoctorType.Pulmonology;
