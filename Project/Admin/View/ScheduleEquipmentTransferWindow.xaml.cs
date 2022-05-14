@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using Model;
 using Controller;
+using HospitalMain.Enums;
 
 namespace Admin.View
 {
@@ -42,12 +43,19 @@ namespace Admin.View
             _roomController = app.roomController;
 
             OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
+            Title.Text = "Schedule transfer for room\n" + OriginRoom.RoomNb;
+
+            // mental gymnastics to get the combo box to sho friendly looking strings from enums :)
+            // im going to create an anonymous class with fields text and value for each combo box item so i bind the paths to that
             equipmentComboBox.Items.Clear();
+            equipmentComboBox.DisplayMemberPath = "Text";
+            equipmentComboBox.SelectedValuePath = "Value";
             foreach (Equipment equipment in OriginRoom.Equipment)
             {
-                equipmentComboBox.Items.Add(equipment);
-                equipmentComboBox.SelectedValuePath = "Id";
-                equipmentComboBox.DisplayMemberPath = "Type";
+                // here for each item i create the anon class with the fields i defined above to ensure porper binding
+                // this now means that when i reference the combo box to get the item i want ill need to do combobox.SelectedValue since the Item itself is useless/nothing
+                equipmentComboBox.Items.Add(new { Text = EquipmentTypeEnumExtensions.ToFriendlyString(equipment.Type), Value = equipment });
             }
         }
 
@@ -81,9 +89,10 @@ namespace Admin.View
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
-            Equipment eq = equipmentComboBox.SelectedItem as Equipment;
+            Equipment equipment = equipmentComboBox.SelectedValue as Equipment;
 
-            _equipmentTransferController.ScheduleTransfer(id.ToString(), OriginRoom.Id, DestinationRoom.Id, eq.Id, start, end);
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end);
+            _equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             this.Close();
             RecordEquipmentTransferWindow recordEquipmentTransferWindow = new RecordEquipmentTransferWindow();
             recordEquipmentTransferWindow.Owner = App.Current.MainWindow;
@@ -101,9 +110,9 @@ namespace Admin.View
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
             DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
-            Equipment eq = equipmentComboBox.SelectedItem as Equipment;
+            Equipment equipment = equipmentComboBox.SelectedItem as Equipment;
 
-            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, Equipment, StartDate, EndDate, ""));
+            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)

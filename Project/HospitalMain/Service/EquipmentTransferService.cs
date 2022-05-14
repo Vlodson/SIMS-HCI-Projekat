@@ -22,20 +22,19 @@ namespace Service
             _equipmentRepo = equipmentRepo;
         }
 
-        public bool ScheduleTransfer(String id, String originRoomId, String destinationRoomId, String equipmentId, DateOnly startDate, DateOnly endDate)
+        public bool ScheduleTransfer(EquipmentTransfer equipmentTransfer)
         {
-            Room originRoom = _roomRepo.GetRoom(originRoomId);
-            Room destinationRoom = _roomRepo.GetRoom(destinationRoomId);
-            Equipment equipment = _equipmentRepo.GetEquipment(equipmentId);
+            Room originRoom = _roomRepo.GetRoom(equipmentTransfer.OriginRoom.Id);
+            Room destinationRoom = _roomRepo.GetRoom(equipmentTransfer.DestinationRoom.Id);
+            Equipment equipment = _equipmentRepo.GetEquipment(equipmentTransfer.Equipment.Id);
 
             // make new schedule with no signature, cuz thats recording, and thats when the actual transfer happens
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id, originRoom, destinationRoom, equipment, startDate, endDate, "");
             _equipmentTransferRepo.NewEquipmentTransfer(equipmentTransfer);
 
             return true;
         }
 
-        public bool RecordTransfer(String trainsferId, String signature)
+        public bool RecordTransfer(String trainsferId)
         {
             EquipmentTransfer equipmentTransfer = _equipmentTransferRepo.GetEquipmentTransfer(trainsferId);
 
@@ -50,7 +49,8 @@ namespace Service
             // change equipment room id
             _equipmentRepo.SetEquipment(equipmentTransfer.Equipment.Id, equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment.Type);
 
-            _equipmentTransferRepo.SetEquipmentTransfer(trainsferId, equipmentTransfer.OriginRoom, equipmentTransfer.DestinationRoom, equipmentTransfer.Equipment, equipmentTransfer.StartDate, equipmentTransfer.EndDate, signature);
+            // legacy code that worked with signature, that doesnt exist anymore
+            _equipmentTransferRepo.SetEquipmentTransfer(equipmentTransfer); 
             return true;
         }
 

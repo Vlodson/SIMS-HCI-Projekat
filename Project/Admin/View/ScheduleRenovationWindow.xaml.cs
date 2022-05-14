@@ -40,7 +40,11 @@ namespace Admin.View
             _renovationController = app.renovationController;
             _roomController = app.roomController;
 
+
             OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
+            Title.Text = "Schedule renovation for room\n" + OriginRoom.RoomNb;
+
             renoTypeComboBox.Items.Clear();
             renoTypeComboBox.ItemsSource = Enum.GetValues<RenovationTypeEnum>();
         }
@@ -85,7 +89,7 @@ namespace Admin.View
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
 
-            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate, ""));
+            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)

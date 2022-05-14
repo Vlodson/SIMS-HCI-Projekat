@@ -11,6 +11,7 @@ using Controller;
 using Service;
 using Repository;
 using Utility;
+using Model;
 using HospitalMain.Enums;
 
 namespace Admin
@@ -68,8 +69,12 @@ namespace Admin
 
             for (int i = 0; i < 20; i++)
             {
-                equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i + 1) % 20).ToString(), i.ToString(), new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
-                equipmentTransferController.RecordTransfer(i.ToString(), "Pera");
+                Room OriginRoom = roomController.ReadRoom(i.ToString());
+                Room DestinationRoom = roomController.ReadRoom(((i + 1) % 20).ToString());
+                Equipment equipment = equipmentController.ReadEquipment(i.ToString());
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
+                equipmentTransferController.ScheduleTransfer(equipmentTransfer);
+                equipmentTransferController.RecordTransfer(i.ToString());
             }
 
         }
