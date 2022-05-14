@@ -14,11 +14,13 @@ namespace Service
     {
         private readonly RenovationRepo _renovationRepo;
         private readonly RoomRepo _roomRepo;
+        private readonly ExaminationRepo _examinationRepo;
 
-        public RenovationService(RenovationRepo renovationRepo, RoomRepo roomRepo)
+        public RenovationService(RenovationRepo renovationRepo, RoomRepo roomRepo, ExaminationRepo examinationRepo)
         {
             _renovationRepo = renovationRepo;
             _roomRepo = roomRepo;
+            _examinationRepo = examinationRepo;
         }
 
         public bool ScheduleRenovation(String id, String originRoomId, RenovationTypeEnum type, DateOnly startDate, DateOnly endDate)
@@ -37,6 +39,19 @@ namespace Service
             _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative);
             _renovationRepo.SetRenovation(renovation.Id, renovation.OriginRoom, renovation.Type, renovation.StartDate, renovation.EndDate);
             
+            return true;
+        }
+
+        public bool OccupiedAtTheTime(Renovation renovation)
+        {
+            foreach (Examination examination in _examinationRepo.examinationList)
+            {
+                if (renovation.OriginRoom.Id == examination.ExamRoomId) // destination room missing here. to add after merge/split
+                    if (renovation.StartDate >= DateOnly.Parse(examination.Date.ToString()) && renovation.EndDate <= DateOnly.Parse(examination.Date.AddMinutes(examination.Duration).ToString()))
+                        return false;
+
+            }
+
             return true;
         }
 

@@ -31,11 +31,12 @@ namespace Admin
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
+            var examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
-            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo);
-            var renovationService = new RenovationService(renovationRepo, roomRepo);
+            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo, examinationRepo);
+            var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
             
             roomController = new RoomController(roomService);

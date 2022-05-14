@@ -14,12 +14,14 @@ namespace Service
         private readonly EquipmentTransferRepo _equipmentTransferRepo;
         private readonly RoomRepo _roomRepo;
         private readonly EquipmentRepo _equipmentRepo;
+        private readonly ExaminationRepo _examinationRepo;
 
-        public EquipmentTransferService(EquipmentTransferRepo equipmentTransferRepo, RoomRepo roomRepo, EquipmentRepo equipmentRepo)
+        public EquipmentTransferService(EquipmentTransferRepo equipmentTransferRepo, RoomRepo roomRepo, EquipmentRepo equipmentRepo, ExaminationRepo examinationRepo)
         {
             _equipmentTransferRepo = equipmentTransferRepo;
             _roomRepo = roomRepo;
             _equipmentRepo = equipmentRepo;
+            _examinationRepo = examinationRepo;
         }
 
         public bool ScheduleTransfer(EquipmentTransfer equipmentTransfer)
@@ -51,6 +53,19 @@ namespace Service
 
             // legacy code that worked with signature, that doesnt exist anymore
             _equipmentTransferRepo.SetEquipmentTransfer(equipmentTransfer); 
+            return true;
+        }
+
+        public bool OccupiedAtTheTime(EquipmentTransfer equipmentTransfer)
+        {
+            foreach(Examination examination in _examinationRepo.examinationList)
+            {
+                if (equipmentTransfer.OriginRoom.Id == examination.ExamRoomId || equipmentTransfer.DestinationRoom.Id == examination.ExamRoomId)
+                    if (equipmentTransfer.StartDate >= examination.Date && equipmentTransfer.EndDate <= examination.Date.AddMinutes(examination.Duration))
+                        return false;
+                   
+            }
+
             return true;
         }
 

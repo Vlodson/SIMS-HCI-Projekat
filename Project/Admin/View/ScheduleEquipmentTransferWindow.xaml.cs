@@ -77,6 +77,13 @@ namespace Admin.View
                     destinationTextBox.Text = "Same room selected";
                     return;
                 }
+                if (DestinationRoom.Occupancy)
+                {
+                    DestinationRoom = null;
+                    _roomController.RemoveSelectedRoom();
+                    destinationTextBox.Text = "Room currently occupied";
+                    return;
+                }
 
                 destinationTextBox.Text = DestinationRoom.RoomNb.ToString();
             }
@@ -101,7 +108,14 @@ namespace Admin.View
 
         private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now);
+            bool can_record = false;
+            if (OriginRoom != null && DestinationRoom != null && Equipment != null)
+            {
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", OriginRoom, DestinationRoom, Equipment, StartDate, EndDate);
+                can_record = _equipmentTransferController.OccupiedAtTheTime(equipmentTransfer);
+            }
+
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
         }
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
@@ -117,7 +131,14 @@ namespace Admin.View
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now);
+            bool can_record = false;
+            if (OriginRoom != null && DestinationRoom != null && Equipment != null)
+            {
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", OriginRoom, DestinationRoom, Equipment, StartDate, EndDate);
+                can_record = _equipmentTransferController.OccupiedAtTheTime(equipmentTransfer);
+            }
+
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

@@ -28,6 +28,10 @@ namespace Controller
         {
             return _renovationService.RecordRenovation(renovationId);
         }
+        public bool OccupiedAtTheTime(Renovation renovation)
+        {
+            return _renovationService.OccupiedAtTheTime(renovation);
+        }
 
         public bool DeleteRenovation(String renovationId)
         {
