@@ -22,8 +22,8 @@ namespace Model
         private Room _originRoom;
         private Room _destinationRoom;
         private Equipment _equipment;
-        private DateOnly _startDate;
-        private DateOnly _endDate;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
         public String Id
         {
@@ -77,7 +77,7 @@ namespace Model
             }
         }
 
-        public DateOnly StartDate
+        public DateTime StartDate
         {
             get { return _startDate; }
             set
@@ -90,7 +90,7 @@ namespace Model
             }
         }
 
-        public DateOnly EndDate
+        public DateTime EndDate
         {
             get { return _endDate; }
             set
@@ -105,7 +105,7 @@ namespace Model
 
         public EquipmentTransfer() { }
 
-        public EquipmentTransfer(String id, Room originRoom, Room destinationRoom, Equipment equipment, DateOnly startDate, DateOnly endDate)
+        public EquipmentTransfer(String id, Room originRoom, Room destinationRoom, Equipment equipment, DateTime startDate, DateTime endDate)
         {
             Id = id;
             OriginRoom = originRoom;
@@ -131,8 +131,8 @@ namespace Model
             this.OriginRoom = null;
             this.DestinationRoom = null;
             this.Equipment = null;
-            this.StartDate = DateOnly.Parse(equipmentTransferAnnotation.StartDate);
-            this.EndDate = DateOnly.Parse(equipmentTransferAnnotation.EndDate);
+            this.StartDate = DateTime.Parse(equipmentTransferAnnotation.StartDate);
+            this.EndDate = DateTime.Parse(equipmentTransferAnnotation.EndDate);
         }
     }
 }

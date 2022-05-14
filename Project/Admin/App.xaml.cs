@@ -72,7 +72,7 @@ namespace Admin
                 Room OriginRoom = roomController.ReadRoom(i.ToString());
                 Room DestinationRoom = roomController.ReadRoom(((i + 1) % 20).ToString());
                 Equipment equipment = equipmentController.ReadEquipment(i.ToString());
-                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 10, 10, 13, 0, 0));
                 equipmentTransferController.ScheduleTransfer(equipmentTransfer);
                 equipmentTransferController.RecordTransfer(i.ToString());
             }

@@ -27,8 +27,8 @@ namespace Admin.View
         public Room OriginRoom { get; set; }
         public Room DestinationRoom { get; set; }
         public Equipment Equipment { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         
         private EquipmentTransferController _equipmentTransferController;
         private RoomController _roomController;
@@ -87,11 +87,11 @@ namespace Admin.View
             int id = 0;
             if (_equipmentTransferController.ReadAll().Count > 0)
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
-            DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
-            DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
+            StartDate = startDate.SelectedDate.Value;
+            EndDate = endDate.SelectedDate.Value;
             Equipment equipment = equipmentComboBox.SelectedValue as Equipment;
 
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end);
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, StartDate, EndDate);
             _equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             this.Close();
             RecordEquipmentTransferWindow recordEquipmentTransferWindow = new RecordEquipmentTransferWindow();
@@ -101,23 +101,23 @@ namespace Admin.View
 
         private void CanExecute_Record(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now);
         }
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
             int id = 0;
             if (_equipmentTransferController.ReadAll().Count > 0)
                 id = _equipmentTransferController.ReadAll().Max(eq => int.Parse(eq.Id)) + 1;
-            DateOnly start = DateOnly.FromDateTime(startDate.SelectedDate.Value);
-            DateOnly end = DateOnly.FromDateTime(endDate.SelectedDate.Value);
+            StartDate = startDate.SelectedDate.Value;
+            EndDate = endDate.SelectedDate.Value;
             Equipment equipment = equipmentComboBox.SelectedItem as Equipment;
 
-            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, start, end));
+            _equipmentTransferController.SetClipboardEquipmentTransfer(new EquipmentTransfer(id.ToString(), OriginRoom, DestinationRoom, equipment, StartDate, EndDate));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate);
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)
