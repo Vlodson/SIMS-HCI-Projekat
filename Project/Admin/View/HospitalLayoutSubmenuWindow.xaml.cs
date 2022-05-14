@@ -68,7 +68,7 @@ namespace Admin.View
                 };
 
                 TextBlock roomId = new TextBlock();
-                roomId.Text = r.RoomNb + " " + r.Type.ToString();
+                roomId.Text = r.RoomNb + " " + RoomTypeEnumExtensions.ToFriendlyString(r.Type);
                 roomId.Margin = new Thickness(5, 0, 5, 0);
                 roomId.TextWrapping = TextWrapping.Wrap;
                 roomId.HorizontalAlignment = HorizontalAlignment.Center;

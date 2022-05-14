@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 using Model;
 using Controller;
+using HospitalMain.Enums;
 
 namespace Admin.View
 {
@@ -43,7 +44,7 @@ namespace Admin.View
             // last one in list is always the one that needs to be worked here
             equipmentTransfer = _equipmentTransferController.ReadAll().Last();
 
-            equipmentTextBox.Text = equipmentTransfer.Equipment.Type.ToString();
+            equipmentTextBox.Text = EquipmentTypeEnumExtensions.ToFriendlyString(equipmentTransfer.Equipment.Type);
             destinationTextBox.Text = equipmentTransfer.DestinationRoom.Id;
             startDate.Text = equipmentTransfer.StartDate.ToString();
             endDate.Text = equipmentTransfer.EndDate.ToString();

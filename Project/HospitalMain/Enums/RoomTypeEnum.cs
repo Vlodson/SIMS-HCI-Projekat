@@ -14,4 +14,26 @@ namespace HospitalMain.Enums
         Meeting_Room,
         Inoperative
     }
+
+    public static class RoomTypeEnumExtensions
+    {
+        public static String ToFriendlyString(this RoomTypeEnum type)
+        {
+            switch (type)
+            {
+                case RoomTypeEnum.Patient_Room:
+                    return "Patient Room";
+                case RoomTypeEnum.Operation_Room:
+                    return "Operation Room";
+                case RoomTypeEnum.Storage_Room:
+                    return "Storage Room";
+                case RoomTypeEnum.Meeting_Room:
+                    return "Meeting Room";
+                case RoomTypeEnum.Inoperative:
+                    return "Inoperative";
+                default:
+                    return "You shouldnt be here";
+            }
+        }
+    }
 }
