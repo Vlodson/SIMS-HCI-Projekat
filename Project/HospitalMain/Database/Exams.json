@@ -1,2 +1,1 @@
-[]
-
+[{"ExamRoomId":"15","Id":"AJMBZI","Duration":2,"PatientId":"1","DoctorId":"d1","DoctorNameSurname":"Milan Markovic","DoctorType":0,"EType":0,"DoctorTypeString":"Op\u0161ta praksa","Date":"2022-05-15T10:30:00"},{"ExamRoomId":"15","Id":"UPROGW","Duration":2,"PatientId":"1","DoctorId":"d1","DoctorNameSurname":"Milan Markovic","DoctorType":0,"EType":0,"DoctorTypeString":"Pulmologija","Date":"2022-05-17T11:30:00"}]
