@@ -260,6 +260,7 @@ namespace Patient.View
             }
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            datesExaminations = new List<DateOnly>();
             DateTime today = DateTime.Now;
             examinationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
@@ -372,9 +373,9 @@ namespace Patient.View
                     }
                     ExaminationsForDate.Add(exam);
                 }
-                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!datesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
-                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    datesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
