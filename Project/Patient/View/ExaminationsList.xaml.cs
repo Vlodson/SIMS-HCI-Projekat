@@ -242,13 +242,22 @@ namespace Patient.View
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
 
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else if (doctor.Type == DoctorType.Neurology)
+                    {
+                        exam.DoctorTypeString = "Neurologija";
+                    }
+                    else if (doctor.Type == DoctorType.Dermatology)
+                    {
+                        exam.DoctorTypeString = "Dermatologija";
                     }
                     else
                     {
@@ -314,13 +323,22 @@ namespace Patient.View
             {
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
+                    }
+                    else if (doctor.Type == DoctorType.Neurology)
+                    {
+                        exam.DoctorTypeString = "Neurologija";
+                    }
+                    else if (doctor.Type == DoctorType.Dermatology)
+                    {
+                        exam.DoctorTypeString = "Dermatologija";
                     }
                     else
                     {

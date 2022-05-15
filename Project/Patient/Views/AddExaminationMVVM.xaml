@@ -19,7 +19,7 @@
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
         <Label Content="Odeljenje*" HorizontalAlignment="Left" Margin="13,75,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="DoctorTypeSelected" ItemsSource="{Binding DoctorTypes}" SelectedIndex="0" SelectedItem="{Binding SelectedType}"  HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150">
+        <ComboBox Name="DoctorTypeSelected" ItemsSource="{Binding DoctorTypesString}" SelectedIndex="0" SelectedItem="{Binding SelectedTypeString}"  HorizontalAlignment="Left" Margin="110,79,0,0" VerticalAlignment="Top" Width="150">
             <ComboBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
