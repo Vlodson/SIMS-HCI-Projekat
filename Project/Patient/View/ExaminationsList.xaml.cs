@@ -260,6 +260,7 @@ namespace Patient.View
             }
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            datesExaminations = new List<DateOnly>();
             DateTime today = DateTime.Now;
             examinationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
