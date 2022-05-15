@@ -67,6 +67,7 @@ namespace Patient.View
 
         private void Add_Answers(object sender, RoutedEventArgs e)
         {
+            ErrorMessage.Visibility = Visibility.Hidden;
             List<int> answers = new List<int>();
             if (hospital11.IsChecked == true)
             {
@@ -172,12 +173,15 @@ namespace Patient.View
 
             Answer hospitalAnswer = new Answer("hospital", answers);
             _patientController.AddAnswer(Login.loggedId, hospitalAnswer);
+            QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
+            questionnairesAccepted.ShowDialog();
         }
 
         private void AddDoctorAnswer(object sender, RoutedEventArgs e)
         {
             if(Doctors.SelectedIndex != -1)
             {
+                ErrorMessage.Visibility = Visibility.Hidden;
                 List<int> answers = new List<int>();
                 if (doctor11.IsChecked == true)
                 {
@@ -267,6 +271,12 @@ namespace Patient.View
                 Doctor doctor = DoctorsAvailable[index];
                 Answer doctorAnswer = new Answer(doctor.Id, answers);
                 _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+                QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
+                questionnairesAccepted.ShowDialog();
+            }
+            else
+            {
+                ErrorMessage.Visibility = Visibility.Visible;
             }
             
         }

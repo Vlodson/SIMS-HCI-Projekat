@@ -115,16 +115,7 @@
 
         <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
         
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="971,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
-            <StackPanel>
-                <Image Source="/Images/sign-out-alt.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="927,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
-            <StackPanel>
-                <Image Source="/Images/bell.png"/>
-            </StackPanel>
-        </Button>
+        
         <Rectangle HorizontalAlignment="Left" Height="864"  VerticalAlignment="Top" Width="50" Margin="10,10,0,0">
             <Rectangle.Fill>
                 <VisualBrush Stretch="None">
@@ -156,6 +147,16 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="971,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+            <StackPanel>
+                <Image Source="/Images/sign-out-alt.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="927,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+            <StackPanel>
+                <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
         <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="112,7,0,0" VerticalAlignment="Top"/>
         <Image Source="/Images/logo2.png"  Margin="-9,2,916,669"></Image>
         <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0" Click="Button_Click">
