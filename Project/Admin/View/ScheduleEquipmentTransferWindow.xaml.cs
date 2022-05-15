@@ -115,7 +115,7 @@ namespace Admin.View
                 can_record = _equipmentTransferController.OccupiedAtTheTime(equipmentTransfer);
             }
 
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now && can_record);
         }
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
@@ -138,7 +138,7 @@ namespace Admin.View
                 can_record = _equipmentTransferController.OccupiedAtTheTime(equipmentTransfer);
             }
 
-            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now || can_record);
+            e.CanExecute = !(equipmentComboBox.SelectedItem is null || DestinationRoom is null || startDate.SelectedDate is null || endDate.SelectedDate is null || endDate.SelectedDate < startDate.SelectedDate || startDate.SelectedDate < DateTime.Now && can_record);
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

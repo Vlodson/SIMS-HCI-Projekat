@@ -41,25 +41,50 @@ namespace Patient.View
         //private ExaminationRepo _examinationRepo;
         private DoctorController _doctorController;
         private PatientController _patientController;
+
+        private ObservableCollection<Examination> examinations;
+        private List<Examination> examinationsForDate;
+        private List<DateOnly> datesExaminations;
         public static Examination selected;
         public static bool remove;
 
-        public static ObservableCollection<Examination> Examinations
+        public ObservableCollection<Examination> Examinations
         {
-            get;
-            set;
+            get
+            {
+                return examinations;
+            }
+            set
+            {
+                examinations = value;
+                OnPropertyChanged("Examinations");
+            }
         }
 
-        public static List<Examination> ExaminationsForDate
+        public List<Examination> ExaminationsForDate
         {
-            get;
-            set;
+            get
+            {
+                return examinationsForDate;
+            }
+            set
+            {
+                examinationsForDate = value;
+                OnPropertyChanged("ExaminationsForDate");
+            }
         }
 
-        public static List<DateOnly> DatesExaminations
+        public List<DateOnly> DatesExaminations
         {
-            get;
-            set;
+            get
+            {
+                return datesExaminations;
+            }
+            set
+            {
+                datesExaminations = value;
+                OnPropertyChanged("DatesExamiantions");
+            }
         }
 
         public ExaminationsList()
@@ -76,17 +101,17 @@ namespace Patient.View
             //if (File.Exists(_examinationRepo.dbPath))
             //    _examinationRepo.LoadExamination();
 
-
-            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            examinations = new ObservableCollection<Examination>();
+            examinations = _examinationController.ReadPatientExams(Login.loggedId);
             foreach(Examination exam in examinations)
             {
                 exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
             }
-            Examinations = examinations;
+            //Examinations = examinations;
 
             DateTime today = DateTime.Now;
-            ExaminationsForDate = new List<Examination>();
-            DatesExaminations = new List<DateOnly>();
+            examinationsForDate = new List<Examination>();
+            datesExaminations = new List<DateOnly>();
             Calendar.SelectedDate = DateTime.Now;
             Calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990, 1, 1),DateTime.Now.AddDays(-1)));
             //foreach(Examination exam in examinations)
@@ -115,9 +140,9 @@ namespace Patient.View
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
             foreach (Examination exam in Examinations)
             {
-                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!datesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
-                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    datesExaminations.Add(DateOnly.FromDateTime(exam.Date));
 
                 }
             }
@@ -158,7 +183,7 @@ namespace Patient.View
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             
-            ExaminationsForDate = new List<Examination>();
+            examinationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
             {
                 if (exam.Date.Date == selected.Date)
@@ -172,18 +197,26 @@ namespace Patient.View
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
+                    //else if (doctor.Type == DoctorType.Neurology)
+                    //{
+                    //    exam.DoctorTypeString = "Neurologija";
+                    //}
+                    //else if (doctor.Type == DoctorType.Dermatology)
+                    //{
+                    //    exam.DoctorTypeString = "Dermatologija";
+                    //}
                     else
                     {
                         exam.DoctorTypeString = "Opšta praksa";
                     }
-                    ExaminationsForDate.Add(exam);
+                    examinationsForDate.Add(exam);
                 }
-                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!datesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
-                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    datesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            //dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             //Window.GetWindow(this).Content = new PatientMenu();
             Calendar.SelectedDate = selected.AddDays(1);
@@ -226,36 +259,46 @@ namespace Patient.View
                 Message.Visibility = Visibility.Visible;
             }
             //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
-            ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            examinations = _examinationController.ReadPatientExams(Login.loggedId);
+            datesExaminations = new List<DateOnly>();
             DateTime today = DateTime.Now;
-            ExaminationsForDate = new List<Examination>();
+            examinationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
             {
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
 
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
+                    //else if (doctor.Type == DoctorType.Neurology)
+                    //{
+                    //    exam.DoctorTypeString = "Neurologija";
+                    //}
+                    //else if (doctor.Type == DoctorType.Dermatology)
+                    //{
+                    //    exam.DoctorTypeString = "Dermatologija";
+                    //}
                     else
                     {
                         exam.DoctorTypeString = "Opšta praksa";
                     }
-                    ExaminationsForDate.Add(exam);
+                    examinationsForDate.Add(exam);
                 }
-                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!datesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
-                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    datesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
             Calendar.SelectedDate = selectedInCalendar.AddDays(1);
             Calendar.SelectedDate = selectedInCalendar;
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            //dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             
         }
@@ -278,7 +321,8 @@ namespace Patient.View
                             _examinationController.RemoveExam((Examination)dataGridExaminations.SelectedItem);
                             //_examinationRepo.SaveExamination();
                             _examinationController.SaveExaminationRepo();
-                            dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                            //dataGridExaminations.ItemsSource = _examinationController.ReadPatientExams(Login.loggedId);
+                            examinationsForDate = _examinationController.ReadPatientExams(Login.loggedId).ToList();
                         }
                     }
                     else
@@ -300,32 +344,41 @@ namespace Patient.View
                 Message.Visibility = Visibility.Visible;
             }
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
-            ExaminationsForDate = new List<Examination>();
-            DatesExaminations = new List<DateOnly>();
+            examinationsForDate = new List<Examination>();
+            datesExaminations = new List<DateOnly>();
             foreach (Examination exam in examinations)
             {
                 if (exam.Date.Date == selectedInCalendar.Date)
                 {
-                    if (exam.DoctorType == DoctorType.Pulmonology)
+                    Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                    if (doctor.Type == DoctorType.Pulmonology)
                     {
                         exam.DoctorTypeString = "Pulmologija";
                     }
-                    else if (exam.DoctorType == DoctorType.Cardiology)
+                    else if (doctor.Type == DoctorType.Cardiology)
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
+                    //else if (doctor.Type == DoctorType.Neurology)
+                    //{
+                    //    exam.DoctorTypeString = "Neurologija";
+                    //}
+                    //else if (doctor.Type == DoctorType.Dermatology)
+                    //{
+                    //    exam.DoctorTypeString = "Dermatologija";
+                    //}
                     else
                     {
                         exam.DoctorTypeString = "Opšta praksa";
                     }
                     ExaminationsForDate.Add(exam);
                 }
-                if (!DatesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
+                if (!datesExaminations.Contains(DateOnly.FromDateTime(exam.Date)))
                 {
-                    DatesExaminations.Add(DateOnly.FromDateTime(exam.Date));
+                    datesExaminations.Add(DateOnly.FromDateTime(exam.Date));
                 }
             }
-            dataGridExaminations.ItemsSource = ExaminationsForDate;
+            //dataGridExaminations.ItemsSource = ExaminationsForDate;
             Calendar.DataContext = DatesExaminations;
             //Window.GetWindow(this).Content = new PatientMenu();
             Calendar.SelectedDate = selectedInCalendar.AddDays(1);
@@ -340,8 +393,10 @@ namespace Patient.View
 
         private void MenuClick(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Content = new PatientMenu();
+            //Window.GetWindow(this).Content = new PatientMenu();
             //this.Visibility = Visibility.Hidden;
+            this.Visibility = Visibility.Collapsed;
+            Window.GetWindow(this).Content = new PatientMenu();
         }
 
         private void ChangeSelected(object sender, SelectionChangedEventArgs e)
@@ -349,7 +404,7 @@ namespace Patient.View
             DateTime selected = (DateTime)Calendar.SelectedDate;
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             DateTime today = DateTime.Now;
-            ExaminationsForDate = new List<Examination>();
+            examinationsForDate = new List<Examination>();
             foreach (Examination exam in examinations)
             {
                 if (exam.Date.Date == selected.Date)
@@ -363,6 +418,7 @@ namespace Patient.View
                     {
                         exam.DoctorTypeString = "Kardiologija";
                     }
+                    //ovde dodati neurologiju i dermatologiju
                     else
                     {
                         exam.DoctorTypeString = "Opšta praksa";

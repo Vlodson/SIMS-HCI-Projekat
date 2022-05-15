@@ -38,6 +38,9 @@ namespace Patient
         public EquipmentController EquipmentController { get; set; }
 
         public UserAccountController UserAccountController { get; set; }
+        public EquipmentTransferController equipmentTransferController { get; set; }
+        public RenovationController renovationController { get; set; }
+        public MedicineController medicineController { get; set; }
 
         public App()
         {
@@ -58,7 +61,10 @@ namespace Patient
             UserAccountRepo userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             QuestionnaireRepo questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
             QuestionnaireRepo = questionnaireRepo;
-            
+            var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
+            var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
+            var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
 
@@ -69,6 +75,9 @@ namespace Patient
             MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             UserAccountService userAccountService = new UserAccountService(userAccountRepo);
+            var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo, examinationRepo);
+            var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
+            var medicineService = new MedicineService(medicineRepo);
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
@@ -77,21 +86,65 @@ namespace Patient
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
             EquipmentController = new EquipmentController(equipmentService);
             UserAccountController = new UserAccountController(userAccountService);
+            equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
+            renovationController = new RenovationController(renovationService);
+            medicineController = new MedicineController(medicineService);
 
-            /*for (int i = 0; i < 20; i++)
+            if (File.Exists(GlobalPaths.EquipmentDBPath))
+                EquipmentController.LoadEquipment();
+
+            if (File.Exists(GlobalPaths.RoomsDBPath))
+                RoomController.LoadRoom();
+
+            if (File.Exists(GlobalPaths.EquipmentTransfersDBPath))
+                equipmentTransferController.LoadEquipmentTransfer();
+
+            if (File.Exists(GlobalPaths.RenovationDBPath))
+                renovationController.LoadRenovation();
+
+            if (File.Exists(GlobalPaths.MedicineDBPath))
+                medicineController.LoadMedicine();
+
+            for (int i = 0; i < 20; i++)
             {
                 int floor = 1;
                 if (i > 10)
                     floor = 2;
 
-                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
+                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
                 EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
                 RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
             }
 
-            if (File.Exists(ExaminationRepo.dbPath))
-                ExaminationRepo.LoadExamination();*/
+            for (int i = 0; i < 20; i++)
+            {
+                Room OriginRoom = RoomController.ReadRoom(i.ToString());
+                Room DestinationRoom = RoomController.ReadRoom(((i + 1) % 20).ToString());
+                Equipment equipment = EquipmentController.ReadEquipment(i.ToString());
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 10, 10, 13, 0, 0));
+                equipmentTransferController.ScheduleTransfer(equipmentTransfer);
+                equipmentTransferController.RecordTransfer(i.ToString());
+            }
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    int floor = 1;
+            //    if (i > 10)
+            //        floor = 2;
+
+            //    RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+            //    EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+            //    RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
+            //}
+
+            //if (File.Exists(ExaminationRepo.dbPath))
+            //    ExaminationRepo.LoadExamination();
+
+            //EquipmentController.SaveEquipment();
+            //RoomController.SaveRoom();
+            //equipmentTransferController.SaveEquipmentTransfer();
+            //renovationController.SaveRenovation();
 
         }
+
     }
 }

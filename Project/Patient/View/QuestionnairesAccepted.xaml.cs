@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.IO;
 
-using Model;
-using Utility;
-using Controller;
-using HospitalMain.Enums;
-using Admin.ViewModel;
-
-namespace Admin.View
+namespace Patient.View
 {
     /// <summary>
-    /// Interaction logic for EquipmentTableWindow.xaml
+    /// Interaction logic for QuestionnairesAccepted.xaml
     /// </summary>
-    public partial class TableWindow : Window
+    public partial class QuestionnairesAccepted : Window
     {
-        public TableWindow()
+        public QuestionnairesAccepted()
         {
             InitializeComponent();
-            this.DataContext = new TableWindowViewModel();
+        }
+
+        private void OkClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

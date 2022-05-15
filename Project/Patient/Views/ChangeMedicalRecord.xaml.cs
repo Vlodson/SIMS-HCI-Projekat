@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using Patient.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +12,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.IO;
 
-using Model;
-using Utility;
-using Controller;
-using HospitalMain.Enums;
-using Admin.ViewModel;
-
-namespace Admin.View
+namespace Patient.Views
 {
     /// <summary>
-    /// Interaction logic for EquipmentTableWindow.xaml
+    /// Interaction logic for ChangeMedicalRecord.xaml
     /// </summary>
-    public partial class TableWindow : Window
+    public partial class ChangeMedicalRecord : Window
     {
-        public TableWindow()
+        public ChangeMedicalRecord()
         {
             InitializeComponent();
-            this.DataContext = new TableWindowViewModel();
+            this.DataContext = new ChangeMedicalRecordViewModel(this);
         }
     }
 }
