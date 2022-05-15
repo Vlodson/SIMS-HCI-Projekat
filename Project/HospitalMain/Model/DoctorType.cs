@@ -9,8 +9,6 @@ namespace Model
       General,
       Cardiology,
       Neurology,
-      Dermatology,
-      specialistCheckup,
-      operation
+      Dermatology
     }
 }

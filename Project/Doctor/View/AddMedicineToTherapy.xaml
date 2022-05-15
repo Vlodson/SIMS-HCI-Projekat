@@ -28,9 +28,9 @@
                         <ComboBoxItem>lek3</ComboBoxItem>
                         <ComboBoxItem>lek4</ComboBoxItem>
                     </ComboBox>
-                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34">
+                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
-                            <Binding Path="PerDay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:IntValueRule/>
                                 </Binding.ValidationRules>
@@ -41,7 +41,7 @@
                     </TextBox>
                     <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="164,110,219,86" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
-                            <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Dur" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:IntValueRule/>
                                 </Binding.ValidationRules>
@@ -53,9 +53,7 @@
                     <CheckBox Name ="checkBoxPrescription" HorizontalAlignment="Left" Margin="224,164,0,0" VerticalAlignment="Top"/>
                     <Button Content="Prosledi" HorizontalAlignment="Left" Margin="370,178,0,0" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Foreground="White"  FontFamily="Segoe UI Symbol" Click="add_Click"/>
                 </Grid>
-
             </Border>
-
         </Grid>
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="252" Canvas.Top="10" >DODAJ LEK</TextBlock>

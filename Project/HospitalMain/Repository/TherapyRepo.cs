@@ -57,7 +57,8 @@ namespace Repository
 
         public void NewTherapy(Therapy therapy)
         {
-            this.therapyList.Add(therapy);
+            therapyList.Add(therapy);
+            SaveTherapy();
         }
     }
 }

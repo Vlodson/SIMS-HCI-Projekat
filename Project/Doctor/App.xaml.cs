@@ -72,7 +72,7 @@ namespace Doctor
 
             var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo);
             var therapyService = new TherapyService(therapyRepo);
-            var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo);
+            var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo, patientRepo);
             var roomService = new RoomService(roomRepo);
             var patientAccountService = new PatientAccountService(patientRepo);
             var reportService = new ReportService(reportRepo);

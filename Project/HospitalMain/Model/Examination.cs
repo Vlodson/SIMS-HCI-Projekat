@@ -94,8 +94,9 @@ namespace Model
                 OnPropertyChanged("Date");
             }
         }
+        public string NameSurnamePatient { get; set;}
 
-        
+
         public Examination(String examRoom, DateTime date, string id, int duration, ExaminationTypeEnum type, String patient, String doctor)
         {
             this.ExamRoomId = examRoom;

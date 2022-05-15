@@ -412,20 +412,6 @@ namespace Repository
             return examinations;
         }
 
-        public ObservableCollection<Examination> ReadEndedExams()
-        {
-            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
-                foreach (Examination exam in this.examinationList)
-                {
-                    int res = DateTime.Compare(exam.Date, DateTime.Now);
-                    if (res < 0)
-                        endedExams.Add(exam);
-
-                }
-            return endedExams;
-        }
-
-
         public List<Examination> getExamByTime(DateTime dateTime)
         {
             List<Examination> returnList = new List<Examination> ();
