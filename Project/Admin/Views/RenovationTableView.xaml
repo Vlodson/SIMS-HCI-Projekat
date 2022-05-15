@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="430">
 
-    <DataGrid ItemsSource="{Binding Renovations}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+    <DataGrid ItemsSource="{Binding Renovations}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Origin Room" Binding="{Binding OriginRoom}" Width="100" />
             <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="100" />

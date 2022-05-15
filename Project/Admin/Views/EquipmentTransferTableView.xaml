@@ -10,7 +10,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="750" d:DesignWidth="430">
 
-    <DataGrid ItemsSource="{Binding EquipmentTransfers}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+    <DataGrid ItemsSource="{Binding EquipmentTransfers}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedEquipmentTransfer, UpdateSourceTrigger=PropertyChanged}">
         <DataGrid.Columns>
             <DataGridTextColumn Header="Origin" Binding="{Binding OriginRoom}" Width="auto" />
             <DataGridTextColumn Header="Destination" Binding="{Binding DestinationRoom}" Width="auto" />

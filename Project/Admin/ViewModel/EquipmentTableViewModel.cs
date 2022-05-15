@@ -16,7 +16,7 @@ namespace Admin.ViewModel
     {
         private EquipmentController equipmentController;
         public ObservableCollection<FriendlyEquipment> Equipment { get; set; }
-
+        public FriendlyEquipment SelectedEquipment { get; set; }
         public EquipmentTableViewModel()
         {
 
@@ -29,6 +29,12 @@ namespace Admin.ViewModel
             Equipment = new ObservableCollection<FriendlyEquipment>();
             foreach(Equipment equipmentItem in equipment)
                 Equipment.Add(new FriendlyEquipment(equipmentItem));
+        }
+
+        public void RemoveEquipment()
+        {
+            equipmentController.RemoveEquipment(SelectedEquipment.Id, SelectedEquipment.RoomId);
+            Equipment.Remove(SelectedEquipment);
         }
     }
 

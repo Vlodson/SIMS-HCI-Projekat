@@ -80,7 +80,7 @@ namespace Admin
                 for(int j = 0; j < 4; j++)
                     ingredients.Add( (IngredientEnum)((j+i)%5) );
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 10), ingredients, MedicineStatusEnum.Pending, "No comment"));
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, "No comment"));
             }
 
             for (int i = 0; i < 20; i++)
@@ -118,6 +118,7 @@ namespace Admin
             //roomController.SaveRoom();
             //equipmentTransferController.SaveEquipmentTransfer();
             //renovationController.SaveRenovation();
+            //medicineController.SaveMedicine();
         }
     }
 }

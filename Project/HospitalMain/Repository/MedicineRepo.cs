@@ -18,6 +18,7 @@ namespace Repository
         public MedicineRepo(string db_path)
         {
             this.dbPath = db_path;
+            Medicine = new ObservableCollection<Medicine>();
         }
 
         public void NewMedicine(Medicine medicine)

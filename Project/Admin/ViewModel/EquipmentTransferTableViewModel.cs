@@ -16,6 +16,7 @@ namespace Admin.ViewModel
     {
         private EquipmentTransferController equipmentTransferController;
         public ObservableCollection<FriendlyEquipmentTransfer> EquipmentTransfers { get; set; }
+        public FriendlyEquipmentTransfer SelectedEquipmentTransfer { get; set; }
 
         public EquipmentTransferTableViewModel()
         {
@@ -28,10 +29,17 @@ namespace Admin.ViewModel
             foreach (EquipmentTransfer equipmentTransfer in equipmentTransfers)
                 EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransfer));
         }
+
+        public void RemoveEquipmentTransfer()
+        {
+            equipmentTransferController.DeleteEquipmentTransfer(SelectedEquipmentTransfer.Id);
+            EquipmentTransfers.Remove(SelectedEquipmentTransfer);
+        }
     }
 
     public class FriendlyEquipmentTransfer
     {
+        public String Id { get; set; }
         public int OriginRoom { get; set; }
         public int DestinationRoom { get; set; }
         public String Equipment { get; set; }
@@ -39,6 +47,7 @@ namespace Admin.ViewModel
 
         public FriendlyEquipmentTransfer(EquipmentTransfer equipmentTransfer)
         {
+            Id = equipmentTransfer.Id;
             OriginRoom = equipmentTransfer.OriginRoom.RoomNb;
             DestinationRoom = equipmentTransfer.DestinationRoom.RoomNb;
             Equipment = EquipmentTypeEnumExtensions.ToFriendlyString(equipmentTransfer.Equipment.Type);

@@ -12,16 +12,21 @@ namespace Admin.ViewModel
     public class TableWindowViewModel: BindableBase
     {
         public ICommandTemplate<string> ChangeTableCommand { get; private set; }
+        public ICommandTemplate RemoveCommand { get; private set; }
+
         private EquipmentTableViewModel equipmentTableViewModel = new EquipmentTableViewModel();
         private RoomTableViewModel roomTableViewModel = new RoomTableViewModel();
         private EquipmentTransferTableViewModel equipmentTransferTableVeiwModel = new EquipmentTransferTableViewModel();
         private RenovationTableViewModel renovationTableViewModel = new RenovationTableViewModel();
+        private MedicineTableViewModel medicineTableViewModel = new MedicineTableViewModel();
 
         private BindableBase currentViewModel;
 
         public TableWindowViewModel()
         {
             ChangeTableCommand = new ICommandTemplate<string>(OnChange);
+            RemoveCommand = new ICommandTemplate(OnRemove);
+
             CurrentViewModel = equipmentTableViewModel;
         }
 
@@ -32,6 +37,32 @@ namespace Admin.ViewModel
             {
                 SetProperty(ref currentViewModel, value);
             }
+        }
+
+        public void OnRemove()
+        {
+            // switch type of current vm and do the respeceted function there
+            switch (CurrentViewModel.GetType().Name)
+            {
+                case "EquipmentTableViewModel":
+                    equipmentTableViewModel.RemoveEquipment();
+                    break;
+                case "EquipmentTransferTableViewModel":
+                    equipmentTransferTableVeiwModel.RemoveEquipmentTransfer();
+                    break;
+                case "RenovationTableViewModel":
+                    renovationTableViewModel.RemoveRenovation();
+                    break;
+                case "MedicineTableViewModel":
+                    medicineTableViewModel.RemoveMedicine();
+                    break;
+            }
+        }
+
+        public bool CanRemove()
+        {
+            // either switch type and see if something is selected or find a smarter way to get if something is selected
+            return CurrentViewModel.GetType() != typeof(RoomTableViewModel); // and something is selected 
         }
 
         public void OnChange(string table)
@@ -49,6 +80,9 @@ namespace Admin.ViewModel
                     break;
                 case "renovations":
                     CurrentViewModel = renovationTableViewModel;
+                    break;
+                case "medicines":
+                    CurrentViewModel = medicineTableViewModel;
                     break;
             }
         }
