@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,16 @@ namespace Service
         public bool DeleteMedicine(String medicineId)
         {
             return _repository.DeleteMedicine(medicineId);
+        }
+        public ObservableCollection<Medicine> ReadAllPending()
+        {
+            ObservableCollection<Medicine> pendingMedicines = new ObservableCollection<Medicine>();
+            foreach(Medicine medicine in _repository.Medicine)
+            {
+                if (medicine.Status.ToString().Equals("Pending"))
+                    pendingMedicines.Add(medicine);
+            }
+            return pendingMedicines;
         }
 
         public void LoadMedicine()

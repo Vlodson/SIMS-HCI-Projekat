@@ -29,6 +29,7 @@ namespace Doctor
         public MedicalRecordController medicalRecordController { get; set; }
         public FreeDaysRequestController requestController { get; set; }
         public ReferralController referralController { get; set; }
+        public MedicineController medicineController { get; set; }
         public ExaminationRepo examRepo { get; set; }
         public RoomRepo roomRepo { get; set; }
         public PatientRepo patientRepo { get; set; }
@@ -39,7 +40,8 @@ namespace Doctor
         public MedicalRecordRepo medicalRecordRepo { get; set; }
         public FreeDaysRequestRepo requestRepo { get; set; }
         public ReferralRepo referralRepo { get; set; }
-
+        public MedicineRepo medicineRepo { get; set; }
+        public QuestionnaireRepo questionnaireRepo { get; set; }
         public UserAccountController userAccountController { get; set; }
         public UserAccountRepo userAccountRepo { get; set; }
         public EquipmentController equipmentController { get; set; }
@@ -65,9 +67,10 @@ namespace Doctor
             transferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             requestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
+            medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
             
 
-            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo);
+            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo);
             var therapyService = new TherapyService(therapyRepo);
             var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo);
             var roomService = new RoomService(roomRepo);
@@ -76,9 +79,10 @@ namespace Doctor
             var medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
-            var equipmentTransferService = new EquipmentTransferService(transferRepo, roomRepo, equipmentRepo);
+            var equipmentTransferService = new EquipmentTransferService(transferRepo, roomRepo, equipmentRepo, examRepo);
             var requestService = new FreeDaysRequestService(requestRepo);
             var referralService = new ReferralService(referralRepo);
+            var medicineService = new MedicineService(medicineRepo);
 
             examController = new ExamController(patientService, doctorService);
             doctorController = new DoctorController(doctorService);
@@ -92,23 +96,7 @@ namespace Doctor
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             requestController = new FreeDaysRequestController(requestService);
             referralController = new ReferralController(referralService);
-
-            for (int i = 0; i < 20; i++)
-            {
-                int floor = 1;
-                if (i > 10)
-                    floor = 2;
-
-                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
-                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
-                roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
-            }
-
-            for (int i = 0; i < 20; i++)
-            {
-                equipmentTransferController.ScheduleTransfer(i.ToString(), i.ToString(), ((i + 1) % 20).ToString(), i.ToString(), new DateOnly(2022, 10, 10), new DateOnly(2022, 11, 10));
-                equipmentTransferController.RecordTransfer(i.ToString(), "Pera");
-            }
+            medicineController = new MedicineController(medicineService);
         }
     }
 }
