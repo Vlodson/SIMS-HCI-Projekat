@@ -114,17 +114,7 @@
         </Button>
 
         <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
-        <Rectangle HorizontalAlignment="Center" Height="77" Width="1024"  VerticalAlignment="Top" Margin="0,-12,0,0">
-            <Rectangle.Fill>
-                <VisualBrush Stretch="None">
-                    <VisualBrush.Visual>
-                        <Border CornerRadius="20,20,20,20"  Width="1024" Height="280" Background="#b2d8d8"></Border>
-                    </VisualBrush.Visual>
-                </VisualBrush>
-            </Rectangle.Fill>
-        </Rectangle>
-        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="112,7,0,0" VerticalAlignment="Top"/>
-
+        
         <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="971,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>
@@ -144,13 +134,30 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="/Images/logo2.png"  Margin="-9,2,916,669"></Image>
+        <Button  Style="{StaticResource MenuBarButtons}" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="MenuClick">
+            <StackPanel>
+                <Image Source="/Images/icons8-menu-24.png"/>
+            </StackPanel>
+        </Button>
+        
         <!--<StackPanel Width="50" Height="786" Margin="10,130,964,-148">-->
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0">
+
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0" Click="MedicalREcordClick">
             <StackPanel>
                 <Image Source="/Images/folder.png"/>
             </StackPanel>
         </Button>
+        <Rectangle HorizontalAlignment="Center" Height="77" Width="1024"  VerticalAlignment="Top" Margin="0,-12,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="1024" Height="280" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="112,7,0,0" VerticalAlignment="Top"/>
+        <Image Source="/Images/logo2.png"  Margin="-9,2,916,669"></Image>
         <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0" Click="Button_Click">
             <StackPanel>
                 <Image Source="/Images/appointments.png"/>
@@ -178,6 +185,7 @@
         </Button>
         <!--</StackPanel>-->
         <Frame x:Name="Menu" Margin="65,65,0,0" NavigationUIVisibility="Hidden"></Frame>
+
 
     </Grid>
 </Page>

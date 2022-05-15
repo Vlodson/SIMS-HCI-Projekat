@@ -351,6 +351,7 @@ namespace Patient.View
             //Window.GetWindow(this).Content = new PatientMenu();
             //this.Visibility = Visibility.Hidden;
             this.Visibility = Visibility.Collapsed;
+            Window.GetWindow(this).Content = new PatientMenu();
         }
 
         private void ChangeSelected(object sender, SelectionChangedEventArgs e)

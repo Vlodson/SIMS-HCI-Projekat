@@ -57,8 +57,14 @@
         <Label Content="Alergeni" HorizontalAlignment="Left" Margin="33,228,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding BloodType}" HorizontalAlignment="Left" Margin="858,133,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Gender}" HorizontalAlignment="Left" Margin="858,164,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Allergens}" HorizontalAlignment="Left" Margin="123,236,0,0" VerticalAlignment="Top"/>
-        <Button Content="Izmeni" HorizontalAlignment="Left" Margin="858,236,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Allergens}" HorizontalAlignment="Left" Margin="118,228,0,0" VerticalAlignment="Top"/>
+        <Button Content="Izmeni" Command="{Binding ChangeMedicalRecordCommand}" HorizontalAlignment="Left" Margin="873,239,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Rectangle HorizontalAlignment="Left" Height="332" Margin="18,292,0,0" Stroke="Black" VerticalAlignment="Top" Width="910">
             <Rectangle.Fill>
                 <VisualBrush Stretch="None">
@@ -81,7 +87,13 @@
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Pregledaj" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top"/>
+        <Button Content="Pregledaj" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <Button Background="#b2d8d8" Command="{Binding MenuBack}" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26">
             <StackPanel>
                 <Image Source="/Images/arrow-small-left.png"/>
