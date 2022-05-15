@@ -113,12 +113,12 @@ namespace Patient.ViewModel
                     case "Kardiologija":
                         SelectedType = DoctorType.Cardiology;
                         break;
-                    case "Neurologija":
-                        SelectedType = DoctorType.Neurology;
-                        break;
-                    case "Dermatologija":
-                        SelectedType = DoctorType.Dermatology;
-                        break;
+                    //case "Neurologija":
+                    //    SelectedType = DoctorType.Neurology;
+                    //    break;
+                    //case "Dermatologija":
+                    //    SelectedType = DoctorType.Dermatology;
+                    //    break;
                     default:
                         SelectedType = DoctorType.General;
                         break;
@@ -258,8 +258,8 @@ namespace Patient.ViewModel
             doctorTypesString = new List<String>();
             doctorTypesString.Add("Pulmologija");
             doctorTypesString.Add("Kardiologija");
-            doctorTypesString.Add("Dermatologija");
-            doctorTypesString.Add("Neurologija");
+            //doctorTypesString.Add("Dermatologija");
+            //doctorTypesString.Add("Neurologija");
             doctorTypesString.Add("Opšta praksa");
 
             SelectedType = DoctorType.Pulmonology;
@@ -299,12 +299,12 @@ namespace Patient.ViewModel
                     case "Kardiologija":
                         SelectedType = DoctorType.Cardiology;
                         break;
-                    case "Neurologija":
-                        SelectedType= DoctorType.Neurology;
-                        break;
-                    case "Dermatologija":
-                        SelectedType = DoctorType.Dermatology;
-                        break;
+                    //case "Neurologija":
+                    //    SelectedType= DoctorType.Neurology;
+                    //    break;
+                    //case "Dermatologija":
+                    //    SelectedType = DoctorType.Dermatology;
+                    //    break;
                     default:
                         SelectedType = DoctorType.General;
                         break;
