@@ -21,9 +21,6 @@ namespace Model
         private DateTime doB;
         private DoctorType type;
         private int freeDaysLeft;
-
-        
-        //public Examination[] examination;
         private List<Examination> examinations;
 
         public DateTime DoB
@@ -141,14 +138,6 @@ namespace Model
         }
         public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, int freeDaysLeft, List<Examination> examination)
         {
-            /*
-            this.id = id;
-            this.name = name;
-            this.surname = surname;
-            this.doB = doB;
-            this.type = type;
-            this.examinations = examination;
-            */
             Id = id;
             Name = name;
             Surname = surname;  

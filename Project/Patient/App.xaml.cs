@@ -64,7 +64,7 @@ namespace Patient
 
             PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
-            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo);
+            DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo, patientRepository);
             RoomService roomService = new RoomService(roomRepo);
             MedicalRecordService medicalRecordService = new MedicalRecordService(medicalRecordRepo);
             EquipmentService equipmentService = new EquipmentService(equipmentRepo, roomRepo);

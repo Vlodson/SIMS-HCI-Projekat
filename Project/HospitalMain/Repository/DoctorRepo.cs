@@ -30,11 +30,11 @@ namespace Repository
 
             List<Examination> examinationsDoctor3 = new List<Examination>();
             DateTime dtDoctor3 = DateTime.Now;
-            Doctor doctor3 = new Doctor("d12", "Miroslav", "Katic", dtDoctor3, DoctorType.specialistCheckup, 20, examinationsDoctor3);
+            Doctor doctor3 = new Doctor("d12", "Miroslav", "Katic", dtDoctor3, DoctorType.Neurology, 20, examinationsDoctor3);
 
             List<Examination> examinationsDoctor4 = new List<Examination>();
             DateTime dtDoctor4 = DateTime.Now;
-            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.operation, 20, examinationsDoctor4);
+            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.General, 20, examinationsDoctor4);
 
             List<Examination> examinationsDoctor5 = new List<Examination>();
             DateTime dtDoctor5 = DateTime.Now;
@@ -46,8 +46,8 @@ namespace Repository
             this.DoctorList.Add(doctor4);
             this.DoctorList.Add(doctor5);
 
-            if (File.Exists(dbPath))
-                LoadDoctor();
+            /*if (File.Exists(dbPath))
+                LoadDoctor();*/
 
         }
 

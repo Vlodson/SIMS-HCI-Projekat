@@ -13,12 +13,14 @@ namespace Service
         private readonly DoctorRepo _doctorRepo;
         private readonly ExaminationRepo _examinationRepo;
         private readonly RoomRepo _roomRepo;
+        private readonly PatientRepo _patientRepo;
 
-        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo, RoomRepo roomRepo)
+        public DoctorService(DoctorRepo doctorRepo, ExaminationRepo examinationRepo, RoomRepo roomRepo, PatientRepo patientRepo)
         {
             _doctorRepo = doctorRepo;
             _examinationRepo = examinationRepo;
             _roomRepo = roomRepo;
+            _patientRepo = patientRepo;
         }
 
         private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
@@ -272,7 +274,17 @@ namespace Service
 
         public ObservableCollection<Examination> ReadEndedExams()
         {
-            return _examinationRepo.ReadEndedExams();
+            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
+            foreach (Examination exam in _examinationRepo.examinationList)
+            {
+                int res = DateTime.Compare(exam.Date, DateTime.Now);
+                if (res < 0)
+                {
+                    exam.NameSurnamePatient = _patientRepo.GetPatient(exam.PatientId).Name + " " + _patientRepo.GetPatient(exam.PatientId).Surname;
+                    endedExams.Add(exam);
+                }
+            }
+            return endedExams;
         }
 
         public bool occupiedDate(DateTime dt)
