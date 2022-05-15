@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="Admin.Views.EquipmentTransferTableView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admin.Views"
+             xmlns:vm="clr-namespace:Admin.ViewModel"
+             xmlns:vml="clr-namespace:Admin.VML"
+             vml:ViewModelLocator.AutoHookedUpViewModel="True"
+             mc:Ignorable="d" 
+             d:DesignHeight="750" d:DesignWidth="430">
+
+    <DataGrid ItemsSource="{Binding EquipmentTransfers}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Origin" Binding="{Binding OriginRoom}" Width="auto" />
+            <DataGridTextColumn Header="Destination" Binding="{Binding DestinationRoom}" Width="auto" />
+            <DataGridTextColumn Header="Equipment" Binding="{Binding Equipment}" Width="auto" />
+            <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*" />
+        </DataGrid.Columns>
+    </DataGrid>
+
+</UserControl>

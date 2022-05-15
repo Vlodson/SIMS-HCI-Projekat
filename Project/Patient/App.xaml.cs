@@ -78,7 +78,7 @@ namespace Patient
             EquipmentController = new EquipmentController(equipmentService);
             UserAccountController = new UserAccountController(userAccountService);
 
-            for (int i = 0; i < 20; i++)
+            /*for (int i = 0; i < 20; i++)
             {
                 int floor = 1;
                 if (i > 10)
@@ -90,7 +90,7 @@ namespace Patient
             }
 
             if (File.Exists(ExaminationRepo.dbPath))
-                ExaminationRepo.LoadExamination();
+                ExaminationRepo.LoadExamination();*/
 
         }
     }
