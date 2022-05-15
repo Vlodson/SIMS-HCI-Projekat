@@ -34,7 +34,7 @@ namespace Repository
 
             List<Examination> examinationsDoctor4 = new List<Examination>();
             DateTime dtDoctor4 = DateTime.Now;
-            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.operation, 20, examinationsDoctor4);
+            Doctor doctor4 = new Doctor("d13", "Andrija", "Stanisic", dtDoctor4, DoctorType.Cardiology, 20, examinationsDoctor4);
 
             List<Examination> examinationsDoctor5 = new List<Examination>();
             DateTime dtDoctor5 = DateTime.Now;

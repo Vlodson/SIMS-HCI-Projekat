@@ -84,7 +84,7 @@ namespace Patient
                 if (i > 10)
                     floor = 2;
 
-                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5));
+                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
                 EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
                 RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
             }
