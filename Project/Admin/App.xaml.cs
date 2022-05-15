@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -13,6 +13,7 @@ using Service;
 using Repository;
 using Utility;
 using Model;
+using Enums;
 using HospitalMain.Enums;
 
 namespace Admin
@@ -74,6 +75,12 @@ namespace Admin
                 roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
                 equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
+
+                ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                for(int j = 0; j < 4; j++)
+                    ingredients.Add( (IngredientEnum)((j+i)%5) );
+
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 10), ingredients, MedicineStatusEnum.Pending, "No comment"));
             }
 
             for (int i = 0; i < 20; i++)
