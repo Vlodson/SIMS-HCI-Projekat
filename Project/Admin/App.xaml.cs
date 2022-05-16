@@ -26,6 +26,7 @@ namespace Admin
         public RenovationController renovationController { get; set; }
         public UserAccountController userAccountController { get; set; }
         public MedicineController medicineController { get; set; }
+        public DoctorController doctorController { get; set; }
 
         public App()
         {
@@ -36,6 +37,7 @@ namespace Admin
             var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             var examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+            var doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
@@ -43,13 +45,15 @@ namespace Admin
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
             var medicineService = new MedicineService(medicineRepo);
-            
+            var doctorService = new DoctorService(doctorRepo, examinationRepo, roomRepo);
+
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             renovationController = new RenovationController(renovationService);
             userAccountController = new UserAccountController(userAccountService);
             medicineController = new MedicineController(medicineService);
+            doctorController = new DoctorController(doctorService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
