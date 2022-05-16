@@ -155,23 +155,6 @@ namespace Service
 
                 return false;
             }
-
-
-            //while (CheckForAvailableDateForEmergency(dateTime, doctorType) == "")
-            //{
-            //    //dobavljam zakazan termin koji ce biti pomeren
-            //    Examination bookedExam = GetBookedExamination(dateTime, doctorType);
-
-            //    //cuvam njegove info u propertiju iz examRepo-a
-            //    _examinationRepo.TemporaryExam = bookedExam;
-
-            //    //brisem taj termin u bazi, kako bih ispao iz while petlje
-            //    _examinationRepo.DeleteExamination(bookedExam.Id);
-
-            //    //brojac povecavam
-            //    _examinationRepo.ValidationCounter++;
-            //}
-            //return true;
         }
 
         //funkcija koja vraca slobodne termine u odredjenom periodu razlicitih doktora iste specijalizacije, kako bi se odabrao jedan od tih termina u koji ce biti pomeren pregled i pacijent koga je pomerio hitan slucaj
@@ -273,25 +256,6 @@ namespace Service
                 if (CheckRoomExists(exam.Date)) examinationsWithRooms.Add(exam);
             }
             return examinationsWithRooms;
-            //List<Examination> listExaminationsWithRooms = new List<Examination>();
-            //foreach (Examination exam in listForDoctor)
-            //{
-            //    int counter = 0;
-            //    foreach (Room room in _roomRepo.Rooms)
-            //    {
-            //        if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
-            //        {
-            //            counter++;
-            //        }
-            //    }
-            //    if (counter < _roomRepo.Rooms.Count)
-            //    {
-            //        listExaminationsWithRooms.Add(exam);
-            //    }
-            //    //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-            //}
-            ////return _examinationRepo.MoveExamination(examination, doctor);
-            //return listExaminationsWithRooms;
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
