@@ -267,25 +267,31 @@ namespace Service
         {
             Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
             List<Examination> listForDoctor = _examinationRepo.GetMovingDatesForExamination(examination, doctor);
-            List<Examination> listExaminationsWithRooms = new List<Examination>();
+            List<Examination> examinationsWithRooms = new List<Examination>();
             foreach (Examination exam in listForDoctor)
             {
-                int counter = 0;
-                foreach (Room room in _roomRepo.Rooms)
-                {
-                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
-                    {
-                        counter++;
-                    }
-                }
-                if (counter < _roomRepo.Rooms.Count)
-                {
-                    listExaminationsWithRooms.Add(exam);
-                }
-                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                if (CheckRoomExists(exam.Date)) examinationsWithRooms.Add(exam);
             }
-            //return _examinationRepo.MoveExamination(examination, doctor);
-            return listExaminationsWithRooms;
+            return examinationsWithRooms;
+            //List<Examination> listExaminationsWithRooms = new List<Examination>();
+            //foreach (Examination exam in listForDoctor)
+            //{
+            //    int counter = 0;
+            //    foreach (Room room in _roomRepo.Rooms)
+            //    {
+            //        if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
+            //        {
+            //            counter++;
+            //        }
+            //    }
+            //    if (counter < _roomRepo.Rooms.Count)
+            //    {
+            //        listExaminationsWithRooms.Add(exam);
+            //    }
+            //    //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+            //}
+            ////return _examinationRepo.MoveExamination(examination, doctor);
+            //return listExaminationsWithRooms;
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)

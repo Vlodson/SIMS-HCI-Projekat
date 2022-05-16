@@ -345,44 +345,8 @@ namespace Repository
 
         public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
-            List<DateTime> examinationsTime = new List<DateTime>();
-            List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            List<Examination> doctorsExaminations = doctor.Examinations;
-
-
-            //danasnji datum
-            DateTime today = DateTime.Now;
-            //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
-            DateTime date = examination.Date; //uzima trenutno zakazani termin pa mu nudi 4 dana unapred da zakaze
-            //sada mu se nudi samo 4 dana unapred da pomeri
-            for (int i = 1; i < 5; ++i)
-            {
-                //date.AddDays(1);
-                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
-                for (int j = 0; j < 16; ++j)
-                {
-                    examinationsTime.Add(start.AddMinutes(j * 30));
-                }
-            }
-
-            List<Examination> examinations = new List<Examination>();
-            //proverava da li su termini kod izabranog doktora zauzeti
-            foreach (DateTime dt in examinationsTime)
-            {
-                bool free = true;
-                foreach (Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
-                {
-                    if (doctorsExamination.Date == dt)
-                    {
-                        free = false;
-                    }
-                }
-                if (free)
-                {
-                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                }
-
-            }
+            List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationTimes, doctor);
             return examinations;
         }
 
