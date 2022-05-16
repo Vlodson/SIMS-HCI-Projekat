@@ -219,6 +219,7 @@ namespace Service
                 return false;
             }
         }
+        /*
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
             ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
@@ -260,6 +261,7 @@ namespace Service
             //return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
             return listExaminationsWithRooms;
         }
+        */
 
         public List<Examination> MoveExaminations(Examination examination)
         {

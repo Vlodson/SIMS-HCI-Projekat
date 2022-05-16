@@ -294,7 +294,7 @@ namespace Repository
             return freeExaminationTimes;
         }
 
-        //prioritet lekar
+        
         public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
         {
             List<DateTime> examinationsTime = GenerateExaminationTimes(startDate, endDate);
@@ -302,7 +302,8 @@ namespace Repository
             
             return examinations;
         }
-        //prioritet termin
+        
+        /*
         public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
         {
             List<DateTime> examinationsTime = GenerateExaminationTimes(startDate, endDate);
@@ -340,6 +341,7 @@ namespace Repository
             }
             return examinations;
         }
+        */
 
         public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
