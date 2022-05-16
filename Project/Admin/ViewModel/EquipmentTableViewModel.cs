@@ -16,7 +16,12 @@ namespace Admin.ViewModel
     {
         private EquipmentController equipmentController;
         public ObservableCollection<FriendlyEquipment> Equipment { get; set; }
-        public FriendlyEquipment SelectedEquipment { get; set; }
+        private FriendlyEquipment selectedEquipment;
+        public FriendlyEquipment SelectedEquipment
+        {
+            get { return selectedEquipment; }
+            set { selectedEquipment = value; }
+        }
         public EquipmentTableViewModel()
         {
 

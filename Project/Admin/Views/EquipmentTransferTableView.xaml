@@ -8,15 +8,53 @@
              xmlns:vml="clr-namespace:Admin.VML"
              vml:ViewModelLocator.AutoHookedUpViewModel="True"
              mc:Ignorable="d" 
+             FontSize="14"
              d:DesignHeight="750" d:DesignWidth="430">
 
-    <DataGrid ItemsSource="{Binding EquipmentTransfers}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding SelectedEquipmentTransfer, UpdateSourceTrigger=PropertyChanged}">
-        <DataGrid.Columns>
-            <DataGridTextColumn Header="Origin" Binding="{Binding OriginRoom}" Width="auto" />
-            <DataGridTextColumn Header="Destination" Binding="{Binding DestinationRoom}" Width="auto" />
-            <DataGridTextColumn Header="Equipment" Binding="{Binding Equipment}" Width="auto" />
-            <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*" />
-        </DataGrid.Columns>
-    </DataGrid>
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:FriendlyEquipmentTransfer}" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Text="{Binding Path=OriginRoom, Mode=TwoWay}" IsReadOnly="True" Grid.Column="0" />
+                <TextBox Text="{Binding Path=DestinationRoom, Mode=TwoWay}" IsReadOnly="True" Grid.Column="1" />
+                <TextBox Text="{Binding Path=Equipment, Mode=TwoWay}" IsReadOnly="True" Grid.Column="2" />
+                <TextBox Text="{Binding Path=EndDate, Mode=TwoWay}" IsReadOnly="True" Grid.Column="3" />
+            </Grid>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Origin" Grid.Column="0" Grid.Row="0" FontWeight="Bold" />
+        <TextBlock Text="Dest" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
+        <TextBlock Text="Equipment" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
+        <TextBlock Text="End Date" Grid.Column="3" Grid.Row="0" FontWeight="Bold" />
+
+        <ListBox ItemsSource="{Binding EquipmentTransfers}" SelectedItem="{Binding SelectedEquipmentTransfer}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                 HorizontalContentAlignment="Stretch">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Padding" Value="0,0,10,0" />
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
+    </Grid>
 
 </UserControl>
