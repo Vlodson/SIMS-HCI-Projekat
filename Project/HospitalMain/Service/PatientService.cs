@@ -249,23 +249,6 @@ namespace Service
 
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
-            //dodato
-            //List<Examination> others = new List<Examination>();
-            //foreach(Examination exam in _examinationRepo.GetAll())
-            //{
-            //    if (!exam.PatientId.Equals(id))
-            //    {
-            //        others.Add(exam);
-            //    }
-            //}
-
-            //foreach(Examination exam in others)
-            //{
-            //    _examinationRepo.DeleteExamination(exam.Id);
-            //}
-
-            ////return _examinationRepo.ExaminationsForPatient(id);
-            //return _examinationRepo.GetAll();
             return _examinationRepo.ExaminationsForPatient(id);
             
         }

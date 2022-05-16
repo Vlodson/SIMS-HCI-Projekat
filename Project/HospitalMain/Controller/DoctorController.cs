@@ -63,6 +63,10 @@ namespace Controller
             return _doctorService.GetFreeExaminations(startDate, endDate, doctorType);
         }
 
+        public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
+        {
+            return _doctorService.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+        }
         public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
             return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);

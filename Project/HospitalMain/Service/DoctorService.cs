@@ -3,6 +3,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Service
 {
@@ -180,7 +181,44 @@ namespace Service
             ObservableCollection<Examination> listExams = _examinationRepo.GetFreeExaminations(startDate, endDate, doctors);
             return listExams;
         }
+        public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
+        {
+            
+            List<Examination> examinations = _examinationRepo.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+            List<Examination> examinationsWithRooms = new List<Examination>();
+            foreach(Examination exam in examinations)
+            {
+                if(CheckRoomExists(exam.Date)) examinationsWithRooms.Add(exam);
+            }
+            return examinationsWithRooms;
+        }
 
+        public List<Room> GetPatientRooms()
+        {
+            List<Room> patientRooms = new List<Room>();
+            foreach (Room room in _roomRepo.Rooms)
+            {
+                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+            return patientRooms;
+        }
+
+        public bool CheckRoomExists(DateTime date)
+        {
+            int counterExams = _examinationRepo.getExamByTime(date).Count();
+            int counterOccupied = GetPatientRooms().Where(r => r.Occupancy == false).Count();
+            if(counterExams < GetPatientRooms().Count)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
             ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
@@ -190,25 +228,6 @@ namespace Service
             
             foreach (Examination exam in listExaminations)
             {
-                /*
-                int patientRooms = 0;
-                int counter = 0;
-                foreach (Room room in _roomRepo.Rooms)
-                {
-                    if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                    {
-                        patientRooms++;
-                    }
-                    if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room && room.Occupancy == true)
-                    {
-                        counter++;
-                    }
-                }
-                if (counter < patientRooms)
-                {
-                    listExaminationsWithRooms.Add(exam);
-                }
-                */
                 List<Room> patientRooms = new List<Room>();
                 foreach(Room room in _roomRepo.Rooms)
                 {
