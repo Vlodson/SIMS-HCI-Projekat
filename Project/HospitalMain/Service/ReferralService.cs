@@ -20,5 +20,10 @@ namespace Service
         {
             return _referralRepo.NewReferral(referral);
         }
+
+        public List<Referral> GetAll()
+        {
+            return _referralRepo.GetAll();
+        }
     }
 }
