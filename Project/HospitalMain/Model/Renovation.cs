@@ -22,6 +22,7 @@ namespace Model
 
         private String _id;
         private Room _originRoom;
+        private Room _destinationRoom;
         private RenovationTypeEnum _type;
         private DateOnly _startDate;
         private DateOnly _endDate;
@@ -48,6 +49,19 @@ namespace Model
                 {
                     _originRoom = value;
                     OnPropertyChanged("OriginRoom");
+                }
+            }
+        }
+
+        public Room DestinationRoom
+        {
+            get { return _destinationRoom; }
+            set
+            {
+                if (_destinationRoom != value)
+                {
+                    _destinationRoom = value;
+                    OnPropertyChanged("DestinationRoom");
                 }
             }
         }
@@ -92,10 +106,11 @@ namespace Model
         }
 
         public Renovation() { }
-        public Renovation(String id, Room originRoom, RenovationTypeEnum type, DateOnly start, DateOnly end)
+        public Renovation(String id, Room originRoom, Room destinationRoom, RenovationTypeEnum type, DateOnly start, DateOnly end)
         {
             Id = id;
             OriginRoom = originRoom;
+            DestinationRoom = destinationRoom;
             Type = type;
             StartDate = start;
             EndDate = end;
@@ -104,6 +119,7 @@ namespace Model
         {
             this.Id = renovation.Id;
             this.OriginRoom = renovation.OriginRoom;
+            this.DestinationRoom = renovation.DestinationRoom;
             Type = renovation.Type;
             StartDate = renovation.StartDate;
             EndDate = renovation.EndDate;
@@ -112,6 +128,7 @@ namespace Model
         {
             this.Id = renovationAnnotation.Id;
             this.OriginRoom = null;
+            this.DestinationRoom = null;
             this.Type = renovationAnnotation.Type;
             this.StartDate = DateOnly.Parse(renovationAnnotation.StartDate);
             this.EndDate = DateOnly.Parse(renovationAnnotation.EndDate);
