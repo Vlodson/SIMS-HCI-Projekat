@@ -64,16 +64,19 @@ namespace Admin.ViewModel
             get { return selectedMedicine; }
             set
             {
-                selectedMedicine = value;
-                OnPropertyChanged("SelectedMedicine");
+                if (selectedMedicine != value)
+                {
+                    selectedMedicine = value;
+                    OnPropertyChanged("SelectedMedicine");
 
-                Type = selectedMedicine.Type.ToString();
-                Ingredients = "";
-                foreach(IngredientEnum ingredient in selectedMedicine.Ingredients)
-                    Ingredients += ingredient.ToString() + "\n";
-                Ingredients = Ingredients.Remove(Ingredients.Length-1);
+                    Type = selectedMedicine.Type.ToString();
+                    Ingredients = "";
+                    foreach (IngredientEnum ingredient in selectedMedicine.Ingredients)
+                        Ingredients += ingredient.ToString() + "\n";
+                    Ingredients = Ingredients.Remove(Ingredients.Length - 1);
 
-                ArrivalDate = DateTime.Parse(selectedMedicine.ArrivalDate.ToString());
+                    ArrivalDate = DateTime.Parse(selectedMedicine.ArrivalDate.ToString());
+                }
             }
         }
 
