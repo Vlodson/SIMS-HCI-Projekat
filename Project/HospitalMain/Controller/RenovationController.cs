@@ -19,9 +19,9 @@ namespace Controller
             _renovationService = renovationService;
         }
 
-        public bool ScheduleRenovation(String id, String originRoomId, RenovationTypeEnum type, DateOnly startDate, DateOnly endDate)
+        public bool ScheduleRenovation(String id, String originRoomId, String destinationRoomId, RenovationTypeEnum type, DateOnly startDate, DateOnly endDate)
         {
-            return _renovationService.ScheduleRenovation(id, originRoomId, type, startDate, endDate);
+            return _renovationService.ScheduleRenovation(id, originRoomId, destinationRoomId, type, startDate, endDate);
         }
 
         public bool RecordRenovation(String renovationId)
@@ -36,6 +36,16 @@ namespace Controller
         public void FinishRenovation()
         {
             _renovationService.FinishRenovation();
+        }
+
+        public void MergeRooms(Renovation renovation)
+        {
+            _renovationService.MergeRooms(renovation);
+        }
+
+        public void SplitRoom(Renovation renovation)
+        {
+            _renovationService.SplitRoom(renovation);
         }
 
         public bool DeleteRenovation(String renovationId)
