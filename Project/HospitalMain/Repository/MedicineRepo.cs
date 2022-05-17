@@ -44,6 +44,8 @@ namespace Repository
                     Medicine[i].Type = medicine.Type;
                     Medicine[i].Ingredients = medicine.Ingredients;
                     Medicine[i].Status = medicine.Status;
+                    Medicine[i].ReviewingDoctor = medicine.ReviewingDoctor;
+                    Medicine[i].ArrivalDate = medicine.ArrivalDate;
                     Medicine[i].Comment = medicine.Comment;
                 }
         }

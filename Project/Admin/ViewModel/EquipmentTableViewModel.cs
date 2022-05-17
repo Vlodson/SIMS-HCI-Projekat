@@ -20,7 +20,14 @@ namespace Admin.ViewModel
         public FriendlyEquipment SelectedEquipment
         {
             get { return selectedEquipment; }
-            set { selectedEquipment = value; }
+            set
+            {
+                if(selectedEquipment != value)
+                {
+                    selectedEquipment = value;
+                    OnPropertyChanged("SelectedEquipment");
+                }
+            }
         }
         public EquipmentTableViewModel()
         {

@@ -83,8 +83,9 @@ namespace Admin
                 ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
                 for(int j = 0; j < 4; j++)
                     ingredients.Add( (IngredientEnum)((j+i)%5) );
+                Doctor doctor = new Doctor();
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, "No comment"));
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, doctor, new DateOnly(2020, 10, 10), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)

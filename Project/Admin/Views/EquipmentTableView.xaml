@@ -43,7 +43,7 @@
         <TextBlock Text="Room Id" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
         <TextBlock Text="Type" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
 
-        <ListBox ItemsSource="{Binding Equipment}" SelectedItem="{Binding SelectedEquipment}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+        <ListBox ItemsSource="{Binding Equipment}" SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                  HorizontalContentAlignment="Stretch">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
