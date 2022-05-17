@@ -6,6 +6,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Service
 {
@@ -137,43 +138,60 @@ namespace Service
             return _examinationRepo.NewExamination(examination);
         }
 
-        public bool CreateExam(Examination examination, DateTime newDate)
+        public Room GetFreeRoomFromRooms(List<Room> patientRooms)
         {
             Room getRoom = new Room();
-            List<Room> patientRooms = new List<Room>();
-            foreach (Room room in _roomRepo.Rooms)
+            foreach (Room room in patientRooms)
             {
-                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                if (room.Occupancy == false)
                 {
-                    patientRooms.Add(room);
+                    getRoom = room;
                 }
             }
-            if (_examinationRepo.getExamByTime(newDate).Count == 0)
+            return getRoom;
+        }
+
+        public Room GetFreeRoomFromRoomsWhereOccupied(List<Room> patientRooms, DateTime dateTime)
+        {
+            Room getRoom = new Room();
+            foreach (Examination examinationExists in _examinationRepo.getExamByTime(dateTime))
             {
+
                 foreach (Room room in patientRooms)
                 {
-                    if (room.Occupancy == false)
+                    if (room.Occupancy == false && examinationExists.ExamRoomId != room.Id)
                     {
                         getRoom = room;
+                        break;
                     }
                 }
             }
-            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
+            return getRoom;
+        }
+        public Room GetFirstRoom(DateTime dateTime, List<Room> patientRooms)
+        {
+            Room getRoom = new Room();
+            if(_examinationRepo.getExamByTime(dateTime).Count == 0)
             {
-                bool take = false;
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        if (examinationExists.ExamRoomId != room.Id)
-                        {
-                            take = true;
-                            getRoom = room;
-                            break;
-                        }
-                    }
-                }
+                getRoom=GetFreeRoomFromRooms(patientRooms);
             }
+            else
+            {
+                getRoom = GetFreeRoomFromRoomsWhereOccupied(patientRooms, dateTime);
+            }
+            return getRoom;
+        }
+        public Room GetFreeRoom(DateTime newDate)
+        {
+            Room getRoom = new Room();
+            List<Room> patientRooms = _roomRepo.Rooms.Where(r => r.Type == RoomTypeEnum.Patient_Room).ToList();
+
+            getRoom = GetFirstRoom(newDate, patientRooms);
+            return getRoom;
+        }
+        public bool CreateExam(Examination examination, DateTime newDate)
+        {
+            Room getRoom = GetFreeRoom(newDate);
             examination.ExamRoomId = getRoom.Id;
             Patient patient = _patientRepo.GetPatient(examination.PatientId);
             patient.NumberNewExams += 1;
@@ -205,41 +223,8 @@ namespace Service
 
         public void EditExamForMoving(String examId, DateTime newDate)
         {
-            Room getRoom = new Room();
-            List<Room> patientRooms = new List<Room>();
-            foreach (Room room in _roomRepo.Rooms)
-            {
-                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                {
-                    patientRooms.Add(room);
-                }
-            }
-            if (_examinationRepo.getExamByTime(newDate).Count == 0)
-            {
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        getRoom = room;
-                    }
-                }
-            }
-            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
-            {
-                bool take = false;
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        if (examinationExists.ExamRoomId != room.Id)
-                        {
-                            take = true;
-                            getRoom = room;
-                            break;
-                        }
-                    }
-                }
-            }
+            
+            Room getRoom = GetFreeRoom(newDate);
             Examination examination = _examinationRepo.GetExaminationById(examId);
             examination.Date = newDate;
             examination.ExamRoomId = getRoom.Id;
@@ -249,23 +234,6 @@ namespace Service
 
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
-            //dodato
-            //List<Examination> others = new List<Examination>();
-            //foreach(Examination exam in _examinationRepo.GetAll())
-            //{
-            //    if (!exam.PatientId.Equals(id))
-            //    {
-            //        others.Add(exam);
-            //    }
-            //}
-
-            //foreach(Examination exam in others)
-            //{
-            //    _examinationRepo.DeleteExamination(exam.Id);
-            //}
-
-            ////return _examinationRepo.ExaminationsForPatient(id);
-            //return _examinationRepo.GetAll();
             return _examinationRepo.ExaminationsForPatient(id);
             
         }

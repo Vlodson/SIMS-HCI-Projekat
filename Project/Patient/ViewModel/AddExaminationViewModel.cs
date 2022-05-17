@@ -251,9 +251,9 @@ namespace Patient.ViewModel
             doctorTypes = new List<DoctorType>();
             doctorTypes.Add(DoctorType.Pulmonology);
             doctorTypes.Add(DoctorType.Cardiology);
-            doctorTypes.Add(DoctorType.Dermatology);
-            doctorTypes.Add(DoctorType.Neurology);
-            doctorTypes.Add(DoctorType.specialistCheckup);
+            //doctorTypes.Add(DoctorType.Dermatology);
+            //doctorTypes.Add(DoctorType.Neurology);
+            doctorTypes.Add(DoctorType.General);
 
             doctorTypesString = new List<String>();
             doctorTypesString.Add("Pulmologija");
@@ -314,7 +314,9 @@ namespace Patient.ViewModel
                 {
                     if(doctor.Type == SelectedType)
                     {
-                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+                        //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        
                         foreach (Examination exam in listExaminationsWithRooms)
                         {
                             exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
@@ -326,12 +328,37 @@ namespace Patient.ViewModel
             }
             else
             {
-                List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
-                foreach (Examination exam in examinations)
+                List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                if(listExaminationsWithRooms.Count == 0)
+                {
+                    if (priority) //prioritet je lekar
+                    {
+                        ObservableCollection<Doctor> getDoctors = _doctorController.GetAll();
+                        DateTime before = startDate.Date.AddDays(-4);
+                        if (before.CompareTo(DateTime.Now) < 0)
+                        {
+                            before = DateTime.Now;
+                        }
+                        DateTime after = startDate.Date.AddDays(4);
+                        int days = after.Day - before.Day;
+                        listExaminationsWithRooms.AddRange(_doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, before, after));
+                    }
+                    else
+                    {
+                        foreach (Doctor doc in doctors)
+                        {
+                            List<Examination> newExaminations = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                            listExaminationsWithRooms.AddRange(newExaminations);
+                        }
+                    }
+                }
+                //List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
+                //foreach (Examination exam in examinations)
+                foreach (Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(SelectedDoctor.Id).NameSurname;
                 }
-                AvailableExaminations = examinations;
+                AvailableExaminations = listExaminationsWithRooms;
             }
         }
 
