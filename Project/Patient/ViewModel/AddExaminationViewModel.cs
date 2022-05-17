@@ -28,7 +28,9 @@ namespace Patient.ViewModel
         private PatientController _patientController;
         private ExamController _examController;
         private List<DoctorType> doctorTypes;
+        private List<String> doctorTypesString;
         private DoctorType selectedType;
+        private string selectedTypeString;
         private List<Doctor> doctors;
         private Doctor selectedDoctor;
         public static DateTime startDate;
@@ -58,6 +60,18 @@ namespace Patient.ViewModel
             }
         }
 
+        public List<String> DoctorTypesString
+        {
+            get
+            {
+                return doctorTypesString;
+            }
+            set
+            {
+                doctorTypesString = value;
+            }
+        }
+
         public DoctorType SelectedType
         {
             get
@@ -68,6 +82,47 @@ namespace Patient.ViewModel
             {
                 selectedType = value;
                 OnPropertyChanged("SelectedType");
+                doctors = new List<Doctor>();
+                foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                {
+                    if (doctor.Type == SelectedType)
+                    {
+                        doctors.Add(doctor);
+                    }
+                }
+                OnPropertyChanged("Doctors");
+            }
+        }
+
+        public String SelectedTypeString
+        {
+            get
+            {
+                return selectedTypeString;
+            }
+            set
+            {
+                selectedTypeString = value;
+                OnPropertyChanged("SelectedTypeString");
+                OnPropertyChanged("SelectedType");
+                switch (selectedTypeString)
+                {
+                    case "Pulmologija":
+                        SelectedType = DoctorType.Pulmonology;
+                        break;
+                    case "Kardiologija":
+                        SelectedType = DoctorType.Cardiology;
+                        break;
+                    //case "Neurologija":
+                    //    SelectedType = DoctorType.Neurology;
+                    //    break;
+                    //case "Dermatologija":
+                    //    SelectedType = DoctorType.Dermatology;
+                    //    break;
+                    default:
+                        SelectedType = DoctorType.General;
+                        break;
+                }
                 doctors = new List<Doctor>();
                 foreach (Doctor doctor in _doctorController.GetAll().ToList())
                 {
@@ -196,9 +251,19 @@ namespace Patient.ViewModel
             doctorTypes = new List<DoctorType>();
             doctorTypes.Add(DoctorType.Pulmonology);
             doctorTypes.Add(DoctorType.Cardiology);
-            doctorTypes.Add(DoctorType.specialistCheckup);
+            //doctorTypes.Add(DoctorType.Dermatology);
+            //doctorTypes.Add(DoctorType.Neurology);
+            doctorTypes.Add(DoctorType.General);
+
+            doctorTypesString = new List<String>();
+            doctorTypesString.Add("Pulmologija");
+            doctorTypesString.Add("Kardiologija");
+            //doctorTypesString.Add("Dermatologija");
+            //doctorTypesString.Add("Neurologija");
+            doctorTypesString.Add("Opšta praksa");
 
             SelectedType = DoctorType.Pulmonology;
+            SelectedTypeString = "Pulmologija";
             doctors = new List<Doctor>();
             foreach(Doctor doctor in _doctorController.GetAll().ToList())
             {
@@ -226,12 +291,32 @@ namespace Patient.ViewModel
             {
                 List<Doctor> doctors = _doctorController.GetAll().ToList();
                 List<Examination> examinations = new List<Examination>();
+                switch (selectedTypeString)
+                {
+                    case "Pulmologija":
+                        SelectedType = DoctorType.Pulmonology;
+                        break;
+                    case "Kardiologija":
+                        SelectedType = DoctorType.Cardiology;
+                        break;
+                    //case "Neurologija":
+                    //    SelectedType= DoctorType.Neurology;
+                    //    break;
+                    //case "Dermatologija":
+                    //    SelectedType = DoctorType.Dermatology;
+                    //    break;
+                    default:
+                        SelectedType = DoctorType.General;
+                        break;
+                }
                 priority = false;
                 foreach(Doctor doctor in doctors)
                 {
                     if(doctor.Type == SelectedType)
                     {
-                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+                        //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        
                         foreach (Examination exam in listExaminationsWithRooms)
                         {
                             exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
@@ -243,12 +328,37 @@ namespace Patient.ViewModel
             }
             else
             {
-                List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
-                foreach (Examination exam in examinations)
+                List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                if(listExaminationsWithRooms.Count == 0)
+                {
+                    if (priority) //prioritet je lekar
+                    {
+                        ObservableCollection<Doctor> getDoctors = _doctorController.GetAll();
+                        DateTime before = startDate.Date.AddDays(-4);
+                        if (before.CompareTo(DateTime.Now) < 0)
+                        {
+                            before = DateTime.Now;
+                        }
+                        DateTime after = startDate.Date.AddDays(4);
+                        int days = after.Day - before.Day;
+                        listExaminationsWithRooms.AddRange(_doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, before, after));
+                    }
+                    else
+                    {
+                        foreach (Doctor doc in doctors)
+                        {
+                            List<Examination> newExaminations = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                            listExaminationsWithRooms.AddRange(newExaminations);
+                        }
+                    }
+                }
+                //List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
+                //foreach (Examination exam in examinations)
+                foreach (Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(SelectedDoctor.Id).NameSurname;
                 }
-                AvailableExaminations = examinations;
+                AvailableExaminations = listExaminationsWithRooms;
             }
         }
 

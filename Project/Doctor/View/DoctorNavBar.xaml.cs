@@ -72,7 +72,7 @@ namespace Doctor.View
 
         private void ButtonVerification(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new VerificationPage();
         }
 
         private void ButtonPatients(object sender, RoutedEventArgs e)

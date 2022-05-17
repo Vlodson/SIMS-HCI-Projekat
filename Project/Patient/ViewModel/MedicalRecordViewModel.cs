@@ -2,6 +2,7 @@
 using HospitalMain.Enums;
 using Model;
 using Patient.View;
+using Patient.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,8 @@ namespace Patient.ViewModel
         public String Allergens { get { return allergens; } set { allergens = value; } }
         public List<Report> Reports { get { return reports; } }
 
+        public MyICommand ChangeMedicalRecordCommand { get; set; }
+
         public MedicalRecordViewModel(Page page)
         {
             App app = Application.Current as App;
@@ -52,6 +55,8 @@ namespace Patient.ViewModel
             MenuBack = new MyICommand(OnMenuBack);
 
             thisPage = page;
+
+            ChangeMedicalRecordCommand = new MyICommand(OnChangeMedicalRecord);
 
             MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
             Name = medicalRecord.Name;
@@ -145,7 +150,13 @@ namespace Patient.ViewModel
                         case DoctorType.Cardiology:
                             report.DoctorType = "kardiologija";
                             break;
-                        case DoctorType.specialistCheckup:
+                        //case DoctorType.Dermatology:
+                        //    report.DoctorType = "dermatologija";
+                        //    break;
+                        //case DoctorType.Neurology:
+                        //    report.DoctorType = "neurologija";
+                        //    break;
+                        case DoctorType.General:
                             report.DoctorType = "opšta praksa";
                             break;
                     }
@@ -158,6 +169,12 @@ namespace Patient.ViewModel
         {
             //Window.GetWindow(thisWindow).Content = new PatientMenu();
             thisPage.Visibility = Visibility.Collapsed;
+        }
+
+        public void OnChangeMedicalRecord()
+        {
+            ChangeMedicalRecord changeMedicalRecord = new ChangeMedicalRecord();
+            changeMedicalRecord.ShowDialog();
         }
     }
 }

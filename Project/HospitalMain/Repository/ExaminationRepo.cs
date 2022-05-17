@@ -252,89 +252,79 @@ namespace Repository
             return examinations;
         }
 
-        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
+        public List<DateTime> GenerateExaminationTimes(DateTime startDate, DateTime endDate)
         {
-            List<DateTime> examinationsTime = new List<DateTime>();
-            List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            List<Examination> doctorsExaminations = doctor.Examinations;
-
-            //danasnji datum
-            DateTime today = DateTime.Now;
-            DateTime date = startDate.Date;
-            DateTime end = endDate.Date;
-
-            //koliki je korak
-            //int days = end.Day - date.Day;
-            int days = Convert.ToInt32((end - date).TotalDays);
+            List<DateTime> examinationTimes = new List<DateTime>();
+            int days = Convert.ToInt32((endDate.Date - startDate.Date).TotalDays);
             for (int i = 0; i < days + 1; ++i)
             {
                 //za svaki dan generise koji sve termini postoje
-                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
-                for(int j = 0; j < 16; ++j)
+                DateTime start = new DateTime(startDate.Date.AddDays(i).Year, startDate.Date.AddDays(i).Month, startDate.Date.AddDays(i).Day, 7, 0, 0);
+                for (int j = 0; j < 16; ++j)
                 {
-                    examinationsTime.Add(start.AddMinutes(j*30));
+                    examinationTimes.Add(start.AddMinutes(j * 30));
                 }
             }
+            return examinationTimes;
+        }
 
-            List<Examination> examinations = new List<Examination>();
-            //proverava da li su termini kod izabranog doktora zauzeti
-            foreach(DateTime dt in examinationsTime)
+        public bool CheckDoctorsExaminationExists(String doctorId, DateTime dateTime)
+        {
+            foreach (Examination doctorsExamination in ExaminationsForDoctor(doctorId))
             {
-                bool free = true;
-                foreach(Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
+                if (doctorsExamination.Date == dateTime)
                 {
-                    if(doctorsExamination.Date == dt)
-                    {
-                        free = false;
-                    }
+                    return false;
                 }
+            }
+            return true;
+        }
+
+        public List<Examination> GenerateFreeExaminationTimes(List<DateTime> generatedExaminationTimes, Doctor doctor)
+        {
+            List<Examination> freeExaminationTimes = new List<Examination>();
+            foreach (DateTime dt in generatedExaminationTimes)
+            {
+                bool free = CheckDoctorsExaminationExists(doctor.Id, dt);
                 if (free)
                 {
-                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
+                    freeExaminationTimes.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
-                
             }
+            return freeExaminationTimes;
+        }
 
+        
+        public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
+        {
+            List<DateTime> examinationsTime = GenerateExaminationTimes(startDate, endDate);
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationsTime, doctor);
+            
+            return examinations;
+        }
+        
+        /*
+        public List<Examination> GetFreeExaminationsForDoctor(Doctor doctor, DateTime startDate, DateTime endDate, bool priority, ObservableCollection<Doctor> doctors)
+        {
+            List<DateTime> examinationsTime = GenerateExaminationTimes(startDate, endDate);
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationsTime, doctor);
+            //List<Examination> examinations = GenerateDoctorFreeExaminations(doctor, startDate, endDate);
             //provera koji je prioritet izabran, true je lekar, false termin
             if (priority)
             {
                 //ako nema pregleda i prioritet je lekar, nudi 4 dana pre i posle zeljenih dana dostuone termine
                 if (examinations.Count == 0)
                 {
-                    DateTime before = date.AddDays(-4);
-                    if (before.CompareTo(today) < 0)
+                    DateTime before = startDate.Date.AddDays(-4);
+                    if (before.CompareTo(DateTime.Now) < 0)
                     {
-                        before = today;
+                        before = DateTime.Now;
                     }
-                    DateTime after = date.AddDays(4);
-                    days = after.Day - before.Day;
-                    for (int i = 0; i < days + 1; ++i)
-                    {
-                        //date.AddDays(1);
-                        //DateTime start = new DateTime(date.Year, date.Month, date.Day + i, 7, 0, 0);
-                        DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
-                        for (int j = 0; j < 16; ++j)
-                        {
-                            examinationsTime.Add(start.AddMinutes(j * 30));
-                        }
-                    }
-                    foreach (DateTime dt in examinationsTime)
-                    {
-                        bool free = true;
-                        foreach (Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
-                        {
-                            if (doctorsExamination.Date == dt)
-                            {
-                                free = false;
-                            }
-                        }
-                        if (free)
-                        {
-                            examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                        }
-
-                    }
-
+                    DateTime after = startDate.Date.AddDays(4);
+                    int days = after.Day - before.Day;
+                    List<DateTime> newExaminationTimes = GenerateExaminationTimes(before, after);
+                    examinationsTime.AddRange(newExaminationTimes);
+                    List<Examination> newExaminations = GenerateFreeExaminationTimes(newExaminationTimes, doctor);
                 }
             }
             else
@@ -342,89 +332,23 @@ namespace Repository
                 //prolazi kroz sve lekare u zeljenom terminu
                 if(examinations.Count == 0)
                 {
-
                     foreach (Doctor doc in doctors)
                     {
-                        foreach (DateTime dt in examinationsTime)
-                        {
-                            bool free = true;
-                            foreach (Examination doctorsExamination in ExaminationsForDoctor(doc.Id))
-                            {
-                                if (doctorsExamination.Date == dt)
-                                {
-                                    free = false;
-                                }
-                            }
-                            if (free)
-                            {
-                                examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doc.Id));
-                            }
-
-                        }
+                        List<Examination> newExaminations = GenerateFreeExaminationTimes(examinationsTime, doctor);
+                        examinations.AddRange(newExaminations);
                     }
                 } 
             }
-
             return examinations;
-
         }
+        */
 
         public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
-            List<DateTime> examinationsTime = new List<DateTime>();
-            List<DateTime> doctorsExaminationsTime = new List<DateTime>();
-            List<Examination> doctorsExaminations = doctor.Examinations;
-
-
-            //danasnji datum
-            DateTime today = DateTime.Now;
-            //dopustiti termine na pola sata tri dana unapred, radi od 8 do 4
-            DateTime date = examination.Date; //uzima trenutno zakazani termin pa mu nudi 4 dana unapred da zakaze
-            //sada mu se nudi samo 4 dana unapred da pomeri
-            for (int i = 1; i < 5; ++i)
-            {
-                //date.AddDays(1);
-                DateTime start = new DateTime(date.AddDays(i).Year, date.AddDays(i).Month, date.AddDays(i).Day, 7, 0, 0);
-                for (int j = 0; j < 16; ++j)
-                {
-                    examinationsTime.Add(start.AddMinutes(j * 30));
-                }
-            }
-
-            List<Examination> examinations = new List<Examination>();
-            //proverava da li su termini kod izabranog doktora zauzeti
-            foreach (DateTime dt in examinationsTime)
-            {
-                bool free = true;
-                foreach (Examination doctorsExamination in ExaminationsForDoctor(doctor.Id))
-                {
-                    if (doctorsExamination.Date == dt)
-                    {
-                        free = false;
-                    }
-                }
-                if (free)
-                {
-                    examinations.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                }
-
-            }
+            List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationTimes, doctor);
             return examinations;
         }
-
-        public ObservableCollection<Examination> ReadEndedExams()
-        {
-            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
-                foreach (Examination exam in this.examinationList)
-                {
-                    int res = DateTime.Compare(exam.Date, DateTime.Now);
-                    if (res < 0)
-                        endedExams.Add(exam);
-
-                }
-            return endedExams;
-        }
-
 
         public List<Examination> getExamByTime(DateTime dateTime)
         {

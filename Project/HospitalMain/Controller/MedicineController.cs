@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,10 @@ namespace Controller
         public bool DeleteMedicine(String medicineId)
         {
             return _medicineService.DeleteMedicine(medicineId);
+        }
+        public ObservableCollection<Medicine> ReadAllPending()
+        {
+            return _medicineService.ReadAllPending();
         }
 
         public ObservableCollection<Medicine> ReadAll()

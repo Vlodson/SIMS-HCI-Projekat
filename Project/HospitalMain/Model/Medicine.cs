@@ -21,6 +21,7 @@ namespace Model
         private String id;
         private String name;
         private MedicineTypeEnum type;
+        private DateTime date;
         private ObservableCollection<IngredientEnum> ingredients;
         private MedicineStatusEnum status;
         private Doctor reviewingDoctor;
@@ -36,6 +37,18 @@ namespace Model
                 {
                     id = value;
                     OnPropertyChanged("Id");
+                }
+            }
+        }
+        public DateTime Date
+        {
+            get { return date; }
+            set
+            {
+                if (date != value)
+                {
+                    date = value;
+                    OnPropertyChanged("Date");
                 }
             }
         }
@@ -128,6 +141,7 @@ namespace Model
             Id = id;
             Name = name;
             Type = type;
+            Date = date;
             Ingredients = ingredients;
             Status = status;
             ReviewingDoctor = reviewingDoctor;
@@ -140,12 +154,12 @@ namespace Model
             this.Id = medicine.Id;
             this.Name = medicine.Name;
             this.Type = medicine.Type;
+            this.Date = medicine.Date;
             this.Ingredients = medicine.Ingredients;
             this.ReviewingDoctor = medicine.ReviewingDoctor;
             this.ArrivalDate = medicine.ArrivalDate;
             this.Status = medicine.Status;
             this.Comment = medicine.Comment;
         }
- 
     }
 }

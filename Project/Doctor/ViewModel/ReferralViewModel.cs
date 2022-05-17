@@ -17,7 +17,10 @@ namespace ViewModel
         private DoctorType selectedSpec;
         private readonly DoctorController _doctorController;
         private readonly ReferralController _referralController;
+        private readonly PatientController _patientController;
         private Examination selectedExam;
+        private DateTime dateBind;
+        private string nameSurnameBind;
         private ObservableCollection<string> doctors;
         public MyICommand ReferralCommand { get; set; }
         public DoctorType SelectedSpec
@@ -62,19 +65,25 @@ namespace ViewModel
                 {
                     selectedDoctor = value;
                     OnPropertyChanged("SelectedDoctor");
+                    ReferralCommand.RaiseCanExecuteChanged();
                 }
             }
         }
-        
 
+        public DateTime DateBind { get => dateBind; set => dateBind = value; }
+        public string NameSurnameBind { get => nameSurnameBind; set => nameSurnameBind = value; }
 
         public ReferralViewModel(Examination exam)
         {
             var app = System.Windows.Application.Current as App;
             _doctorController = app.doctorController;
             _referralController = app.referralController;
-            ReferralCommand = new MyICommand(OnReferral);
+            _patientController = app.patientController;
+            ReferralCommand = new MyICommand(OnReferral, CanReferral);
             selectedExam = exam;
+            NameSurnameBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
+            DateBind = exam.Date;
+
 
         }
         public List<DoctorType> filterDoctorTypes()
@@ -82,15 +91,19 @@ namespace ViewModel
             var spec = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>().ToList();
                 for (int i = 0; i<spec.Count; i++)
                 {
-                    if (spec.ElementAt(i).ToString().Equals("General"))
+                    if (spec.ElementAt(i).ToString().Equals("General")||spec.ElementAt(i).ToString().Equals("None"))
                     {
                         spec.RemoveAt(i);
-                        break;
+                        i--;
                     }
 
 
                 }
              return spec;
+        }
+        public bool CanReferral()
+        {
+            return !string.IsNullOrEmpty(selectedDoctor);
         }
         public void OnReferral()
         {
