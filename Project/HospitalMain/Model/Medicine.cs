@@ -24,6 +24,8 @@ namespace Model
         private DateTime date;
         private ObservableCollection<IngredientEnum> ingredients;
         private MedicineStatusEnum status;
+        private Doctor reviewingDoctor;
+        private DateOnly arrivalDate;
         private String comment;
 
         public String Id
@@ -92,6 +94,33 @@ namespace Model
             }
         }
 
+        public Doctor ReviewingDoctor
+        {
+            get { return reviewingDoctor; }
+            set
+            {
+                if(reviewingDoctor != value)
+                {
+                    reviewingDoctor = value;
+                    OnPropertyChanged("ReviewingDoctor");
+                }
+            }
+        }
+
+        public DateOnly ArrivalDate
+        {
+            get { return arrivalDate; }
+            set
+            {
+                if(arrivalDate != value)
+                {
+                    arrivalDate = value;
+                    OnPropertyChanged("ArrivalDate");
+                }
+            }
+        }
+
+
         public String Comment
         {
             get { return comment; }
@@ -107,7 +136,7 @@ namespace Model
 
         public Medicine() { }
 
-        public Medicine(String id, String name, MedicineTypeEnum type, DateTime date, ObservableCollection<IngredientEnum> ingredients, MedicineStatusEnum status, String comment)
+        public Medicine(String id, String name, MedicineTypeEnum type, ObservableCollection<IngredientEnum> ingredients, MedicineStatusEnum status, Doctor reviewingDoctor, DateOnly arrivalDate, String comment)
         {
             Id = id;
             Name = name;
@@ -115,6 +144,8 @@ namespace Model
             Date = date;
             Ingredients = ingredients;
             Status = status;
+            ReviewingDoctor = reviewingDoctor;
+            ArrivalDate = arrivalDate;
             Comment = comment;
         }
 
@@ -125,6 +156,8 @@ namespace Model
             this.Type = medicine.Type;
             this.Date = medicine.Date;
             this.Ingredients = medicine.Ingredients;
+            this.ReviewingDoctor = medicine.ReviewingDoctor;
+            this.ArrivalDate = medicine.ArrivalDate;
             this.Status = medicine.Status;
             this.Comment = medicine.Comment;
         }

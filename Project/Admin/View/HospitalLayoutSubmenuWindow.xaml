@@ -47,7 +47,7 @@
             </StackPanel>
 
             <Border x:Name="Hall" Grid.Row="2" Grid.Column="1" Height="30" Width="Auto" BorderBrush="Black" BorderThickness="1" 
-                    Background="#CECECE" >
+                    Background="#ECECEC" >
                 <TextBlock Text="Hall" HorizontalAlignment="Center" />
             </Border>
 

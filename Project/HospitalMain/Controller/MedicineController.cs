@@ -43,6 +43,11 @@ namespace Controller
             return _medicineService.ReadAllPending();
         }
 
+        public ObservableCollection<Medicine> ReadAll()
+        {
+            return _medicineService.ReadAll();
+        }
+
         public void LoadMedicine()
         {
             _medicineService.LoadMedicine();
