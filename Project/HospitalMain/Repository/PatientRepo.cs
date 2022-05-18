@@ -7,6 +7,7 @@ using System.Text.Json;
 using HospitalMain.Enums;
 using System.Collections.Generic;
 using HospitalMain.Model;
+using System.Linq;
 
 namespace Repository
 {
@@ -161,6 +162,19 @@ namespace Repository
             return null;
       }
 
+      
+      public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
+        {
+            Answer existing = ContainsAnswer(medicalRecord.ID, doctorId);
+            if(existing != null && existing.CounterGrades < medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
       public void AddAnswer(String idPatient, Answer answer)
       {
             Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
@@ -170,6 +184,7 @@ namespace Repository
             }
             else
             {
+                answer.CounterGrades = existing.CounterGrades + 1;
                 GetPatient(idPatient).Answers.Remove(existing);
                 GetPatient(idPatient).Answers.Add(answer);
             }

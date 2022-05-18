@@ -148,7 +148,7 @@
             </Button.Resources>
         </Button>
         <Label x:Name="ErrorMessage" Visibility="Hidden" Content="Morate izabrati lekara" Foreground="Red" HorizontalAlignment="Left" Margin="502,541,0,0" VerticalAlignment="Top"/>
-
+        
 
 
 
