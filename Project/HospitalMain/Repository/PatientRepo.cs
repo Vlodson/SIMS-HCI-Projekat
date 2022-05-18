@@ -166,7 +166,8 @@ namespace Repository
       public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
         {
             Answer existing = ContainsAnswer(medicalRecord.ID, doctorId);
-            if(existing != null && existing.CounterGrades < medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
+            if (existing == null) return true;
+            if(existing != null && existing.CounterGrades >= medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
             {
                 return false;
             }
@@ -180,6 +181,7 @@ namespace Repository
             Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
             if (existing == null)
             {
+                answer.CounterGrades = 1;
                 GetPatient(idPatient).Answers.Add(answer);
             }
             else
@@ -187,7 +189,7 @@ namespace Repository
                 answer.CounterGrades = existing.CounterGrades + 1;
                 GetPatient(idPatient).Answers.Remove(existing);
                 GetPatient(idPatient).Answers.Add(answer);
-            }
+            } 
             SavePatient();
       }
         public void CheckMonth(Patient patient)
