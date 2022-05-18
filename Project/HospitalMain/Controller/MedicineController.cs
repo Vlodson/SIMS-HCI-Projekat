@@ -38,9 +38,9 @@ namespace Controller
         {
             return _medicineService.DeleteMedicine(medicineId);
         }
-        public ObservableCollection<Medicine> ReadAllPending()
+        public ObservableCollection<Medicine> ReadAllPending(String id)
         {
-            return _medicineService.ReadAllPending();
+            return _medicineService.ReadAllPending(id);
         }
 
         public ObservableCollection<Medicine> ReadAll()

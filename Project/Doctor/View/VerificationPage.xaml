@@ -17,15 +17,15 @@
         <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="51" Canvas.Top="12" >SPISAK LEKOVA ZA VERIFIKACIJU</TextBlock>
         </Canvas>
-        <DataGrid Name ="dataGridMedicine" Grid.Row="1" SelectedItem="{Binding SelectedMedicine}" ItemsSource="{Binding Medicines}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="32,50,32,-65">
+        <DataGrid Name ="dataGridMedicine" Grid.Row="1" SelectedItem="{Binding SelectedMedicine}" ItemsSource="{Binding Medicines}" Height="200" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="32,50,32,-65" VerticalScrollBarVisibility="Visible">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Ime leka" Binding="{Binding Name}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Vrsta leka" Binding="{Binding Type}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum" Binding="{Binding Date}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum" Binding="{Binding ArrivalDate}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Border  Grid.Row ="2" BorderBrush="Black" BorderThickness="2" Height="354" VerticalAlignment="Top" Margin="32,228,32,0" >
+        <Border  Grid.Row ="2" BorderBrush="Black" BorderThickness="2" Height="291" VerticalAlignment="Top" Margin="32,138,32,0" >
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,8 +35,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text ="{Binding Ingredients}" TextWrapping="Wrap" Margin="0,0,0,-226" Grid.RowSpan="3"/>
-                <RadioButton Grid.Row="3" Content="Odobri"  Margin="108,259,388,-310" IsChecked="{Binding IsChecked1}" GroupName="Radios"></RadioButton>
-                <RadioButton Grid.Row="3" Content="Zabrani"  Margin="321,262,175,-313" IsChecked="{Binding IsChecked2}" GroupName="Radios"></RadioButton>
+                <RadioButton Grid.Row="3" Content="Odobri"  Margin="74,152,422,-203" IsChecked="{Binding IsChecked1}" GroupName="Radios"></RadioButton>
+                <RadioButton Grid.Row="3" Content="Zabrani"  Margin="267,150,229,-201" IsChecked="{Binding IsChecked2}" GroupName="Radios"></RadioButton>
                 <Button Content="Posalji" Template="{StaticResource BasicButton}" Grid.Row="3" Margin="388,175,0,-175" Command="{Binding SendCommand}"/>
             </Grid>
         </Border>
