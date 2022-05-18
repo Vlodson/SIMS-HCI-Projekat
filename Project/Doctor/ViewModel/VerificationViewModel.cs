@@ -6,6 +6,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,8 @@ namespace ViewModel
             _medicineController = app.medicineController;
             _medicineRepo = app.medicineRepo;
             SendCommand = new MyICommand(OnSend);
-            Medicines = _medicineController.ReadAllPending();
+            Medicines = _medicineController.ReadAllPending(MainWindow._uid);
+
             
         }
         public bool IsChecked1
