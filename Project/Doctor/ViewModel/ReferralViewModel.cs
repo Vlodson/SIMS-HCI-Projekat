@@ -89,16 +89,35 @@ namespace ViewModel
         public List<DoctorType> filterDoctorTypes()
         {
             var spec = Enum.GetValues(typeof(DoctorType)).Cast<DoctorType>().ToList();
-                for (int i = 0; i<spec.Count; i++)
+            for (int i = 0; i<spec.Count; i++)
+            {
+                if (spec.ElementAt(i).ToString().Equals("General")||spec.ElementAt(i).ToString().Equals("None"))
                 {
-                    if (spec.ElementAt(i).ToString().Equals("General")||spec.ElementAt(i).ToString().Equals("None"))
-                    {
-                        spec.RemoveAt(i);
-                        i--;
-                    }
-
-
+                    spec.RemoveAt(i);
+                    i--;
                 }
+
+
+            }
+            /*List<string> specSerbian = new List<string>();
+            foreach (var i in spec)
+            {
+                switch (i.ToString())
+                {
+                    case "Neurology":
+                        specSerbian.Add("Neurologija");
+                        break;
+                    case "Dermatology":
+                        specSerbian.Add("Dermatologija");
+                        break;
+                    case "Pulmonology":
+                        specSerbian.Add("Pulmologija");
+                        break;
+                    default:
+                        specSerbian.Add("Kardiologija");
+                        break;
+                }
+            }*/
              return spec;
         }
         public bool CanReferral()

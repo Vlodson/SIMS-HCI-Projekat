@@ -253,7 +253,7 @@ namespace Patient.ViewModel
             doctorTypes.Add(DoctorType.Cardiology);
             doctorTypes.Add(DoctorType.Dermatology);
             doctorTypes.Add(DoctorType.Neurology);
-            doctorTypes.Add(DoctorType.specialistCheckup);
+            //doctorTypes.Add(DoctorType.specialistCheckup);
 
             doctorTypesString = new List<String>();
             doctorTypesString.Add("Pulmologija");

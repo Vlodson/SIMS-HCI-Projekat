@@ -249,7 +249,7 @@ namespace Patient.View
                     DoctorTypeSelected.SelectedIndex = 0;
                     break;
                 case 1:
-                    selectedType = DoctorType.specialistCheckup;
+                    selectedType = DoctorType.General;
                     DoctorTypeSelected.SelectedIndex = 1;
                     break;
                 case 2:
