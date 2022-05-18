@@ -150,8 +150,8 @@ namespace Admin.ViewModel
                     MedicineStatusEnum.Pending,
                     null,
                     DateOnly.Parse(ArrivalDate.ToString()),
-                    "")
-                    );
+                    ""
+                    ));
 
                 id++;
             }

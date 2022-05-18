@@ -51,7 +51,7 @@ namespace Service
             foreach (Examination examination in _examinationRepo.examinationList)
             {
                 if (renovation.OriginRoom.Id == examination.ExamRoomId) // destination room missing here. to add after merge/split
-                    if (renovation.StartDate >= DateOnly.Parse(examination.Date.ToString()) && renovation.EndDate <= DateOnly.Parse(examination.Date.AddMinutes(examination.Duration).ToString()))
+                    if (renovation.StartDate >= DateOnly.Parse(examination.Date.ToShortDateString()) && renovation.EndDate <= DateOnly.Parse(examination.Date.AddMinutes(examination.Duration).ToShortDateString()))
                         return false;
 
             }
