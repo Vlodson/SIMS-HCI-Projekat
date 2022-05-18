@@ -177,7 +177,7 @@ namespace Admin.ViewModel
 
         public bool CanOrder()
         {
-            return (!String.IsNullOrEmpty(SelectedOrderType) && !String.IsNullOrEmpty(SelectedProductType) && !String.IsNullOrEmpty(Amount) && ArrivalDate >= DateTime.Now);
+            return (!String.IsNullOrEmpty(SelectedOrderType) && !String.IsNullOrEmpty(SelectedProductType) && !String.IsNullOrEmpty(Amount) && ArrivalDate >= DateTime.Today);
         }
 
         public void OnDiscard()
