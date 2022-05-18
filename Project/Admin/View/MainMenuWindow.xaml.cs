@@ -138,5 +138,21 @@ namespace Admin.View
             floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
         }
+
+        private void requestMedicineCheckBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            RequestMedicineCheckWindow requestCheck = new RequestMedicineCheckWindow();
+            requestCheck.ShowDialog();
+            this.Show();
+        }
+
+        private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            OrderProductsWindow orderWindow = new OrderProductsWindow();
+            orderWindow.ShowDialog();
+            this.Show();
+        }
     }
 }
