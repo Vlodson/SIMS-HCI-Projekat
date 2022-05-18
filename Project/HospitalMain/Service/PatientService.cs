@@ -262,7 +262,10 @@ namespace Service
         {
             return _questionaryRepo.GetDoctorQuestionnaire();
         }
-
+        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
+        {
+            return _patientRepo.CheckAnswerAvailable(doctorId, medicalRecord);
+        }
         public void AddAnswer(String idPatient, Answer answer)
         {
             _patientRepo.AddAnswer(idPatient, answer);

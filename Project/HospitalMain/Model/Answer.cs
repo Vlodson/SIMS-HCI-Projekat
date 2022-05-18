@@ -20,6 +20,7 @@ namespace HospitalMain.Model
 
         private String idDoctor;
         private List<int> grades;
+        private int counterGrades;
 
         public String IdDoctor
         {
@@ -46,10 +47,24 @@ namespace HospitalMain.Model
             }
         }
 
-        public Answer(string idDoctor, List<int> grades)
+        public int CounterGrades
+        {
+            get
+            {
+                return counterGrades;
+            }
+            set
+            {
+                counterGrades = value;
+                OnPropertyChanged("CounterGrades");
+            }
+        }
+
+        public Answer(string idDoctor, List<int> grades, int counterGrades)
         {
             this.idDoctor = idDoctor;
             this.grades = grades;
+            this.counterGrades = counterGrades;
         }
 
         public Answer()
