@@ -149,7 +149,7 @@ namespace Admin.ViewModel
                     ingredients,
                     MedicineStatusEnum.Pending,
                     null,
-                    DateOnly.Parse(ArrivalDate.ToString()),
+                    DateOnly.Parse(ArrivalDate.ToShortDateString()),
                     ""
                     ));
 

@@ -63,7 +63,7 @@ namespace Service
         {
             foreach(Renovation renovation in _renovationRepo.Renovations)
             {
-                if (renovation.EndDate >= DateOnly.Parse(DateTime.Now.ToString()))
+                if (renovation.EndDate >= DateOnly.Parse(DateTime.Now.ToShortDateString()))
                     _roomRepo.SetRoom(renovation.OriginRoom.Id, renovation.OriginRoom.Equipment, renovation.OriginRoom.Floor, renovation.OriginRoom.RoomNb, renovation.OriginRoom.Occupancy, renovation.OriginRoom.PreviousType, renovation.OriginRoom.PreviousType);
             }
         }
