@@ -113,6 +113,7 @@ namespace Admin.ViewModel
 
             Medicines = new ObservableCollection<Medicine>(MedicineList.Where(m => m.Status == MedicineStatusEnum.Pending));
             Doctors = _doctorController.GetAll();
+            ArrivalDate = DateTime.Now;
         }
 
         public void OnSend()
