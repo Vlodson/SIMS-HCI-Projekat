@@ -24,11 +24,6 @@ namespace Service
             _patientRepo = patientRepo;
         }
 
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
-        {
-            throw new NotImplementedException();
-        }
-
         public DoctorType GetDoctorsType(string doctorID)
         {
             return _doctorRepo.GetDoctorsType(doctorID);
