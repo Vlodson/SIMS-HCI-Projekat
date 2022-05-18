@@ -21,11 +21,10 @@ namespace Model
         private String id;
         private String name;
         private MedicineTypeEnum type;
-        private DateTime date;
+        private DateTime arrivalDate;
         private ObservableCollection<IngredientEnum> ingredients;
         private MedicineStatusEnum status;
-        private Doctor reviewingDoctor;
-        private DateOnly arrivalDate;
+        private String reviewingDoctor;
         private String comment;
 
         public String Id
@@ -40,15 +39,15 @@ namespace Model
                 }
             }
         }
-        public DateTime Date
+        public DateTime ArrivalDate
         {
-            get { return date; }
+            get { return arrivalDate; }
             set
             {
-                if (date != value)
+                if (arrivalDate != value)
                 {
-                    date = value;
-                    OnPropertyChanged("Date");
+                    arrivalDate = value;
+                    OnPropertyChanged("ArrdivalDate");
                 }
             }
         }
@@ -94,7 +93,7 @@ namespace Model
             }
         }
 
-        public Doctor ReviewingDoctor
+        public String ReviewingDoctor
         {
             get { return reviewingDoctor; }
             set
@@ -106,21 +105,6 @@ namespace Model
                 }
             }
         }
-
-        public DateOnly ArrivalDate
-        {
-            get { return arrivalDate; }
-            set
-            {
-                if(arrivalDate != value)
-                {
-                    arrivalDate = value;
-                    OnPropertyChanged("ArrivalDate");
-                }
-            }
-        }
-
-
         public String Comment
         {
             get { return comment; }
@@ -136,16 +120,15 @@ namespace Model
 
         public Medicine() { }
 
-        public Medicine(String id, String name, MedicineTypeEnum type, ObservableCollection<IngredientEnum> ingredients, MedicineStatusEnum status, Doctor reviewingDoctor, DateOnly arrivalDate, String comment)
+        public Medicine(String id, String name, MedicineTypeEnum type, ObservableCollection<IngredientEnum> ingredients, MedicineStatusEnum status, String reviewingDoctor, DateTime arrivalDate, String comment)
         {
             Id = id;
             Name = name;
             Type = type;
-            Date = date;
+            ArrivalDate = arrivalDate;
             Ingredients = ingredients;
             Status = status;
             ReviewingDoctor = reviewingDoctor;
-            ArrivalDate = arrivalDate;
             Comment = comment;
         }
 
@@ -154,7 +137,6 @@ namespace Model
             this.Id = medicine.Id;
             this.Name = medicine.Name;
             this.Type = medicine.Type;
-            this.Date = medicine.Date;
             this.Ingredients = medicine.Ingredients;
             this.ReviewingDoctor = medicine.ReviewingDoctor;
             this.ArrivalDate = medicine.ArrivalDate;

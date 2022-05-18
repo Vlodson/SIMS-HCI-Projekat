@@ -38,14 +38,15 @@ namespace Service
         {
             return _repository.DeleteMedicine(medicineId);
         }
-        public ObservableCollection<Medicine> ReadAllPending()
+        public ObservableCollection<Medicine> ReadAllPending(String id)
         {
             ObservableCollection<Medicine> pendingMedicines = new ObservableCollection<Medicine>();
             foreach(Medicine medicine in _repository.Medicine)
             {
-                if (medicine.Status.ToString().Equals("Pending"))
+                if (medicine.Status.ToString().Equals("Pending") && id.Equals(medicine.ReviewingDoctor))
                     pendingMedicines.Add(medicine);
             }
+
             return pendingMedicines;
         }
 

@@ -150,12 +150,12 @@ namespace Patient.ViewModel
                         case DoctorType.Cardiology:
                             report.DoctorType = "kardiologija";
                             break;
-                        //case DoctorType.Dermatology:
-                        //    report.DoctorType = "dermatologija";
-                        //    break;
-                        //case DoctorType.Neurology:
-                        //    report.DoctorType = "neurologija";
-                        //    break;
+                        case DoctorType.Dermatology:
+                            report.DoctorType = "dermatologija";
+                            break;
+                        case DoctorType.Neurology:
+                            report.DoctorType = "neurologija";
+                            break;
                         case DoctorType.General:
                             report.DoctorType = "opšta praksa";
                             break;

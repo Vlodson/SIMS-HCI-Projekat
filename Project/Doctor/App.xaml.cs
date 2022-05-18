@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.ObjectModel;
 using HospitalMain.Enums;
+using Enums;
 
 namespace Doctor
 {
@@ -97,6 +98,25 @@ namespace Doctor
             requestController = new FreeDaysRequestController(requestService);
             referralController = new ReferralController(referralService);
             medicineController = new MedicineController(medicineService);
+
+
+            for (int i = 0; i < 20; i++)
+            {
+                int floor = 1;
+                if (i > 10)
+                    floor = 2;
+
+                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
+
+                /*ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                for (int j = 0; j < 4; j++)
+                    ingredients.Add((IngredientEnum)((j + i) % 5));
+                Model.Doctor doctor = new Model.Doctor();
+
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, doctor, new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));*/
+            }
         }
     }
 }
