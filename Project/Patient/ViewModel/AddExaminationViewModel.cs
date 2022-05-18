@@ -27,6 +27,8 @@ namespace Patient.ViewModel
         private DoctorController _doctorController;
         private PatientController _patientController;
         private ExamController _examController;
+        private ReferralController _referralController;
+
         private List<DoctorType> doctorTypes;
         private List<String> doctorTypesString;
         private DoctorType selectedType;
@@ -90,6 +92,36 @@ namespace Patient.ViewModel
                         doctors.Add(doctor);
                     }
                 }
+                doctors = new List<Doctor>();
+                List<Referral> allRefferals = _referralController.GetAll();
+                List<Referral> refferalsForPatient = new List<Referral>();
+                foreach (Referral referral in allRefferals)
+                {
+                    if (referral.PatientId.Equals(Login.loggedId))
+                    {
+                        refferalsForPatient.Add(referral);
+                    }
+                }
+                List<String> doctorIds = new List<String>();
+                foreach (Referral refferal in refferalsForPatient)
+                {
+                    if (!doctorIds.Contains(refferal.DoctorId)) doctorIds.Add(refferal.DoctorId);
+                }
+                foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                {
+                    if (doctor.Type == DoctorType.General && doctor.Type == SelectedType)
+                    {
+                        Doctors.Add(doctor);
+                    }
+                    else
+                    {
+                        if (doctor.Type == SelectedType)
+                        {
+                            if (doctorIds.Contains(doctor.Id)) doctors.Add(doctor);
+                        }
+                    }
+
+                }
                 OnPropertyChanged("Doctors");
             }
         }
@@ -104,7 +136,7 @@ namespace Patient.ViewModel
             {
                 selectedTypeString = value;
                 OnPropertyChanged("SelectedTypeString");
-                OnPropertyChanged("SelectedType");
+                //OnPropertyChanged("SelectedType");
                 switch (selectedTypeString)
                 {
                     case "Pulmologija":
@@ -123,15 +155,46 @@ namespace Patient.ViewModel
                         SelectedType = DoctorType.General;
                         break;
                 }
-                doctors = new List<Doctor>();
-                foreach (Doctor doctor in _doctorController.GetAll().ToList())
-                {
-                    if (doctor.Type == SelectedType)
-                    {
-                        doctors.Add(doctor);
-                    }
-                }
-                OnPropertyChanged("Doctors");
+                //doctors = new List<Doctor>();
+                //List<Referral> allRefferals = _referralController.GetAll();
+                //List<Referral> refferalsForPatient = new List<Referral>();
+                //foreach(Referral referral in allRefferals)
+                //{
+                //    if (referral.PatientId.Equals(Login.loggedId))
+                //    {
+                //        refferalsForPatient.Add(referral);
+                //    }
+                //}
+                //List<String> doctorIds = new List<String>();
+                //foreach (Referral refferal in refferalsForPatient)
+                //{
+                //    if (!doctorIds.Contains(refferal.DoctorId)) doctorIds.Add(refferal.DoctorId);
+                //}
+                //foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                //{
+                //    if(doctor.Type == DoctorType.General && doctor.Type == SelectedType)
+                //    {
+                //        Doctors.Add(doctor);
+                //    }
+                //    else
+                //    {
+                //        if (doctor.Type == SelectedType)
+                //        {
+                //            if (doctorIds.Contains(doctor.Id)) doctors.Add(doctor);
+                //        }
+                //    }
+
+                //}
+
+
+                //foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                //{
+                //    if (doctor.Type == SelectedType)
+                //    {
+                //        doctors.Add(doctor);
+                //    }
+                //}
+                //OnPropertyChanged("Doctors");
             }
         }
 
@@ -247,13 +310,14 @@ namespace Patient.ViewModel
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
             _examController = app.ExamController;
+            _referralController = app.ReferralController;
 
             doctorTypes = new List<DoctorType>();
             doctorTypes.Add(DoctorType.Pulmonology);
             doctorTypes.Add(DoctorType.Cardiology);
-            doctorTypes.Add(DoctorType.Dermatology);
-            doctorTypes.Add(DoctorType.Neurology);
-            //doctorTypes.Add(DoctorType.specialistCheckup);
+            //doctorTypes.Add(DoctorType.Dermatology);
+            //doctorTypes.Add(DoctorType.Neurology);
+            doctorTypes.Add(DoctorType.General);
 
             doctorTypesString = new List<String>();
             doctorTypesString.Add("Pulmologija");
@@ -264,14 +328,14 @@ namespace Patient.ViewModel
 
             SelectedType = DoctorType.Pulmonology;
             SelectedTypeString = "Pulmologija";
-            doctors = new List<Doctor>();
-            foreach(Doctor doctor in _doctorController.GetAll().ToList())
-            {
-                if(doctor.Type == SelectedType)
-                {
-                    doctors.Add(doctor);
-                }
-            }
+            //doctors = new List<Doctor>();
+            //foreach (Doctor doctor in _doctorController.GetAll().ToList())
+            //{
+            //    if (doctor.Type == SelectedType)
+            //    {
+            //        doctors.Add(doctor);
+            //    }
+            //}
             StartDate = sDate;
             EndDate = sDate.AddDays(7);
 
@@ -310,11 +374,14 @@ namespace Patient.ViewModel
                         break;
                 }
                 priority = false;
+               
                 foreach(Doctor doctor in doctors)
                 {
                     if(doctor.Type == SelectedType)
                     {
-                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+                        //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        
                         foreach (Examination exam in listExaminationsWithRooms)
                         {
                             exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
@@ -326,12 +393,37 @@ namespace Patient.ViewModel
             }
             else
             {
-                List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
-                foreach (Examination exam in examinations)
+                List<Examination> listExaminationsWithRooms = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                if(listExaminationsWithRooms.Count == 0)
+                {
+                    if (priority) //prioritet je lekar
+                    {
+                        ObservableCollection<Doctor> getDoctors = _doctorController.GetAll();
+                        DateTime before = startDate.Date.AddDays(-4);
+                        if (before.CompareTo(DateTime.Now) < 0)
+                        {
+                            before = DateTime.Now;
+                        }
+                        DateTime after = startDate.Date.AddDays(4);
+                        int days = after.Day - before.Day;
+                        listExaminationsWithRooms.AddRange(_doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, before, after));
+                    }
+                    else
+                    {
+                        foreach (Doctor doc in doctors)
+                        {
+                            List<Examination> newExaminations = _doctorController.GenerateDoctorFreeExaminations(SelectedDoctor, startDate, endDate);
+                            listExaminationsWithRooms.AddRange(newExaminations);
+                        }
+                    }
+                }
+                //List<Examination> examinations = _doctorController.GetFreeGetFreeExaminations(SelectedDoctor, startDate, endDate, priority);
+                //foreach (Examination exam in examinations)
+                foreach (Examination exam in listExaminationsWithRooms)
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(SelectedDoctor.Id).NameSurname;
                 }
-                AvailableExaminations = examinations;
+                AvailableExaminations = listExaminationsWithRooms;
             }
         }
 

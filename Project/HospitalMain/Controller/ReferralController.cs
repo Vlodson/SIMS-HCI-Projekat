@@ -19,6 +19,11 @@ namespace Controller
         public bool NewReferral(Referral referral)
         {
             return _referralService.NewReferral(referral);
-        } 
+        }
+        
+        public List<Referral> GetAll()
+        {
+            return _referralService.GetAll();
+        }
     }
 }

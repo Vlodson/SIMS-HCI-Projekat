@@ -168,13 +168,13 @@ namespace Patient.View
                     priority = false;
                 }
 
-                List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
 
-                foreach(Examination exam in listExaminationsWithRooms)
-                {
-                    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                }
-                ExamsAvailable.ItemsSource = listExaminationsWithRooms;
+                //foreach(Examination exam in listExaminationsWithRooms)
+                //{
+                //    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                //}
+                //ExamsAvailable.ItemsSource = listExaminationsWithRooms;
             }
             else
             {
@@ -186,12 +186,12 @@ namespace Patient.View
                     if (doctor.Type == (DoctorType)DoctorTypeSelected.SelectedIndex)
                     {
                         
-                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
-                        foreach (Examination exam in listExaminationsWithRooms)
-                        {
-                            exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                        }
-                        listExaminations.AddRange(listExaminationsWithRooms);
+                        //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        //foreach (Examination exam in listExaminationsWithRooms)
+                        //{
+                        //    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                        //}
+                        //listExaminations.AddRange(listExaminationsWithRooms);
                     }
                 }
 

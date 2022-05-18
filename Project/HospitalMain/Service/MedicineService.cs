@@ -49,6 +49,11 @@ namespace Service
             return pendingMedicines;
         }
 
+        public ObservableCollection<Medicine> ReadAll()
+        {
+            return _repository.Medicine;
+        }
+
         public void LoadMedicine()
         {
             _repository.LoadMedicine();

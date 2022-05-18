@@ -24,11 +24,13 @@
     <None Remove="Icons\great-britain-16.png" />
     <None Remove="Icons\great-britain-26.png" />
     <None Remove="Icons\health-data-16.png" />
+    <None Remove="Icons\help-16.png" />
     <None Remove="Icons\home-16.png" />
     <None Remove="Icons\logout-16.png" />
     <None Remove="Icons\pill-16.png" />
     <None Remove="Icons\pill-24.png" />
     <None Remove="Icons\question-mark-16.png" />
+    <None Remove="Icons\remove-16.png" />
     <None Remove="Icons\repeat-16.png" />
     <None Remove="Icons\search-16.png" />
   </ItemGroup>
@@ -45,10 +47,12 @@
     <Resource Include="Icons\export-pdf-16.png" />
     <Resource Include="Icons\great-britain-16.png" />
     <Resource Include="Icons\health-data-16.png" />
+    <Resource Include="Icons\help-16.png" />
     <Resource Include="Icons\home-16.png" />
     <Resource Include="Icons\logout-16.png" />
     <Resource Include="Icons\pill-16.png" />
     <Resource Include="Icons\question-mark-16.png" />
+    <Resource Include="Icons\remove-16.png" />
     <Resource Include="Icons\repeat-16.png" />
     <Resource Include="Icons\search-16.png" />
   </ItemGroup>

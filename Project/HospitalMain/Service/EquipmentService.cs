@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,6 +49,37 @@ namespace Service
         public ObservableCollection<Equipment> ReadAll()
         {
             return _equipmentRepo.Equipment;
+        }
+
+        public ObservableCollection<Equipment> QueryEquipment(String query)
+        {
+            List<Equipment> equipmentList = new List<Equipment>(_equipmentRepo.Equipment);
+
+            // if empty string then send reset
+            if(String.IsNullOrEmpty(query))
+                return _equipmentRepo.Equipment;
+
+            // if not empty string then parse
+            String[] kw_split = { "<to>", "<and>", "<or>", "<not>"};
+
+            // remove keywords from query
+            List<String> vars = new List<String>(query.Split(kw_split, StringSplitOptions.TrimEntries));
+
+            // extract keywords from query
+            List<String> kws = new List<String>();
+            Regex re = new Regex(@"<.*>");
+            MatchCollection regex_mathes = re.Matches(query);
+
+            foreach(Match match in regex_mathes)
+                kws.Add(match.Value);
+
+            // do what you need to with vars and kws
+            if(vars.Count == 1)
+            {
+
+            }
+
+            return null;
         }
 
         public bool LoadEquipment()

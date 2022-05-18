@@ -19,19 +19,6 @@ namespace Repository
         {
             this.dbPath = db_path;
             Medicine = new ObservableCollection<Medicine>();
-            ObservableCollection<Enums.IngredientEnum> ingredients1 = new ObservableCollection<Enums.IngredientEnum>();
-            ingredients1.Add(Enums.IngredientEnum.Norfloxacin);
-            ingredients1.Add(Enums.IngredientEnum.Cetirizine);
-            ObservableCollection<Enums.IngredientEnum> ingredients2 = new ObservableCollection<Enums.IngredientEnum>();
-            ingredients2.Add(Enums.IngredientEnum.Losartan);
-            Medicine medicine1 = new Medicine("A1","Ime Leka", Enums.MedicineTypeEnum.Analgesic, new DateTime(), ingredients1, Enums.MedicineStatusEnum.Pending, "" );
-            Medicine medicine2 = new Medicine("A2", "Ime Leka 2", Enums.MedicineTypeEnum.Analgesic, new DateTime(), ingredients2, Enums.MedicineStatusEnum.Approved, "komentar287362");
-            Medicine.Add(medicine1);
-            Medicine.Add(medicine2);
-            if (File.Exists(dbPath))
-            {
-                LoadMedicine();
-            }
         }
 
         public void NewMedicine(Medicine medicine)
@@ -57,6 +44,8 @@ namespace Repository
                     Medicine[i].Type = medicine.Type;
                     Medicine[i].Ingredients = medicine.Ingredients;
                     Medicine[i].Status = medicine.Status;
+                    Medicine[i].ReviewingDoctor = medicine.ReviewingDoctor;
+                    Medicine[i].ArrivalDate = medicine.ArrivalDate;
                     Medicine[i].Comment = medicine.Comment;
                 }
         }

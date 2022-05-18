@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -13,6 +13,7 @@ using Service;
 using Repository;
 using Utility;
 using Model;
+using Enums;
 using HospitalMain.Enums;
 
 namespace Admin
@@ -25,6 +26,7 @@ namespace Admin
         public RenovationController renovationController { get; set; }
         public UserAccountController userAccountController { get; set; }
         public MedicineController medicineController { get; set; }
+        public DoctorController doctorController { get; set; }
 
         public App()
         {
@@ -35,6 +37,8 @@ namespace Admin
             var userAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             var examinationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+            var doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
+            var patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
@@ -42,13 +46,15 @@ namespace Admin
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var userAccountService = new UserAccountService(userAccountRepo);
             var medicineService = new MedicineService(medicineRepo);
-            
+            var doctorService = new DoctorService(doctorRepo, examinationRepo, roomRepo, patientRepo);
+
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             renovationController = new RenovationController(renovationService);
             userAccountController = new UserAccountController(userAccountService);
             medicineController = new MedicineController(medicineService);
+            doctorController = new DoctorController(doctorService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
@@ -74,6 +80,13 @@ namespace Admin
                 roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
                 equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
+
+                ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                for(int j = 0; j < 4; j++)
+                    ingredients.Add( (IngredientEnum)((j+i)%5) );
+                Doctor doctor = new Doctor();
+
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, doctor, new DateOnly(2020, 10, 10), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)
@@ -111,6 +124,7 @@ namespace Admin
             //roomController.SaveRoom();
             //equipmentTransferController.SaveEquipmentTransfer();
             //renovationController.SaveRenovation();
+            //medicineController.SaveMedicine();
         }
     }
 }

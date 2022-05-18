@@ -42,6 +42,9 @@ namespace Patient
         public RenovationController renovationController { get; set; }
         public MedicineController medicineController { get; set; }
 
+        public ReferralController ReferralController { get; set; }
+
+
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -64,6 +67,7 @@ namespace Patient
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+            ReferralRepo referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
 
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
@@ -78,6 +82,7 @@ namespace Patient
             var equipmentTransferService = new EquipmentTransferService(equipmentTransferRepo, roomRepo, equipmentRepo, examinationRepo);
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var medicineService = new MedicineService(medicineRepo);
+            ReferralService referralService = new ReferralService(referralRepo);
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService);
@@ -89,6 +94,7 @@ namespace Patient
             equipmentTransferController = new EquipmentTransferController(equipmentTransferService);
             renovationController = new RenovationController(renovationService);
             medicineController = new MedicineController(medicineService);
+            ReferralController = new ReferralController(referralService);
 
             if (File.Exists(GlobalPaths.EquipmentDBPath))
                 EquipmentController.LoadEquipment();
@@ -125,6 +131,8 @@ namespace Patient
                 equipmentTransferController.ScheduleTransfer(equipmentTransfer);
                 equipmentTransferController.RecordTransfer(i.ToString());
             }
+
+            
             //for (int i = 0; i < 20; i++)
             //{
             //    int floor = 1;

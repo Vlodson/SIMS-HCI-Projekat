@@ -18,6 +18,16 @@ namespace Repository
         {
             DBPath = dbPath;
             Referrals = new ObservableCollection<Referral>();
+
+            Referral ref1 = new Referral("d14", "1", "idRef1", DoctorType.Pulmonology, DateTime.Now);
+            Referral ref2 = new Referral("d12", "1", "idRef1", DoctorType.Pulmonology, DateTime.Now);
+            Referrals.Add(ref1);
+            Referrals.Add(ref2);
+
+            if (File.Exists(dbPath))
+                LoadReferral();
+            //SaveReferral();
+
         }
         public bool NewReferral(Referral referral)
         {
@@ -44,6 +54,11 @@ namespace Repository
             string jsonString = JsonSerializer.Serialize(Referrals);
             File.WriteAllText(DBPath, jsonString);
             return true;
+        }
+
+        public List<Referral> GetAll()
+        {
+            return Referrals.ToList();
         }
     }
 }

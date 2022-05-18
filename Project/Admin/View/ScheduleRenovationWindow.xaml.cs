@@ -68,7 +68,7 @@ namespace Admin.View
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
 
-            _renovationController.ScheduleRenovation(id.ToString(), OriginRoom.Id, RenovationType, StartDate, EndDate);
+            _renovationController.ScheduleRenovation(id.ToString(), OriginRoom.Id, "", RenovationType, StartDate, EndDate);
             this.Close();
             RecordRenovationWindow recordRenovationWindow = new RecordRenovationWindow();
             recordRenovationWindow.Owner = App.Current.MainWindow;
@@ -80,7 +80,7 @@ namespace Admin.View
             bool can_record = true;
             if (OriginRoom != null)
             {
-                Renovation renovation = new Renovation("0", OriginRoom, RenovationType, StartDate, EndDate);
+                Renovation renovation = new Renovation("0", OriginRoom, new Room(), RenovationType, StartDate, EndDate);
                 can_record = _renovationController.OccupiedAtTheTime(renovation);
             }
 
@@ -96,7 +96,7 @@ namespace Admin.View
             StartDate = DateOnly.FromDateTime(startDate.SelectedDate.Value);
             EndDate = DateOnly.FromDateTime(endDate.SelectedDate.Value);
 
-            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, RenovationType, StartDate, EndDate));
+            _renovationController.SetClipboardRenovation(new Renovation(id.ToString(), OriginRoom, new Room(), RenovationType, StartDate, EndDate));
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
@@ -104,7 +104,7 @@ namespace Admin.View
             bool can_record = false;
             if (OriginRoom != null)
             {
-                Renovation renovation = new Renovation("0", OriginRoom, RenovationType, StartDate, EndDate);
+                Renovation renovation = new Renovation("0", OriginRoom, new Room(), RenovationType, StartDate, EndDate);
                 can_record = _renovationController.OccupiedAtTheTime(renovation);
             }
 
