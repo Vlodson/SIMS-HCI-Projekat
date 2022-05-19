@@ -40,6 +40,12 @@ namespace Controller
         {
             return _equipmentService.ReadAll();
         }
+
+        public ObservableCollection<Equipment> QueryEquipment(String query)
+        {
+            return _equipmentService.QueryEquipment(query);
+        }
+
         public bool LoadEquipment()
         {
             return _equipmentService.LoadEquipment();

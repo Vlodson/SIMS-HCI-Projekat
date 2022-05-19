@@ -13,21 +13,38 @@ namespace Admin.ViewModel
     {
         public ICommandTemplate<string> ChangeTableCommand { get; private set; }
         public ICommandTemplate RemoveCommand { get; private set; }
+        public ICommandTemplate QueryCommand { get; private set; }
 
-        private EquipmentTableViewModel equipmentTableViewModel = new EquipmentTableViewModel();
+        public EquipmentTableViewModel equipmentTableViewModel = new EquipmentTableViewModel();
         private RoomTableViewModel roomTableViewModel = new RoomTableViewModel();
         private EquipmentTransferTableViewModel equipmentTransferTableVeiwModel = new EquipmentTransferTableViewModel();
         private RenovationTableViewModel renovationTableViewModel = new RenovationTableViewModel();
         private MedicineTableViewModel medicineTableViewModel = new MedicineTableViewModel();
 
         private BindableBase currentViewModel;
+        private String search;
+
+        public String Search
+        {
+            get { return search; }
+            set
+            {
+                if(search != value)
+                {
+                    search = value;
+                    OnPropertyChanged("Search");
+                }
+            }
+        }
 
         public TableWindowViewModel()
         {
             ChangeTableCommand = new ICommandTemplate<string>(OnChange);
             RemoveCommand = new ICommandTemplate(OnRemove);
+            QueryCommand = new ICommandTemplate(OnQuery);
 
             CurrentViewModel = equipmentTableViewModel;
+            Search = "Enter Query";
         }
 
         public BindableBase CurrentViewModel
@@ -36,6 +53,17 @@ namespace Admin.ViewModel
             set
             {
                 SetProperty(ref currentViewModel, value);
+            }
+        }
+
+        public void OnQuery()
+        {
+            switch (CurrentViewModel.GetType().Name)
+            {
+                case "EquipmentTableViewModel":
+                    equipmentTableViewModel.QueryEquipment(Search);
+                    currentViewModel = equipmentTableViewModel;
+                    break;
             }
         }
 

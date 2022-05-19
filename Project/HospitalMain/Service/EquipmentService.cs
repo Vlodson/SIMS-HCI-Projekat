@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Model;
+using Utility;
 using Repository;
 using HospitalMain.Enums;
 
@@ -55,31 +56,9 @@ namespace Service
         {
             List<Equipment> equipmentList = new List<Equipment>(_equipmentRepo.Equipment);
 
-            // if empty string then send reset
-            if(String.IsNullOrEmpty(query))
-                return _equipmentRepo.Equipment;
+            ObservableCollection<Equipment> queriedEquipment = new ObservableCollection<Equipment>(QueryUtility.DoQuery<Equipment>(equipmentList, query));
 
-            // if not empty string then parse
-            String[] kw_split = { "<to>", "<and>", "<or>", "<not>"};
-
-            // remove keywords from query
-            List<String> vars = new List<String>(query.Split(kw_split, StringSplitOptions.TrimEntries));
-
-            // extract keywords from query
-            List<String> kws = new List<String>();
-            Regex re = new Regex(@"<.*>");
-            MatchCollection regex_mathes = re.Matches(query);
-
-            foreach(Match match in regex_mathes)
-                kws.Add(match.Value);
-
-            // do what you need to with vars and kws
-            if(vars.Count == 1)
-            {
-
-            }
-
-            return null;
+            return queriedEquipment;
         }
 
         public bool LoadEquipment()
