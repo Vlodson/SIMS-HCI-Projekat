@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Doctor.View;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,15 @@ namespace ViewModel
     {
         private string selectedDoctor;
         private DoctorType selectedSpec;
-        private readonly DoctorController _doctorController;
-        private readonly ReferralController _referralController;
-        private readonly PatientController _patientController;
         private Examination selectedExam;
         private DateTime dateBind;
         private string nameSurnameBind;
         private ObservableCollection<string> doctors;
+
+        private readonly DoctorController _doctorController;
+        private readonly ReferralController _referralController;
+        private readonly PatientController _patientController;
+        
         public MyICommand ReferralCommand { get; set; }
         public DoctorType SelectedSpec
         {
@@ -79,11 +82,11 @@ namespace ViewModel
             _doctorController = app.doctorController;
             _referralController = app.referralController;
             _patientController = app.patientController;
+
             ReferralCommand = new MyICommand(OnReferral, CanReferral);
             selectedExam = exam;
             NameSurnameBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
             DateBind = exam.Date;
-
 
         }
         public List<DoctorType> filterDoctorTypes()
