@@ -46,8 +46,8 @@ namespace Repository
             this.DoctorList.Add(doctor4);
             this.DoctorList.Add(doctor5);
 
-            /*if (File.Exists(dbPath))
-                LoadDoctor();*/
+            if (File.Exists(dbPath))
+                LoadDoctor();
 
         }
 

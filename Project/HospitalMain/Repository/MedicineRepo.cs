@@ -19,6 +19,8 @@ namespace Repository
         {
             this.dbPath = db_path;
             Medicine = new ObservableCollection<Medicine>();
+            if (File.Exists(dbPath))
+                LoadMedicine();
         }
 
         public void NewMedicine(Medicine medicine)
