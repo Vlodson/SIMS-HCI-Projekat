@@ -29,6 +29,7 @@ namespace Doctor.View
         private TherapyRepo _therapyRepo;
         private TherapyController _therapyController;
         private ReportController _reportController;
+        private readonly PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
         private MedicalRecordRepo _medicalRecordRepo;
         private ReportRepo _reportRepo;
@@ -46,10 +47,7 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
-            this.PatientBind = exam.PatientId;
-            this.DateBind = exam.Date;
-            this.selectedExam = exam;
-
+            
             App app = Application.Current as App;
             _therapyRepo = app.therapyRepo;
             _therapyController = app.therapyController;
@@ -57,6 +55,11 @@ namespace Doctor.View
             _medicalRecordController = app.medicalRecordController;
             _reportRepo = app.reportRepo;
             _medicalRecordRepo = app.medicalRecordRepo;
+            _patientController= app.patientController;
+
+            this.PatientBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
+            this.DateBind = exam.Date;
+            this.selectedExam = exam;
 
             if (File.Exists(_therapyRepo.dbPath))
                 _therapyRepo.LoadTherapy();
@@ -77,14 +80,8 @@ namespace Doctor.View
 
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            string medicine = comboBoxMedicine.Text;
-            int duration = Int32.Parse(textBoxDuration.Text);
-            int perDay = Int32.Parse(textBoxPerDay.Text);
-            bool prescription = (bool)checkBoxPrescription.IsChecked;
-
-            Therapy therapy = new Therapy(selectedExam.Id, medicine, duration, perDay, prescription);
-            _therapyController.NewTherapy(therapy);
-            dataGridTherapy.ItemsSource = _therapyController.findById(selectedExam.Id);
+            AddMedicineToTherapy amtt = new AddMedicineToTherapy(this, selectedExam);
+            NavigationService.Navigate(amtt);
         }
 
         private void SaveReport_Click(object sender, RoutedEventArgs e)
@@ -97,13 +94,16 @@ namespace Doctor.View
             _medicalRecordController.AddNewReport(selectedExam.PatientId, report);
             _reportRepo.SaveReport();
             _medicalRecordRepo.SaveMedicalRecord();
-        }
+            EndedExaminations ended = new EndedExaminations();
+            EndedExaminations.examinations.Remove(SelectedExam);
+            ended.dataGridExams.ItemsSource = EndedExaminations.examinations;
+            NavigationService.Navigate(ended);
 
-        private void validate_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        }
+        private void AddReferral_Click(object sender, RoutedEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            ReferralPage referralPage = new ReferralPage(selectedExam);
+            NavigationService.Navigate(referralPage);
         }
-
     }
 }

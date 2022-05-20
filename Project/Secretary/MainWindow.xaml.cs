@@ -25,31 +25,15 @@ namespace Secretary
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ICommand CRUDAppointmentsCommand { get;}
+        private String _username;
 
-        public MainWindow()
+        public MainWindow(LogInViewModel logInViewModel)
         {
             InitializeComponent();
-            this.DataContext = new MainViewModel();
+
+            DataContext = new MainViewModel(logInViewModel);
             //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
 
-        private void CRUDAcc_Click(object sender, RoutedEventArgs e)
-        {
-            CRUDAccountOptions crudAO = new CRUDAccountOptions();
-            crudAO.Show();
-        }
-
-        private void CRUDMedRecords_Click(object sender, RoutedEventArgs e)
-        {
-            CRUDMedicalRecord crudMedRecords = new CRUDMedicalRecord();
-            crudMedRecords.Show();
-        }
-
-        private void CRUDAppointments_Click(object sender, RoutedEventArgs e)
-        {
-            CRUDApointments crudAppointments = new CRUDApointments();
-            crudAppointments.Show();
-        }
     }
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Doctor.View"
       mc:Ignorable="d" 
-      d:DesignHeight="395" d:DesignWidth="452"
+      d:DesignHeight="692" d:DesignWidth="710"
       Title="ExaminationSchedule">
 
     <Grid>
@@ -13,11 +13,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="86,-5,-86,5" FontSize="18">RASPORED ZAKAZANIH PREGLEDA</TextBlock>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="45,8,42,-8">
+        <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="254" Canvas.Top="12" VerticalAlignment="Center" >RASPORED</TextBlock>
+        </Canvas>
+        <Grid Grid.Row="1">
+            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations, Mode=OneWay}" IsReadOnly="True" Height="250" SelectionMode="Single" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" Margin="45,67,42,-8" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Pacijent" Binding="{Binding PatientId, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
@@ -27,8 +28,8 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Button Grid.Row="3" x:Name="add" Content="Zakazi " Click="add_Click" Margin="86,211,293,-221" />
-        <Button Grid.Row="3" x:Name="update" Content="Izmeni " Click="update_Click" Margin="190,211,190,-221" />
-        <Button Grid.Row="3" x:Name="cancel" Content="Otkazi " Click="cancel_Click" Margin="288,211,91,-221" ></Button>
+        <Button Grid.Row="2" x:Name="add" Content="Zakazi " Click="add_Click" Margin="65,228,501,-237" />
+        <Button Grid.Row="2" x:Name="update" Content="Izmeni " Click="update_Click" Margin="285,212,309,-221" />
+        <Button Grid.Row="2" x:Name="cancel" Content="Otkazi " Click="cancel_Click" Margin="472,227,80,-237" ></Button>
     </Grid>
 </Page>

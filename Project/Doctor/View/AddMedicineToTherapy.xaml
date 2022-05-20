@@ -1,0 +1,62 @@
+﻿<Page x:Class="Doctor.View.AddMedicineToTherapy"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Doctor.View" 
+      xmlns:validation="clr-namespace:Doctor.Validation"
+      mc:Ignorable="d" 
+      d:DesignHeight="692" d:DesignWidth="710"
+      Title="AddMedicineToTherapy">
+
+    <Grid Margin="10,10,0,0">
+        <TextBlock Foreground="Black" Margin="36,117,571,530" >Pacijent:</TextBlock>
+        <TextBlock Foreground="Black" Margin="136,117,382,533" Text="{Binding PatientBind}" ></TextBlock>
+        <TextBlock Foreground="Black" Margin="36,157,423,494" >Datum i vreme pregleda:</TextBlock>
+        <TextBlock Foreground="Black" Margin="292,153,30,494" Text="{Binding DateBind}"></TextBlock>
+
+
+        <Grid Margin="174,268,30,51">
+            <Border Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="-126,-21,26,144">
+                <Grid Margin="26,0,46,10">
+                    <Label Content="Lek:" Margin="100,6,209,154" />
+                    <Label Content="Trajanje(dana):" Margin="0,52,219,100" />
+                    <Label Content="Dnevno:" Margin="51,107,219,48" />
+                    <Label Content="Recept:" Margin="60,153,228,0"/>
+                    <ComboBox Margin="164,8,0,0" Name ="comboBoxMedicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Height="34" >
+                        <ComboBoxItem>lek2</ComboBoxItem>
+                        <ComboBoxItem>lek3</ComboBoxItem>
+                        <ComboBoxItem>lek4</ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:IntValueRule/>
+                                </Binding.ValidationRules>
+
+                            </Binding>
+
+                        </TextBox.Text>
+                    </TextBox>
+                    <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="164,110,219,86" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Dur" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:IntValueRule/>
+                                </Binding.ValidationRules>
+
+                            </Binding>
+
+                        </TextBox.Text>
+                    </TextBox>
+                    <CheckBox Name ="checkBoxPrescription" HorizontalAlignment="Left" Margin="224,164,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Prosledi" HorizontalAlignment="Left" Margin="370,178,0,0" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Foreground="White"  FontFamily="Segoe UI Symbol" Click="add_Click"/>
+                </Grid>
+            </Border>
+        </Grid>
+        <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="252" Canvas.Top="10" >DODAJ LEK</TextBlock>
+        </Canvas>
+    </Grid>
+</Page>

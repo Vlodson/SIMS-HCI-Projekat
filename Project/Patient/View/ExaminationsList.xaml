@@ -4,32 +4,141 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Patient.View"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
-      d:DesignHeight="768" d:DesignWidth="1024"
+      d:DesignHeight="703" d:DesignWidth="959"
       Title="ExaminationsList">
 
+    <Page.Resources>
+        <Style x:Key="Border" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman"/>
+        </Style>
+        <Style x:Key="MenuBarButtons" TargetType="Button">
+            <Setter Property="Background" Value="#b2d8d8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="100"/>
+        </Style>
+
+        <Style x:Key="StyleCalanderDayButton" TargetType="{x:Type CalendarDayButton}">
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Width" Value="110"></Setter>
+            <EventSetter Event="Loaded" Handler="calendarButton_Loaded" />
+        </Style>
+        <Style x:Key="StyleCalanderButton" TargetType="{x:Type CalendarButton}">
+            <Setter Property="Height" Value="10"></Setter>
+            <Setter Property="Width" Value="10"></Setter>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+        <Style x:Key="StyleCalendar" TargetType="{x:Type Calendar}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <!-- Wrapping in ViewBox will enlarge calendar of that size.-->
+                        <Viewbox Height="300" Width="800" >
+                            <CalendarItem Width="800" Height="300" x:Name="PART_CalendarItem" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" FontStretch="Expanded"  >
+                            </CalendarItem>
+                        </Viewbox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CalendarDayButtonStyle"  Value="{StaticResource StyleCalanderDayButton}"></Setter>
+            <Setter Property="CalendarButtonStyle"  Value="{StaticResource StyleCalanderButton}"></Setter>
+            <Setter Property="Foreground" Value="#FF333333"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#008080" Offset="0"/>
+                        <GradientStop Color="White" Offset="0.1"/>
+                        <GradientStop Color="White" Offset="0.1"/>
+                        <GradientStop Color="#b2d8d8" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Page.Resources>
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/background1.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="235*"/>
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Path= Examinations, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="10,68,10,105" Grid.ColumnSpan="2">
+        <!--ItemsSource="{Binding Path= Examinations, Mode=TwoWay}"-->
+        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding ExaminationsForDate}" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,51" Grid.ColumnSpan="2">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Vrsta" FontSize="18" Binding="{Binding DoctorType}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vrsta" FontSize="18" Binding="{Binding DoctorTypeString}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vreme" FontSize="18" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="AddExamination" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="177,695,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1"/>
-        <Button x:Name="EditExamination" Content="Izmeni" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="310,695,0,0" VerticalAlignment="Top" Click="EditExamination_Click" Grid.Column="1"/>
-        <Button x:Name="RemoveExamination" Content="Otkazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="444,695,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click" Grid.Column="1"/>
-        <Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>
-        <Label Content="Zakazani pregledi" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button  HorizontalAlignment="Left" Margin="10,695,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
+        <Button x:Name="AddExamination" Style="{StaticResource Buttons}" Content="Zakazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="131,634,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.452,0.637" Click="AddExamination_Click" Grid.Column="1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="EditExamination" Style="{StaticResource Buttons}" Content="Izmeni" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="260,634,0,0" VerticalAlignment="Top" Click="EditExamination_Click" Grid.Column="1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="RemoveExamination" Style="{StaticResource Buttons}" Content="Otkazi" FontSize="18" Width="100" HorizontalAlignment="Left" Margin="383,634,0,0" VerticalAlignment="Top" Click="RemoveExamination_Click" Grid.Column="1">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <!--<Label x:Name="Message" Content="Label" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="4,663,0,0" VerticalAlignment="Top"/>-->
+
+
+
+
+
+
+        <Button Background="#b2d8d8" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
             <StackPanel>
                 <Image Source="/Images/arrow-small-left.png"/>
             </StackPanel>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
         </Button>
+        <Calendar x:Name="Calendar" Style="{StaticResource StyleCalendar}" Width="900" Height="400" Grid.ColumnSpan="2" Margin="23,58,36,195" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate" >
+            
+        </Calendar>
+        <Rectangle HorizontalAlignment="Left" Height="63"  VerticalAlignment="Top" Width="958" Grid.ColumnSpan="2" Margin="-6,10,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="1024" Height="280" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Zakazani termini" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Label" x:Name="Message" Visibility="Hidden" Foreground="Red" HorizontalAlignment="Left" Margin="36,608,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Page>

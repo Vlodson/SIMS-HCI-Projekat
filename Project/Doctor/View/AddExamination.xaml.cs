@@ -5,6 +5,7 @@ using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,12 +25,40 @@ namespace Doctor.View
     /// <summary>
     /// Interaction logic for AddExamination.xaml
     /// </summary>
-    public partial class AddExamination : Page
+    public partial class AddExamination : Page, INotifyPropertyChanged
     {
         private PatientController _patientController;
         private RoomController _roomController;
         private ExamController _examController;
         private ExaminationRepo _examRepo;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private int _duration;
+
+        public int Duration
+        {
+            get
+            {
+                return _duration;
+            }
+            set
+            {
+                if (value != _duration)
+                {
+                    _duration = value;
+                    OnPropertyChanged("Duration");
+                }
+            }
+        }
+
+        protected virtual void  OnPropertyChanged(string v)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(v));
+            }
+        }
 
         private ExaminationSchedule _examinationSchedule;
 
@@ -97,12 +126,6 @@ namespace Doctor.View
             }
             
             
-        }
-
-        private void DUR_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

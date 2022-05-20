@@ -108,7 +108,7 @@ namespace Patient.View
             }
             return builder.ToString();
         }
-        public AddExamination()
+        public AddExamination(DateTime sDate)
         {
             InitializeComponent();
             this.DataContext = this;
@@ -121,10 +121,12 @@ namespace Patient.View
             
             DoctorsObs = new ObservableCollection<Doctor>();
             doctorTypes = new List<string>();
-            StartDate = DateTime.Now.AddDays(1);
-            EndDate = DateTime.Now.AddDays(7);
+            //StartDate = DateTime.Now.AddDays(1);
+            StartDate = sDate;
+            //EndDate = DateTime.Now.AddDays(7);
+            EndDate = sDate.AddDays(7);
             List<Doctor> doctors = _doctorController.GetAll().ToList();
-
+            
             DoctorTypeSelected.SelectedIndex = 0;
             foreach (Doctor doctor in doctors)
             {
@@ -166,13 +168,13 @@ namespace Patient.View
                     priority = false;
                 }
 
-                List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
 
-                foreach(Examination exam in listExaminationsWithRooms)
-                {
-                    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                }
-                ExamsAvailable.ItemsSource = listExaminationsWithRooms;
+                //foreach(Examination exam in listExaminationsWithRooms)
+                //{
+                //    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                //}
+                //ExamsAvailable.ItemsSource = listExaminationsWithRooms;
             }
             else
             {
@@ -184,12 +186,12 @@ namespace Patient.View
                     if (doctor.Type == (DoctorType)DoctorTypeSelected.SelectedIndex)
                     {
                         
-                        List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
-                        foreach (Examination exam in listExaminationsWithRooms)
-                        {
-                            exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-                        }
-                        listExaminations.AddRange(listExaminationsWithRooms);
+                        //List<Examination> listExaminationsWithRooms = _doctorController.GetFreeGetFreeExaminations(doctor, startDate, endDate, priority);
+                        //foreach (Examination exam in listExaminationsWithRooms)
+                        //{
+                        //    exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
+                        //}
+                        //listExaminations.AddRange(listExaminationsWithRooms);
                     }
                 }
 
@@ -230,7 +232,7 @@ namespace Patient.View
                 {
                     exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
                 }
-                ExaminationsList.Examinations = examinations;
+                //ExaminationsList.Examinations = examinations;
                 this.Close();
             }
             
@@ -247,7 +249,7 @@ namespace Patient.View
                     DoctorTypeSelected.SelectedIndex = 0;
                     break;
                 case 1:
-                    selectedType = DoctorType.specialistCheckup;
+                    selectedType = DoctorType.General;
                     DoctorTypeSelected.SelectedIndex = 1;
                     break;
                 case 2:

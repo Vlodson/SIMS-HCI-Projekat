@@ -59,7 +59,7 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <TextBlock Grid.Column="0" Grid.Row="5">Trajanje:</TextBlock>
-                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" PreviewTextInput="DUR_PreviewTextInput" ></TextBox>
+                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" Text="{Binding Path=Duration,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
             </Grid>
         </Grid>
         <Button x:Name="Zakazi" Content="Zakazi " Grid.Row="2" Click="Zakazi_Click" Margin="186,47,186,-16"/>

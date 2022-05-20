@@ -41,7 +41,7 @@ namespace Repository
             return null;
         }
       
-        public void SetRoom(String roomId, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
+        public void SetRoom(String roomId, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
         {
             for(int i = 0; i < Rooms.Count; i++)
             {
@@ -52,6 +52,7 @@ namespace Repository
                     Rooms[i].RoomNb = newRoomNb;
                     Rooms[i].Occupancy = newOccupancy;
                     Rooms[i].Type = newType;
+                    Rooms[i].PreviousType = newPreviousType;
                     break;
                 }
             }

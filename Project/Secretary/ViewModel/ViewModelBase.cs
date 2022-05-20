@@ -15,5 +15,10 @@ namespace Secretary.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        public static implicit operator ViewModelBase(CRUDAccountOptions v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

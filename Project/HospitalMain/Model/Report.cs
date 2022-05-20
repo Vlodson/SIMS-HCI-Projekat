@@ -114,5 +114,8 @@ namespace Model
                 }
             }
         }
+
+        public String DoctorNameSurname { get; set; }
+        public String DoctorType { get; set; }
     }
 }

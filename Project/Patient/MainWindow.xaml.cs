@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using HospitalMain.Repository;
 
 namespace Patient
 {
@@ -29,6 +30,8 @@ namespace Patient
 
         private ExaminationRepo _examinationRepo;
         private DoctorRepo _doctorRepo;
+        private QuestionnaireRepo _questionnaireRepo;
+        private PatientRepo _patientRepo;
 
         public MainWindow()
         {
@@ -36,6 +39,8 @@ namespace Patient
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
             _doctorRepo = app.DoctorRepo;
+            _questionnaireRepo = app.QuestionnaireRepo;
+            _patientRepo = app.PatientRepo;
             Main.Content = new Login();
         }
 
@@ -45,6 +50,8 @@ namespace Patient
         {
             _examinationRepo.SaveExamination();
             _doctorRepo.SaveDoctor();
+            _questionnaireRepo.SaveQuestionnaire();
+            _patientRepo.SavePatient();
         }
 
         private void ListExaminations_Click(object sender, RoutedEventArgs e)
@@ -57,6 +64,16 @@ namespace Patient
         {
             Main.Content = new ExaminationsList();
             //patientMenu.ShowsNavigationUI;
+        }
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new Login();
+        }
+
+        private void Notifications_Click(object sender, RoutedEventArgs e)
+        {
+            Notifications notifications = new Notifications();
+            notifications.ShowDialog();
         }
     }
 }

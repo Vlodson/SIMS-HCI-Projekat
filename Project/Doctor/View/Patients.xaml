@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Doctor.View"
       mc:Ignorable="d" 
-      d:DesignHeight="395" d:DesignWidth="452"
+      d:DesignHeight="692" d:DesignWidth="710"
       Title="Patients">
 
     <Grid>
@@ -14,8 +14,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Foreground="Black" Margin="113,0,110,0" FontSize="24">ODABERI PACIJENTA</TextBlock>
-        <DataGrid x:Name="dataGridPatients" Grid.Row="1" ItemsSource="{Binding patients, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,0,87,0" Grid.RowSpan="2" >
+        <TextBlock Style="{StaticResource TitleTextBlock}" Grid.Row="0" Margin="113,0,110,0">ODABERI PACIJENTA</TextBlock>
+        <DataGrid x:Name="dataGridPatients" ItemsSource="{Binding patients, Mode=TwoWay}" Grid.Row="2" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,34,87,-41" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ime" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}"></DataGridTextColumn>
@@ -23,6 +23,6 @@
                 <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DoB}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name ="Choose" Grid.Row="2" Content ="Odaberi" Margin="299,119,96,-116" Click="Choose_Click" />
+        <Button Name ="Choose" Grid.Row="2" Content ="Odaberi" Template="{StaticResource BasicButton}" Margin="0,330,0,-330" Click="Choose_Click" />
     </Grid>
 </Page>

@@ -23,7 +23,7 @@ namespace Secretary.View
     /// <summary>
     /// Interaction logic for CRUDApointments.xaml
     /// </summary>
-    public partial class CRUDApointments : Window
+    public partial class CRUDApointments
     {
         public CRUDApointments()
         {

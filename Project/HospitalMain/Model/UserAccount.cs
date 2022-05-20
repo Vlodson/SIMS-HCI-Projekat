@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HospitalMain.Enums;
+using Model;
 
 namespace HospitalMain.Model
 {

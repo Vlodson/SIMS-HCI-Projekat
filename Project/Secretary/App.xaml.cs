@@ -7,7 +7,6 @@ using Repository;
 using Service;
 using Secretary.Stores;
 using Secretary.ViewModel;
-using HospitalMain.Controller;
 using HospitalMain.Repository;
 
 namespace Secretary
@@ -35,9 +34,12 @@ namespace Secretary
 
         public UserAccountRepo UserAccountRepo { get; set; }
 
+        public QuestionnaireRepo QuestionnaireRepo { get; set; }
+
         public UserAccountController UserAccountController { get; set; }
         
         public RoomRepo RoomRepo { get; set; }
+        public EquipmentRepo EquipmentRepo { get; set; }
 
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
@@ -45,14 +47,18 @@ namespace Secretary
         public App()
         {
             //_navigationStore = new NavigationStore();
-            
+            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
+            EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
+            RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, EquipmentRepo);
+            QuestionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
+
             ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
             PatientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
             PatientAccountService patientAccService = new PatientAccountService(PatientRepo);
             PatientController = new PatientController(patientAccService);
 
             DoctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
-            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo);
+            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo, PatientRepo);
             DoctorController = new DoctorController(doctorService);
 
             ObservableCollection<MedicalRecord> medicicalRecords = new ObservableCollection<MedicalRecord>();
@@ -60,8 +66,7 @@ namespace Secretary
             MedicalRecordService medicalRecordService = new MedicalRecordService(MedicalRecordRepo);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
-            ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo, QuestionnaireRepo);
             ExamController = new ExamController(patientService, doctorService);
 
             UserAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);

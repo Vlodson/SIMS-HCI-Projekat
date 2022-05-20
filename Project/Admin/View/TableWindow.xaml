@@ -4,9 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Admin.View"
+        xmlns:vm="clr-namespace:Admin.ViewModel"
+        xmlns:views="clr-namespace:Admin.Views"
         FontSize="14"
         mc:Ignorable="d"
-        Title="EquipmentTableWindow" Height="750" Width="430">
+        Title="Hospital Data" Height="750" Width="430">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:EquipmentTableViewModel}">
+            <views:EquipmentTableView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RoomTableViewModel}">
+            <views:RoomTableView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:EquipmentTransferTableViewModel}">
+            <views:EquipmentTransferTableView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RenovationTableViewModel}">
+            <views:RenovationTableView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MedicineTableViewModel}">
+            <views:MedicineTableView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -25,24 +44,57 @@
 
         <!-- Take care of this with style later so that the whole stack panel is the same colour and there is no button border
         so that it looks like a continious button bar -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
-            <Button x:Name="addEquipment" Content="Add Equipment" />
-            <Button x:Name="removeEquipment" Content="Remove Equipment" />
-        </StackPanel>
+        <Grid Grid.Row="1" Grid.Column="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0,0,10,0">
+                <Image Source="..\Icons\home-16.png" />
+            </Button>
+            
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
+                <Image Source="..\Icons\export-pdf-16.png" />
+            </Button>
+
+            <Button Style="{StaticResource ButtonWithIcon}" Command="{Binding RemoveCommand}" Grid.Column="2" Margin="10, 0">
+                <Image Source="..\Icons\remove-16.png" />
+            </Button>
+
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0, 0">
+                <Image Source="..\Icons\logout-16.png" />
+            </Button>
+        </Grid>
 
         <!-- Stylize with icon and transparent/lightgray text -->
-        <TextBox x:Name="queryBox" Grid.Row="2" Grid.Column="1" Text="Search" Margin="0,0,0,10" />
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="TableGrid" Grid.Row="3"  Grid.Column="1" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" Margin="0,0,0,10">
-        </DataGrid>
+            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" />
+            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1">
+                <Image Source="..\Icons\search-16.png" />
+            </Button>
+
+        </Grid>
+
+        <ContentControl x:Name="TableGrid" Grid.Row="3"  Grid.Column="1" Content="{Binding CurrentViewModel}">
+        </ContentControl>
 
         <!-- View changing tab button bar like sheets has.
         Stylization similar to menu button bar but with button borders -->
         <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" >
-            <Button x:Name="equipmentBtn" Content="Equipment" Click="equipmentBtn_Click" Padding="5,0,5,0"  />
-            <Button x:Name="roomsBtn" Content="Rooms" Click="roomsBtn_Click" Padding="5,0,5,0" />
-            <Button x:Name="eqTransferBtn" Content="Transfers" Click="eqTransferBtn_Click" Padding="5,0,5,0" />
-            <Button x:Name="renovationsBtn" Content="Renovations" Click="renovationsBtn_Click" Padding="5,0,5,0" />
+            <Button x:Name="equipmentBtn" Command="{Binding ChangeTableCommand}" CommandParameter="equipment" Content="Equipment" Padding="5,0,5,0"  />
+            <Button x:Name="roomsBtn" Command="{Binding ChangeTableCommand}" CommandParameter="rooms" Content="Rooms" Padding="5,0,5,0" />
+            <Button x:Name="eqTransferBtn" Command="{Binding ChangeTableCommand}" CommandParameter="transfers" Content="Transfers" Padding="5,0,5,0" />
+            <Button x:Name="renovationsBtn" Command="{Binding ChangeTableCommand}" CommandParameter="renovations" Content="Renovations" Padding="5,0,5,0" />
+            <Button x:Name="medicineBtn" Command="{Binding ChangeTableCommand}" CommandParameter="medicines" Content="Medicine" Padding="5,0,5,0"  />
         </StackPanel>
     </Grid>
 </Window>

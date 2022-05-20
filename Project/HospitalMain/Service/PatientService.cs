@@ -1,9 +1,12 @@
 using HospitalMain.Enums;
+using HospitalMain.Model;
+using HospitalMain.Repository;
 using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Service
 {
@@ -14,13 +17,30 @@ namespace Service
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
+        private readonly QuestionnaireRepo _questionaryRepo;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
+            _questionaryRepo = questionnaireRepo;
+        }
+
+        public Examination getTemporaryExam()
+        {
+            return _examinationRepo.TemporaryExam;
+        }
+
+        public int getValidationCounter()
+        {
+            return _examinationRepo.ValidationCounter;
+        }
+
+        public void setValidationCounter(int value)
+        {
+            _examinationRepo.ValidationCounter = value;
         }
 
         public int generateID (ObservableCollection<Examination> examinations)
@@ -56,16 +76,19 @@ namespace Service
 
             foreach (Examination exam in examinationsFromBase)
             {
-                int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
+                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
+
+                //int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher)
                 {
                     //ne moze jedan doktor da ima dva pregleda u isto vreme
                     return false;
-                } else if(res == 0 && PatientID.Equals(exam.PatientId))
+                } else if(date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
                 {
                     //ne moze jedan pacijent da ima dva pregleda u isto vreme
                     return false;
-                } else if(res == 0 && RoomID.Equals(exam.ExamRoomId))
+                } else if(date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
                 {
                     //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
                     return false;
@@ -86,18 +109,22 @@ namespace Service
                 {
                     continue;
                 }
-                int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && res == 0)
+
+                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
+                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
+
+                //int res = DateTime.Compare(date, exam.Date);
+                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher )
                 {
                     //ne moze jedan doktor da ima dva pregleda u isto vreme
                     return false;
                 }
-                else if (res == 0 && PatientID.Equals(exam.PatientId))
+                else if (date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
                 {
                     //ne moze jedan pacijent da ima dva pregleda u isto vreme
                     return false;
                 }
-                else if (res == 0 && RoomID.Equals(exam.ExamRoomId))
+                else if (date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
                 {
                     //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
                     return false;
@@ -111,50 +138,74 @@ namespace Service
             return _examinationRepo.NewExamination(examination);
         }
 
-        public bool CreateExam(Examination examination, DateTime newDate)
+        public Room GetFreeRoomFromRooms(List<Room> patientRooms)
         {
             Room getRoom = new Room();
-            List<Room> patientRooms = new List<Room>();
-            foreach (Room room in _roomRepo.Rooms)
+            foreach (Room room in patientRooms)
             {
-                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                if (room.Occupancy == false)
                 {
-                    patientRooms.Add(room);
+                    getRoom = room;
                 }
             }
-            if (_examinationRepo.getExamByTime(newDate).Count == 0)
+            return getRoom;
+        }
+
+        public Room GetFreeRoomFromRoomsWhereOccupied(List<Room> patientRooms, DateTime dateTime)
+        {
+            Room getRoom = new Room();
+            foreach (Examination examinationExists in _examinationRepo.getExamByTime(dateTime))
             {
+
                 foreach (Room room in patientRooms)
                 {
-                    if (room.Occupancy == false)
+                    if (room.Occupancy == false && examinationExists.ExamRoomId != room.Id)
                     {
                         getRoom = room;
+                        break;
                     }
                 }
             }
-            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
+            return getRoom;
+        }
+        public Room GetFirstRoom(DateTime dateTime, List<Room> patientRooms)
+        {
+            Room getRoom = new Room();
+            if(_examinationRepo.getExamByTime(dateTime).Count == 0)
             {
-                bool take = false;
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        if (examinationExists.ExamRoomId != room.Id)
-                        {
-                            take = true;
-                            getRoom = room;
-                            break;
-                        }
-                    }
-                }
+                getRoom=GetFreeRoomFromRooms(patientRooms);
             }
+            else
+            {
+                getRoom = GetFreeRoomFromRoomsWhereOccupied(patientRooms, dateTime);
+            }
+            return getRoom;
+        }
+        public Room GetFreeRoom(DateTime newDate)
+        {
+            Room getRoom = new Room();
+            List<Room> patientRooms = _roomRepo.Rooms.Where(r => r.Type == RoomTypeEnum.Patient_Room).ToList();
+
+            getRoom = GetFirstRoom(newDate, patientRooms);
+            return getRoom;
+        }
+        public bool CreateExam(Examination examination, DateTime newDate)
+        {
+            Room getRoom = GetFreeRoom(newDate);
             examination.ExamRoomId = getRoom.Id;
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberNewExams += 1;
             return _examinationRepo.NewExamination(examination);
         }
 
+        
+
         public void RemoveExam(Examination examination)
         {
-             _examinationRepo.DeleteExamination(examination.Id);
+            Patient patient = _patientRepo.GetPatient(examination.PatientId);
+            patient.NumberCanceling += 1;
+            _patientRepo.SavePatient();
+            _examinationRepo.DeleteExamination(examination.Id);
             //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
             //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
         }
@@ -172,66 +223,17 @@ namespace Service
 
         public void EditExamForMoving(String examId, DateTime newDate)
         {
-            Room getRoom = new Room();
-            List<Room> patientRooms = new List<Room>();
-            foreach (Room room in _roomRepo.Rooms)
-            {
-                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                {
-                    patientRooms.Add(room);
-                }
-            }
-            if (_examinationRepo.getExamByTime(newDate).Count == 0)
-            {
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        getRoom = room;
-                    }
-                }
-            }
-            foreach (Examination examinationExists in _examinationRepo.getExamByTime(newDate))
-            {
-                bool take = false;
-                foreach (Room room in patientRooms)
-                {
-                    if (room.Occupancy == false)
-                    {
-                        if (examinationExists.ExamRoomId != room.Id)
-                        {
-                            take = true;
-                            getRoom = room;
-                            break;
-                        }
-                    }
-                }
-            }
+            
+            Room getRoom = GetFreeRoom(newDate);
             Examination examination = _examinationRepo.GetExaminationById(examId);
             examination.Date = newDate;
             examination.ExamRoomId = getRoom.Id;
+            _patientRepo.GetPatient(examination.PatientId).NumberCanceling += 1;
             _examinationRepo.SetExamination(examId, examination);
         }
 
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
-            //dodato
-            //List<Examination> others = new List<Examination>();
-            //foreach(Examination exam in _examinationRepo.GetAll())
-            //{
-            //    if (!exam.PatientId.Equals(id))
-            //    {
-            //        others.Add(exam);
-            //    }
-            //}
-
-            //foreach(Examination exam in others)
-            //{
-            //    _examinationRepo.DeleteExamination(exam.Id);
-            //}
-
-            ////return _examinationRepo.ExaminationsForPatient(id);
-            //return _examinationRepo.GetAll();
             return _examinationRepo.ExaminationsForPatient(id);
             
         }
@@ -251,5 +253,37 @@ namespace Service
             return _examinationRepo.getExamByTime(dateTime);
         }
 
+        public Questionnaire GetHospitalQuestionnaire()
+        {
+            return _questionaryRepo.GetHospitalQuestionnaire();
+        }
+
+        public Questionnaire GetDoctorQuestionnaire()
+        {
+            return _questionaryRepo.GetDoctorQuestionnaire();
+        }
+        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
+        {
+            return _patientRepo.CheckAnswerAvailable(doctorId, medicalRecord);
+        }
+        public void AddAnswer(String idPatient, Answer answer)
+        {
+            _patientRepo.AddAnswer(idPatient, answer);
+        }
+
+        public List<String> GetPatientsDoctors(String patientId)
+        {
+            return _examinationRepo.GetPatientsDoctors(patientId);
+        }
+
+        public bool CheckStatusCancelled(String id)
+        {
+            return _patientRepo.CheckStatusCancelled(id);
+        }
+
+        public bool CheckStatusAdded(String id)
+        {
+            return _patientRepo.CheckStatusAdded(id);
+        }
     }
 }

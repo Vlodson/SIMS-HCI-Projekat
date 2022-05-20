@@ -10,12 +10,114 @@
 
     <Grid>
 
-        <Label Content="Prijava" FontSize="40" HorizontalAlignment="Left" Margin="386,191,0,0" VerticalAlignment="Top"/>
-        <Label Content="Korisničko ime*" FontSize="18" HorizontalAlignment="Left" Margin="299,277,0,0" VerticalAlignment="Top"/>
-        <Label Content="Šifra*"  FontSize="18" HorizontalAlignment="Left" Margin="299,316,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="username" HorizontalAlignment="Left" Margin="392,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="174"/>
-        <PasswordBox Name ="password" HorizontalAlignment="Left" Margin="392,324,0,0" VerticalAlignment="Top" Width="174"/>
-        <Button Content="Prijavi se" Click="Menu_Click" HorizontalAlignment="Center" Margin="0,356,0,0" VerticalAlignment="Top" Width="108"/>
-        <Button Content="Registruj se" HorizontalAlignment="Left" Margin="501,426,0,0" VerticalAlignment="Top" Click="RegistrationForm"/>
+        <Rectangle Height="830" VerticalAlignment="Top" Margin="0,-75,464,0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5,0">
+                    <GradientStop Color="#006666"/>
+                    <GradientStop Color="#66b2b2" Offset="1"/>
+                    <GradientStop Color="#008080" Offset="0.5"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image Source="/Images/login.jpg" Margin="501,-136,-334,-134"/>
+
+
+
+        <!--<Button Content="Registruj se" HorizontalAlignment="Left" Margin="853,652,0,0" VerticalAlignment="Top" Click="RegistrationForm"/>-->
+        <Rectangle HorizontalAlignment="Left" Height="280"  VerticalAlignment="Top" Width="486" Margin="10,182,0,0">
+            <Rectangle.Fill>
+                <VisualBrush Stretch="None">
+                    <VisualBrush.Visual>
+                        <Border CornerRadius="20,20,20,20"  Width="450" Height="280" Background="#b2d8d8"></Border>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Prijava" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="171,227,0,0" VerticalAlignment="Top"/>
+        <Label Content="Korisničko ime*" FontFamily="TimesNewRoman" FontSize="18" HorizontalAlignment="Left" Margin="69,306,0,0" VerticalAlignment="Top"/>
+        <Label Content="Šifra*" FontFamily="TimesNewRoman"  FontSize="18" HorizontalAlignment="Left" Margin="69,343,0,0" VerticalAlignment="Top"/>
+        <TextBox Name="username" HorizontalAlignment="Left" Margin="265,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="174" LostFocus="CheckUsername">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </TextBox.Resources>
+            <Binding Path="Username" NotifyOnValidationError="True">
+                <Binding.ValidationRules>
+                    <local:USernameValidationRule/>
+                </Binding.ValidationRules>
+            </Binding>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="username"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                    </Grid>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <PasswordBox Name ="password" Background="White" Height="18" HorizontalAlignment="Left" Margin="265,341,0,0" VerticalAlignment="Top" Width="174" LostFocus="CheckPassword">
+
+            <PasswordBox.Style>
+                <Style TargetType="{x:Type PasswordBox}">
+                    <Style.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5" />
+                        </Style>
+                    </Style.Resources>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type PasswordBox}">
+                                <Border x:Name="border" CornerRadius="6" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                                    <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="false">
+                                        <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF7EB4EA"/>
+                                    </Trigger>
+                                    <Trigger Property="IsKeyboardFocused" Value="true">
+                                        <Setter Property="BorderBrush" TargetName="border" Value="#FF569DE5"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true"/>
+                                <Condition Property="IsSelectionActive" Value="false"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}"/>
+                        </MultiTrigger>
+                    </Style.Triggers>
+                </Style>
+            </PasswordBox.Style>
+        </PasswordBox>
+        <Button Content="Prijavi se" Background="White" FontFamily="TimesNewRoman" Click="Menu_Click" HorizontalAlignment="Left" Margin="337,379,0,0" VerticalAlignment="Top" Width="108">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label x:Name="PasswordError" Content="Polje za šifru ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden"  HorizontalAlignment="Left" Margin="271,356,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="UsernameError" Content="Polje korisničkog imena ne može biti prazno" FontSize="10" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="265,318,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="ProfileError" Content="Neispravni podaci" FontSize="10" Foreground="Red" HorizontalAlignment="Left" Visibility="Hidden" Margin="337,388,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="UsernameValidation" Content="Morate useti podatke" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="265,318,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="PasswordValidation" Content="Morate uneti podatke" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="266,355,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="AccountValidation" Content="Nepostojeći/neispravni podaci" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Left" Margin="266,393,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

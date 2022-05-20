@@ -55,7 +55,7 @@ namespace Admin.View
                 Border room = new Border();
                 room.BorderBrush = Brushes.Black;
                 room.BorderThickness = new Thickness(1);
-                room.Background = Brushes.Transparent;
+                room.Background = (Brush)new BrushConverter().ConvertFrom("#ececec");
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetClipboardRoom(r);
@@ -66,7 +66,7 @@ namespace Admin.View
                 };
 
                 TextBlock roomId = new TextBlock();
-                roomId.Text = r.RoomNb + " " + r.Type.ToString();
+                roomId.Text = r.RoomNb + " " + RoomTypeEnumExtensions.ToFriendlyString(r.Type);
                 roomId.Margin = new Thickness(5,0,5,0);
                 roomId.TextWrapping = TextWrapping.Wrap;
                 roomId.HorizontalAlignment = HorizontalAlignment.Center;
@@ -137,6 +137,22 @@ namespace Admin.View
             // always show first floor when opening
             floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
+        }
+
+        private void requestMedicineCheckBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            RequestMedicineCheckWindow requestCheck = new RequestMedicineCheckWindow();
+            requestCheck.ShowDialog();
+            this.Show();
+        }
+
+        private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            OrderProductsWindow orderWindow = new OrderProductsWindow();
+            orderWindow.ShowDialog();
+            this.Show();
         }
     }
 }

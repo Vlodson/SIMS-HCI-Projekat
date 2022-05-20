@@ -11,44 +11,22 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.ComponentModel;
 
 using Model;
 using Controller;
+using HospitalMain.Enums;
 
 namespace Admin.View
 {
     /// <summary>
     /// Interaction logic for RecordEquipmentTransferWindow.xaml
     /// </summary>
-    public partial class RecordEquipmentTransferWindow : Window, INotifyPropertyChanged
+    public partial class RecordEquipmentTransferWindow : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
         public EquipmentTransfer equipmentTransfer { get; set; }
         
         private EquipmentTransferController _equipmentTransferController;
-
-        private String _signature;
-        public String Signature
-        {
-            get { return _signature; }
-            set
-            {
-                if (_signature != value)
-                {
-                    _signature = value;
-                    OnPropertyChanged("Signature");
-                }
-            }
-        }
+        private RoomController _roomController;
 
         public RecordEquipmentTransferWindow()
         {
@@ -57,11 +35,16 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _equipmentTransferController = app.equipmentTransferController;
+            _roomController = app.roomController;
+
+            Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
+            Title.Text = "Record trasnfer for room\n" + OriginRoom.RoomNb;
 
             // last one in list is always the one that needs to be worked here
             equipmentTransfer = _equipmentTransferController.ReadAll().Last();
 
-            equipmentTextBox.Text = equipmentTransfer.Equipment.Type.ToString();
+            equipmentTextBox.Text = EquipmentTypeEnumExtensions.ToFriendlyString(equipmentTransfer.Equipment.Type);
             destinationTextBox.Text = equipmentTransfer.DestinationRoom.Id;
             startDate.Text = equipmentTransfer.StartDate.ToString();
             endDate.Text = equipmentTransfer.EndDate.ToString();
@@ -69,14 +52,14 @@ namespace Admin.View
 
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
-            _equipmentTransferController.RecordTransfer(equipmentTransfer.Id, signatrueTextBox.Text);
+            _equipmentTransferController.RecordTransfer(equipmentTransfer.Id);
             this.Close();
             this.Owner.Show();
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !String.IsNullOrEmpty(Signature);
+            e.CanExecute = true;
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

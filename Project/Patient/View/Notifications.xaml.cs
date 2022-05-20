@@ -75,13 +75,23 @@ namespace Patient.View
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 
             List<int> selectedItemIndexes = (from object o in NotificationList.SelectedItems select NotificationList.Items.IndexOf(o)).ToList();
-            foreach (int index in selectedItemIndexes)
+            if(selectedItemIndexes.Count == 0)
             {
-
-                Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
-                _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
+                ErrorLabel.Visibility = Visibility.Visible;
             }
-            this.Close();
+            else
+            {
+                foreach (int index in selectedItemIndexes)
+                {
+
+                    Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
+                    _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
+                }
+                this.Close();
+            }
+            
         }
+
+        
     }
 }

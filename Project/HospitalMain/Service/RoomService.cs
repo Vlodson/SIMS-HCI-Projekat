@@ -17,10 +17,10 @@ namespace Service
             _repo = roomRepo;
         }
 
-        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
+        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type, RoomTypeEnum previousType)
         {
             // logic for failed addition needed
-            Room r = new Room(id, floor, roomNb, occupancy, type);
+            Room r = new Room(id, floor, roomNb, occupancy, type, previousType);
             return _repo.NewRoom(r);
         }
       
@@ -29,9 +29,9 @@ namespace Service
             return _repo.DeleteRoom(roomId);
         }
       
-        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
+        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
         {
-            _repo.SetRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
+            _repo.SetRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType, newPreviousType);
         }
       
         public Room ReadRoom(String roomId)

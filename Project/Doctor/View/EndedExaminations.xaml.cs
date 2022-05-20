@@ -25,9 +25,7 @@ namespace Doctor.View
     /// </summary>
     public partial class EndedExaminations : Page
     {
-        private ExamController _examController;
-        private ExaminationRepo _examRepo;
-
+        private readonly ExamController _examController;
         public static ObservableCollection<Examination> examinations
         {
             get;
@@ -41,9 +39,6 @@ namespace Doctor.View
 
             App app = Application.Current as App;
             _examController = app.examController;
-            _examRepo = app.examRepo;
-
-            
 
             examinations = _examController.ReadEndedExams();
         }

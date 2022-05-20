@@ -12,6 +12,8 @@ using System.IO;
 using HospitalMain.Enums;
 using System.Windows.Input;
 using Secretary.Commands;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace Secretary.ViewModel
 {
@@ -20,6 +22,20 @@ namespace Secretary.ViewModel
 
         private readonly PatientController _patientController;
         private ObservableCollection<PatientViewModel> _patientList;
+        private ICollectionView _dataGridCollection;
+        private String _filter;
+
+        public ICollectionView DataGridCollection
+        {
+            get { return _dataGridCollection; }
+            set { _dataGridCollection = value; OnPropertyChanged(nameof(DataGridCollection)); }
+        }
+
+        public String Filter
+        {
+            get { return _filter; }
+            set { _filter = value; OnPropertyChanged(nameof(Filter)); DataGridCollection.Filter = FilterByNameSurnameOrID; }
+        }
 
         public ObservableCollection<PatientViewModel> PatientList => _patientList;
 
@@ -34,17 +50,28 @@ namespace Secretary.ViewModel
         public ICommand DeleteAccountCommand { get; }
         public ICommand EditAccountCommand { get; }
 
-        public CRUDAccountOptionsViewModel()
+        private bool FilterByNameSurnameOrID(object pat)
+        {
+            if (!string.IsNullOrEmpty(Filter))
+            {
+                var data = pat as PatientViewModel;
+                return data != null && (data.Name.Contains(Filter) || data.Surname.Contains(Filter) || data.ID.Contains(Filter));
+            }
+            return true;
+        }
+
+        public CRUDAccountOptionsViewModel(AccountsViewModel accountsViewModel)
         {
             
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
 
             _patientList = new ObservableCollection<PatientViewModel>();
+            DataGridCollection = CollectionViewSource.GetDefaultView(PatientList);
 
-            AddAccountCommand = new GoToAddAccountCommand(this);
+            AddAccountCommand = new GoToAddAccountCommand(this, accountsViewModel);
             DeleteAccountCommand = new DeleteAccountCommand(this, _patientController);
-            EditAccountCommand = new GoToEditAccountCommand(this);
+            EditAccountCommand = new GoToEditAccountCommand(this, accountsViewModel);
 
             ObservableCollection<Patient> patientsFromBase = _patientController.ReadAllPatients();
             foreach(Patient patient in patientsFromBase)

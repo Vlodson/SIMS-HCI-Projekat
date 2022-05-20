@@ -2,12 +2,69 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Secretary"
+             xmlns:viewmodels="clr-namespace:Secretary.ViewModel"
+             xmlns:viewmodel="clr-namespace:Secretary"
+             xmlns:view="clr-namespace:Secretary.View"
              StartupUri="LogInWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/SignInButtonStyle.xaml"/>
+                <ResourceDictionary Source="Styles/GroupBoxTheme.xaml"/>
+                <ResourceDictionary Source="Styles/MenuButtonsTheme.xaml"/>
+                <ResourceDictionary Source="Styles/SearchTheme.xaml"/>
+                <ResourceDictionary Source="Styles/SearchRecordsTheme.xaml"/>
+                <ResourceDictionary Source="Styles/DataGridUsersTheme.xaml"/>
+                <ResourceDictionary Source="Styles/DataGridRowTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewmodels:CRUDAccountOptionsViewModel}">
+                <viewmodel:CRUDAccountOptions/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:CRUDMedicalRecordViewModel}">
+                <view:CRUDMedicalRecord/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:CRUDAppointmentsViewModel}">
+                <view:CRUDApointments/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AccountsViewModel}">
+                <view:AccountsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddAccountViewModel}">
+                <view:AddAccount/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditAccountViewModel}">
+                <view:EditAccount/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:MedicalRecordsViewModel}">
+                <view:MedicalRecordsView/>
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewmodels:EditMedicalRecordViewModel}">
+                <view:EditMedicalRecord/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddMedicalRecordViewModel}">
+                <view:AddMedicalRecord/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EmergencyGeneralViewModel}">
+                <view:EmergencyView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EmergencyViewModel}">
+                <view:CreateEmergencyView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:CreateGuestViewModel}">
+                <view:CreateGuestView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

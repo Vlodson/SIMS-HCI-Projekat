@@ -21,8 +21,6 @@ namespace Model
         private DateTime doB;
         private DoctorType type;
 
-        
-        //public Examination[] examination;
         private List<Examination> examinations;
 
         public DateTime DoB
