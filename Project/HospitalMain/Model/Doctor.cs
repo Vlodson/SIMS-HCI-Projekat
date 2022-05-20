@@ -20,7 +20,7 @@ namespace Model
         private String surname;
         private DateTime doB;
         private DoctorType type;
-        private int freeDaysLeft;
+        private double freeDaysLeft;
         private List<Examination> examinations;
 
         public DateTime DoB
@@ -74,7 +74,7 @@ namespace Model
             }
         }
 
-        public int FreeDaysLeft
+        public double FreeDaysLeft
         {
             get
             {
@@ -136,7 +136,7 @@ namespace Model
                 OnPropertyChanged("NameSurname");
             }
         }
-        public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, int freeDaysLeft, List<Examination> examination)
+        public Doctor(string id, string name, string surname, DateTime doB, DoctorType type, double freeDaysLeft, List<Examination> examination)
         {
             Id = id;
             Name = name;

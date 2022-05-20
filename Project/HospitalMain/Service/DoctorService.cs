@@ -285,9 +285,9 @@ namespace Service
         public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType type)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
-            foreach(Doctor doctor in _doctorRepo.DoctorList)
+            foreach (Doctor doctor in _doctorRepo.DoctorList)
             {
-                if(type == doctor.Type)
+                if (type == doctor.Type)
                 {
                     list.Add(doctor.Id);
                 }

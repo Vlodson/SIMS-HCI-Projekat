@@ -79,15 +79,18 @@ namespace ViewModel
                 {
                     selectedMedicine = value;
                     OnPropertyChanged("SelectedMedicine");
-                    Ingredients = "";
-                    for (int i =0; i < selectedMedicine.Ingredients.Count; i++)
-                    {
-                        Ingredients += selectedMedicine.Ingredients[i].ToString();
-                        if (i != selectedMedicine.Ingredients.Count - 1)
-                            Ingredients += ", ";
-                    }
-                        
+                    IngredientsToString();
                 }
+            }
+        }
+        public void IngredientsToString()
+        {
+            Ingredients = "";
+            for (int i = 0; i < selectedMedicine.Ingredients.Count; i++)
+            {
+                Ingredients += selectedMedicine.Ingredients[i].ToString();
+                if (i != selectedMedicine.Ingredients.Count - 1)
+                    Ingredients += ", ";
             }
         }
         public void OnSend()
