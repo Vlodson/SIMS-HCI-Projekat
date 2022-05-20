@@ -4,107 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Admin.View"
+        xmlns:vm="clr-namespace:Admin.ViewModel"
+        xmlns:views="clr-namespace:Admin.Views"
         mc:Ignorable="d"
-        FontSize="18"
-        Title="ScheduleRenovationWindow" Height="750" Width="430">
+        FontSize="20"
+        Title="Order Product" Height="750" Width="430">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="10" />
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
-            <RowDefinition Height="auto" />
-            <!-- button menu bar -->
-            <RowDefinition Height="auto" />
-            <!-- menu name -->
-            <RowDefinition Height="50" />
-            <!-- padding -->
-            <RowDefinition Height="auto" />
-            <!-- Reno type -->
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <!-- Parcelling -->
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <!-- Start Date -->
-            <RowDefinition Height="20" />
-            <RowDefinition Height="auto" />
-            <!-- End Date -->
-            <RowDefinition Height="*" />
-            <!-- Buttons -->
-            <RowDefinition Height="10" />
-        </Grid.RowDefinitions>
-
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <!-- buttons -->
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
-                <Image Source="..\Icons\back-16.png" />
-            </Button>
-
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
-                <Image Source="..\Icons\home-16.png" />
-            </Button>
-
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="2" Margin="10, 0">
-                <Image Source="..\Icons\repeat-16.png" />
-            </Button>
-
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
-                <Image Source="..\Icons\logout-16.png" />
-            </Button>
-        </Grid>
-
-        <TextBlock x:Name="Title" Grid.Row="2" Grid.Column="1" Margin="0,30,0,10" TextAlignment="Center" FontWeight="Bold" FontSize="28">
-        </TextBlock>
-
-        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1">
-            <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Renovation Type</TextBlock>
-            <ComboBox x:Name="renoTypeComboBox" Width="215" HorizontalAlignment="Left" />
-        </StackPanel>
-
-        <!-- Make available only if reno type is parcelling -->
-        <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
-            <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Parcelling</TextBlock>
-            <Grid Width="215" HorizontalAlignment="Left" Margin="0,0,0,10">
-                <Button x:Name="splitBtn" Content="Splitting" Width="100" HorizontalAlignment="Left" Click="splitBtn_Click" />
-                <Button x:Name="mergeBtn" Content="Merging" Width="100" HorizontalAlignment="Right" />
-            </Grid>
-            <!-- Make clickable and autofilled with room clicked -->
-            <TextBox x:Name="parcellingRoomTextBox" Background="Transparent" IsReadOnly="True" Width="215" HorizontalAlignment="Left" PreviewMouseDown="parcellingRoomTextBox_PreviewMouseDown" />
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">
-            <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Start date</TextBlock>
-            <DatePicker x:Name="startDate" Width="215" HorizontalAlignment="Left" />
-        </StackPanel>
-
-        <StackPanel Orientation="Vertical" Grid.Row="10" Grid.Column="1">
-            <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">End date</TextBlock>
-            <DatePicker x:Name="endDate" Width="215" HorizontalAlignment="Left" />
-        </StackPanel>
-
-        <Grid Grid.Row="11" Grid.Column="1">
-            <Button x:Name="recordBtn" Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" Command="Record">
-                <Button.CommandBindings>
-                    <CommandBinding Command="Record" CanExecute="CanExecute_Record" Executed="Execute_Record" />
-                </Button.CommandBindings>
-            </Button>
-            <Button x:Name="saveBtn" Content="Save" Height="50" Width="100" HorizontalAlignment="Center" Command="Save">
-                <Button.CommandBindings>
-                    <CommandBinding Command="Save" CanExecute="CanExecute_Save" Executed="Execute_Save" />
-                </Button.CommandBindings>
-            </Button>
-            <Button x:Name="discardBtn" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" Click="discardBtn_Click" />
-        </Grid>
+        <views:ScheduleRenovationView />
     </Grid>
+    
 </Window>

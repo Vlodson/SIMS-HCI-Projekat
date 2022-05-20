@@ -57,7 +57,7 @@
                 <!-- Date -->
                 <RowDefinition Height="*" />
                 <!-- Buttons -->
-                <RowDefinition Height="10" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1" Grid.Column="1">
@@ -112,7 +112,7 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="14" Grid.Column="1">
                 <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Comment</TextBlock>
-                <TextBox Text="{Binding Path=Comment, Mode=TwoWay}" Width="215" HorizontalAlignment="Left" />
+                <TextBox Text="{Binding Path=Comment, Mode=TwoWay}" TextWrapping="Wrap" Width="215" HorizontalAlignment="Left" />
             </StackPanel>
 
             <Grid Grid.Row="16" Grid.Column="1">

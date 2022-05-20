@@ -15,7 +15,16 @@ namespace Admin.ViewModel
     public class EquipmentTableViewModel: BindableBase
     {
         private EquipmentController equipmentController;
-        public ObservableCollection<FriendlyEquipment> Equipment { get; set; }
+        private ObservableCollection<FriendlyEquipment> equipment;
+        public ObservableCollection<FriendlyEquipment> Equipment
+        {
+            get { return equipment; }
+            set
+            {
+                equipment = value;
+                OnPropertyChanged("Equipment");
+            }
+        }
         private FriendlyEquipment selectedEquipment;
         public FriendlyEquipment SelectedEquipment
         {
@@ -47,6 +56,15 @@ namespace Admin.ViewModel
         {
             equipmentController.RemoveEquipment(SelectedEquipment.Id, SelectedEquipment.RoomId);
             Equipment.Remove(SelectedEquipment);
+        }
+
+        public void QueryEquipment(String query)
+        {
+            ObservableCollection<Equipment> queriedEquipment = equipmentController.QueryEquipment(query);
+            Equipment = new ObservableCollection<FriendlyEquipment>();
+            foreach(Equipment queriedItem in queriedEquipment)
+                Equipment.Add(new FriendlyEquipment(queriedItem));
+            
         }
     }
 

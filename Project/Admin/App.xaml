@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Admin"
-             StartupUri="View/OrderProductsWindow.xaml" Exit="Application_Exit">
+             StartupUri="View/MainMenuWindow.xaml" Exit="Application_Exit">
+    
     <Application.Resources>
         <Style x:Key="ButtonWithIcon" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
@@ -16,4 +17,5 @@
         </Style>
 
     </Application.Resources>
+    
 </Application>
