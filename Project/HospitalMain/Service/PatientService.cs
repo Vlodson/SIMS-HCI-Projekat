@@ -58,11 +58,6 @@ namespace Service
             _examinationRepo.SaveExamination();
         }
 
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
-        {
-            throw new NotImplementedException();
-        }
-
         public Model.Patient GetPatient(String id)
         {
             return _patientRepo.GetPatient(id);
