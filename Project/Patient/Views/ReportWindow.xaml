@@ -23,7 +23,7 @@
         <Label Content="Izveštaj" FontSize="32" HorizontalAlignment="Left" Margin="8,28,0,0" VerticalAlignment="Top"/>
         <TextBlock Text="{Binding Description}" HorizontalAlignment="Left" Margin="17,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Label Content="Terapija:" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
-        <DataGrid ItemsSource="{Binding TherapyList}" AutoGenerateColumns="False" Margin="10,217,266,89">
+        <DataGrid ItemsSource="{Binding TherapyList}" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,217,266,89">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -33,12 +33,12 @@
                 <DataGridTextColumn Header="Naziv leka" Binding="{Binding Medicine}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Kolicina na dan" Binding="{Binding PerDay}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Recept" Binding="{Binding Prescription}" Width="*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Recept" Binding="{Binding Prescription}" Width="*"></DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Beleška:" HorizontalAlignment="Left" Margin="408,191,0,0" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="413,222,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-        <Button Content="Dodaj/Izmeni belešku"  HorizontalAlignment="Left" Margin="531,371,0,0" VerticalAlignment="Top">
+        <TextBlock HorizontalAlignment="Left" Margin="413,222,0,0" TextWrapping="Wrap" Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+        <Button Content="Dodaj/Izmeni belešku" Command="{Binding EditNoteCommand}"  HorizontalAlignment="Left" Margin="531,371,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
