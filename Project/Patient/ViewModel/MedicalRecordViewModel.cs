@@ -5,6 +5,7 @@ using Patient.View;
 using Patient.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,17 @@ using System.Windows.Controls;
 
 namespace Patient.ViewModel
 {
-    public class MedicalRecordViewModel
+    public class MedicalRecordViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
         private MedicalRecordController _medicalRecordController;
         private DoctorController _doctorController;
 
@@ -28,6 +38,7 @@ namespace Patient.ViewModel
         private String gender;
         private String allergens;
         private List<Report> reports;
+        private Report selectedReport;
 
         public MyICommand MenuBack { get; set; }
 
@@ -43,8 +54,10 @@ namespace Patient.ViewModel
         public String Gender { get { return gender; } set { gender = value; } }
         public String Allergens { get { return allergens; } set { allergens = value; } }
         public List<Report> Reports { get { return reports; } }
+        public Report SelectedReport { get { return selectedReport; } set { selectedReport = value; OnPropertyChanged("SelectedReport"); ViewReportCommand.RaiseCanExecuteChanged(); } }
 
         public MyICommand ChangeMedicalRecordCommand { get; set; }
+        public MyICommand ViewReportCommand { get; set; }
 
         public MedicalRecordViewModel(Page page)
         {
@@ -57,6 +70,7 @@ namespace Patient.ViewModel
             thisPage = page;
 
             ChangeMedicalRecordCommand = new MyICommand(OnChangeMedicalRecord);
+            ViewReportCommand = new MyICommand(OnViewReport, CanViewReport);
 
             MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
             Name = medicalRecord.Name;
@@ -175,6 +189,16 @@ namespace Patient.ViewModel
         {
             ChangeMedicalRecord changeMedicalRecord = new ChangeMedicalRecord();
             changeMedicalRecord.ShowDialog();
+        }
+
+        public bool CanViewReport()
+        {
+            return SelectedReport != null;
+        }
+        public void OnViewReport()
+        {
+            ReportWindow reportWindow = new ReportWindow(selectedReport);
+            reportWindow.ShowDialog();
         }
     }
 }
