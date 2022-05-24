@@ -15,7 +15,7 @@ namespace Admin.ViewModel
         public ICommandTemplate RemoveCommand { get; private set; }
         public ICommandTemplate QueryCommand { get; private set; }
 
-        public EquipmentTableViewModel equipmentTableViewModel = new EquipmentTableViewModel();
+        private EquipmentTableViewModel equipmentTableViewModel = new EquipmentTableViewModel();
         private RoomTableViewModel roomTableViewModel = new RoomTableViewModel();
         private EquipmentTransferTableViewModel equipmentTransferTableVeiwModel = new EquipmentTransferTableViewModel();
         private RenovationTableViewModel renovationTableViewModel = new RenovationTableViewModel();
