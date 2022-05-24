@@ -12,13 +12,13 @@ namespace Repository
 {
     public class DoctorRepo
     {
-        private string dbPath { get; set; }
-        private ObservableCollection<Doctor> doctorList { get; set; }
+        public string dbPath { get; set; }
+        public ObservableCollection<Doctor> DoctorList { get; set; }
 
         public DoctorRepo(string dbPath)
         {
             this.dbPath = dbPath;
-            this.doctorList = new ObservableCollection<Doctor>();
+            this.DoctorList = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -40,64 +40,20 @@ namespace Repository
             DateTime dtDoctor5 = DateTime.Now;
             Doctor doctor5 = new Doctor("d14", "Milos", "Gravara", dtDoctor5, DoctorType.Pulmonology, 20, examinationsDoctor5);
 
-            this.doctorList.Add(doctor1);
-            this.doctorList.Add(doctor2);
-            this.doctorList.Add(doctor3);
-            this.doctorList.Add(doctor4);
-            this.doctorList.Add(doctor5);
+            this.DoctorList.Add(doctor1);
+            this.DoctorList.Add(doctor2);
+            this.DoctorList.Add(doctor3);
+            this.DoctorList.Add(doctor4);
+            this.DoctorList.Add(doctor5);
 
             if (File.Exists(dbPath))
                 LoadDoctor();
 
         }
 
-        public ObservableCollection<Doctor> GetAllDoctors()
-        {
-            return doctorList;
-        }
-
-        public ObservableCollection<Doctor> GetDoctorsByType(DoctorType doctorType)
-        {
-            ObservableCollection<Doctor> listOfDoctors = new ObservableCollection<Doctor>();
-
-            foreach(Doctor doctor in this.doctorList)
-            {
-                if(doctor.Type == doctorType)
-                {
-                    listOfDoctors.Add(doctor);
-                }
-            }
-
-            return listOfDoctors;
-        }
-
-        public DoctorType GetDoctorsType(string doctorID)
-        {
-            foreach(Doctor doctor in this.doctorList)
-            {
-                if (doctor.Id.Equals(doctorID))
-                {
-                    return doctor.Type;
-                }
-            }
-            return DoctorType.None;
-        }
-
-        public Doctor GetDoctor(string id)
-        {
-            foreach(Doctor doctor in this.doctorList)
-            {
-                if (doctor.Id.Equals(id))
-                {
-                    return doctor;
-                }
-            }
-            return null;
-        }
-
         public bool AddExaminationToDoctor(String doctorID, Examination examination)
         {
-            foreach(Doctor doctor in this.doctorList)
+            foreach(Doctor doctor in this.DoctorList)
             {
                 if (doctorID.Equals(doctor.Id))
                 {
@@ -110,7 +66,7 @@ namespace Repository
 
         public void EditDoctorsExamination(String doctorID, Examination newExamination)
         {
-            foreach (Doctor doctor in this.doctorList)
+            foreach (Doctor doctor in this.DoctorList)
             {
                 if (doctorID.Equals(doctor.Id))
                 {
@@ -136,7 +92,7 @@ namespace Repository
         {
 
             using FileStream stream = File.OpenRead(dbPath);
-            this.doctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
+            this.DoctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
 
             return true;
         }
@@ -145,7 +101,7 @@ namespace Repository
 
         public bool SaveDoctor()
         {
-            string jsonString = JsonSerializer.Serialize(doctorList);
+            string jsonString = JsonSerializer.Serialize(DoctorList);
 
             File.WriteAllText(dbPath, jsonString);
             return true;

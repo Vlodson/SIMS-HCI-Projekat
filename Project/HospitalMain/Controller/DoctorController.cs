@@ -58,9 +58,9 @@ namespace Controller
             return _doctorService.GetBookedExamination(dateTime, doctorType);
         }
 
-        public ObservableCollection<Examination> GetFreeExaminations(DateTime startDate, DateTime endDate, DoctorType doctorType)
+        public ObservableCollection<Examination> GetFreeExaminations(ObservableCollection<DateTime> startEndRange, DoctorType doctorType)
         {
-            return _doctorService.GetFreeExaminations(startDate, endDate, doctorType);
+            return _doctorService.GetFreeExaminations(startEndRange, doctorType);
         }
 
         public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)

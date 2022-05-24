@@ -35,8 +35,6 @@ namespace Repository
             //ObservableCollection<Report> reports = new ObservableCollection<Report>();
             //reports.Add(report);
 
-
-
             //ObservableCollection<Allergens> allergens1 = new ObservableCollection<Allergens>();
             //ObservableCollection<Allergens> allergens2 = new ObservableCollection<Allergens>();
             //ObservableCollection<Allergens> allergens3 = new ObservableCollection<Allergens>();
@@ -97,23 +95,6 @@ namespace Repository
             if (File.Exists(dbPath))
                 LoadMedicalRecord();
 
-        }
-
-        public int generateID()
-        {
-            int maxID = 0;
-            ObservableCollection<MedicalRecord> medicicalRecords = MedicalRecords;
-
-            foreach(MedicalRecord medicalRecord in medicicalRecords)
-            {
-                int medicalRecordID = Int32.Parse(medicalRecord.ID);
-                if (medicalRecordID > maxID)
-                {
-                    maxID = medicalRecordID;
-                }
-            }
-          
-            return maxID + 1;
         }
         
         public bool NewMedicalRecord(MedicalRecord medRecord)
@@ -179,11 +160,6 @@ namespace Repository
             }    
 
             return null;
-        }
-
-        public ObservableCollection<MedicalRecord> ReadAllMedicalRecords()
-        {
-            return MedicalRecords;
         }
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)

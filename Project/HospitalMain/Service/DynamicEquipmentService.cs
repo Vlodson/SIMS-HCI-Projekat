@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HospitalMain.Enums;
+using System.Collections.ObjectModel;
 
 namespace HospitalMain.Service
 {
@@ -27,7 +28,19 @@ namespace HospitalMain.Service
 
         public int generateID()
         {
-            return _dynamicEquipmentRepo.generateID();
+            int maxID = 0;
+            ObservableCollection<DynamicEquipmentRequest> equipment = getAllRequests();
+
+            foreach (DynamicEquipmentRequest order in equipment)
+            {
+                int orderID = Int32.Parse(order.ID);
+                if (orderID > maxID)
+                {
+                    maxID = orderID;
+                }
+            }
+
+            return maxID + 1;
         }
 
         public bool NewOrder(DynamicEquipmentRequest dynamicEquipmentRequest)
@@ -45,9 +58,14 @@ namespace HospitalMain.Service
             _dynamicEquipmentRepo.DeleteOrder(orderID);
         }
 
+        public ObservableCollection<DynamicEquipmentRequest> getAllRequests()
+        {
+            return _dynamicEquipmentRepo.DynamicEquipment;
+        }
+
         public void CheckIfOrderArrived()
         {
-            foreach(DynamicEquipmentRequest request in _dynamicEquipmentRepo.getAllRequests())
+            foreach(DynamicEquipmentRequest request in getAllRequests())
             {
                 if(request.OrderDate.AddDays(3) < DateTime.Now)
                 {
@@ -59,16 +77,15 @@ namespace HospitalMain.Service
 
         private void AddToWareHouse(DynamicEquipmentRequest dynamicEquipmentRequest)
         {
-            //treba odraditi ovo
-            int maxID = 0;
-            if (_equipmentRepo.Equipment.Count > 0)
-            {
-                maxID = _equipmentRepo.Equipment.Max(eq => int.Parse(eq.Id)) + 1;
-            }
+            Room storageRoom = FindStorageRoom();
+            AddEquipmentToStorageRoom(storageRoom, dynamicEquipmentRequest);
+        }
 
+        private Room FindStorageRoom()
+        {
             Room storageRoom = null;
 
-            foreach(Room room in _roomRepo.Rooms)
+            foreach (Room room in _roomRepo.Rooms)
             {
                 if (room.Type.Equals(RoomTypeEnum.Storage_Room))
                 {
@@ -77,14 +94,24 @@ namespace HospitalMain.Service
                 }
             }
 
-            for(int i = 0; i < dynamicEquipmentRequest.Quantity; i++)
+            return storageRoom;
+        }
+
+        private void AddEquipmentToStorageRoom(Room storageRoom, DynamicEquipmentRequest dynamicEquipmentRequest)
+        {
+            int maxID = 0;
+            if (_equipmentRepo.Equipment.Count > 0)
+            {
+                maxID = _equipmentRepo.Equipment.Max(eq => int.Parse(eq.Id)) + 1;
+            }
+
+            for (int i = 0; i < dynamicEquipmentRequest.Quantity; i++)
             {
                 Equipment equipment = new Equipment(maxID.ToString(), storageRoom.Id, EquipmentTypeEnum.Expendable_Material);
                 maxID++;
 
                 _roomRepo.AddEquipment(storageRoom.Id, equipment);
             }
-
         }
     }
 }

@@ -44,12 +44,23 @@ namespace Service
 
         public int generateID (ObservableCollection<Examination> examinations)
         {
-            return _examinationRepo.generateID(examinations);
+            int maxID = 0;
+
+            foreach (Examination exam in examinations)
+            {
+                int examID = Int32.Parse(exam.Id);
+                if (maxID < examID)
+                {
+                    maxID = examID;
+                }
+            }
+
+            return maxID + 1;
         }
 
         public ObservableCollection<Examination> getAllExaminations()
         {
-            return _examinationRepo.GetAll();
+            return _examinationRepo.ExaminationList;
         }
 
         public void SaveExaminationRepo()
@@ -69,9 +80,9 @@ namespace Service
 
         public bool CheckIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.GetAll();
-            ObservableCollection<Patient> patientsFromBase = _patientRepo.GetAllPatients();
-            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.GetAllDoctors();
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Patient> patientsFromBase = _patientRepo.Patients;
+            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.DoctorList;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -98,9 +109,9 @@ namespace Service
 
         public bool CheckIfAppointmentExistsForEditing(String ExamID ,DateTime date, Doctor doctor, String PatientID, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.GetAll();
-            ObservableCollection<Patient> patientsFromBase = _patientRepo.GetAllPatients();
-            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.GetAllDoctors();
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Patient> patientsFromBase = _patientRepo.Patients;
+            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.DoctorList;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -272,12 +283,12 @@ namespace Service
 
         public ObservableCollection<Model.Patient> GetPatients()
         {
-            return _patientRepo.GetAllPatients();
+            return _patientRepo.Patients;
         }
 
         public ObservableCollection<Examination> GetExaminations()
         {
-            return _examinationRepo.GetAll();
+            return _examinationRepo.ExaminationList;
         }
 
         public List<Examination> GetExamByTime(DateTime dateTime)
