@@ -68,5 +68,9 @@ namespace Controller
             medRecordService.EditReadNotification(medicalRecord, notification);
         }
 
+        public void AddNote(Report report,String note)
+        {
+            medRecordService.AddNote(report,note);
+        }
     }
 }

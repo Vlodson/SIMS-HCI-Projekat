@@ -75,7 +75,7 @@
             </Rectangle.Fill>
         </Rectangle>
         <Label Content="Istorija pregleda" FontSize="18" HorizontalAlignment="Left" Margin="33,302,0,0" VerticalAlignment="Top"/>
-        <DataGrid ItemsSource ="{Binding Reports}" AutoGenerateColumns="False" SelectionMode="Single" Margin="38,352,53,117">
+        <DataGrid ItemsSource ="{Binding Reports}" SelectedItem="{Binding SelectedReport}" AutoGenerateColumns="False" SelectionMode="Single" Margin="38,352,53,117">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -87,7 +87,7 @@
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Pregledaj" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top">
+        <Button Content="Pregledaj" Command="{Binding ViewReportCommand}" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

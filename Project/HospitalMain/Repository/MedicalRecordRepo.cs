@@ -31,11 +31,11 @@ namespace Repository
             ts.Add(therapy2);
             ts.Add(therapy3);
 
-            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts, "");
             ObservableCollection<Report> reports = new ObservableCollection<Report>();
             reports.Add(report);
 
-            Report report1 = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d14", new ObservableCollection<Therapy>());
+            Report report1 = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d14", new ObservableCollection<Therapy>(), "");
             reports.Add(report1);
 
 
