@@ -61,7 +61,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _examController.checkIfAppointmentExistsForEditing(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Doctor, _editAppointmentViewModel.PatientID, _editAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_editAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_editAppointmentViewModel.PatientID) && base.CanExecute(parameter);
+            return _examController.AppointmentDoctorEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Doctor) && _examController.AppointmentPatientEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.PatientID) && _examController.AppointmentRoomEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.RoomID)  && !string.IsNullOrEmpty(_editAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_editAppointmentViewModel.PatientID) && base.CanExecute(parameter);
         }
     
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

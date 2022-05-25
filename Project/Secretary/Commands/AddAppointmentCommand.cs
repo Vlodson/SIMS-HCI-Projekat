@@ -33,7 +33,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _examController.checkIfAppointmentExists(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor, _addAppointmentViewModel.PatientID, _addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.PatientID) && base.CanExecute(parameter);
+            return _examController.AppointmentDoctorValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.PatientID) && _examController.AppointmentRoomValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.PatientID) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)

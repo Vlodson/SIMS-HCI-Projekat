@@ -22,7 +22,6 @@ namespace Repository
         {
             this.DBPath = dbPath;
             this.MedicalRecords = new ObservableCollection<MedicalRecord>();
-
             Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
             Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
             Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
@@ -99,23 +98,6 @@ namespace Repository
                 LoadMedicalRecord();
 
         }
-
-        public int generateID()
-        {
-            int maxID = 0;
-            ObservableCollection<MedicalRecord> medicicalRecords = MedicalRecords;
-
-            foreach(MedicalRecord medicalRecord in medicicalRecords)
-            {
-                int medicalRecordID = Int32.Parse(medicalRecord.ID);
-                if (medicalRecordID > maxID)
-                {
-                    maxID = medicalRecordID;
-                }
-            }
-          
-            return maxID + 1;
-        }
         
         public bool NewMedicalRecord(MedicalRecord medRecord)
         {
@@ -180,11 +162,6 @@ namespace Repository
             }    
 
             return null;
-        }
-
-        public ObservableCollection<MedicalRecord> ReadAllMedicalRecords()
-        {
-            return MedicalRecords;
         }
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)

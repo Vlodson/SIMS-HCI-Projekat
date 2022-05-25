@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Styles/SearchRecordsTheme.xaml"/>
                 <ResourceDictionary Source="Styles/DataGridUsersTheme.xaml"/>
                 <ResourceDictionary Source="Styles/DataGridRowTheme.xaml"/>
+                <ResourceDictionary Source="Styles/MovementAnimation.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:CRUDAccountOptionsViewModel}">
@@ -64,6 +65,14 @@
 
             <DataTemplate DataType="{x:Type viewmodels:CreateGuestViewModel}">
                 <view:CreateGuestView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:RequestsViewModel}">
+                <view:RequestView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:OrderDynamicEquipmentViewModel}">
+                <view:NewDynamicEquipmentOrderView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

@@ -12,7 +12,7 @@ namespace Repository
 {
     public class DoctorRepo
     {
-        private string dbPath { get; set; }
+        public string dbPath { get; set; }
         public ObservableCollection<Doctor> DoctorList { get; set; }
 
         public DoctorRepo(string dbPath)
@@ -49,50 +49,6 @@ namespace Repository
             if (File.Exists(dbPath))
                 LoadDoctor();
 
-        }
-
-        public ObservableCollection<Doctor> GetAllDoctors()
-        {
-            return DoctorList;
-        }
-
-        public ObservableCollection<Doctor> GetDoctorsByType(DoctorType doctorType)
-        {
-            ObservableCollection<Doctor> listOfDoctors = new ObservableCollection<Doctor>();
-
-            foreach(Doctor doctor in this.DoctorList)
-            {
-                if(doctor.Type == doctorType)
-                {
-                    listOfDoctors.Add(doctor);
-                }
-            }
-
-            return listOfDoctors;
-        }
-
-        public DoctorType GetDoctorsType(string doctorID)
-        {
-            foreach(Doctor doctor in this.DoctorList)
-            {
-                if (doctor.Id.Equals(doctorID))
-                {
-                    return doctor.Type;
-                }
-            }
-            return DoctorType.None;
-        }
-
-        public Doctor GetDoctor(string id)
-        {
-            foreach(Doctor doctor in this.DoctorList)
-            {
-                if (doctor.Id.Equals(id))
-                {
-                    return doctor;
-                }
-            }
-            return null;
         }
 
         public bool AddExaminationToDoctor(String doctorID, Examination examination)

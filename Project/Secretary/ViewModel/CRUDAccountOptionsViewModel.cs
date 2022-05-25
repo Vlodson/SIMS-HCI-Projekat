@@ -55,7 +55,7 @@ namespace Secretary.ViewModel
             if (!string.IsNullOrEmpty(Filter))
             {
                 var data = pat as PatientViewModel;
-                return data != null && (data.Name.Contains(Filter) || data.Surname.Contains(Filter) || data.ID.Contains(Filter));
+                return data != null && (data.Name.ToLower().Contains(Filter.ToLower()) || data.Surname.ToLower().Contains(Filter.ToLower()) || data.ID.Contains(Filter));
             }
             return true;
         }

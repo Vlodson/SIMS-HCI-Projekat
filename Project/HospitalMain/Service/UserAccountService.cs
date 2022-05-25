@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,9 +34,14 @@ namespace Service
             return false;
         }
 
+        public ObservableCollection<UserAccount> GetAllUserAccounts()
+        {
+            return _userAccountRepo.UserAccCollection;
+        }
+
         public bool LogIn(String uid, String password, UserType type)
         {
-            foreach(UserAccount user in _userAccountRepo.GetAllUserAccounts())
+            foreach(UserAccount user in GetAllUserAccounts())
             {
                 if (uid.Equals(user.UserName) && password.Equals(user.Password))
                     return true;
@@ -46,7 +52,7 @@ namespace Service
 
         public bool Register(String uid, String password, UserType type)
         {
-            foreach(UserAccount user in _userAccountRepo.GetAllUserAccounts())
+            foreach(UserAccount user in GetAllUserAccounts())
             {
                 if (uid.Equals(user.UserName))
                     return false;

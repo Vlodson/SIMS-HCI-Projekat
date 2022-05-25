@@ -13,14 +13,14 @@ namespace Repository
     public class ExaminationRepo
     {
         public String dbPath { get; set; }
-        public ObservableCollection<Examination> examinationList { get; set; }
+        public ObservableCollection<Examination> ExaminationList { get; set; }
         public Examination TemporaryExam { get; set; }
         public int ValidationCounter { get; set; }
 
         public ExaminationRepo(String dbPath)
         {
             this.dbPath = dbPath;
-            examinationList = new ObservableCollection<Examination>();
+            ExaminationList = new ObservableCollection<Examination>();
 
             /*Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "1", "d1");
             Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
@@ -38,52 +38,31 @@ namespace Repository
             Examination exam9 = new Examination("10A", new DateTime(2022, 6, 7, 14, 00, 00), "9", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d1");
             Examination exam10 = new Examination("11", new DateTime(2022, 6, 7, 10, 00, 00), "10", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d14");
 
-            this.examinationList.Add(exam1);
-            this.examinationList.Add(exam2);
-            this.examinationList.Add(exam3);
-            this.examinationList.Add(exam4);
-            this.examinationList.Add(exam5);
-            this.examinationList.Add(exam6);
-            this.examinationList.Add(exam7);
-            this.examinationList.Add(exam8);
-            this.examinationList.Add(exam9);
-            this.examinationList.Add(exam10);
+            this.ExaminationList.Add(exam1);
+            this.ExaminationList.Add(exam2);
+            this.ExaminationList.Add(exam3);
+            this.ExaminationList.Add(exam4);
+            this.ExaminationList.Add(exam5);
+            this.ExaminationList.Add(exam6);
+            this.ExaminationList.Add(exam7);
+            this.ExaminationList.Add(exam8);
+            this.ExaminationList.Add(exam9);
+            this.ExaminationList.Add(exam10);
 
             if (File.Exists(dbPath))
                 LoadExamination();
 
         }
 
-        public ObservableCollection<Examination> GetAll()
-        {
-            return examinationList;
-        }
-
-        public int generateID(ObservableCollection<Examination> examinations)
-        {
-            int maxID = 0;
-
-            foreach(Examination exam in examinations)
-            {
-                int examID = Int32.Parse(exam.Id);
-                if (maxID < examID)
-                {
-                    maxID = examID;
-                }
-            }
-
-            return maxID + 1;
-        }
-
         public void DeleteExamination(String id)
         {
-            examinationList.Remove(GetExaminationById(id));
+            ExaminationList.Remove(GetExaminationById(id));
             SaveExamination();
         }
 
         public Examination GetExaminationById(String id)
         {
-            foreach(Examination examination in examinationList)
+            foreach(Examination examination in ExaminationList)
             {
                 if(examination.Id.Equals(id))
                 {
@@ -95,14 +74,14 @@ namespace Repository
         public bool NewExamination(Examination examination)
         {
             
-            foreach(Examination exam in examinationList)
+            foreach(Examination exam in ExaminationList)
             {
                 if(exam.Id.Equals(examination.Id))
                 {
                     return false;
                 }
             }
-            examinationList.Add(examination);
+            ExaminationList.Add(examination);
             SaveExamination();
             return true;
         }
@@ -110,7 +89,7 @@ namespace Repository
         public void SetExamination(string examID, Examination examination)
         {
             
-            foreach(Examination exam in examinationList)
+            foreach(Examination exam in ExaminationList)
             {
                 if (exam.Id.Equals(examID))
                 {
@@ -131,14 +110,14 @@ namespace Repository
         {
             
             using FileStream stream = File.OpenRead(dbPath);
-            examinationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
+            ExaminationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
             
             return true;
         }
 
         public bool SaveExamination()
         {
-            string jsonString = JsonSerializer.Serialize(examinationList);
+            string jsonString = JsonSerializer.Serialize(ExaminationList);
 
             File.WriteAllText(dbPath, jsonString);
             return true;
@@ -147,7 +126,7 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList)
+            foreach (Examination exam in ExaminationList)
             {
                 if (exam.DoctorId.Equals(id)) 
                 examsForDoctor.Add(exam);
@@ -158,98 +137,11 @@ namespace Repository
         public ObservableCollection<Examination> ExaminationsForPatient(string id)
         {
             ObservableCollection<Examination> examsForPatient = new ObservableCollection<Examination>();
-            foreach (Examination exam in examinationList)
+            foreach (Examination exam in ExaminationList)
             {
                 if (exam.PatientId.Equals(id)) examsForPatient.Add(exam);
             }
             return examsForPatient;
-        }
-
-        public ObservableCollection<Examination> GetFreeExaminations(DateTime startDate, DateTime endDate, ObservableCollection<Doctor> doctorsWithSameSpecialization)
-        {
-            //Svi termini pregleda u ustanovi u zadatom periodu
-            ObservableCollection<DateTime> examinationsInSomeRange = new ObservableCollection<DateTime>();
-
-            //Vremena
-            DateTime start = startDate.Date;
-            DateTime end = endDate.Date;
-
-            //opseg dana
-            int days = Convert.ToInt32((end - start).TotalDays);
-            for(int i = 0; i < days + 1; i++)
-            {
-                //za svaki dan se generisu termini
-                DateTime firstExamInDay = new DateTime(start.AddDays(i).Year, start.AddDays(i).Month, start.AddDays(i).Day, 7, 0, 0);
-                for(int j = 0; j < 16; j++)
-                {
-                    examinationsInSomeRange.Add(firstExamInDay.AddMinutes(j*30));
-                }
-            }
-
-            ObservableCollection<Examination> examinations = new ObservableCollection<Examination>();
-
-            foreach (Doctor doctor in doctorsWithSameSpecialization)
-            {
-                foreach(DateTime dt in examinationsInSomeRange)
-                {
-                    bool freeExam = true;
-                    foreach(Examination exam in ExaminationsForDoctor(doctor.Id))
-                    {
-                        int com = DateTime.Compare(dt, exam.Date);
-                        if(com == 0)
-                        {
-                            freeExam = false;
-                            break;
-                        }
-                    }
-                    if (freeExam)
-                    {
-                        examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                    }
-
-                }
-            }
-
-            //situuacija ako prvog dana nema nijedan slobodan termin, trazice u narednim danima sve dok ne nadje neki slobodan
-            while(examinations.Count == 0)
-            {
-                end = end.AddDays(1);
-
-                days = Convert.ToInt32((end - start).TotalDays);
-                for (int i = 0; i < days + 1; i++)
-                {
-                    //za svaki dan se generisu termini
-                    DateTime firstExamInDay = new DateTime(start.AddDays(i).Year, start.AddDays(i).Month, start.AddDays(i).Day, 7, 0, 0);
-                    for (int j = 0; j < 16; j++)
-                    {
-                        examinationsInSomeRange.Add(firstExamInDay.AddMinutes(j * 30));
-                    }
-                }
-
-                foreach (Doctor doctor in doctorsWithSameSpecialization)
-                {
-                    foreach (DateTime dt in examinationsInSomeRange)
-                    {
-                        bool freeExam = true;
-                        foreach (Examination exam in ExaminationsForDoctor(doctor.Id))
-                        {
-                            int com = DateTime.Compare(dt, exam.Date);
-                            if (com == 0)
-                            {
-                                freeExam = false;
-                                break;
-                            }
-                        }
-                        if (freeExam)
-                        {
-                            examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                        }
-
-                    }
-                }
-            }
-
-            return examinations;
         }
 
         public List<DateTime> GenerateExaminationTimes(DateTime startDate, DateTime endDate)
@@ -350,10 +242,23 @@ namespace Repository
             return examinations;
         }
 
+        public ObservableCollection<Examination> ReadEndedExams()
+        {
+            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
+                foreach (Examination exam in this.ExaminationList)
+                {
+                    int res = DateTime.Compare(exam.Date, DateTime.Now);
+                    if (res < 0)
+                        endedExams.Add(exam);
+
+                }
+            return endedExams;
+        }
+
         public List<Examination> getExamByTime(DateTime dateTime)
         {
             List<Examination> returnList = new List<Examination> ();
-            foreach(Examination examination in this.examinationList)
+            foreach(Examination examination in this.ExaminationList)
             {
                 if (examination.Date.Equals(dateTime))
                 {
@@ -365,7 +270,7 @@ namespace Repository
 
         public bool occupiedDate(DateTime dt)
         {
-            foreach(Examination exam in this.examinationList)
+            foreach(Examination exam in this.ExaminationList)
             {
                 if (exam.Date.Equals(dt))
                     return true;

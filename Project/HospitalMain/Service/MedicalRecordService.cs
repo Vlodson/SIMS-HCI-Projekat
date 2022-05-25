@@ -23,7 +23,19 @@ namespace Service
 
         public int generateID()
         {
-            return medicalRecordRepo.generateID();
+            int maxID = 0;
+            ObservableCollection<MedicalRecord> medicicalRecords = medicalRecordRepo.MedicalRecords;
+
+            foreach (MedicalRecord medicalRecord in medicicalRecords)
+            {
+                int medicalRecordID = Int32.Parse(medicalRecord.ID);
+                if (medicalRecordID > maxID)
+                {
+                    maxID = medicalRecordID;
+                }
+            }
+
+            return maxID + 1;
         }
 
         public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, BloodType bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergens> allergens, ObservableCollection<Notification> notifications)
@@ -48,7 +60,7 @@ namespace Service
 
         public ObservableCollection<MedicalRecord> GetAllMedicalRecords()
         {
-            return medicalRecordRepo.ReadAllMedicalRecords();
+            return medicalRecordRepo.MedicalRecords;
         }
 
 

@@ -39,15 +39,36 @@ namespace Controller
             return _patientService.generateID(examinations);
         }
 
-        public bool checkIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public bool AppointmentDoctorValidation(DateTime dateTime, Doctor doctor)
         {
-            return _patientService.CheckIfAppointmentExists(date, doctor, PatientID, RoomID);
+            return _patientService.AppointmentDoctorValidation(dateTime, doctor);
+        }
+           
+        public bool AppointmentPatientValidation(DateTime dateTime, String PatientID)
+        {
+            return _patientService.AppointmentPatientValidation(dateTime, PatientID);
         }
 
-        public bool checkIfAppointmentExistsForEditing(String ExamID, DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public bool AppointmentRoomValidation(DateTime dateTime, String RoomID)
         {
-            return _patientService.CheckIfAppointmentExistsForEditing(ExamID ,date, doctor, PatientID, RoomID);
+            return _patientService.AppointmentRoomValidation(dateTime, RoomID);
         }
+
+        public bool AppointmentDoctorEditValidation(String ExamID, DateTime dateTime, Doctor doctor)
+        {
+            return _patientService.AppointmentDoctorEditValidation(ExamID, dateTime, doctor);
+        }
+
+        public bool AppointmentPatientEditValidation(String ExamID, DateTime dateTime, String PatientID)
+        {
+            return _patientService.AppointmentPatientEditValidation(ExamID, dateTime, PatientID);
+        }
+
+        public bool AppointmentRoomEditValidation(String ExamID, DateTime dateTime, String RoomID)
+        {
+            return _patientService.AppointmentRoomEditValidation(ExamID, dateTime, RoomID);
+        }
+
         public ObservableCollection<Examination> getAllExaminations()
         {
             return _patientService.getAllExaminations();

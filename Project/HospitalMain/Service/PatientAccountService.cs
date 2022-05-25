@@ -21,9 +21,21 @@ namespace Service
         }
 
       public int generateID()
-        {
-            return patientRepo.generateID();
-        }
+      {
+            int maxID = 0;
+            ObservableCollection<Patient> patients = patientRepo.Patients;
+
+            foreach (Patient patient in patients)
+            {
+                int patientID = Int32.Parse(patient.ID);
+                if (patientID > maxID)
+                {
+                    maxID = patientID;
+                }
+            }
+
+            return maxID + 1;
+      }
 
       public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {
@@ -51,9 +63,9 @@ namespace Service
       }
 
       public ObservableCollection<Patient> ReadAllPatients()
-        {
-            return patientRepo.GetAllPatients();
-        }
+      {
+            return patientRepo.Patients;
+      }
       
       public bool UpgradeGuest(String guestId, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
       {

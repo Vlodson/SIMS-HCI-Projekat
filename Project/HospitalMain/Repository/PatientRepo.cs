@@ -60,23 +60,6 @@ namespace Repository
          SavePatient();
          return true;
       }
-
-      public int generateID()
-      {
-            int maxID = 0;
-            ObservableCollection<Patient> patients = Patients;
-
-            foreach(Patient patient in patients)
-            {
-                int patientID = Int32.Parse(patient.ID);
-                if(patientID > maxID)
-                {
-                    maxID = patientID;
-                }
-            }
-
-            return maxID + 1;
-      }
       
       public Patient GetPatient(String patientId)
       {
@@ -90,11 +73,6 @@ namespace Repository
 
             return null;
       }
-
-      public ObservableCollection<Patient> GetAllPatients()
-        {
-            return Patients;
-        }
       
       public void SetPaetient(String patientId, Patient newPatient)
       {

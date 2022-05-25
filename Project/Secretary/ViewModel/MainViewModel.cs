@@ -8,6 +8,8 @@ using System.Windows.Input;
 using Microsoft.Toolkit.Mvvm;
 using Microsoft.Toolkit.Mvvm.Input;
 using Secretary.Commands;
+using HospitalMain.Controller;
+using System.Threading;
 
 namespace Secretary.ViewModel
 {
@@ -36,8 +38,18 @@ namespace Secretary.ViewModel
 
         public ICommand UpdateViewCommand { get; set; }
 
+        private DynamicEquipmentController _dynamicEquipmentController;
+
         public MainViewModel(LogInViewModel logInViewModel)
         {
+            var app = System.Windows.Application.Current as App;
+            _dynamicEquipmentController = app.DynamicEquipmentController;
+            
+            ThreadStart ts = new ThreadStart(CheckIfEquipmentArrived);
+            Thread thread = new Thread(ts);
+            thread.IsBackground = true;
+            thread.Start();
+
             CurrentViewModel = new AccountsViewModel();
 
             Username = logInViewModel.Username;
@@ -45,5 +57,15 @@ namespace Secretary.ViewModel
             UpdateViewCommand = new UpdateViewCommand(this);
         }
 
+        private void CheckIfEquipmentArrived()
+        {
+            while (true)
+            {
+                _dynamicEquipmentController.CheckIfOrderArrived();
+
+                //proverava na svakih minut
+                Thread.Sleep(60 * 1000);
+            }
+        }
     }
 }

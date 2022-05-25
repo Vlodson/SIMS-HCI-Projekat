@@ -45,6 +45,7 @@ namespace HospitalMain.Repository
                     dynamicEquipment.Quantity = newOrder.Quantity;
                     dynamicEquipment.ShortDescription = newOrder.ShortDescription;
                     dynamicEquipment.EquipmentType = newOrder.EquipmentType;
+                    dynamicEquipment.OrderDate = newOrder.OrderDate;
                     break;
                 }
             }
