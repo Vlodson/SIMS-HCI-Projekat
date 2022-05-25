@@ -78,40 +78,54 @@ namespace Service
             return _patientRepo.GetPatient(id);
         }
 
-        public bool CheckIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public bool AppointmentRoomValidation(DateTime date, String RoomID)
         {
             ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
-            ObservableCollection<Patient> patientsFromBase = _patientRepo.Patients;
-            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.DoctorList;
 
-            foreach (Examination exam in examinationsFromBase)
+            foreach(Examination exam in examinationsFromBase)
             {
-                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
-                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
-
-                //int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher)
+                //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
+                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && RoomID.Equals(exam.ExamRoomId))
                 {
-                    //ne moze jedan doktor da ima dva pregleda u isto vreme
-                    return false;
-                } else if(date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
-                {
-                    //ne moze jedan pacijent da ima dva pregleda u isto vreme
-                    return false;
-                } else if(date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
-                {
-                    //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
                     return false;
                 }
             }
             return true;
         }
 
-        public bool CheckIfAppointmentExistsForEditing(String ExamID ,DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public bool AppointmentDoctorValidation(DateTime date, Doctor doctor)
         {
             ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
-            ObservableCollection<Patient> patientsFromBase = _patientRepo.Patients;
-            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.DoctorList;
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                //ne moze jedan doktor da ima dva pregleda u isto vreme
+                if (doctor.Id.Equals(exam.DoctorId) && date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool AppointmentPatientValidation(DateTime date, String PatientID)
+        {
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                //ne moze jedan pacijent da ima dva pregleda u isto vreme
+                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && PatientID.Equals(exam.PatientId))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool AppointmentRoomEditValidation(String ExamID, DateTime date, String RoomID)
+        {
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -119,24 +133,47 @@ namespace Service
                 {
                     continue;
                 }
-
-                DateTime dateTimeHigher = exam.Date.AddMinutes(30);
-                DateTime dateTimeLower = exam.Date.AddMinutes(-30);
-
-                //int res = DateTime.Compare(date, exam.Date);
-                if (doctor.Id.Equals(exam.DoctorId) && date > dateTimeLower && date < dateTimeHigher )
+                //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
+                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && RoomID.Equals(exam.ExamRoomId))
                 {
-                    //ne moze jedan doktor da ima dva pregleda u isto vreme
                     return false;
                 }
-                else if (date > dateTimeLower && date < dateTimeHigher && PatientID.Equals(exam.PatientId))
+            }
+            return true;
+        }
+
+        public bool AppointmentDoctorEditValidation(String ExamID, DateTime date, Doctor doctor)
+        {
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                if (exam.Id.Equals(ExamID))
                 {
-                    //ne moze jedan pacijent da ima dva pregleda u isto vreme
+                    continue;
+                }
+                //ne moze jedan doktor da ima dva pregleda u isto vreme
+                if (doctor.Id.Equals(exam.DoctorId) && date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30))
+                {
                     return false;
                 }
-                else if (date > dateTimeLower && date < dateTimeHigher && RoomID.Equals(exam.ExamRoomId))
+            }
+            return true;
+        }
+
+        public bool AppointmentPatientEditValidation(String ExamID, DateTime date, String PatientID)
+        {
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+
+            foreach (Examination exam in examinationsFromBase)
+            {
+                if (exam.Id.Equals(ExamID))
                 {
-                    //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
+                    continue;
+                }
+                //ne moze jedan pacijent da ima dva pregleda u isto vreme
+                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && PatientID.Equals(exam.PatientId))
+                {
                     return false;
                 }
             }

@@ -37,7 +37,7 @@ namespace Secretary.ViewModel
             set { roomID = value; OnPropertyChanged(nameof(RoomID)); }
         }
 
-        private DateTime date = new DateTime(2022, 1, 1);
+        private DateTime date = DateTime.Now;
 
         public DateTime Date
         {

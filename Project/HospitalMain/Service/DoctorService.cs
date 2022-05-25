@@ -140,12 +140,22 @@ namespace Service
 
             foreach(Doctor doctor in doctors)
             {
-                foreach(Examination exam in ExaminationsForDoctor(doctor.Id))
+                Examination exam = sdsadas(doctor, dateTime);
+                if(exam != null)
                 {
-                    if(exam.Date == dateTime)
-                    {
-                        return exam;
-                    }
+                    return exam;
+                }
+            }
+            return null;
+        }
+
+        private Examination sdsadas(Doctor doctor, DateTime dateTime)
+        {
+            foreach (Examination exam in ExaminationsForDoctor(doctor.Id))
+            {
+                if (exam.Date == dateTime)
+                {
+                    return exam;
                 }
             }
             return null;
@@ -203,51 +213,52 @@ namespace Service
         //funkcija koja vraca slobodne termine u odredjenom periodu razlicitih doktora iste specijalizacije, kako bi se odabrao jedan od tih termina u koji ce biti pomeren pregled i pacijent koga je pomerio hitan slucaj
         public ObservableCollection<Examination> GetFreeExaminations(ObservableCollection<DateTime> startEndRange, DoctorType doctorType)
         {
-            ObservableCollection<Doctor> doctors = GetDoctorsByType(doctorType);
-            ObservableCollection<Examination> listExams = GetFree(startEndRange, doctors);
+            ObservableCollection<Examination> listExams = GetFree(startEndRange, doctorType);
             return listExams;
         }
 
-        public ObservableCollection<Examination> GetFree(ObservableCollection<DateTime> startEndRange, ObservableCollection<Doctor> doctorsWithSameSpecialization)
+        public ObservableCollection<Examination> GetFree(ObservableCollection<DateTime> startEndRange, DoctorType doctorType)
         {
-            //Vremena
-            DateTime start = startEndRange[0].Date;
-            DateTime end = startEndRange[1].Date;
-
             ObservableCollection<Examination> examinations = new ObservableCollection<Examination>();
-
-            foreach (Doctor doctor in doctorsWithSameSpecialization)
-            {
-                foreach (DateTime dt in CreateExamsInOneDay(startEndRange))
-                {
-                    if (CheckIfExamIsFree(doctor, dt))
-                    {
-                        examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                    }
-                }
-            }
+            ListFreeDoctorsAppointments(doctorType, examinations, startEndRange);
 
             //situuacija ako prvog dana nema nijedan slobodan termin, trazice u narednim danima sve dok ne nadje neki slobodan
             while (examinations.Count == 0)
             {
-                startEndRange.Clear();
-                startEndRange.Add(start);
-                end = end.AddDays(1);
-                startEndRange.Add(end);
+                ResetStartEndRange(startEndRange);
+                ListFreeDoctorsAppointments(doctorType, examinations, startEndRange);
+            }
+            return examinations;
+        }
 
-                foreach (Doctor doctor in doctorsWithSameSpecialization)
+        private void ListFreeDoctorsAppointments(DoctorType doctorType, ObservableCollection<Examination> examinations, ObservableCollection<DateTime> startEndRange)
+        {
+            foreach (Doctor doctor in GetDoctorsByType(doctorType))
+            {
+                ListFreeAppointmentsForDoctor(doctor, examinations, startEndRange);
+            }
+        }
+
+        private void ListFreeAppointmentsForDoctor(Doctor doctor, ObservableCollection<Examination> examinations, ObservableCollection<DateTime> startEndRange)
+        {
+            foreach (DateTime dt in CreateExamsInOneDay(startEndRange))
+            {
+                if (CheckIfExamIsFree(doctor, dt))
                 {
-                    foreach (DateTime dt in CreateExamsInOneDay(startEndRange))
-                    {
-                        if (CheckIfExamIsFree(doctor, dt))
-                        {
-                            examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
-                        }
-                    }
+                    examinations.Add(new Examination("", dt, "-1", 30, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
             }
+        }
 
-            return examinations;
+        private void ResetStartEndRange(ObservableCollection<DateTime> startEndRange)
+        {
+            DateTime start = startEndRange[0].Date;
+            DateTime end = startEndRange[1].Date;
+
+            startEndRange.Clear();
+            startEndRange.Add(start);
+            end = end.AddDays(1);
+            startEndRange.Add(end);
         }
 
         private bool CheckIfExamIsFree(Doctor doctor, DateTime dt)
