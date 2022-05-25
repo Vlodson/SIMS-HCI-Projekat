@@ -19,10 +19,10 @@ namespace Model
             }
         }
         private string examId;
-        private string medicine; //zamjeniti sa klasom Medicine(Lek) kad se implementira
+        private string medicine;
         private int duration;
         private int perDay;
-        private bool prescription; //da li se izdaje recept za ovaj lek ili ne
+        private bool prescription;
 
         public Therapy(string examId, string medicine, int duration, int perDay, bool prescription )
         {

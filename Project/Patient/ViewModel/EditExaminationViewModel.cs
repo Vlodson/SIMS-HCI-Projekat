@@ -107,7 +107,26 @@ namespace Patient.ViewModel
             _examController = app.ExamController;
 
             AvailableDates = _doctorController.MoveExaminations(ExaminationsList.selected);
-            DoctorType = ExaminationsList.selected.DoctorType.ToString();
+            switch (ExaminationsList.selected.DoctorType)
+            {
+                case Model.DoctorType.Pulmonology:
+                    DoctorType = "pulmologija";
+                    break;
+                case Model.DoctorType.Cardiology:
+                    DoctorType = "kardiologija";
+                    break;
+                case Model.DoctorType.Neurology:
+                    DoctorType = "Neurologija";
+                    break;
+                case Model.DoctorType.Dermatology:
+                    DoctorType = "dermatologija";
+                    break;
+                default:
+                    DoctorType = "opšta praksa";
+                    break;
+
+            }
+            DoctorType = ExaminationsList.selected.DoctorTypeString;
             DoctorNameSurname = ExaminationsList.selected.DoctorNameSurname;
             OldDate = ExaminationsList.selected.Date;
 

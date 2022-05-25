@@ -67,7 +67,7 @@ namespace Secretary
             PatientController = new PatientController(patientAccService);
 
             DoctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
-            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo);
+            DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo, PatientRepo);
             DoctorController = new DoctorController(doctorService);
 
             ObservableCollection<MedicalRecord> medicicalRecords = new ObservableCollection<MedicalRecord>();

@@ -17,9 +17,9 @@ namespace Controller
             this._roomService = _roomService;
         }
 
-        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type)
+        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type, RoomTypeEnum previousType)
         {
-            return _roomService.CreateRoom(id, floor, roomNb, occupancy, type);
+            return _roomService.CreateRoom(id, floor, roomNb, occupancy, type, previousType);
         }
       
         public bool RemoveRoom(String roomId)
@@ -27,9 +27,9 @@ namespace Controller
             return _roomService.RemoveRoom(roomId);
         }
       
-        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType)
+        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
         {
-            _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType);
+            _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType, newPreviousType);
         }
       
         public Room ReadRoom(String roomId)

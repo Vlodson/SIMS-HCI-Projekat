@@ -14,16 +14,14 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGridExams" Grid.Row="1" ItemsSource="{Binding examinations, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,78,56,-133" Grid.RowSpan="2" >
+        <DataGrid x:Name="dataGridExams" Grid.Row="1" ItemsSource="{Binding examinations, Mode=OneWay}" Height="350" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,78,56,-133" Grid.RowSpan="2" VerticalScrollBarVisibility="Visible">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Pacijent" Binding="{Binding PatientId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tip" Binding="{Binding EType}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prostorija" Binding="{Binding ExamRoomId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pacijent" Binding="{Binding NameSurnamePatient }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name ="Choose" Grid.Row="2" Template="{StaticResource BasicButton}" Content ="Odaberi" Margin="0,330,0,-330" Click="Choose_Click" />
-        <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
+        <Button Name ="Choose" Grid.Row="2" Template="{StaticResource BasicButton}" Content ="Odaberi" Margin="448,330,56,-330" Click="Choose_Click" />
+        <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="193" Canvas.Top="12" >ODABERI PREGLED</TextBlock>
         </Canvas>
     </Grid>

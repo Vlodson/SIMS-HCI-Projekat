@@ -18,14 +18,13 @@ namespace Utility
         public static String PatientsDBPath = Path.Combine(DBPath, "Patients.json");
         public static String DoctorsDBPath = Path.Combine(DBPath, "Doctors.json");
         public static String MedicalRecordDBPath = Path.Combine(DBPath, "MedicalRecords.json");
+        public static String MedicineDBPath = Path.Combine(DBPath, "Medicines.json");
         public static String TherapyDBPath = Path.Combine(DBPath, "Therapy.json");
         public static String ReportDBPath = Path.Combine(DBPath, "Reports.json");
         public static String UserDBPath = Path.Combine(DBPath, "Users.json");
         public static String DynamicEquipmentDBPath = Path.Combine(DBPath, "DynamicEquipment.json");
-
         public static String QuestionnaireDBPath = Path.Combine(DBPath, "Questionnaires.json");
-
         public static String RequestDBPath = Path.Combine(DBPath, "Request.json");
-
+        public static String ReferralDBPath = Path.Combine(DBPath, "Referrals.json");
     }
 }

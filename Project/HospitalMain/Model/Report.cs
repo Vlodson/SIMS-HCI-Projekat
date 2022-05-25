@@ -26,8 +26,9 @@ namespace Model
         private string patientId;
         private string doctorId;
         private ObservableCollection<Therapy> therapy;
+        private string note;
 
-        public Report(string examinationId, string description, DateTime createDate, string patientId, string doctorId, ObservableCollection<Therapy> therapy)
+        public Report(string examinationId, string description, DateTime createDate, string patientId, string doctorId, ObservableCollection<Therapy> therapy, string note)
         {
             this.examinationId = examinationId;
             this.description = description;
@@ -35,6 +36,7 @@ namespace Model
             this.patientId = patientId;
             this.doctorId = doctorId;
             this.therapy = therapy;
+            this.note = note;
         }
 
         public string ExaminationId
@@ -114,5 +116,21 @@ namespace Model
                 }
             }
         }
+
+        public String Note
+        {
+            get
+            {
+                return note;
+            }
+            set
+            {
+                note = value;
+                OnPropertyChanged("Note");
+            }
+        }
+
+        public String DoctorNameSurname { get; set; }
+        public String DoctorType { get; set; }
     }
 }

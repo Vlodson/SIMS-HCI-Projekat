@@ -37,28 +37,16 @@ namespace Doctor.View
         private DateTime dateBind;
         private Examination selectedExam;
         private int dur;
-        private int perDay;
 
         private TherapyController _therapyController;
         private TherapyRepo _therapyRepo;
         private ReportPage _reportPage;
+        private PatientController _patientController;
 
         public string PatientBind { get => patientBind; set => patientBind = value; }
         public DateTime DateBind { get => dateBind; set => dateBind = value; }
         public Examination SelectedExam { get => selectedExam; set => selectedExam = value; }
 
-        public int PerDay
-        {
-            get
-            {
-                return perDay;
-            }
-            set
-            {
-                perDay = value;
-                OnPropertyChanged("PerDay");
-            }
-        }
         public int Dur
         {
             get
@@ -76,28 +64,31 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
-            this.PatientBind = exam.PatientId;
-            this.DateBind = exam.Date;
-            this.selectedExam = exam;
-            _reportPage = reportPage;
 
             App app = Application.Current as App;
             _therapyController = app.therapyController;
             _therapyRepo = app.therapyRepo;
-        }
+            _patientController = app.patientController;
 
+            PatientBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
+            DateBind = exam.Date;
+            selectedExam = exam;
+            _reportPage = reportPage;
+        }
         private void add_Click(object sender, RoutedEventArgs e)
         {
-            string medicine = comboBoxMedicine.Text;
-            int duration = Int32.Parse(textBoxDuration.Text);
-            int perDay = Int32.Parse(textBoxPerDay.Text);
-            bool prescription = (bool)checkBoxPrescription.IsChecked;
+            if(!comboBoxMedicine.Text.Equals("") && !textBoxDuration.Text.Equals("") && !textBoxPerDay.Text.Equals("")){
+                string medicine = comboBoxMedicine.Text;
+                int duration = Int32.Parse(textBoxDuration.Text);
+                int perDay = Int32.Parse(textBoxPerDay.Text);
+                bool prescription = (bool)checkBoxPrescription.IsChecked;
 
-            Therapy therapy = new Therapy(selectedExam.Id, medicine, duration, perDay, prescription);
-            _therapyController.NewTherapy(therapy);
-            _therapyRepo.SaveTherapy();
-            _reportPage = new ReportPage(selectedExam);
-            NavigationService.Navigate(_reportPage);
+                Therapy therapy = new Therapy(selectedExam.Id, medicine, duration, perDay, prescription);
+                _therapyController.NewTherapy(therapy);
+                _reportPage = new ReportPage(selectedExam);
+                NavigationService.Navigate(_reportPage);
+            }
+            
         }
     }
 }

@@ -22,10 +22,10 @@ namespace Model
 
         private String _id;
         private Room _originRoom;
+        private Room _destinationRoom;
         private RenovationTypeEnum _type;
         private DateOnly _startDate;
         private DateOnly _endDate;
-        private String _signature;
 
         public String Id
         {
@@ -49,6 +49,19 @@ namespace Model
                 {
                     _originRoom = value;
                     OnPropertyChanged("OriginRoom");
+                }
+            }
+        }
+
+        public Room DestinationRoom
+        {
+            get { return _destinationRoom; }
+            set
+            {
+                if (_destinationRoom != value)
+                {
+                    _destinationRoom = value;
+                    OnPropertyChanged("DestinationRoom");
                 }
             }
         }
@@ -92,46 +105,33 @@ namespace Model
             }
         }
 
-        public String Signature
-        {
-            get { return _signature; }
-            set
-            {
-                if(value != _signature)
-                {
-                    _signature = value;
-                    OnPropertyChanged("Signature");
-                }
-            }
-        }
-
         public Renovation() { }
-        public Renovation(String id, Room originRoom, RenovationTypeEnum type, DateOnly start, DateOnly end, String signature)
+        public Renovation(String id, Room originRoom, Room destinationRoom, RenovationTypeEnum type, DateOnly start, DateOnly end)
         {
             Id = id;
             OriginRoom = originRoom;
+            DestinationRoom = destinationRoom;
             Type = type;
             StartDate = start;
             EndDate = end;
-            Signature = signature;
         }
         public Renovation(Renovation renovation)
         {
             this.Id = renovation.Id;
             this.OriginRoom = renovation.OriginRoom;
+            this.DestinationRoom = renovation.DestinationRoom;
             Type = renovation.Type;
             StartDate = renovation.StartDate;
             EndDate = renovation.EndDate;
-            Signature = renovation.Signature;
         }
         public Renovation(RenovationAnnotation renovationAnnotation)
         {
             this.Id = renovationAnnotation.Id;
             this.OriginRoom = null;
+            this.DestinationRoom = null;
             this.Type = renovationAnnotation.Type;
             this.StartDate = DateOnly.Parse(renovationAnnotation.StartDate);
             this.EndDate = DateOnly.Parse(renovationAnnotation.EndDate);
-            this.Signature = renovationAnnotation.Signature;
         }
 
     }

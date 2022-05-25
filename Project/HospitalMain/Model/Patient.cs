@@ -269,7 +269,21 @@ namespace Model
                 OnPropertyChanged("NumberNewExams");
             }
         }
-        
+        public string NameSurname
+        {
+            get
+            {
+                return name + " " + surname;
+            }
+            set
+            {
+                string[] splitted = value.Split(" ");
+                name = splitted[0];
+                surname = splitted[1];
+                OnPropertyChanged("NameSurname");
+            }
+        }
+
         public override string ToString()
         {
             return Name;

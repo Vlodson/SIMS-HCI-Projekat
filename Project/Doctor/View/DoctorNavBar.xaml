@@ -8,7 +8,7 @@
         Title="DoctorNavBar" ResizeMode="NoResize" Height="768" Width="1024" Closed="Window_Closed">
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="Azure"/>
+            <Setter Property="Background" Value="#FFD8ECEC"/>
             <Setter Property="FontSize" Value="19"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Height" Value="90"/>
@@ -57,57 +57,57 @@
 
                             <Button Click="ButtonSchedule" Grid.Row="0" Height="90" VerticalAlignment="Top" Margin="0,-22,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2" >
                                 <DockPanel Height="56" Width="240">
-                                    <Image Source="/View/schedule.png" Height="41" Width="52"/>
+                                    <Image Source="/Images/schedule.png" Height="41" Width="52"/>
                                     <TextBlock Height="30" HorizontalAlignment="Center"> Raspored</TextBlock>
                                 </DockPanel>
                             </Button>
 
                             <Button Grid.Row="1" Click="ButtonExaminations" Margin="0,13,0,7" Grid.RowSpan="2" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="250">
-                                    <Image Source="/View/exams.png" Height="47" Width="55"/>
-                                    <TextBlock Height="28" HorizontalAlignment="Center"> Pregledi</TextBlock>
+                                    <Image Source="/Images/exams.png" Height="47" Width="55"/>
+                                    <TextBlock Height="36" Width="112"> Pregledi</TextBlock>
                                 </DockPanel>
                             </Button>
 
                             <Button Grid.Row="2" Click="ButtonRequests" Margin="0,48,0,27" Grid.RowSpan="3" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="250">
-                                    <Image Source="/View/requests.png" Height="47" Width="55"/>
+                                    <Image Source="/Images/requests.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Podnosenje zahteva</TextBlock>
                                 </DockPanel>
                             </Button>
 
                             <Button Grid.Row="4" Click="ButtonPatients" Margin="0,28,0,47" Grid.RowSpan="3" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="240">
-                                    <Image Source="/View/patients.png" Height="47" Width="55"/>
+                                    <Image Source="/Images/patients.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Kartoni pacijenta</TextBlock>
                                 </DockPanel>
                             </Button>
 
                             <Button Grid.Row="6" Click="ButtonVerification" Margin="0,7,0,13" Grid.RowSpan="2" Grid.ColumnSpan="2" >
                                 <DockPanel Height="56" Width="250">
-                                    <Image Source="/View/verification.png" Height="47" Width="55"/>
+                                    <Image Source="/Images/verification.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Verifikovanje lekova</TextBlock>
                                 </DockPanel>
                             </Button>
 
                             <Button Grid.Row="7" Margin="0,42,0,-77" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="240">
-                                    <Image Source="/View/help.png" Height="47" Width="55"/>
+                                    <Image Source="/Images/help.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Pomoc</TextBlock>
                                 </DockPanel>
                             </Button>
 
-                            <Button Grid.Row="7" Click="ButtonNotifications" Margin="0,133,0,-168" Grid.ColumnSpan="2">
+                            <Button Grid.Row="7" Click="ButtonNotifications" Margin="0,132,0,-167" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="240">
-                                    <Image Source="/View/notification.png" Height="47" Width="55"/>
+                                    <Image Source="/Images/notifications.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Obavestenja</TextBlock>
                                 </DockPanel>
                             </Button>
 
-                            <Button Grid.Row="7" Click="ButtonLogOut" Margin="0,223,0,-258" Grid.ColumnSpan="2">
+                            <Button Grid.Row="7" Click="ButtonLogOut" Margin="0,222,0,-257" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="240">
-                                    <Image Source="/View/logOut.png" Height="47" Width="55"/>
-                                    <TextBlock Height="28" HorizontalAlignment="Center"> Odjavi se</TextBlock>
+                                    <Image Source="/Images/logout.png" Height="47" Width="55"/>
+                                    <TextBlock Height="36" Width="110"> Odjavi se</TextBlock>
                                 </DockPanel>
                             </Button>
 

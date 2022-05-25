@@ -18,14 +18,19 @@ namespace Controller
             _equipmentTransferService = equipmentTransferService;
         }
 
-        public bool ScheduleTransfer(String id, String originRoomId, String destinationRoomId, String equipmentId, DateOnly startDate, DateOnly endDate)
+        public bool ScheduleTransfer(EquipmentTransfer equipmentTransfer)
         {
-            return _equipmentTransferService.ScheduleTransfer(id, originRoomId, destinationRoomId, equipmentId, startDate, endDate);
+            return _equipmentTransferService.ScheduleTransfer(equipmentTransfer);
         }
 
-        public bool RecordTransfer(String trainsferId, String signature)
+        public bool RecordTransfer(String trainsferId)
         {
-            return _equipmentTransferService.RecordTransfer(trainsferId, signature);
+            return _equipmentTransferService.RecordTransfer(trainsferId);
+        }
+
+        public bool OccupiedAtTheTime(EquipmentTransfer equipmentTransfer)
+        {
+            return _equipmentTransferService.OccupiedAtTheTime(equipmentTransfer);
         }
 
         public bool DeleteEquipmentTransfer(String equipmentTransferId)

@@ -1,0 +1,50 @@
+﻿<Window x:Class="Patient.Views.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Patient.Views"
+        mc:Ignorable="d"
+        Title="ReportWindow" Height="450" Width="669">
+    <Window.Resources>
+        <Style x:Key="Buttons" TargetType="Button">
+            <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontFamily" Value="TimesNewRoman"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#b2d8d8"/>
+        </Grid.Background>
+        <Label Content="Datum:" HorizontalAlignment="Left" Margin="8,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lekar:" HorizontalAlignment="Left" Margin="362,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding DateLabel}" HorizontalAlignment="Left" Margin="63,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding DoctorLabel}" HorizontalAlignment="Left" Margin="408,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Izveštaj" FontSize="32" HorizontalAlignment="Left" Margin="8,28,0,0" VerticalAlignment="Top"/>
+        <TextBlock Text="{Binding Description}" HorizontalAlignment="Left" Margin="17,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="Terapija:" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
+        <DataGrid ItemsSource="{Binding TherapyList}" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,217,266,89">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv leka" Binding="{Binding Medicine}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Kolicina na dan" Binding="{Binding PerDay}" Width="*"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Recept" Binding="{Binding Prescription}" Width="*"></DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Beleška:" HorizontalAlignment="Left" Margin="408,191,0,0" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="413,222,0,0" TextWrapping="Wrap" Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top"/>
+        <Button Content="Dodaj/Izmeni belešku" Command="{Binding EditNoteCommand}"  HorizontalAlignment="Left" Margin="531,371,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+    </Grid>
+</Window>

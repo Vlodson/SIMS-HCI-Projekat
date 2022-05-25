@@ -24,7 +24,9 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button x:Name="backBtn" Content="Back" Click="backBtn_Click" />
+            <Button x:Name="backBtn" Click="backBtn_Click" Style="{StaticResource ButtonWithIcon}">
+                <Image Source="..\Icons\back-16.png" />
+            </Button>
         </StackPanel>
 
         <Grid x:Name="roomGrid" Grid.Row="2" Grid.Column="1">
@@ -45,7 +47,7 @@
             </StackPanel>
 
             <Border x:Name="Hall" Grid.Row="2" Grid.Column="1" Height="30" Width="Auto" BorderBrush="Black" BorderThickness="1" 
-                    Background="Transparent" >
+                    Background="#ECECEC" >
                 <TextBlock Text="Hall" HorizontalAlignment="Center" />
             </Border>
 

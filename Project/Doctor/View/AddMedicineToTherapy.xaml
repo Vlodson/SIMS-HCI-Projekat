@@ -18,28 +18,17 @@
 
         <Grid Margin="174,268,30,51">
             <Border Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="-126,-21,26,144">
-                <Grid Margin="26,0,202,38">
+                <Grid Margin="26,0,46,10">
                     <Label Content="Lek:" Margin="100,6,209,154" />
                     <Label Content="Trajanje(dana):" Margin="0,52,219,100" />
                     <Label Content="Dnevno:" Margin="51,107,219,48" />
                     <Label Content="Recept:" Margin="60,153,228,0"/>
-                    <ComboBox Margin="159,10,0,0" Name ="comboBoxMedicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Height="34" >
+                    <ComboBox Margin="164,8,0,0" Name ="comboBoxMedicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Height="34" >
                         <ComboBoxItem>lek2</ComboBoxItem>
                         <ComboBoxItem>lek3</ComboBoxItem>
                         <ComboBoxItem>lek4</ComboBoxItem>
                     </ComboBox>
-                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="159,61,68,101" Width="141" Height="34">
-                        <TextBox.Text>
-                            <Binding Path="PerDay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validation:IntValueRule/>
-                                </Binding.ValidationRules>
-
-                            </Binding>
-
-                        </TextBox.Text>
-                    </TextBox>
-                    <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="159,116,68,48" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
                             <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -50,11 +39,21 @@
 
                         </TextBox.Text>
                     </TextBox>
-                    <CheckBox Name ="checkBoxPrescription" HorizontalAlignment="Left" Margin="224,164,0,0" VerticalAlignment="Top"/>
-                </Grid>
+                    <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="164,110,219,86" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Dur" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validation:IntValueRule/>
+                                </Binding.ValidationRules>
 
+                            </Binding>
+
+                        </TextBox.Text>
+                    </TextBox>
+                    <CheckBox Name ="checkBoxPrescription" HorizontalAlignment="Left" Margin="224,164,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Prosledi" HorizontalAlignment="Left" Margin="370,178,0,0" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Foreground="White"  FontFamily="Segoe UI Symbol" Click="add_Click"/>
+                </Grid>
             </Border>
-            <Button Content="Prosledi" HorizontalAlignment="Left" Margin="270,146,0,0" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Foreground="White"  FontFamily="Segoe UI Symbol" BorderBrush="#FF437182" Click="add_Click"/>
         </Grid>
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="252" Canvas.Top="10" >DODAJ LEK</TextBlock>

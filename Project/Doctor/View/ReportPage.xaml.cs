@@ -29,6 +29,7 @@ namespace Doctor.View
         private TherapyRepo _therapyRepo;
         private TherapyController _therapyController;
         private ReportController _reportController;
+        private readonly PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
         private MedicalRecordRepo _medicalRecordRepo;
         private ReportRepo _reportRepo;
@@ -46,10 +47,7 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
-            this.PatientBind = exam.PatientId;
-            this.DateBind = exam.Date;
-            this.selectedExam = exam;
-
+            
             App app = Application.Current as App;
             _therapyRepo = app.therapyRepo;
             _therapyController = app.therapyController;
@@ -57,6 +55,11 @@ namespace Doctor.View
             _medicalRecordController = app.medicalRecordController;
             _reportRepo = app.reportRepo;
             _medicalRecordRepo = app.medicalRecordRepo;
+            _patientController= app.patientController;
+
+            this.PatientBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
+            this.DateBind = exam.Date;
+            this.selectedExam = exam;
 
             if (File.Exists(_therapyRepo.dbPath))
                 _therapyRepo.LoadTherapy();
@@ -97,12 +100,10 @@ namespace Doctor.View
             NavigationService.Navigate(ended);
 
         }
-
-        private void validate_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        private void AddReferral_Click(object sender, RoutedEventArgs e)
         {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
+            ReferralPage referralPage = new ReferralPage(selectedExam);
+            NavigationService.Navigate(referralPage);
         }
-
     }
 }

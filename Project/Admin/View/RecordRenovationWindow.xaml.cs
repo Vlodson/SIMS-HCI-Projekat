@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.ComponentModel;
 
 using Model;
 using Controller;
@@ -21,34 +20,12 @@ namespace Admin.View
     /// <summary>
     /// Interaction logic for RecordRenovationWindow.xaml
     /// </summary>
-    public partial class RecordRenovationWindow : Window, INotifyPropertyChanged
+    public partial class RecordRenovationWindow : Window
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
         public Renovation renovation { get; set; }
 
         private RenovationController _renovationController;
-
-        private String _signature;
-        public String Signature
-        {
-            get { return _signature; }
-            set
-            {
-                if(_signature != value)
-                {
-                    _signature = value;
-                    OnPropertyChanged("Signature");
-                }
-            }
-        }
+        private RoomController _roomController;
 
         public RecordRenovationWindow()
         {
@@ -57,8 +34,13 @@ namespace Admin.View
 
             var app = Application.Current as App;
             _renovationController = app.renovationController;
+            _roomController = app.roomController;
 
             renovation = _renovationController.ReadAll().Last();
+
+            Room OriginRoom = _roomController.GetClipboardRoom();
+            Title.TextWrapping = TextWrapping.Wrap;
+            Title.Text = "Record renovation for room\n" + OriginRoom.RoomNb;
 
             renoTypeTextBox.Text = renovation.Type.ToString();
             //parcellingTextBox.Text = "";
@@ -68,14 +50,14 @@ namespace Admin.View
 
         private void Execute_Save(object sender, ExecutedRoutedEventArgs e)
         {
-            _renovationController.RecordRenovation(renovation.Id, Signature);
+            _renovationController.RecordRenovation(renovation.Id);
             this.Close();
             this.Owner.Show();
         }
 
         private void CanExecute_Save(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = !String.IsNullOrEmpty(Signature);
+            e.CanExecute = true;
         }
 
         private void discardBtn_Click(object sender, RoutedEventArgs e)

@@ -133,6 +133,11 @@ namespace Controller
         {
             return patientService.GetDoctorQuestionnaire();
         }
+
+        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
+        {
+            return patientService.CheckAnswerAvailable(doctorId, medicalRecord);
+        }
         public void AddAnswer(String patientId, Answer answer)
         {
             patientService.AddAnswer(patientId, answer);

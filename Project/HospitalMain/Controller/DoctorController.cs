@@ -63,14 +63,23 @@ namespace Controller
             return _doctorService.GetFreeExaminations(startEndRange, doctorType);
         }
 
+        public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
+        {
+            return _doctorService.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+        }
+        /*
         public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
         {
             return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);
         }
-
+        */
         public List<Examination> MoveExaminations(Examination examination)
         {
             return _doctorService.MoveExaminations(examination);
+        }
+        public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType selectedSpec)
+        {
+            return _doctorService.GetDoctorsBySpecialization(selectedSpec);
         }
     }
 }

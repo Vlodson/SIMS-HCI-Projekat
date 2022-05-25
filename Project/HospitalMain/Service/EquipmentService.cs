@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Model;
+using Utility;
 using Repository;
 using HospitalMain.Enums;
 
@@ -47,6 +50,15 @@ namespace Service
         public ObservableCollection<Equipment> ReadAll()
         {
             return _equipmentRepo.Equipment;
+        }
+
+        public ObservableCollection<Equipment> QueryEquipment(String query)
+        {
+            List<Equipment> equipmentList = new List<Equipment>(_equipmentRepo.Equipment);
+
+            ObservableCollection<Equipment> queriedEquipment = new ObservableCollection<Equipment>(QueryUtility.DoQuery<Equipment>(equipmentList, query));
+
+            return queriedEquipment;
         }
 
         public bool LoadEquipment()

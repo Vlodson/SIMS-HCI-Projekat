@@ -22,9 +22,8 @@ namespace Model
         private Room _originRoom;
         private Room _destinationRoom;
         private Equipment _equipment;
-        private DateOnly _startDate;
-        private DateOnly _endDate;
-        private String _signature;
+        private DateTime _startDate;
+        private DateTime _endDate;
 
         public String Id
         {
@@ -78,7 +77,7 @@ namespace Model
             }
         }
 
-        public DateOnly StartDate
+        public DateTime StartDate
         {
             get { return _startDate; }
             set
@@ -91,7 +90,7 @@ namespace Model
             }
         }
 
-        public DateOnly EndDate
+        public DateTime EndDate
         {
             get { return _endDate; }
             set
@@ -104,22 +103,9 @@ namespace Model
             }
         }
 
-        public String Signature
-        {
-            get { return _signature; }
-            set
-            {
-                if(_signature != value)
-                {
-                    _signature = value;
-                    OnPropertyChanged("Signature");
-                }
-            }
-        }
-
         public EquipmentTransfer() { }
 
-        public EquipmentTransfer(String id, Room originRoom, Room destinationRoom, Equipment equipment, DateOnly startDate, DateOnly endDate, String signature)
+        public EquipmentTransfer(String id, Room originRoom, Room destinationRoom, Equipment equipment, DateTime startDate, DateTime endDate)
         {
             Id = id;
             OriginRoom = originRoom;
@@ -127,7 +113,6 @@ namespace Model
             Equipment = equipment;
             StartDate = startDate;
             EndDate = endDate;
-            Signature = signature;
         }
 
         public EquipmentTransfer(EquipmentTransfer equipmentTransfer)
@@ -138,7 +123,6 @@ namespace Model
             Equipment = equipmentTransfer.Equipment;
             StartDate = equipmentTransfer.StartDate;
             EndDate = equipmentTransfer.EndDate;
-            Signature = equipmentTransfer.Signature;
         }
 
         public EquipmentTransfer(EquipmentTransferAnnotation equipmentTransferAnnotation)
@@ -147,9 +131,8 @@ namespace Model
             this.OriginRoom = null;
             this.DestinationRoom = null;
             this.Equipment = null;
-            this.StartDate = DateOnly.Parse(equipmentTransferAnnotation.StartDate);
-            this.EndDate = DateOnly.Parse(equipmentTransferAnnotation.EndDate);
-            this.Signature = equipmentTransferAnnotation.Signature;
+            this.StartDate = DateTime.Parse(equipmentTransferAnnotation.StartDate);
+            this.EndDate = DateTime.Parse(equipmentTransferAnnotation.EndDate);
         }
     }
 }

@@ -23,6 +23,7 @@ namespace Doctor.View
         public FreeDaysRequestPage()
         {
             InitializeComponent();
+            this.DataContext = new ViewModel.FreeDaysRequestViewModel();
         }
     }
 }

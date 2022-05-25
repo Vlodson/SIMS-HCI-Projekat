@@ -43,7 +43,7 @@ namespace Repository
             return null;
         }
 
-        public void SetRenovation(String renovationId, Room newOriginRoom, RenovationTypeEnum newType, DateOnly newStartDate, DateOnly newEndDate, String newSignature)
+        public void SetRenovation(String renovationId, Room newOriginRoom, Room newDestinationRoom, RenovationTypeEnum newType, DateOnly newStartDate, DateOnly newEndDate)
         {
             for(int i = 0; i < Renovations.Count; i++)
                 if (Renovations[i].Id.Equals(renovationId))
@@ -52,7 +52,6 @@ namespace Repository
                     Renovations[i].Type = newType;
                     Renovations[i].StartDate = newStartDate;
                     Renovations[i].EndDate = newEndDate;
-                    Renovations[i].Signature = newSignature;
                     break;
                 }
         }
@@ -86,6 +85,7 @@ namespace Repository
             {
                 Renovation renovation = new Renovation(annotation);
                 renovation.OriginRoom = _roomRepo.GetRoom(annotation.OriginRoomId);
+                renovation.DestinationRoom = _roomRepo.GetRoom(annotation.DestinationRoomId);
                 Renovations.Add(renovation);
             }
 

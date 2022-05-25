@@ -131,6 +131,7 @@ namespace Patient.View
         {
             //Window.GetWindow(this).Content = new ExaminationsList();
             Menu.Content = new ExaminationsList();
+            
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -172,6 +173,16 @@ namespace Patient.View
         {
             //Menu.Content = new Questionnaires();
             Menu.Content = new QuestionnairePage();
+        }
+
+        private void MedicalREcordClick(object sender, RoutedEventArgs e)
+        {
+            Menu.Content = new MedicalRecordMVVM();
+        }
+
+        private void MenuClick(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new PatientMenu();
         }
     }
 }

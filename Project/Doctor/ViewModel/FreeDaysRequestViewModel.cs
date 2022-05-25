@@ -3,6 +3,7 @@ using Controller;
 using Doctor;
 using Enums;
 using Model;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace ViewModel
             }
         }
 
-        private  string freeDaysLeft;
+        private string freeDaysLeft;
         private string startDate;
         private string endDate;
         private FreeDaysReasons reason;
@@ -29,6 +30,8 @@ namespace ViewModel
 
         private readonly DoctorController _doctorController;
         private readonly FreeDaysRequestController _freeDaysRequestController;
+        private readonly FreeDaysRequestRepo _freeDaysRequestRepo;
+        private readonly DoctorRepo _doctorRepo;
         public MyICommand SendRequestCommand { get; set; }
 
         public FreeDaysReasons Reason
@@ -56,11 +59,13 @@ namespace ViewModel
             var app = System.Windows.Application.Current as App;
             _doctorController = app.doctorController;
             _freeDaysRequestController = app.requestController;
+            _freeDaysRequestRepo = app.requestRepo;
+            _doctorRepo = app.doctorRepo;
 
             Model.Doctor doctor = _doctorController.GetDoctor(MainWindow._uid);
             FreeDaysLeft = doctor.FreeDaysLeft.ToString();
 
-            SendRequestCommand = new MyICommand(OnSend);
+            SendRequestCommand = new MyICommand(OnSend, CanSend);
         }
         public string FreeDaysLeft
         {
@@ -83,6 +88,7 @@ namespace ViewModel
                 {
                     endDate = value;
                     OnPropertyChanged("EndDate");
+                    SendRequestCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -95,14 +101,28 @@ namespace ViewModel
                 {
                     startDate = value;
                     OnPropertyChanged("StartDate");
+                    SendRequestCommand.RaiseCanExecuteChanged();
                 }
             }
         }
-        private void OnSend()
+        public bool CanSend()
+        {
+            if(endDate != null && startDate != null)
+                return (DateTime.Parse(endDate) - DateTime.Parse(startDate)).TotalDays <= _doctorController.GetDoctor(MainWindow._uid).FreeDaysLeft
+                    && DateTime.Parse(startDate) < DateTime.Parse(endDate)
+                    && DateTime.Parse(startDate) > DateTime.Now 
+                    && DateTime.Parse(endDate) > DateTime.Now;
+            else
+                return false;
+        }
+        public void OnSend()
         {
            
             FreeDaysRequest request = new FreeDaysRequest(Int32.Parse(freeDaysLeft), _doctorController.GetDoctor(MainWindow._uid).Id, DateTime.Parse(startDate), DateTime.Parse(endDate), selectedItem);
             _freeDaysRequestController.NewRequest(request);
+            _freeDaysRequestRepo.SaveRequest();
+            _doctorController.GetDoctor(MainWindow._uid).FreeDaysLeft -= (DateTime.Parse(endDate) - DateTime.Parse(startDate)).TotalDays;
+            _doctorRepo.SaveDoctor();
         }
     }
 }

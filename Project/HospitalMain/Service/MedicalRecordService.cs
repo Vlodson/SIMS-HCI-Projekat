@@ -87,6 +87,10 @@ namespace Service
             medicalRecordRepo.EditReadNotification(medicalRecord, notification);
         }
 
-
+        public void AddNote(Report report,String note)
+        {
+            report.Note = note;
+            medicalRecordRepo.SaveMedicalRecord();
+        }
     }
 }

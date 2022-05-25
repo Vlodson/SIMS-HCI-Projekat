@@ -29,6 +29,7 @@ namespace Patient.View
         public List<Doctor> DoctorsAvailable { get; set; }
         public PatientController _patientController;
         public DoctorController _doctorController;
+        MedicalRecordController _medicalRecordController;
 
         public QuestionnairePage()
         {
@@ -36,6 +37,7 @@ namespace Patient.View
             App app = Application.Current as App;
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
+            _medicalRecordController = app.MedicalRecordController;
 
             HospitalQuestionnary = _patientController.GetHospitalQuestionnaire().Questions;
 
@@ -52,10 +54,15 @@ namespace Patient.View
             doktor4.Content = DoctorQuestionnary[3];
 
             DoctorsAvailable = new List<Doctor>();
-            foreach(String idDoctor in _patientController.GetPatientsDoctors(Login.loggedId))
+            MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
+            foreach(Report report in medicalRecord.Reports)
             {
-                DoctorsAvailable.Add(_doctorController.GetDoctor(idDoctor));
+                if (!DoctorsAvailable.Contains(_doctorController.GetDoctor(report.DoctorId))) DoctorsAvailable.Add(_doctorController.GetDoctor(report.DoctorId));
             }
+            //foreach(String idDoctor in _patientController.GetPatientsDoctors(Login.loggedId))
+            //{
+            //    DoctorsAvailable.Add(_doctorController.GetDoctor(idDoctor));
+            //}
 
             List<String> names = new List<String>();
             foreach(Doctor doctor in DoctorsAvailable)
@@ -67,6 +74,7 @@ namespace Patient.View
 
         private void Add_Answers(object sender, RoutedEventArgs e)
         {
+            ErrorMessage.Visibility = Visibility.Hidden;
             List<int> answers = new List<int>();
             if (hospital11.IsChecked == true)
             {
@@ -170,14 +178,17 @@ namespace Patient.View
                 answers.Add(5);
             }
 
-            Answer hospitalAnswer = new Answer("hospital", answers);
+            Answer hospitalAnswer = new Answer("hospital", answers, 0);
             _patientController.AddAnswer(Login.loggedId, hospitalAnswer);
+            QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
+            questionnairesAccepted.ShowDialog();
         }
 
         private void AddDoctorAnswer(object sender, RoutedEventArgs e)
         {
             if(Doctors.SelectedIndex != -1)
             {
+                ErrorMessage.Visibility = Visibility.Hidden;
                 List<int> answers = new List<int>();
                 if (doctor11.IsChecked == true)
                 {
@@ -265,10 +276,31 @@ namespace Patient.View
 
                 int index = Doctors.SelectedIndex;
                 Doctor doctor = DoctorsAvailable[index];
-                Answer doctorAnswer = new Answer(doctor.Id, answers);
-                _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+                if (_patientController.CheckAnswerAvailable(doctor.Id, _medicalRecordController.GetMedicalRecord(Login.loggedId)))
+                {
+                    Answer doctorAnswer = new Answer(doctor.Id, answers, 0);
+                    _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+                    QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
+                    questionnairesAccepted.ShowDialog();
+                }
+                else
+                {
+                    ErrorMessage.Content = "Dodate su sve moguće ocene za ovog lekara";
+                    ErrorMessage.Visibility = Visibility.Visible;
+                }
+                
+            }
+            else
+            {
+                ErrorMessage.Content = "Morate izabrati lekara";
+                ErrorMessage.Visibility = Visibility.Visible;
             }
             
+        }
+
+        private void MenuClick(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Content = new PatientMenu();
         }
     }
 }
