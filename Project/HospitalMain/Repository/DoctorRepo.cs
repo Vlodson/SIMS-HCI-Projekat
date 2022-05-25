@@ -40,14 +40,24 @@ namespace Repository
             DateTime dtDoctor5 = DateTime.Now;
             Doctor doctor5 = new Doctor("d14", "Milos", "Gravara", dtDoctor5, DoctorType.Pulmonology, 20, examinationsDoctor5);
 
+            List<Examination> examinationsDoctor6 = new List<Examination>();
+            DateTime dtDoctor6 = DateTime.Now;
+            Doctor doctor6 = new Doctor("d15", "Ivica", "Pajic", dtDoctor6, DoctorType.Dermatology, 20, examinationsDoctor6);
+
+            List<Examination> examinationsDoctor7 = new List<Examination>();
+            DateTime dtDoctor7 = DateTime.Now;
+            Doctor doctor7 = new Doctor("d16", "Goran", "Djuric", dtDoctor7, DoctorType.Cardiology, 20, examinationsDoctor7);
+
             this.DoctorList.Add(doctor1);
             this.DoctorList.Add(doctor2);
             this.DoctorList.Add(doctor3);
             this.DoctorList.Add(doctor4);
             this.DoctorList.Add(doctor5);
+            this.DoctorList.Add(doctor6);
+            this.DoctorList.Add(doctor7);
 
-            if (File.Exists(dbPath))
-                LoadDoctor();
+            //if (File.Exists(dbPath))
+            //    LoadDoctor();
 
         }
 

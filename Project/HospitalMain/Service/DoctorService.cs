@@ -398,7 +398,7 @@ namespace Service
         public ObservableCollection<Examination> ReadEndedExams()
         {
             ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
-            foreach (Examination exam in _examinationRepo.examinationList)
+            foreach (Examination exam in _examinationRepo.ExaminationList)
             {
                 int res = DateTime.Compare(exam.Date, DateTime.Now);
                 if (res < 0)
