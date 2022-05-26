@@ -30,13 +30,13 @@ namespace Patient.ViewModel
         private int hours;
         private int minutes;
         private List<String> days;
-        private String monday;
-        private String tuesday;
-        private String wednesday;
-        private String thursday;
-        private String friday;
-        private String saturday;
-        private String sunday;
+        private int monday;
+        private int tuesday;
+        private int wednesday;
+        private int thursday;
+        private int friday;
+        private int saturday;
+        private int sunday;
 
         public MyICommand AddPersonalNotificationCommand { get; set; }
 
@@ -81,7 +81,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Monday
+        public int Monday
         {
             get
             {
@@ -94,7 +94,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Tuesday
+        public int Tuesday
         {
             get
             {
@@ -107,7 +107,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Wednesday
+        public int Wednesday
         {
             get
             {
@@ -120,7 +120,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Thursday
+        public int Thursday
         {
             get
             {
@@ -133,7 +133,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Friday
+        public int Friday
         {
             get
             {
@@ -146,7 +146,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Saturday
+        public int Saturday
         {
             get
             {
@@ -159,7 +159,7 @@ namespace Patient.ViewModel
             }
         }
 
-        public String Sunday
+        public int Sunday
         {
             get
             {
@@ -188,31 +188,31 @@ namespace Patient.ViewModel
         public void OnAddPersonalNotification()
         {
             List<int> selectedDays = new List<int>();
-            if (Monday == "pon")
+            if (Monday == 0)
             {
                 selectedDays.Add(1);
             }
-            if (Tuesday == "uto")
+            if (Tuesday == 0)
             {
                 selectedDays.Add(2);
             }
-            if (Wednesday == "sre")
+            if (Wednesday == 0)
             {
                 selectedDays.Add(3);
             }
-            if (Thursday == "čet")
+            if (Thursday == 0)
             {
                 selectedDays.Add(4);
             }
-            if (Friday == "pet")
+            if (Friday == 0)
             {
                 selectedDays.Add(5);
             }
-            if (Saturday == "sub")
+            if (Saturday == 0)
             {
                 selectedDays.Add(6);
             }
-            if (Sunday == "ned")
+            if (Sunday == 0)
             {
                 selectedDays.Add(7);
             }

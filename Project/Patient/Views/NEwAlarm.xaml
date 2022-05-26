@@ -81,19 +81,19 @@
         <ListBox x:Name="tuesday" SelectionMode="Multiple" SelectedItem="{Binding Tuesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="109,181,373,207">
             <ListBoxItem>uto</ListBoxItem>
         </ListBox>
-        <ListBox SelectionMode="Multiple" SelectedItem="{Binding Wednesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="174,181,308,207">
+        <ListBox SelectionMode="Multiple" SelectedIndex="{Binding Wednesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="174,181,308,207">
             <ListBoxItem>sre</ListBoxItem>
         </ListBox>
-        <ListBox SelectionMode="Multiple" SelectedItem="{Binding Thursday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="234,181,248,207">
+        <ListBox SelectionMode="Multiple" SelectedIndex="{Binding Thursday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="234,181,248,207">
             <ListBoxItem>čet</ListBoxItem>
         </ListBox>
-        <ListBox SelectionMode="Multiple" SelectedItem="{Binding Friday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="294,181,188,207">
+        <ListBox SelectionMode="Multiple" SelectedIndex="{Binding Friday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="294,181,188,207">
             <ListBoxItem>pet</ListBoxItem>
         </ListBox>
-        <ListBox SelectionMode="Multiple" SelectedItem="{Binding Saturday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="354,181,128,207">
+        <ListBox SelectionMode="Multiple" SelectedIndex="{Binding Saturday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="354,181,128,207">
             <ListBoxItem>sub</ListBoxItem>
         </ListBox>
-        <ListBox SelectionMode="Multiple" SelectedItem="{Binding Sunday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="414,181,68,207">
+        <ListBox SelectionMode="Multiple" SelectedIndex="{Binding Sunday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="414,181,68,207">
             <ListBoxItem>ned</ListBoxItem>
         </ListBox>
 

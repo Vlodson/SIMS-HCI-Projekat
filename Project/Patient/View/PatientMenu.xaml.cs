@@ -68,7 +68,11 @@ namespace Patient.View
             
             
             _doctorRepo.SaveDoctor();
-            Timer t = new Timer(TimerCallback, null, 0, 60000);
+
+            
+            //TimerCallback timerDelegate = new TimerCallback(CheckStatus);
+
+            //Timer t = new Timer(timerDelegate, null, 0, 0);
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             foreach (Examination exam in examinations)
@@ -107,9 +111,25 @@ namespace Patient.View
             }
             MenuCalendar.DataContext = DatesExaminations;
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
+
+
+                //MyMethod();
+                //List<HospitalMain.Model.PersonalNotification> personalNotificationList = _personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+                //foreach (HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+                //{
+                //    if (personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute < DateTime.Now.Minute)
+                //    {
+                //        MessageBox.Show(personalNotification.Text);
+                //        personalNotification.Status = false;
+                //    }
+                //}
+            Thread thread = new Thread(CheckStatus);
+            thread.Start();
+
         }
 
-        private static void TimerCallback(Object o)
+        //private static void TimerCallback(Object o)
+        private static void CheckStatus()
         {
             //ovde isto kao za obavestenja
             String patientId = Login.loggedId;
@@ -132,14 +152,25 @@ namespace Patient.View
             List<HospitalMain.Model.PersonalNotification> personalNotificationList = personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
             foreach(HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
             {
-                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute == DateTime.Now.Minute)
+                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour <= DateTime.Now.Hour && personalNotification.Time.Minute <= DateTime.Now.Minute)
                 {
                     MessageBox.Show(personalNotification.Text);
                 }
             }
+            Thread.Sleep(100);
 
-            
-            
+
+        }
+
+        async Task RunPeriodically(Action action, TimeSpan interval, CancellationToken token)
+        {
+
+            while (true)
+            {
+                
+                action();
+                await Task.Delay(interval, token);
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
