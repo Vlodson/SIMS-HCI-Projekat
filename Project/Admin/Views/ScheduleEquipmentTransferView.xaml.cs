@@ -10,21 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Admin.Views;
+using Admin.ViewModel;
 
-namespace Admin.View
+namespace Admin.Views
 {
     /// <summary>
-    /// Interaction logic for RequestMedicineCheckWindow.xaml
+    /// Interaction logic for ScheduleEquipmentTransferView.xaml
     /// </summary>
-    public partial class RequestMedicineCheckWindow : Window
+    public partial class ScheduleEquipmentTransferView : UserControl
     {
-        public RequestMedicineCheckWindow()
+        public ScheduleEquipmentTransferView()
         {
             InitializeComponent();
-            this.DataContext = new RequestMedicineCheckView();
+            this.DataContext = new ScheduleEquipmentTransferViewModel();
         }
     }
 }
