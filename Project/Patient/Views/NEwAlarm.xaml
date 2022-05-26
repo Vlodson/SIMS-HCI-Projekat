@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.Views"
         mc:Ignorable="d"
-        Title="NEwAlarm" Height="450" Width="542">
+        Title="NEwAlarm" Height="450" Width="539">
     <Window.Resources>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="Template">
@@ -71,10 +71,16 @@
             <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Novi podsetnik" FontSize="28" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Label Content="Naziv" HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="87,88,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Vreme" HorizontalAlignment="Left" Margin="11,134,0,0" VerticalAlignment="Top"/>
-        <Label Content="Dani" HorizontalAlignment="Left" Margin="10,191,0,0" VerticalAlignment="Top"/>
+        <Label Content="Naziv" HorizontalAlignment="Left" Margin="7,84,0,0" VerticalAlignment="Top"/>
+        <TextBox HorizontalAlignment="Left" Margin="51,88,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Width="120" Height="22">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Label Content="Vreme" HorizontalAlignment="Left" Margin="5,136,0,0" VerticalAlignment="Top"/>
+        <Label Content="Dani" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top"/>
         <ListBox Background="white" x:Name="monday" SelectionMode="Multiple" SelectedIndex="{Binding Monday}"  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="49,181,433,207">
             <ListBoxItem Background="white">pon</ListBoxItem>
         </ListBox>
@@ -97,7 +103,7 @@
             <ListBoxItem Background="white">ned</ListBoxItem>
         </ListBox>
 
-        <Grid x:Name="Hours" Margin="79,119,191,144">
+        <Grid x:Name="Hours" Margin="49,121,221,142">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="2*"/>
@@ -105,12 +111,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollBar x:Name="scrollBarHours" Value="{Binding Hours}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="40"/>
+            <ScrollBar x:Name="scrollBarHours" Value="{Binding Hours}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="50"/>
         </Grid>
 
 
 
-        <Grid x:Name="Minutes" Margin="136,118,133,144">
+        <Grid x:Name="Minutes" Margin="119,122,150,140">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="2*"/>
@@ -118,10 +124,16 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="40"/>
+            <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="50"/>
         </Grid>
-        <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="131,119,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="464,389,0,0" VerticalAlignment="Top"/>
+        <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="111,121,0,0" VerticalAlignment="Top"/>
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="436,259,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
     </Grid>
 </Window>

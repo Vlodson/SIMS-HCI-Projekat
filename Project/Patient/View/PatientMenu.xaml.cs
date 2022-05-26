@@ -155,6 +155,7 @@ namespace Patient.View
                 if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour <= DateTime.Now.Hour && personalNotification.Time.Minute <= DateTime.Now.Minute)
                 {
                     MessageBox.Show(personalNotification.Text);
+                    personalNotificationController.SetNotificationRead(personalNotification);
                 }
             }
             Thread.Sleep(100);

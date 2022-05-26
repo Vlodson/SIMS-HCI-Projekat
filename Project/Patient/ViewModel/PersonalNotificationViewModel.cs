@@ -192,6 +192,7 @@ namespace Patient.ViewModel
             //Saturday = -1;
             //Sunday = -1;
 
+            Text = "Naslov alarma";
             thisWindow = window;
         }
 

@@ -90,6 +90,8 @@ namespace HospitalMain.Model
             }
         }
 
+        public String DaysString { get; set; }
+
         public PersonalNotification(string patientId, string text, List<int> days,DateTime time)
         {
             this.patientId = patientId;

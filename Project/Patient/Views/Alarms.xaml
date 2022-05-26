@@ -42,8 +42,30 @@
         <Label Content="Podsetnici" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Lični podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="517,142,0,0" VerticalAlignment="Top"/>
         <Label Content="Sistemski podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="45,142,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="821,583,0,0" VerticalAlignment="Top"/>
-        <Button Content="Ukloni" HorizontalAlignment="Left" Margin="881,583,0,0" VerticalAlignment="Top"/>
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="821,583,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Ukloni" Command="{Binding RemovePersonalNotificationCommand}" HorizontalAlignment="Left" Margin="881,583,0,0" VerticalAlignment="Top">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <DataGrid ItemsSource="{Binding PersonalNotifications}" SelectedItem="{Binding SelectedNotification}" AutoGenerateColumns="False"  Margin="517,194,40,146">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding Text}" Width="*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding Time}" Width="*"/>
+                <DataGridTextColumn Header="Dani" Binding="{Binding DaysString}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Aktivan" Binding="{Binding Status}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
 
     </Grid>
 </Page>
