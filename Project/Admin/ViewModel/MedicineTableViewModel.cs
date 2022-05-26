@@ -43,7 +43,7 @@ namespace Admin.ViewModel
         public String Id { get; set; }
         public String Name { get; set; }
         public MedicineTypeEnum Type { get; set; }
-        public MedicineStatusEnum Status { get; set; }
+        public StatusEnum Status { get; set; }
 
         public FriendlyMedicine(Medicine medicine)
         {

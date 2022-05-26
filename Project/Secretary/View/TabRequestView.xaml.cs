@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for NewDynamicEquipmentOrderView.xaml
+    /// Interaction logic for TabRequestView.xaml
     /// </summary>
-    public partial class NewDynamicEquipmentOrderView : UserControl
+    public partial class TabRequestView : UserControl
     {
-        public NewDynamicEquipmentOrderView()
+        public TabRequestView()
         {
             InitializeComponent();
         }

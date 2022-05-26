@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/SignInButtonStyle.xaml"/>
                 <ResourceDictionary Source="Styles/GroupBoxTheme.xaml"/>
+                <ResourceDictionary Source="Styles/GroupBoxTheme2.xaml"/>
                 <ResourceDictionary Source="Styles/MenuButtonsTheme.xaml"/>
                 <ResourceDictionary Source="Styles/SearchTheme.xaml"/>
                 <ResourceDictionary Source="Styles/SearchRecordsTheme.xaml"/>
@@ -72,8 +73,13 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewmodels:OrderDynamicEquipmentViewModel}">
-                <view:NewDynamicEquipmentOrderView/>
+                <view:TabEquipmentView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:FreeDaysRequestViewModel}">
+                <view:TabRequestView/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
