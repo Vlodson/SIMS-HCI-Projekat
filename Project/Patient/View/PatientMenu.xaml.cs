@@ -184,5 +184,10 @@ namespace Patient.View
         {
             Window.GetWindow(this).Content = new PatientMenu();
         }
+
+        private void AlarmsClick(object sender, RoutedEventArgs e)
+        {
+            Menu.Content = new Alarms();
+        }
     }
 }

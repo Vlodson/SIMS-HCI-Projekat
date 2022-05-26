@@ -42,6 +42,8 @@
         <Label Content="Podsetnici" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Lični podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="517,142,0,0" VerticalAlignment="Top"/>
         <Label Content="Sistemski podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="45,142,0,0" VerticalAlignment="Top"/>
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="821,583,0,0" VerticalAlignment="Top"/>
+        <Button Content="Ukloni" HorizontalAlignment="Left" Margin="881,583,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>
