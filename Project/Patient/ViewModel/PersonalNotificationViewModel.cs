@@ -39,6 +39,7 @@ namespace Patient.ViewModel
         private int sunday;
 
         public MyICommand AddPersonalNotificationCommand { get; set; }
+        public MyICommand SelectionChangedMondayCommand { get; set; }
 
         private Window thisWindow;
 
@@ -177,10 +178,19 @@ namespace Patient.ViewModel
             _personalNotificationController = app.personalNotificationController;
 
             AddPersonalNotificationCommand = new MyICommand(OnAddPersonalNotification);
+            SelectionChangedMondayCommand = new MyICommand(OnSelectionChangedMonday);
 
 
             Hours = 0;
             Minutes = 0;
+
+            //Monday = -1;
+            //Tuesday = -1;
+            //Wednesday = -1;
+            //Thursday = -1;
+            //Friday = -1;
+            //Saturday = -1;
+            //Sunday = -1;
 
             thisWindow = window;
         }
@@ -219,6 +229,18 @@ namespace Patient.ViewModel
             PersonalNotification personalNotification = new PersonalNotification(Login.loggedId, Text, selectedDays, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hours, Minutes, 0));
             _personalNotificationController.AddPersonalNotification(personalNotification);
             thisWindow.Close();
+        }
+
+        public void OnSelectionChangedMonday()
+        {
+            if(Monday == -1)
+            {
+                Monday = 0;
+            }
+            else
+            {
+                Monday = 1;
+            }
         }
     }
 }
