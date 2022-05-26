@@ -62,6 +62,9 @@ namespace Admin.ViewModel
                 {
                     selectedRenovationType = value;
                     OnPropertyChanged("SelectedRenovationType");
+
+                    if (selectedRenovationType != RenovationTypeEnum.Parcelling)
+                        SplitMerge = "ordinary";
                 }
             }
         }
@@ -115,7 +118,7 @@ namespace Admin.ViewModel
             RecordCommand = new ICommandTemplate(OnRecord, CanRecordSave);
             SaveCommand = new ICommandTemplate(OnSave, CanRecordSave);
             DiscardCommand = new ICommandTemplate(OnDiscard);
-            SplitMergeCommand = new ICommandTemplate<String>(OnSplitMerge);
+            SplitMergeCommand = new ICommandTemplate<String>(OnSplitMerge, CanSplitMerge);
 
             var app = Application.Current as App;
             _renovationController = app.renovationController;
@@ -248,10 +251,7 @@ namespace Admin.ViewModel
 
         public void OnSelection()
         {
-            // needs to change views somehow but for now its like this
-            HospitalLayoutSubmenuWindow hospitalLayoutSubmenuWindow = new HospitalLayoutSubmenuWindow();
-            hospitalLayoutSubmenuWindow.Hide();
-            hospitalLayoutSubmenuWindow.ShowDialog();
+            // needs to change views
             Room DestinationRoom = _roomController.GetSelectedRoom();
             if(DestinationRoom != null)
             {
@@ -271,6 +271,12 @@ namespace Admin.ViewModel
 
             DestinationRoomNb = DestinationRoom.RoomNb.ToString();
         }
+
+        public bool CanSplitMerge(String pacrelType)
+        {
+            return SelectedRenovationType == RenovationTypeEnum.Parcelling;
+        }
+
         public void OnSplitMerge(String parcelType)
         {
             SplitMerge = parcelType;

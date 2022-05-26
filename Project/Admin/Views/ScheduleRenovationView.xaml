@@ -78,9 +78,8 @@
         <!-- Make available only if reno type is parcelling -->
         <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Parcelling</TextBlock>
-            <Grid Width="315" HorizontalAlignment="Left" Margin="0,0,0,10">
-                <Button Content="None" Command="{Binding SplitMergeCommand}" CommandParameter="ordinary" Width="100" HorizontalAlignment="Left" />
-                <Button Content="Splitting" Command="{Binding SplitMergeCommand}" CommandParameter="split" Width="100" HorizontalAlignment="Center" />
+            <Grid Width="215" HorizontalAlignment="Left" Margin="0,0,0,10">
+                <Button Content="Splitting" Command="{Binding SplitMergeCommand}" CommandParameter="split" Width="100" HorizontalAlignment="left" />
                 <Button Content="Merging" Width="100" Command="{Binding SplitMergeCommand}" CommandParameter="merge" HorizontalAlignment="Right" />
             </Grid>
             <!-- Make clickable and autofilled with room clicked -->
