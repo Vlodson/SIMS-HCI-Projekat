@@ -1,4 +1,8 @@
-﻿using System;
+﻿using HospitalMain.Controller;
+using HospitalMain.Model;
+using HospitalMain.Repository;
+using Patient.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +24,8 @@ namespace Patient.ViewModel
             }
         }
 
+        private PersonalNotificationController _personalNotificationController;
+
         private String text;
         private int hours;
         private int minutes;
@@ -31,6 +37,10 @@ namespace Patient.ViewModel
         private String friday;
         private String saturday;
         private String sunday;
+
+        public MyICommand AddPersonalNotificationCommand { get; set; }
+
+        private Window thisWindow;
 
         public String Text
         {
@@ -161,13 +171,54 @@ namespace Patient.ViewModel
                 OnPropertyChanged("Sunday");
             }
         }
-        public PersonalNotificationViewModel()
+        public PersonalNotificationViewModel(Window window)
         {
             App app = Application.Current as App;
+            _personalNotificationController = app.personalNotificationController;
+
+            AddPersonalNotificationCommand = new MyICommand(OnAddPersonalNotification);
 
 
             Hours = 0;
             Minutes = 0;
+
+            thisWindow = window;
+        }
+
+        public void OnAddPersonalNotification()
+        {
+            List<int> selectedDays = new List<int>();
+            if (Monday == "pon")
+            {
+                selectedDays.Add(1);
+            }
+            if (Tuesday == "uto")
+            {
+                selectedDays.Add(2);
+            }
+            if (Wednesday == "sre")
+            {
+                selectedDays.Add(3);
+            }
+            if (Thursday == "čet")
+            {
+                selectedDays.Add(4);
+            }
+            if (Friday == "pet")
+            {
+                selectedDays.Add(5);
+            }
+            if (Saturday == "sub")
+            {
+                selectedDays.Add(6);
+            }
+            if (Sunday == "ned")
+            {
+                selectedDays.Add(7);
+            }
+            PersonalNotification personalNotification = new PersonalNotification(Login.loggedId, Text, selectedDays, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hours, Minutes, 0));
+            _personalNotificationController.AddPersonalNotification(personalNotification);
+            thisWindow.Close();
         }
     }
 }

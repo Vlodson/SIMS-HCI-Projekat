@@ -19,6 +19,9 @@ namespace HospitalMain.Repository
             this.dbPath = dbPath;
             this.personalNotifications = new List<PersonalNotification>();
 
+            if (File.Exists(dbPath))
+                LoadPersonalNotification();
+
         }
 
         public bool LoadPersonalNotification()
@@ -39,10 +42,12 @@ namespace HospitalMain.Repository
         public void AddPersonalNotification(PersonalNotification personalNotification)
         {
             personalNotifications.Add(personalNotification);
+            SavePersonalNotification();
         }
         public void DeletePersonalNotification(PersonalNotification personalNotification)
         {
             personalNotifications.Remove(personalNotification);
+            SavePersonalNotification();
         }
     }
 }

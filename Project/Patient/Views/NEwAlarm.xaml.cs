@@ -23,7 +23,7 @@ namespace Patient.Views
         public NEwAlarm()
         {
             InitializeComponent();
-            this.DataContext = new PersonalNotificationViewModel();
+            this.DataContext = new PersonalNotificationViewModel(this);
         }
     }
 }

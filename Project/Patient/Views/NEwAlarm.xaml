@@ -105,7 +105,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollBar x:Name="scrollBarHours" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="31"/>
+            <ScrollBar x:Name="scrollBarHours" Value="{Binding Hours}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="31"/>
         </Grid>
 
 
@@ -121,7 +121,7 @@
             <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="31"/>
         </Grid>
         <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="120,117,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" HorizontalAlignment="Left" Margin="464,389,0,0" VerticalAlignment="Top"/>
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="464,389,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
