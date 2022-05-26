@@ -11,20 +11,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Patient.Views
 {
     /// <summary>
-    /// Interaction logic for Alarms.xaml
+    /// Interaction logic for NEwAlarm.xaml
     /// </summary>
-    public partial class Alarms : Page
+    public partial class NEwAlarm : Window
     {
-        public Alarms()
+        public NEwAlarm()
         {
             InitializeComponent();
-            this.DataContext = new AlarmsViewModel();
+            this.DataContext = new PersonalNotificationViewModel(this);
         }
     }
 }

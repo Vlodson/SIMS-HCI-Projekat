@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using HospitalMain.Repository;
 using Model;
@@ -34,6 +35,7 @@ namespace Patient.View
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+        private PersonalNotificationController _personalNotificationController;
         
 
         public static ObservableCollection<Examination> Examinations
@@ -62,10 +64,15 @@ namespace Patient.View
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
+            _personalNotificationController = app.personalNotificationController;
             
             
             _doctorRepo.SaveDoctor();
-            Timer t = new Timer(TimerCallback, null, 0, 60000);
+
+            
+            //TimerCallback timerDelegate = new TimerCallback(CheckStatus);
+
+            //Timer t = new Timer(timerDelegate, null, 0, 0);
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             foreach (Examination exam in examinations)
@@ -104,15 +111,32 @@ namespace Patient.View
             }
             MenuCalendar.DataContext = DatesExaminations;
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
+
+
+                //MyMethod();
+                //List<HospitalMain.Model.PersonalNotification> personalNotificationList = _personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+                //foreach (HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+                //{
+                //    if (personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute < DateTime.Now.Minute)
+                //    {
+                //        MessageBox.Show(personalNotification.Text);
+                //        personalNotification.Status = false;
+                //    }
+                //}
+            Thread thread = new Thread(CheckStatus);
+            thread.Start();
+
         }
 
-        private static void TimerCallback(Object o)
+        //private static void TimerCallback(Object o)
+        private static void CheckStatus()
         {
             //ovde isto kao za obavestenja
             String patientId = Login.loggedId;
             App app = Application.Current as App;
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
+            PersonalNotificationController personalNotificationController = app.personalNotificationController;
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
@@ -124,8 +148,30 @@ namespace Patient.View
                     //MessageBox.Show(notification.Content);
                 }
             }
-            
-            
+
+            List<HospitalMain.Model.PersonalNotification> personalNotificationList = personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+            foreach(HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+            {
+                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour <= DateTime.Now.Hour && personalNotification.Time.Minute <= DateTime.Now.Minute)
+                {
+                    MessageBox.Show(personalNotification.Text);
+                    personalNotificationController.SetNotificationRead(personalNotification);
+                }
+            }
+            Thread.Sleep(100);
+
+
+        }
+
+        async Task RunPeriodically(Action action, TimeSpan interval, CancellationToken token)
+        {
+
+            while (true)
+            {
+                
+                action();
+                await Task.Delay(interval, token);
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -183,6 +229,11 @@ namespace Patient.View
         private void MenuClick(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Content = new PatientMenu();
+        }
+
+        private void AlarmsClick(object sender, RoutedEventArgs e)
+        {
+            Menu.Content = new Alarms();
         }
     }
 }

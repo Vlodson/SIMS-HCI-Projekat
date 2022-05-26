@@ -45,6 +45,8 @@ namespace Patient
 
         public ReferralController ReferralController { get; set; }
 
+        public HospitalMain.Controller.PersonalNotificationController personalNotificationController { get; set; }
+
 
         public App()
         {
@@ -69,6 +71,7 @@ namespace Patient
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
             ReferralRepo referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
+            PersonalNotificationRepo personalNotificationRepo = new PersonalNotificationRepo(GlobalPaths.PersonalNotificationDBPath);
 
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
@@ -84,7 +87,11 @@ namespace Patient
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
+
+            PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);    
+
             EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
+
 
             ExamController = new ExamController(patientService, doctorService);
             DoctorController = new DoctorController(doctorService, emergencyService);
@@ -97,6 +104,7 @@ namespace Patient
             renovationController = new RenovationController(renovationService);
             medicineController = new MedicineController(medicineService);
             ReferralController = new ReferralController(referralService);
+            personalNotificationController = new HospitalMain.Controller.PersonalNotificationController(personalNotificationService);
 
             if (File.Exists(GlobalPaths.EquipmentDBPath))
                 EquipmentController.LoadEquipment();

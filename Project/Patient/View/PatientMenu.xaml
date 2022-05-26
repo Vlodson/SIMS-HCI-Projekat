@@ -91,7 +91,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="82,650,0,0" VerticalAlignment="Top">
+        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="82,650,0,0" VerticalAlignment="Top" Click="AlarmsClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -169,7 +169,7 @@
                 <Image Source="/Images/survey.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0">
+        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0" Click="AlarmsClick">
             <StackPanel>
                 <Image Source="/Images/clock.png"/>
             </StackPanel>
