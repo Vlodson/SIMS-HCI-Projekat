@@ -13,6 +13,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using HospitalMain.Enums;
 using Enums;
+using HospitalMain.Service;
 
 namespace Doctor
 {
@@ -81,12 +82,13 @@ namespace Doctor
             var userAccountService = new UserAccountService(userAccountRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(transferRepo, roomRepo, equipmentRepo, examRepo);
-            var requestService = new FreeDaysRequestService(requestRepo);
+            var requestService = new FreeDaysRequestService(requestRepo, doctorRepo);
             var referralService = new ReferralService(referralRepo);
             var medicineService = new MedicineService(medicineRepo);
+            var emergencyService = new EmergencyService(examRepo, doctorRepo);
 
             examController = new ExamController(patientService, doctorService);
-            doctorController = new DoctorController(doctorService);
+            doctorController = new DoctorController(doctorService, emergencyService);
             patientController = new PatientController(patientService, patientAccountService);
             therapyController = new TherapyController(therapyService);
             roomController = new RoomController(roomService);

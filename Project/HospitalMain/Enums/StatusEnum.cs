@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Enums
 {
-    public enum MedicineStatusEnum
+    public enum StatusEnum
     {
         Pending,
         Approved,

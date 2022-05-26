@@ -147,7 +147,7 @@ namespace Admin.ViewModel
                     name,
                     (MedicineTypeEnum)Enum.Parse(typeof(MedicineTypeEnum), SelectedProductType),
                     ingredients,
-                    MedicineStatusEnum.Pending,
+                    StatusEnum.Pending,
                     null,
                     ArrivalDate,
                     ""

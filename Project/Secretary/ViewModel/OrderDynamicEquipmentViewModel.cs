@@ -67,14 +67,14 @@ namespace Secretary.ViewModel
             set { _shortDescription = value; OnPropertyChanged(nameof(ShortDescription)); }
         }
 
-        public OrderDynamicEquipmentViewModel(RequestsViewModel requestsViewModel)
+        public OrderDynamicEquipmentViewModel(MainViewModel mainViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _dynamicEquipmentController = app.DynamicEquipmentController;
 
             FillEquipmentTypeComboBoxData();
 
-            OrderCommand = new OrderCommand(this, _dynamicEquipmentController, requestsViewModel);
+            OrderCommand = new OrderCommand(this, _dynamicEquipmentController, mainViewModel);
             //ShowGraphicCommand = new...
         }
     }

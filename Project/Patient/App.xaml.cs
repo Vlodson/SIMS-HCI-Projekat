@@ -87,10 +87,14 @@ namespace Patient
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
+
             PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);    
 
+            EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
+
+
             ExamController = new ExamController(patientService, doctorService);
-            DoctorController = new DoctorController(doctorService);
+            DoctorController = new DoctorController(doctorService, emergencyService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);

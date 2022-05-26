@@ -8,9 +8,8 @@ namespace Enums
 {
     public enum FreeDaysReasons
     {
-        Vocation, 
+        Vacation, 
         Sick_leave,
         Emergency
-
     }
 }

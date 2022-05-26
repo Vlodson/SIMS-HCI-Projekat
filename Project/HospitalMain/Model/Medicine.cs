@@ -23,7 +23,7 @@ namespace Model
         private MedicineTypeEnum type;
         private DateTime arrivalDate;
         private ObservableCollection<IngredientEnum> ingredients;
-        private MedicineStatusEnum status;
+        private StatusEnum status;
         private String reviewingDoctor;
         private String comment;
 
@@ -80,7 +80,7 @@ namespace Model
 
         public ObservableCollection<IngredientEnum> Ingredients { get; set; }
 
-        public MedicineStatusEnum Status
+        public StatusEnum Status
         {
             get { return status; }
             set
@@ -120,7 +120,7 @@ namespace Model
 
         public Medicine() { }
 
-        public Medicine(String id, String name, MedicineTypeEnum type, ObservableCollection<IngredientEnum> ingredients, MedicineStatusEnum status, String reviewingDoctor, DateTime arrivalDate, String comment)
+        public Medicine(String id, String name, MedicineTypeEnum type, ObservableCollection<IngredientEnum> ingredients, StatusEnum status, String reviewingDoctor, DateTime arrivalDate, String comment)
         {
             Id = id;
             Name = name;

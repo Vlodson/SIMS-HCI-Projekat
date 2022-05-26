@@ -21,6 +21,11 @@ namespace Secretary
             
         public PatientController PatientController { get; set; }
         public PatientRepo PatientRepo { get; set; }
+        public EmergencyService EmergencyService { get; set; }
+
+        public FreeDaysRequestRepo FreeDaysRequestRepo { get; set; }
+        public FreeDaysRequestService FreeDaysRequestService { get; set; }
+        public FreeDaysRequestController FreeDaysController { get; set; }
 
         public DynamicEquipmentRepo DynamicEquipmentRepo { get; set; }
         public DynamicEquipmentService DynamicEquipmentService { get; set; }
@@ -52,7 +57,7 @@ namespace Secretary
 
         public App()
         {
-            //_navigationStore = new NavigationStore();
+
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, EquipmentRepo);
@@ -67,8 +72,9 @@ namespace Secretary
             PatientController = new PatientController(patientAccService);
 
             DoctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
+            EmergencyService = new(ExaminationRepo, DoctorRepo);
             DoctorService doctorService = new DoctorService(DoctorRepo, ExaminationRepo, RoomRepo, PatientRepo);
-            DoctorController = new DoctorController(doctorService);
+            DoctorController = new DoctorController(doctorService, EmergencyService);
 
             ObservableCollection<MedicalRecord> medicicalRecords = new ObservableCollection<MedicalRecord>();
             MedicalRecordRepo = new MedicalRecordRepo(GlobalPaths.MedicalRecordDBPath);
@@ -81,6 +87,10 @@ namespace Secretary
             UserAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             UserAccountService userAccountService = new UserAccountService(UserAccountRepo);
             UserAccountController = new UserAccountController(userAccountService);
+
+            FreeDaysRequestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
+            FreeDaysRequestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
+            FreeDaysController = new FreeDaysRequestController(FreeDaysRequestService);
         }
 
         //protected override void OnStartup(StartupEventArgs e)
