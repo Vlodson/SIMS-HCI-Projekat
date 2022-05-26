@@ -31,8 +31,8 @@ namespace Patient.ViewModel
 
         private void OnAddPersonalNotification()
         {
-            PersonalNotification personalNotification = new PersonalNotification();
-            personalNotification.ShowDialog();
+            NEwAlarm newAlarm = new NEwAlarm();
+            newAlarm.ShowDialog();
         }
 
     }

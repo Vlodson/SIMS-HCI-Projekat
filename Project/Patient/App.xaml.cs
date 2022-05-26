@@ -44,6 +44,8 @@ namespace Patient
 
         public ReferralController ReferralController { get; set; }
 
+        
+
 
         public App()
         {

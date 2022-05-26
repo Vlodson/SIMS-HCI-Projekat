@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Patient.Views
 {
     /// <summary>
-    /// Interaction logic for PersonalNotification.xaml
+    /// Interaction logic for NEwAlarm.xaml
     /// </summary>
-    public partial class PersonalNotification : Window
+    public partial class NEwAlarm : Window
     {
-        public PersonalNotification()
+        public NEwAlarm()
         {
             InitializeComponent();
             this.DataContext = new PersonalNotificationViewModel();

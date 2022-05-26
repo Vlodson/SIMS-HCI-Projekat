@@ -21,7 +21,9 @@ namespace HospitalMain.Model
 
         private String patientId;
         private String text;
+        private List<int> days;
         private DateTime time;
+        private bool status;
 
         public String Text
         {
@@ -62,11 +64,39 @@ namespace HospitalMain.Model
             }
         }
 
-        public PersonalNotification(string patientId, string text, DateTime time, List<string> days)
+        public List<int> Days
+        {
+            get
+            {
+                return days;
+            }
+            set
+            {
+                days = value;
+                OnPropertyChanged("Days");
+            }
+        }
+
+        public bool Status
+        {
+            get
+            {
+                return status;
+            }
+            set
+            {
+                status = value;
+                OnPropertyChanged("Status");
+            }
+        }
+
+        public PersonalNotification(string patientId, string text, List<int> days,DateTime time)
         {
             this.patientId = patientId;
             this.text = text;
+            this.days = days;
             this.time = time;
+            this.status = true;
         }
 
         public PersonalNotification()
