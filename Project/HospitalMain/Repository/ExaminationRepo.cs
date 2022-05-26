@@ -49,8 +49,8 @@ namespace Repository
             this.ExaminationList.Add(exam9);
             this.ExaminationList.Add(exam10);
 
-            //if (File.Exists(dbPath))
-            //    LoadExamination();
+            if (File.Exists(dbPath))
+                LoadExamination();
 
         }
 

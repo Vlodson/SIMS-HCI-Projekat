@@ -5,8 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Secretary.View"
              mc:Ignorable="d" 
-             d:DesignHeight="667" d:DesignWidth="804">
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
     <Grid>
-        <ContentControl Content="{Binding CurrentRequestView}"/>
+        <TabControl Margin="25" FontSize="18">
+            <TabItem Header="Godišnji odmori">
+                <ContentControl Content="{Binding AbsenceTab}"/>
+            </TabItem>
+            <TabItem Header="Oprema">
+                <ContentControl Content="{Binding EquipmentTab}"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>

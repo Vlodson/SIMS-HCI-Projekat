@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,16 +9,29 @@ namespace Secretary.ViewModel
 {
     public class RequestsViewModel : ViewModelBase
     {
-        private ViewModelBase _currentRequestView;
-        public ViewModelBase CurrentRequestView
+
+        private ViewModelBase _equipmentTab;
+        public ViewModelBase EquipmentTab
         {
-            get { return _currentRequestView; }
-            set { _currentRequestView = value; OnPropertyChanged(nameof(CurrentRequestView)); }
+            get { return _equipmentTab; }
+            set { _equipmentTab = value; OnPropertyChanged(nameof(EquipmentTab)); }
         }
 
-        public RequestsViewModel()
+        private ViewModelBase _absenceTab;
+        public ViewModelBase AbsenceTab
         {
-            CurrentRequestView = new OrderDynamicEquipmentViewModel(this);
+            get { return _absenceTab; }
+            private set { _absenceTab = value; OnPropertyChanged(nameof(AbsenceTab)); }
+        }
+
+        private MainViewModel _mainViewModel;
+
+        public RequestsViewModel(MainViewModel mainViewModel)
+        {
+            _mainViewModel = mainViewModel;
+
+            EquipmentTab = new OrderDynamicEquipmentViewModel(_mainViewModel);
+            AbsenceTab = new FreeDaysRequestViewModel(_mainViewModel);
         }
 
     }

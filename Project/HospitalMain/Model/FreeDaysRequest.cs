@@ -20,34 +20,64 @@ namespace Model
             }
         }
 
-        private int freeDaysLeft;
+        private string id;
+        private StatusEnum status;
         private string doctorId;
         private DateTime startDate;
         private DateTime endDate;
         private FreeDaysReasons reason;
+        private string rejectionReason;
 
-        public FreeDaysRequest(int freeDaysLeft, string doctorId, DateTime startDate, DateTime endDate, FreeDaysReasons reason)
+        public FreeDaysRequest(string id, StatusEnum status, string doctorId, DateTime startDate, DateTime endDate, FreeDaysReasons reason, string rejectionReason)
         {
-            this.freeDaysLeft = freeDaysLeft;
+            this.id = id;
+            this.status = status;
             this.doctorId = doctorId;
             this.startDate = startDate;
             this.endDate = endDate;
             this.reason = reason;
+            this.rejectionReason = rejectionReason;
         }
         public FreeDaysRequest() { }
 
-        public int FreeDaysLeft
+        public string ID
+        {
+            get { return id; }
+            set
+            {
+                if(value != id)
+                {
+                    id = value;
+                    OnPropertyChanged("ID");
+                }
+            }
+        }
+
+        public string RejectionReason
+        {
+            get { return rejectionReason; }
+            set 
+            {
+                if(value != rejectionReason)
+                {
+                    rejectionReason = value;
+                    OnPropertyChanged("RejectionReason");
+                }
+            }
+        }
+
+        public StatusEnum Status
         {
             get
             {
-                return freeDaysLeft;
+                return status;
             }
             set
             {
-                if (value != freeDaysLeft)
+                if (value != status)
                 {
-                    freeDaysLeft = value;
-                    OnPropertyChanged("FreeDaysLeft");
+                    status = value;
+                    OnPropertyChanged("Status");
                 }
             }
 

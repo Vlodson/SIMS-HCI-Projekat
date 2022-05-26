@@ -35,7 +35,7 @@ namespace Secretary.Commands
                 _mainViewModel.CurrentViewModel = new EmergencyGeneralViewModel();
             } else if(parameter.ToString() == "Requests")
             {
-                _mainViewModel.CurrentViewModel = new RequestsViewModel();
+                _mainViewModel.CurrentViewModel = new RequestsViewModel(_mainViewModel);
             }
         }
     }

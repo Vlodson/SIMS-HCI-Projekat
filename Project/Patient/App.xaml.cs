@@ -13,6 +13,7 @@ using System.Windows;
 using HospitalMain.Enums;
 using System.IO;
 using HospitalMain.Repository;
+using HospitalMain.Service;
 
 namespace Patient
 {
@@ -83,9 +84,10 @@ namespace Patient
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
+            EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
 
             ExamController = new ExamController(patientService, doctorService);
-            DoctorController = new DoctorController(doctorService);
+            DoctorController = new DoctorController(doctorService, emergencyService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);

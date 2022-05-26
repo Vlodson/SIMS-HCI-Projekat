@@ -111,7 +111,7 @@ namespace Admin.ViewModel
 
             MedicineList = new List<Medicine>(_medicineController.ReadAll());
 
-            Medicines = new ObservableCollection<Medicine>(MedicineList.Where(m => m.Status == MedicineStatusEnum.Pending));
+            Medicines = new ObservableCollection<Medicine>(MedicineList.Where(m => m.Status == StatusEnum.Pending));
             Doctors = _doctorController.GetAll();
             ArrivalDate = DateTime.Now;
         }

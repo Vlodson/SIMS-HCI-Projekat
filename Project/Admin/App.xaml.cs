@@ -15,6 +15,7 @@ using Utility;
 using Model;
 using Enums;
 using HospitalMain.Enums;
+using HospitalMain.Service;
 
 namespace Admin
 {
@@ -47,6 +48,7 @@ namespace Admin
             var userAccountService = new UserAccountService(userAccountRepo);
             var medicineService = new MedicineService(medicineRepo);
             var doctorService = new DoctorService(doctorRepo, examinationRepo, roomRepo, patientRepo);
+            var emergencyService = new EmergencyService(examinationRepo, doctorRepo);
 
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
@@ -54,7 +56,7 @@ namespace Admin
             renovationController = new RenovationController(renovationService);
             userAccountController = new UserAccountController(userAccountService);
             medicineController = new MedicineController(medicineService);
-            doctorController = new DoctorController(doctorService);
+            doctorController = new DoctorController(doctorService, emergencyService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
@@ -85,7 +87,7 @@ namespace Admin
                 for(int j = 0; j < 4; j++)
                     ingredients.Add( (IngredientEnum)((j+i)%5) );
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending,"d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending,"d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)
