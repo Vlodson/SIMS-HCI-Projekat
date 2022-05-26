@@ -10,7 +10,7 @@ using Utility;
 
 namespace Admin.ViewModel
 {
-    public class ChooseFormViewModel
+    public class ChooseFormViewModel: BindableBase
     {
         public ICommandTemplate<String> NavigationCommand { get; private set; }
 
