@@ -19,25 +19,28 @@ using Controller;
 using Utility;
 using HospitalMain.Enums;
 
-namespace Admin.View
+namespace Admin.Views
 {
     /// <summary>
-    /// Interaction logic for HospitalLayoutSubmenuWindow.xaml
+    /// Interaction logic for HospitalLayoutSubmenuView.xaml
     /// </summary>
-    public partial class HospitalLayoutSubmenuWindow : Window
+    public partial class HospitalLayoutSubmenuView : UserControl
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
 
-        public HospitalLayoutSubmenuWindow()
+        public HospitalLayoutSubmenuView()
         {
             InitializeComponent();
-            this.Show();
 
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
+
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
 
             roomList = new ObservableCollection<Room>();
             floorRoomList = new ObservableCollection<Room>();
@@ -49,6 +52,15 @@ namespace Admin.View
             // always show first floor when opening
             floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
+        }
+
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    break;
+            }
         }
 
         private void makeBlueprint()
@@ -64,7 +76,7 @@ namespace Admin.View
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetSelectedRoom(r);
-                    this.Close();
+                    OnNavigation("back");
                 };
 
                 TextBlock roomId = new TextBlock();
@@ -115,9 +127,5 @@ namespace Admin.View
             }
         }
 
-        private void backBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }
