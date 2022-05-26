@@ -25,5 +25,10 @@ namespace HospitalMain.Service
         {
             _personalNotificationRepo.DeletePersonalNotification(personalNotification);
         }
+
+        public List<PersonalNotification> GetPatientPersonalNotifications(String patientID)
+        {
+            return _personalNotificationRepo.ReadAllPersonalNotifications().Where(personalNotification => personalNotification.PatientId.Equals(patientID)).ToList();
+        }
     }
 }

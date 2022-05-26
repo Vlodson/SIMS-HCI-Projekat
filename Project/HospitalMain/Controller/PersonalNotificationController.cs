@@ -26,5 +26,10 @@ namespace HospitalMain.Controller
         {
             _personalNotificationService.DeletePersonalNotification(personalNotification);
         }
+
+        public List<PersonalNotification> GetPatientPersonalNotifications(String patientID)
+        {
+            return _personalNotificationService.GetPatientPersonalNotifications(patientID);
+        }
     }
 }

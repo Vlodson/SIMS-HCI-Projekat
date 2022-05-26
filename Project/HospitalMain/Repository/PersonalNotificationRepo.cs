@@ -49,5 +49,10 @@ namespace HospitalMain.Repository
             personalNotifications.Remove(personalNotification);
             SavePersonalNotification();
         }
+
+        public List<PersonalNotification> ReadAllPersonalNotifications()
+        {
+            return personalNotifications;
+        }
     }
 }

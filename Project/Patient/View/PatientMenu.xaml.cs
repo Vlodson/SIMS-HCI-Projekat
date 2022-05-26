@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using HospitalMain.Repository;
 using Model;
@@ -34,6 +35,7 @@ namespace Patient.View
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+        private PersonalNotificationController _personalNotificationController;
         
 
         public static ObservableCollection<Examination> Examinations
@@ -62,6 +64,7 @@ namespace Patient.View
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
+            _personalNotificationController = app.personalNotificationController;
             
             
             _doctorRepo.SaveDoctor();
@@ -113,6 +116,7 @@ namespace Patient.View
             App app = Application.Current as App;
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
+            PersonalNotificationController personalNotificationController = app.personalNotificationController;
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
@@ -124,6 +128,16 @@ namespace Patient.View
                     //MessageBox.Show(notification.Content);
                 }
             }
+
+            List<HospitalMain.Model.PersonalNotification> personalNotificationList = personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+            foreach(HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+            {
+                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute == DateTime.Now.Minute)
+                {
+                    MessageBox.Show(personalNotification.Text);
+                }
+            }
+
             
             
         }
