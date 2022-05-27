@@ -127,7 +127,7 @@ namespace Repository
             return true;
       }
 
-      
+      /*
       public Answer ContainsAnswer(String idPatient, String idAnswer)
       {
             foreach(Answer answer in GetPatient(idPatient).Answers)
@@ -154,6 +154,8 @@ namespace Repository
                 return true;
             }
         }
+      */
+        /*
       public void AddAnswer(String idPatient, Answer answer)
       {
             Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
@@ -170,6 +172,7 @@ namespace Repository
             } 
             SavePatient();
       }
+        */
         public void CheckMonth(Patient patient)
         {
             if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
