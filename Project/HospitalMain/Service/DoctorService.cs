@@ -59,12 +59,12 @@ namespace Service
 
         public void RemoveExam(Examination exam)
         {
-            _examinationRepo.DeleteExamination(exam.Id);
+            _examinationRepo.RemoveExamination(exam.Id);
         }
 
         public void RemoveExam(string examID)
         {
-            _examinationRepo.DeleteExamination(examID);
+            _examinationRepo.RemoveExamination(examID);
         }
 
         public void EditExams(string id, Examination exam)

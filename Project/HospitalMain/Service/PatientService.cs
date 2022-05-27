@@ -253,7 +253,7 @@ namespace Service
             Patient patient = _patientRepo.GetPatient(examination.PatientId);
             patient.NumberCanceling += 1;
             _patientRepo.SavePatient();
-            _examinationRepo.DeleteExamination(examination.Id);
+            _examinationRepo.RemoveExamination(examination.Id);
             //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
             //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
         }
@@ -280,9 +280,15 @@ namespace Service
             _examinationRepo.SetExamination(examId, examination);
         }
 
-        public ObservableCollection<Examination> ReadMyExams(string id)
+        public ObservableCollection<Examination> ReadPatientExams(string id)
         {
-            return _examinationRepo.ExaminationsForPatient(id);
+            ObservableCollection<Examination> patientExaminations = new ObservableCollection<Examination>();
+            foreach (Examination exam in _examinationRepo.ExaminationList)
+            {
+                if (exam.PatientId.Equals(id)) patientExaminations.Add(exam);
+            }
+            //return _examinationRepo.ExaminationsForPatient(id);
+            return patientExaminations;
             
         }
 
@@ -319,9 +325,32 @@ namespace Service
             _patientRepo.AddAnswer(idPatient, answer);
         }
 
+        public bool DoctorExists(String doctorId, List<String> doctors)
+        {
+            bool exists = false;
+            foreach (String id in doctors)
+            {
+                if (id.Equals(doctorId))
+                {
+                    exists = true;
+                    break;
+                }
+            }
+            return exists;
+        }
+
         public List<String> GetPatientsDoctors(String patientId)
         {
-            return _examinationRepo.GetPatientsDoctors(patientId);
+            List<String> doctors = new List<String>();
+            foreach (Examination examination in ReadPatientExams(patientId))
+            {
+                if (!DoctorExists(examination.DoctorId, doctors) && (examination.Date.CompareTo(DateTime.Now) < 0))
+                {
+                    doctors.Add(examination.DoctorId);
+                }
+            }
+            //return _examinationRepo.GetPatientsDoctors(patientId);
+            return doctors;
         }
 
         public bool CheckStatusCancelled(String id)

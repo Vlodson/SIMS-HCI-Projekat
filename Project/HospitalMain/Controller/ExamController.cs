@@ -110,7 +110,7 @@ namespace Controller
 
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
-            return _patientService.ReadMyExams(id);
+            return _patientService.ReadPatientExams(id);
         }
 
         public ObservableCollection<Examination> ReadDoctorExams(string id)

@@ -54,7 +54,7 @@ namespace Repository
 
         }
 
-        public void DeleteExamination(String id)
+        public void RemoveExamination(String id)
         {
             ExaminationList.Remove(GetExaminationById(id));
             SaveExamination();
