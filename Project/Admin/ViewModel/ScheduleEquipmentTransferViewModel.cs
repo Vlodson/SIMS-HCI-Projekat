@@ -206,13 +206,7 @@ namespace Admin.ViewModel
         {
             mainWindow.Width = 750;
             mainWindow.Height = 430;
-            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView);
-
-            if (roomController.GetSelectedRoom() is not null)
-            {
-                DestinationRoom = roomController.GetSelectedRoom();
-                SelectedRoomNb = DestinationRoom.RoomNb.ToString();
-            }
+            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView, this, "transfer");
         }
 
         public void OnRecord()

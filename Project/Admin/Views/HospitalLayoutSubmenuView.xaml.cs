@@ -19,6 +19,8 @@ using Controller;
 using Utility;
 using HospitalMain.Enums;
 
+using Admin.ViewModel;
+
 namespace Admin.Views
 {
     /// <summary>
@@ -33,15 +35,20 @@ namespace Admin.Views
         private RoomController _roomController;
         private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         private UserControl callerView;
+        private object callerVM;
+        private String VMCastType;
 
-        public HospitalLayoutSubmenuView(UserControl callerView)
+        public HospitalLayoutSubmenuView(UserControl callerView, object callerVM, String VMCastType)
         {
             InitializeComponent();
 
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
+
             this.callerView = callerView;
+            this.callerVM = callerVM;
+            this.VMCastType = VMCastType;
 
             NavigationCommand = new ICommandTemplate<String>(OnNavigation);
 
@@ -63,6 +70,19 @@ namespace Admin.Views
             {
                 case "back":
                     // its always gonna be vertical so hard set them here
+                    if(_roomController.GetSelectedRoom() is null)
+                    {
+                        switch (VMCastType)
+                        {
+                            case "transfer":
+                                ((ScheduleEquipmentTransferViewModel)callerVM).SelectedRoomNb = "No room selected";
+                                break;
+                            case "renovation":
+                                ((ScheduleRenovationViewModel)callerVM).DestinationRoomNb = "No room selected";
+                                break;
+                        }
+                    }
+
                     mainWindow.Height = 750;
                     mainWindow.Width = 430;
                     mainWindow.CurrentView = callerView;
@@ -83,6 +103,15 @@ namespace Admin.Views
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetSelectedRoom(r);
+                    switch (VMCastType)
+                    {
+                        case "transfer":
+                            ((ScheduleEquipmentTransferViewModel)callerVM).SelectedRoomNb = r.RoomNb.ToString();
+                            break;
+                        case "renovation":
+                            ((ScheduleRenovationViewModel)callerVM).DestinationRoomNb = r.RoomNb.ToString();
+                            break;
+                    }
                     OnNavigation("back");
                 };
 

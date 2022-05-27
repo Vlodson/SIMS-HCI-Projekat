@@ -258,26 +258,7 @@ namespace Admin.ViewModel
         {
             mainWindow.Width = 750;
             mainWindow.Height = 430;
-            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView);
-
-            Room DestinationRoom = _roomController.GetSelectedRoom();
-            if(DestinationRoom != null)
-            {
-                if(DestinationRoom.Id == OriginRoom.Id)
-                {
-                    _roomController.RemoveSelectedRoom();
-                    DestinationRoomNb = "Same room selected";
-                    return;
-                }
-                if (DestinationRoom.Occupancy)
-                {
-                    _roomController.RemoveSelectedRoom();
-                    DestinationRoomNb = "Room currently occupied";
-                    return;
-                }
-            }
-
-            DestinationRoomNb = "Room selected";
+            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView, this, "renovation");
         }
 
         public bool CanSplitMerge(String pacrelType)
