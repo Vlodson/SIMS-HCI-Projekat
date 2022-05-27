@@ -192,38 +192,7 @@ namespace Repository
             File.WriteAllText(DBPath, jsonString);
             return true;
         }
-        /*
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            
-            LoadMedicalRecord();
-            return medicalRecord.Notifications.ToList();
-        }
-        */
-        /*
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
-        {
-            foreach (MedicalRecord oneMedRecord in MedicalRecords)
-            {
-                if (oneMedRecord.ID.Equals(medicalRecord.ID))
-                {
-                    
-                    foreach(Notification not in oneMedRecord.Notifications)
-                    {
-                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
-                        {
-                            oneMedRecord.Notifications.Remove(not);
-                            SaveMedicalRecord();
-                            break;
-                        }
-                    }
-                    
-                    
-                }
-            }
 
-        }
-        */
 
         public void AddNewReport(string id, Report report)
         {

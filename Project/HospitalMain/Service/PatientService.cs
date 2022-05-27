@@ -12,12 +12,14 @@ namespace Service
 {
     public class PatientService
     {
-        //dodato
         private readonly PatientRepo _patientRepo;
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
         private readonly QuestionnaireRepo _questionaryRepo;
+
+        private int maxCancelling;
+        private int maxAdding;
 
         public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
         {
@@ -26,6 +28,9 @@ namespace Service
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
             _questionaryRepo = questionnaireRepo;
+
+            maxCancelling = 5;
+            maxAdding = 10;
         }
 
         public Examination getTemporaryExam()
@@ -404,14 +409,34 @@ namespace Service
             return doctors;
         }
 
+        public void CheckMonth(Patient patient)
+        {
+            if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
+            {
+                patient.CurrentMonth = DateTime.Now.ToString("MM");
+                patient.NumberCanceling = 0;
+                patient.NumberNewExams = 0;
+            }
+        }
+
         public bool CheckStatusCancelled(String id)
         {
-            return _patientRepo.CheckStatusCancelled(id);
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberCanceling > maxCancelling)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool CheckStatusAdded(String id)
         {
-            return _patientRepo.CheckStatusAdded(id);
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberNewExams > maxAdding)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

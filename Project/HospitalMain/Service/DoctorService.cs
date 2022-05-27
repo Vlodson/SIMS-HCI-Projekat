@@ -195,49 +195,7 @@ namespace Service
                 return false;
             }
         }
-        /*
-        public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
-        {
-            ObservableCollection<Doctor> doctors = _doctorRepo.DoctorList;
-            List<Examination> listExaminations = _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
-            List<Examination> listExaminationsWithRooms = new List<Examination>();
-            //provera da li postoji slobodna prostorija za dati termin
-            
-            foreach (Examination exam in listExaminations)
-            {
-                List<Room> patientRooms = new List<Room>();
-                foreach(Room room in _roomRepo.Rooms)
-                {
-                    if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                    {
-                        patientRooms.Add(room);
-                    }
-                }
-                foreach (Examination examinationExists in _examinationRepo.getExamByTime(exam.Date))
-                {
-                    int counter = 0;
-                    foreach (Room room in patientRooms)
-                    {
-                        if (room.Occupancy == true)
-                        {
-                            ++counter;
-                        }
-                    }
-                    if (counter < patientRooms.Count)
-                    {
-                        listExaminationsWithRooms.Add(exam);
-                    }
-                }
-                if(_examinationRepo.getExamByTime(exam.Date).Count == 0)
-                {
-                    listExaminationsWithRooms.Add(exam);
-                }
-                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-            }
-            //return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
-            return listExaminationsWithRooms;
-        }
-        */
+
         public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
             List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));

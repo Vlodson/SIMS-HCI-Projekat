@@ -68,7 +68,6 @@ namespace Service
             }
 
             return null;
-            //return patientRepo.GetPatient(patientId);
       }
 
       public ObservableCollection<Patient> ReadAllPatients()

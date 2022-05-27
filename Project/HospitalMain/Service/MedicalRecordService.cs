@@ -64,7 +64,6 @@ namespace Service
             }
 
             return null;
-            //return medicalRecordRepo.ReadMedicalRecord(medRecordID);
         }
 
         public ObservableCollection<MedicalRecord> GetAllMedicalRecords()
@@ -109,22 +108,9 @@ namespace Service
             {
                 if (oneMedRecord.ID.Equals(medicalRecord.ID))
                 {
-                    /*
-                    foreach (Notification not in oneMedRecord.Notifications)
-                    {
-                        if (not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
-                        {
-                            oneMedRecord.Notifications.Remove(not);
-                            medicalRecordRepo.SaveMedicalRecord();
-                            break;
-                        }
-                    }
-                    */
                     CheckNotification(oneMedRecord, notification);
-
                 }
             }
-            //medicalRecordRepo.EditReadNotification(medicalRecord, notification);
         }
 
         public void AddNote(Report report,String note)
