@@ -151,6 +151,7 @@ namespace Repository
             return false;
         }
 
+        /*
         public MedicalRecord ReadMedicalRecord(String medRecordID)
         {
             foreach(MedicalRecord medRecord in MedicalRecords)
@@ -163,6 +164,7 @@ namespace Repository
 
             return null;
         }
+        */
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)
         //{
@@ -191,35 +193,6 @@ namespace Repository
             return true;
         }
 
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            
-            LoadMedicalRecord();
-            return medicalRecord.Notifications.ToList();
-        }
-
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
-        {
-            foreach (MedicalRecord oneMedRecord in MedicalRecords)
-            {
-                if (oneMedRecord.ID.Equals(medicalRecord.ID))
-                {
-                    
-                    foreach(Notification not in oneMedRecord.Notifications)
-                    {
-                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
-                        {
-                            oneMedRecord.Notifications.Remove(not);
-                            SaveMedicalRecord();
-                            break;
-                        }
-                    }
-                    
-                    
-                }
-            }
-
-        }
 
         public void AddNewReport(string id, Report report)
         {
@@ -228,11 +201,12 @@ namespace Repository
                 if(mr.ID.Equals(id))
                 {
                     mr.Reports.Add(report);
-                    GenerateNotifications(report, mr);
+                    //GenerateNotifications(report, mr);
                     break;
                 }
             }
         }
+        /*
         public void GenerateNotifications(Report report, MedicalRecord mr)
         {
             foreach (Therapy therapy in report.Therapy)
@@ -254,5 +228,6 @@ namespace Repository
                 }
             }
         }
+        */
     }
 }

@@ -125,7 +125,7 @@ namespace Patient.View
             StartDate = sDate;
             //EndDate = DateTime.Now.AddDays(7);
             EndDate = sDate.AddDays(7);
-            List<Doctor> doctors = _doctorController.GetAll().ToList();
+            List<Doctor> doctors = _doctorController.GetAllDoctors().ToList();
             
             DoctorTypeSelected.SelectedIndex = 0;
             foreach (Doctor doctor in doctors)
@@ -143,7 +143,7 @@ namespace Patient.View
 
         private IList<Doctor> FindAllDoctors()
         {
-            return _doctorController.GetAll()
+            return _doctorController.GetAllDoctors()
                 .ToList();
         }
 
@@ -178,7 +178,7 @@ namespace Patient.View
             }
             else
             {
-                List<Doctor> doctors = _doctorController.GetAll().ToList();
+                List<Doctor> doctors = _doctorController.GetAllDoctors().ToList();
                 List<Examination> listExaminations = new List<Examination>();
                 bool priority = false; //prioritet je datum jer lekar nije izabran
                 foreach (Doctor doctor in doctors)
@@ -259,7 +259,7 @@ namespace Patient.View
             }
 
             
-            List<Doctor> doctors = _doctorController.GetAll().ToList();
+            List<Doctor> doctors = _doctorController.GetAllDoctors().ToList();
             DoctorsObs = new ObservableCollection<Doctor>();
             foreach (Doctor doctor in doctors)
             {

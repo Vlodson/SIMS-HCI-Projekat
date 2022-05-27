@@ -76,7 +76,7 @@ namespace Patient.ViewModel
             //    showingNotifications.Add(notification.Content);
             //}
             //showingNotifications = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
-            showingNotifications = new ObservableCollection<Notification>(_medicalRecordController.GetNotificationTimes(patientMedicalRecord));
+            showingNotifications = new ObservableCollection<Notification>(_medicalRecordController.GetPatientNotifications(patientMedicalRecord));
         }
 
         private bool CanRemoveNotification()
