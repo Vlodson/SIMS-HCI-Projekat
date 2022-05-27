@@ -59,7 +59,16 @@ namespace Service
       
       public Model.Patient ReadPatient(String patientId)
       {
-            return patientRepo.GetPatient(patientId);
+            foreach (Patient patient in patientRepo.Patients)
+            {
+                if (patient.ID.Equals(patientId))
+                {
+                    return patient;
+                }
+            }
+
+            return null;
+            //return patientRepo.GetPatient(patientId);
       }
 
       public ObservableCollection<Patient> ReadAllPatients()

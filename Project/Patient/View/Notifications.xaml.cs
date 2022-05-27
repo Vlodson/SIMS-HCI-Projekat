@@ -59,7 +59,7 @@ namespace Patient.View
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 
             List<String> notifications = new List<String>();
-            foreach(Notification notification in _medicalRecordController.GetNotificationTimes(patientMedicalRecord))
+            foreach(Notification notification in _medicalRecordController.GetPatientNotifications(patientMedicalRecord))
             {
                 notifications.Add(notification.Content);
             }
@@ -84,7 +84,7 @@ namespace Patient.View
                 foreach (int index in selectedItemIndexes)
                 {
 
-                    Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
+                    Notification notification = _medicalRecordController.GetPatientNotifications(patientMedicalRecord)[index];
                     _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
                 }
                 this.Close();

@@ -141,7 +141,7 @@ namespace Patient.View
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
             
-            foreach(Notification notification in medicalRecordController.GetNotificationTimes(patientMedicalRecord))
+            foreach(Notification notification in medicalRecordController.GetPatientNotifications(patientMedicalRecord))
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {

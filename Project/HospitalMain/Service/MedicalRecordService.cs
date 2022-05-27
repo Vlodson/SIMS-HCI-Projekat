@@ -55,7 +55,16 @@ namespace Service
 
         public MedicalRecord GetMedicalRecord(String medRecordID)
         {
-            return medicalRecordRepo.ReadMedicalRecord(medRecordID);
+            foreach (MedicalRecord medRecord in medicalRecordRepo.MedicalRecords)
+            {
+                if (medRecord.ID.Equals(medRecordID))
+                {
+                    return medRecord;
+                }
+            }
+
+            return null;
+            //return medicalRecordRepo.ReadMedicalRecord(medRecordID);
         }
 
         public ObservableCollection<MedicalRecord> GetAllMedicalRecords()
@@ -64,10 +73,10 @@ namespace Service
         }
 
 
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
+        public List<Notification> GetPatientNotifications(MedicalRecord medicalRecord)
         {
             List<Notification> unreadNotifications = new List<Notification>();
-            foreach(Notification notification in medicalRecordRepo.GetNotificationTimes(medicalRecord))
+            foreach(Notification notification in medicalRecord.Notifications.ToList())
             {
                 if(notification.DateTimeNotification.CompareTo(DateTime.Now) < 0)
                 {
@@ -82,9 +91,40 @@ namespace Service
             medicalRecordRepo.AddNewReport(id, report);
         }
 
+        public void CheckNotification(MedicalRecord medicalRecord, Notification notification)
+        {
+            foreach (Notification not in medicalRecord.Notifications)
+            {
+                if (not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
+                {
+                    medicalRecord.Notifications.Remove(not);
+                    medicalRecordRepo.SaveMedicalRecord();
+                    break;
+                }
+            }
+        }
         public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
         {
-            medicalRecordRepo.EditReadNotification(medicalRecord, notification);
+            foreach (MedicalRecord oneMedRecord in medicalRecordRepo.MedicalRecords)
+            {
+                if (oneMedRecord.ID.Equals(medicalRecord.ID))
+                {
+                    /*
+                    foreach (Notification not in oneMedRecord.Notifications)
+                    {
+                        if (not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
+                        {
+                            oneMedRecord.Notifications.Remove(not);
+                            medicalRecordRepo.SaveMedicalRecord();
+                            break;
+                        }
+                    }
+                    */
+                    CheckNotification(oneMedRecord, notification);
+
+                }
+            }
+            //medicalRecordRepo.EditReadNotification(medicalRecord, notification);
         }
 
         public void AddNote(Report report,String note)
