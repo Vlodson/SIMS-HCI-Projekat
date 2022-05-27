@@ -41,9 +41,9 @@ namespace Controller
             return _emergencyService.EmergencyValidation(dateTime, doctorType);
         }
 
-        public ObservableCollection<Doctor> GetAll()
+        public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return _doctorService.GetDoctors();
+            return _doctorService.GetAllDoctors();
         }
 
         public Doctor GetDoctor(string id)

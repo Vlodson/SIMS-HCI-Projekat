@@ -144,6 +144,7 @@ namespace Repository
             return examsForPatient;
         }
 
+        //ovo mora da ide posle edita
         public List<DateTime> GenerateExaminationTimes(DateTime startDate, DateTime endDate)
         {
             List<DateTime> examinationTimes = new List<DateTime>();

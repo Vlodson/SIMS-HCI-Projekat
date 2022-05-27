@@ -23,7 +23,7 @@ namespace Service
 
         public List<Referral> GetAll()
         {
-            return _referralRepo.GetAll();
+            return _referralRepo.Referrals.ToList();
         }
     }
 }
