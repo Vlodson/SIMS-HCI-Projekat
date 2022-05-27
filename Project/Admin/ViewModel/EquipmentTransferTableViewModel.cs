@@ -10,16 +10,68 @@ using Controller;
 using Utility;
 using HospitalMain.Enums;
 
+using Admin.Views;
+
 namespace Admin.ViewModel
 {
     public class EquipmentTransferTableViewModel: BindableBase
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+        public ICommandTemplate RemoveCommand { get; private set; }
+        public ICommandTemplate QueryCommand { get; private set; }
+
         private EquipmentTransferController equipmentTransferController;
-        public ObservableCollection<FriendlyEquipmentTransfer> EquipmentTransfers { get; set; }
-        public FriendlyEquipmentTransfer SelectedEquipmentTransfer { get; set; }
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+        private ObservableCollection<FriendlyEquipmentTransfer> equipmentTransfers;
+        public ObservableCollection<FriendlyEquipmentTransfer> EquipmentTransfers
+        {
+            get { return equipmentTransfers; }
+            set
+            {
+                if(equipmentTransfers != value)
+                {
+                    equipmentTransfers = value;
+                    OnPropertyChanged("EquipmentTransfers");
+                }
+            }
+        }
+
+        private FriendlyEquipmentTransfer selectedEquipment;
+        public FriendlyEquipmentTransfer SelectedEquipmentTransfer
+        {
+            get { return selectedEquipment; }
+            set
+            {
+                if(selectedEquipment != value)
+                {
+                    selectedEquipment = value;
+                    OnPropertyChanged("SelectedEquipmentTransfer");
+                    RemoveCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        private String search;
+        public String Search
+        {
+            get { return search; }
+            set
+            {
+                if (search != value)
+                {
+                    search = value;
+                    OnPropertyChanged("Search");
+                }
+            }
+        }
 
         public EquipmentTransferTableViewModel()
         {
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
+            RemoveCommand = new ICommandTemplate(OnRemove, CanRemove);
+            QueryCommand = new ICommandTemplate(OnQuery);
+
             var app = Application.Current as App;
             equipmentTransferController = app.equipmentTransferController;
 
@@ -28,13 +80,49 @@ namespace Admin.ViewModel
             EquipmentTransfers = new ObservableCollection<FriendlyEquipmentTransfer>();
             foreach (EquipmentTransfer equipmentTransfer in equipmentTransfers)
                 EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransfer));
+
+            Search = "Enter Query";
         }
 
-        public void RemoveEquipmentTransfer()
+        public void OnRemove()
         {
             equipmentTransferController.DeleteEquipmentTransfer(SelectedEquipmentTransfer.Id);
             EquipmentTransfers.Remove(SelectedEquipmentTransfer);
         }
+        public bool CanRemove()
+        {
+            return SelectedEquipmentTransfer is not null;
+        }
+        public void OnQuery()
+        {
+            return;
+        }
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "logout":
+                    break;
+                case "rooms":
+                    mainWindow.CurrentView = new RoomTableView();
+                    break;
+                case "medicine":
+                    mainWindow.CurrentView = new MedicineTableView();
+                    break;
+                case "equipment":
+                    mainWindow.CurrentView = new EquipmentTableView();
+                    break;
+                case "renovations":
+                    mainWindow.CurrentView = new RenovationTableView();
+                    break;
+            }
+        }
+
     }
 
     public class FriendlyEquipmentTransfer

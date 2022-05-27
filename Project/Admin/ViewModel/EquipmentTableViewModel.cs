@@ -92,17 +92,16 @@ namespace Admin.ViewModel
 
         public void OnQuery()
         {
+            Equipment.Clear();
             if (String.IsNullOrEmpty(Search))
             {
                 ObservableCollection<Equipment> equipment = equipmentController.ReadAll();
-                Equipment.Clear();
                 foreach (Equipment equipmentItem in equipment)
                     Equipment.Add(new FriendlyEquipment(equipmentItem));
                 return;
             }
 
             ObservableCollection<Equipment> queriedEquipment = equipmentController.QueryEquipment(Search);
-            Equipment.Clear();
             foreach(Equipment queriedItem in queriedEquipment)
                 Equipment.Add(new FriendlyEquipment(queriedItem));
             
