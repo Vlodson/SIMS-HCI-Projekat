@@ -78,7 +78,8 @@
         <StackPanel Orientation="Vertical" Grid.Row="6" Grid.Column="1">
             <TextBlock Margin="0,0,0,10" FontWeight="DemiBold">Destination</TextBlock>
             <!-- Make clickable and autofilled with room clicked -->
-            <Button Content="{Binding Path=SelectedRoomNb}" Command="{Binding SelectRoomCommand}" Width="215" HorizontalAlignment="Left" />
+            <Button Content="{Binding Path=SelectedRoomNb}" Command="{Binding SelectRoomCommand}" Width="215" HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Left" Background="White" />
         </StackPanel>
 
         <StackPanel Orientation="Vertical" Grid.Row="8" Grid.Column="1">

@@ -31,14 +31,17 @@ namespace Admin.Views
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        private UserControl callerView;
 
-        public HospitalLayoutSubmenuView()
+        public HospitalLayoutSubmenuView(UserControl callerView)
         {
             InitializeComponent();
 
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
+            this.callerView = callerView;
 
             NavigationCommand = new ICommandTemplate<String>(OnNavigation);
 
@@ -59,6 +62,10 @@ namespace Admin.Views
             switch (view)
             {
                 case "back":
+                    // its always gonna be vertical so hard set them here
+                    mainWindow.Height = 750;
+                    mainWindow.Width = 430;
+                    mainWindow.CurrentView = callerView;
                     break;
             }
         }

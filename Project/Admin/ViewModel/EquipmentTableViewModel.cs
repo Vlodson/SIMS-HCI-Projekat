@@ -80,5 +80,10 @@ namespace Admin.ViewModel
             RoomId = equipment.RoomId;
             Type = EquipmentTypeEnumExtensions.ToFriendlyString(equipment.Type);
         }
+
+        public override string ToString()
+        {
+            return Type;
+        }
     }
 }

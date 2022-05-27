@@ -18,6 +18,7 @@ using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
+using Admin.ViewModel;
 
 namespace Admin.Views
 {
@@ -28,20 +29,24 @@ namespace Admin.Views
     {
         public ICommandTemplate<String> NavigationCommand { get; private set; }
 
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
 
         public MainMenuView()
         {
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
+
             InitializeComponent();
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
 
-            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
-
+            roomList = _roomController.ReadAll();
             makeFloorButtons();
+
+            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
         }
 
@@ -50,12 +55,21 @@ namespace Admin.Views
             switch (view)
             {
                 case "chooseForm":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new ChooseFormView();
                     break;
                 case "tables":
                     break;
                 case "checkMed":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new RequestMedicineCheckView();
                     break;
                 case "order":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new OrderProductsView();
                     break;
             }
         }

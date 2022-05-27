@@ -50,19 +50,19 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <!-- buttons -->
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="back" Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
                 <Image Source="..\Icons\back-16.png" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="home" Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
                 <Image Source="..\Icons\home-16.png" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="2" Margin="10, 0">
+            <Button Command="{Binding FillCommand}" Style="{StaticResource ButtonWithIcon}" Grid.Column="2" Margin="10, 0">
                 <Image Source="..\Icons\repeat-16.png" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
                 <Image Source="..\Icons\logout-16.png" />
             </Button>
         </Grid>
@@ -99,7 +99,7 @@
         <Grid Grid.Row="11" Grid.Column="1">
             <Button Command="{Binding Path=RecordCommand}" Content="Record" Height="50" Width="100" HorizontalAlignment="Left" Margin="10,0,0,0" />
             <Button Command="{Binding Path=SaveCommand}" Content="Save" Height="50" Width="100" HorizontalAlignment="Center" />
-            <Button Command="{Binding Path=DiscardCommand}" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" />
+            <Button Command="{Binding Path=NavigationCommand}" CommandParameter="discard" Content="Discard" Height="50" Width="100" HorizontalAlignment="Right" Margin="0,0,10,0" />
         </Grid>
     </Grid>
 </UserControl>

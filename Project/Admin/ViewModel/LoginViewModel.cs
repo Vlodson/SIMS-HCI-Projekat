@@ -6,13 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Admin.View;
 using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
 using Enums;
 using System.Windows.Controls;
+
+using Admin.Views;
 
 namespace Admin.ViewModel
 {
@@ -22,6 +23,7 @@ namespace Admin.ViewModel
         public ICommandTemplate<object> RegisterCommand;
 
         private UserAccountController _userAccountController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
         private String uid;
         private String password;
@@ -69,7 +71,9 @@ namespace Admin.ViewModel
             }
             else
             {
-                // change view to main menu
+                mainWindow.Width = 750;
+                mainWindow.Height = 430;
+                mainWindow.CurrentView = new MainMenuView();
             }
         }
 

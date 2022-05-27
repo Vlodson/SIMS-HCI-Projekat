@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Admin.View;
 using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
 using Enums;
+
+using Admin.Views;
 
 namespace Admin.ViewModel
 {
@@ -30,17 +31,42 @@ namespace Admin.ViewModel
         private EquipmentController equipmentController;
 
         // private fields
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        private ObservableCollection<FriendlyEquipment> availableEquipment;
+        private String title;
         private Room destinationRoom;
         private FriendlyEquipment selectedEquipment;
         private String selectedRoomNb;
         private DateTime startDate;
         private DateTime endDate;
 
-        // public fields
-        public String Title;
-        public ObservableCollection<FriendlyEquipment> AvailableEquipment; // to show in combobox, keys from the map above
 
         // properties
+        public ObservableCollection<FriendlyEquipment> AvailableEquipment // to show in combobox, keys from the map above
+        {
+            get { return availableEquipment; }
+            set
+            {
+                if(availableEquipment != value)
+                {
+                    availableEquipment = value;
+                    OnPropertyChanged("AvailableEquipment");
+                }
+            }
+        } 
+        public String Title
+        {
+            get { return title; }
+            set
+            {
+                if(title != value)
+                {
+                    title = value;
+                    OnPropertyChanged("Title");
+                }
+            }
+        }
+
         public FriendlyEquipment SelectedEquipment
         {
             get { return selectedEquipment; }
@@ -126,14 +152,23 @@ namespace Admin.ViewModel
             switch (view)
             {
                 case "back":
+                    mainWindow.CurrentView = new ChooseFormView();
                     break;
                 case "home":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "logout":
                     break;
                 case "discard":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "record":
+                    MessageBox.Show("Transfer successfully recorder");
+                    mainWindow.CurrentView = new RecordEquipmentTransferView();
                     break;
             }
         }
@@ -153,7 +188,10 @@ namespace Admin.ViewModel
 
         public void OnSelect()
         {
-            // change view to submenu
+            mainWindow.Width = 750;
+            mainWindow.Height = 430;
+            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView);
+
             if(roomController.GetSelectedRoom() is not null)
             {
                 destinationRoom = roomController.GetSelectedRoom();

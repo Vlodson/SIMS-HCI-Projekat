@@ -6,25 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Admin.View;
 using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
 using Enums;
 
+using Admin.Views;
+
 namespace Admin.ViewModel
 {
     public class ScheduleRenovationViewModel: BindableBase
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
         public ICommandTemplate RecordCommand { get; private set; }
         public ICommandTemplate SaveCommand { get; private set; }
-        public ICommandTemplate DiscardCommand { get; private set; }
+        public ICommandTemplate FillCommand { get; private set; }
         public ICommandTemplate SelectRoomCommand { get; private set; }
         public ICommandTemplate<String> SplitMergeCommand { get; private set; }
 
         private RenovationController _renovationController;
         private RoomController _roomController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
         public ObservableCollection<RenovationTypeEnum> RenovationTypes { get; set; }
         public Room OriginRoom { get; set; }
@@ -115,9 +118,10 @@ namespace Admin.ViewModel
 
         public ScheduleRenovationViewModel()
         {
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
             RecordCommand = new ICommandTemplate(OnRecord, CanRecordSave);
             SaveCommand = new ICommandTemplate(OnSave, CanRecordSave);
-            DiscardCommand = new ICommandTemplate(OnDiscard);
+            FillCommand = new ICommandTemplate(OnFill);
             SplitMergeCommand = new ICommandTemplate<String>(OnSplitMerge, CanSplitMerge);
 
             var app = Application.Current as App;
@@ -189,10 +193,7 @@ namespace Admin.ViewModel
                     break;
             }
 
-            // change view/view model but for now it will just open a new window
-            RecordRenovationWindow recordRenovationWindow = new RecordRenovationWindow();
-            recordRenovationWindow.Owner = App.Current.MainWindow;
-            recordRenovationWindow.Show();
+            // change view/view model
         }
 
         public bool CanRecordSave()
@@ -244,14 +245,17 @@ namespace Admin.ViewModel
             _renovationController.SetClipboardRenovation(renovation);
         }
 
-        public void OnDiscard()
+        public void OnFill()
         {
-            // somehow close this window
+            // TODO
         }
 
         public void OnSelection()
         {
-            // needs to change views
+            mainWindow.Width = 750;
+            mainWindow.Height = 430;
+            mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView);
+
             Room DestinationRoom = _roomController.GetSelectedRoom();
             if(DestinationRoom != null)
             {
@@ -284,6 +288,28 @@ namespace Admin.ViewModel
                 OnSelection();
             else
                 DestinationRoomNb = "Room not needed";
+        }
+
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    mainWindow.CurrentView = new ChooseFormView();
+                    break;
+                case "home":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "logout":
+                    break;
+                case "discard":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+            }
         }
     }
 }
