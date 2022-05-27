@@ -238,11 +238,17 @@ namespace Service
             return listExaminationsWithRooms;
         }
         */
+        public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
+        {
+            List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationTimes, doctor);
+            return examinations;
+        }
 
-        public List<Examination> MoveExaminations(Examination examination)
+        public List<Examination> AvailableMoveExaminations(Examination examination)
         {
             Doctor doctor = GetDoctor(examination.DoctorId);
-            List<Examination> listForDoctor = _examinationRepo.GetMovingDatesForExamination(examination, doctor);
+            List<Examination> listForDoctor = GetMovingDatesForExamination(examination, doctor);
             List<Examination> examinationsWithRooms = new List<Examination>();
             foreach (Examination exam in listForDoctor)
             {

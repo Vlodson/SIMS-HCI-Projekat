@@ -71,9 +71,9 @@ namespace Controller
             return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);
         }
         */
-        public List<Examination> MoveExaminations(Examination examination)
+        public List<Examination> AvailableMoveExaminations(Examination examination)
         {
-            return _doctorService.MoveExaminations(examination);
+            return _doctorService.AvailableMoveExaminations(examination);
         }
         public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType selectedSpec)
         {

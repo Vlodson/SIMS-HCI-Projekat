@@ -235,7 +235,7 @@ namespace Repository
             return examinations;
         }
         */
-
+        //ova moze da ide
         public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
             List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));
