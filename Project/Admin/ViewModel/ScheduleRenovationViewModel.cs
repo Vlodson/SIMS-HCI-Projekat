@@ -276,6 +276,8 @@ namespace Admin.ViewModel
                     return;
                 }
             }
+
+            DestinationRoomNb = "Room selected";
         }
 
         public bool CanSplitMerge(String pacrelType)
