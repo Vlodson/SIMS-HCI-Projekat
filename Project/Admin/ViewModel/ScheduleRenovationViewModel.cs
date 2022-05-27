@@ -68,6 +68,7 @@ namespace Admin.ViewModel
 
                     if (selectedRenovationType != RenovationTypeEnum.Parcelling)
                         SplitMerge = "ordinary";
+                    SplitMergeCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -141,6 +142,7 @@ namespace Admin.ViewModel
 
         public void OnRecord()
         {
+            Room destinationRoom = _roomController.GetSelectedRoom();
             switch (SplitMerge)
             {
                 case "ordinary":
@@ -157,7 +159,7 @@ namespace Admin.ViewModel
                     _renovationController.ScheduleRenovation(
                         id.ToString(),
                         OriginRoom.Id,
-                        _roomController.GetSelectedRoom().Id,
+                        destinationRoom.Id,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
@@ -166,7 +168,7 @@ namespace Admin.ViewModel
                     _renovationController.MergeRooms(new Renovation(
                         id.ToString(),
                         OriginRoom,
-                        _roomController.GetSelectedRoom(),
+                        destinationRoom,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
@@ -193,7 +195,8 @@ namespace Admin.ViewModel
                     break;
             }
 
-            // change view/view model
+            MessageBox.Show("Renovation successfully scheduled");
+            mainWindow.CurrentView = new RecordRenovationView();
         }
 
         public bool CanRecordSave()
@@ -213,13 +216,14 @@ namespace Admin.ViewModel
                 can_record = _renovationController.OccupiedAtTheTime(renovation);
             }
 
-            return can_record && !String.IsNullOrEmpty(SplitMerge) && StartDate >= DateTime.Today && EndDate > StartDate;
+            return can_record && !String.IsNullOrEmpty(SplitMerge) && StartDate >= DateTime.Now.Date && EndDate > StartDate;
         } 
 
         public void OnSave()
         {
+            Room destinationRoom = _roomController.GetSelectedRoom();
             Renovation renovation;
-            if (_roomController.GetSelectedRoom() is null)
+            if (destinationRoom is null)
             {
                 renovation = new Renovation(
                     id.ToString(),
@@ -272,8 +276,6 @@ namespace Admin.ViewModel
                     return;
                 }
             }
-
-            DestinationRoomNb = DestinationRoom.RoomNb.ToString();
         }
 
         public bool CanSplitMerge(String pacrelType)

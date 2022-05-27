@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 
 using Model;
@@ -63,6 +64,21 @@ namespace Admin.ViewModel
                 {
                     title = value;
                     OnPropertyChanged("Title");
+                }
+            }
+        }
+
+        public Room DestinationRoom
+        {
+            get { return destinationRoom; }
+            set
+            {
+                if(destinationRoom != value)
+                {
+                    destinationRoom = value;
+                    OnPropertyChanged("DestinationRoom");
+                    RecordCommand.RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -167,7 +183,7 @@ namespace Admin.ViewModel
                     mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "record":
-                    MessageBox.Show("Transfer successfully recorder");
+                    MessageBox.Show("Transfer successfully scheduled");
                     mainWindow.CurrentView = new RecordEquipmentTransferView();
                     break;
             }
@@ -180,7 +196,7 @@ namespace Admin.ViewModel
 
             // check if saved room exists at the time of filling
             SelectedRoomNb = roomController.ReadRoom(equipmentTransfer.Id) is not null ? equipmentTransfer.DestinationRoom.RoomNb.ToString() : "Saved room doesnt exist";
-            destinationRoom = roomController.ReadRoom(equipmentTransfer.Id) is not null ? equipmentTransfer.DestinationRoom : null;
+            DestinationRoom = roomController.ReadRoom(equipmentTransfer.Id) is not null ? equipmentTransfer.DestinationRoom : null;
 
             StartDate = equipmentTransfer.StartDate;
             EndDate = equipmentTransfer.EndDate;
@@ -192,10 +208,10 @@ namespace Admin.ViewModel
             mainWindow.Height = 430;
             mainWindow.CurrentView = new HospitalLayoutSubmenuView(mainWindow.CurrentView);
 
-            if(roomController.GetSelectedRoom() is not null)
+            if (roomController.GetSelectedRoom() is not null)
             {
-                destinationRoom = roomController.GetSelectedRoom();
-                SelectedRoomNb = destinationRoom.RoomNb.ToString();
+                DestinationRoom = roomController.GetSelectedRoom();
+                SelectedRoomNb = DestinationRoom.RoomNb.ToString();
             }
         }
 
@@ -204,7 +220,8 @@ namespace Admin.ViewModel
             // generate ID
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, destinationRoom, equipment, StartDate, EndDate);
+            DestinationRoom = roomController.GetSelectedRoom();
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, DestinationRoom, equipment, StartDate, EndDate);
             equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             OnNavigation("record"); 
         }
@@ -214,7 +231,8 @@ namespace Admin.ViewModel
             // generate ID
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, destinationRoom, equipment, StartDate, EndDate);
+            DestinationRoom = roomController.GetSelectedRoom();
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, DestinationRoom, equipment, StartDate, EndDate);
             equipmentTransferController.SetClipboardEquipmentTransfer(equipmentTransfer);
             // dont turn off
         }
@@ -222,15 +240,16 @@ namespace Admin.ViewModel
         public bool CanRecordSave()
         {
             bool can_record = false;
-            if (destinationRoom is not null)
+            if (DestinationRoom is not null)
             {
                 Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
                 Room originRoom = roomController.GetClipboardRoom();
-                EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, destinationRoom, equipment, StartDate, EndDate);
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, DestinationRoom, equipment, StartDate, EndDate);
                 can_record = equipmentTransferController.OccupiedAtTheTime(equipmentTransfer);
             }
 
-            return can_record && StartDate >= DateTime.Now && EndDate >= StartDate && destinationRoom != null;
+            // can_record &&
+            return StartDate >= DateTime.Now.Date && EndDate >= StartDate;
         }
     }
 }

@@ -107,7 +107,7 @@ namespace Admin.ViewModel
 
             Title = "Record renovation for room\n" + renovation.OriginRoom.RoomNb;
             RenovationType = renovation.Type.ToString();
-            Parcelling = renovation.DestinationRoom is null ? "No parcelling needed" : "Merge with room" + renovation.DestinationRoom.RoomNb;
+            Parcelling = renovation.DestinationRoom is null ? "No parcelling needed" : "Merge with room " + renovation.DestinationRoom.RoomNb;
             StartDate = renovation.StartDate.ToString();
             EndDate = renovation.EndDate.ToString();
         }
