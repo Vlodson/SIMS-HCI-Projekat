@@ -28,33 +28,96 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-
+    
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="auto" MinHeight="40" />
+            <RowDefinition Height="10" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Origin" Grid.Column="0" Grid.Row="0" FontWeight="Bold" />
-        <TextBlock Text="Dest" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
-        <TextBlock Text="Equipment" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
-        <TextBlock Text="End Date" Grid.Column="3" Grid.Row="0" FontWeight="Bold" />
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <!-- buttons -->
+            <Button Command="{Binding NavigationCommand}" CommandParameter="back" Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
+                <Image Source="..\Icons\back-16.png" />
+            </Button>
 
-        <ListBox ItemsSource="{Binding EquipmentTransfers}" SelectedItem="{Binding SelectedEquipmentTransfer}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
-                 HorizontalContentAlignment="Stretch">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="0,0,10,0" />
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
+                <Image Source="..\Icons\export-pdf-16.png" />
+            </Button>
+
+            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="2" Margin="10, 0">
+                <Image Source="..\Icons\remove-16.png" />
+            </Button>
+
+            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
+                <Image Source="..\Icons\logout-16.png" />
+            </Button>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Origin" Grid.Column="0" Grid.Row="0" FontWeight="Bold" />
+            <TextBlock Text="Dest" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
+            <TextBlock Text="Equipment" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
+            <TextBlock Text="End Date" Grid.Column="3" Grid.Row="0" FontWeight="Bold" />
+
+            <ListBox ItemsSource="{Binding EquipmentTransfers}" SelectedItem="{Binding SelectedEquipmentTransfer}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                     HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Padding" Value="0,0,10,0" />
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Equipment" Command="{Binding NavigationCommand}" CommandParameter="equipment" />
+            <Button Grid.Column="1" Content="Rooms" Command="{Binding NavigationCommand}" CommandParameter="rooms" />
+            <Button Grid.Column="2" Content="Medicine" Command="{Binding NavigationCommand}" CommandParameter="medicine" />
+            <Button Grid.Column="3" Background="DarkGray">
+                <Button.Content>
+                    <TextBlock Text="Transfers" TextDecorations="Underline" />
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="4" Content="Renovations" Command="{Binding NavigationCommand}" CommandParameter="renovations" />
+        </Grid>
+
     </Grid>
 
 </UserControl>

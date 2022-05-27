@@ -60,6 +60,9 @@ namespace Admin.Views
                     mainWindow.CurrentView = new ChooseFormView();
                     break;
                 case "tables":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new EquipmentTableView();
                     break;
                 case "checkMed":
                     mainWindow.Width = 430;

@@ -26,6 +26,7 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -82,9 +83,9 @@
             <TextBlock Text="Id" Grid.Column="0" Grid.Row="0" FontWeight="Bold" />
             <TextBlock Text="Room Id" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
             <TextBlock Text="Type" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
-
+            
             <ListBox ItemsSource="{Binding Equipment}" SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
-                     HorizontalContentAlignment="Stretch">
+                     HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Padding" Value="0,0,10,0" />
