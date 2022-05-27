@@ -15,6 +15,10 @@ namespace Admin.ViewModel
     public class EquipmentTableViewModel: BindableBase
     {
         private EquipmentController equipmentController;
+
+
+
+
         private ObservableCollection<FriendlyEquipment> equipment;
         public ObservableCollection<FriendlyEquipment> Equipment
         {

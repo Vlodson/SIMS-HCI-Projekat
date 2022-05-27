@@ -37,6 +37,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="10" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="auto" MinHeight="40" />
             <RowDefinition Height="10" />
@@ -68,7 +69,19 @@
             </Button>
         </Grid>
 
-        <Grid Grid.Column="1" Grid.Row="2">
+        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" />
+            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1">
+                <Image Source="..\Icons\search-16.png" />
+            </Button>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -94,7 +107,7 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Row="3" Grid.Column="1">
+        <Grid Grid.Row="4" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
