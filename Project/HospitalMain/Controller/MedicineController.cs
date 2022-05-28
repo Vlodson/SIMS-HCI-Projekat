@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Enums;
 using Model;
 using Service;
 
@@ -42,10 +42,18 @@ namespace Controller
         {
             return _medicineService.ReadAllPending(id);
         }
+        public ObservableCollection<Medicine> ReadAllApproved()
+        {
+            return _medicineService.ReadAllApproved();
+        }
 
         public ObservableCollection<Medicine> ReadAll()
         {
             return _medicineService.ReadAll();
+        }
+        public bool CheckAllergens(Medicine medicine, MedicalRecord medicalRecord)
+        {
+            return _medicineService.CheckAllergens(medicine, medicalRecord);
         }
 
         public void LoadMedicine()

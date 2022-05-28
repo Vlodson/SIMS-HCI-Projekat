@@ -38,6 +38,23 @@ namespace Service
             return pendingRequests;
         }
 
+        public int GenerateID()
+        {
+            int maxID = 0;
+            ObservableCollection<FreeDaysRequest> requests = _requestRepo.Requests;
+
+            foreach (FreeDaysRequest request in requests)
+            {
+                int requestID = Int32.Parse(request.ID);
+                if (requestID > maxID)
+                {
+                    maxID = requestID;
+                }
+            }
+
+            return maxID + 1;
+        }
+
         public void EditRequestStatus(FreeDaysRequest request)
         {
             _requestRepo.EditRequestStatus(request);

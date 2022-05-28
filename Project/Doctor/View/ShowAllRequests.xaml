@@ -1,0 +1,28 @@
+﻿<Page x:Class="Doctor.View.ShowAllRequests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Doctor.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="692" d:DesignWidth="710"
+      Title="ShowAllRequests">
+
+    <Grid Margin="0,0,142,398">
+
+        <DataGrid x:Name="dataGridExams" ItemsSource="{Binding examinations, Mode=OneWay}" Height="350" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="104,118,34,-174" VerticalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Razlog" Binding="{Binding Reason }" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pocetak" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="" Binding="{Binding RejectionReason}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Canvas Background="#FF437182" HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="710">
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="140" Canvas.Top="10" VerticalAlignment="Center" >PREGLED SVIH ZAHTEVA</TextBlock>
+        </Canvas>
+    </Grid>
+</Page>
