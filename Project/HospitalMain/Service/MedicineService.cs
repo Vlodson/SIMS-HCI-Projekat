@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Model;
 using Repository;
+using Enums;
+using Utility;
 
 namespace Service
 {
@@ -48,6 +50,18 @@ namespace Service
             }
 
             return pendingMedicines;
+        }
+
+        // call to see which possible allergies to medication exist
+        public List<MedicineTypeEnum> PossibleMedicineAllergens()
+        {
+            return new List<MedicineTypeEnum>(ReplacementMedicineMap.ReplacemetMedicine.Keys);
+        }
+
+        // call if patient is allergic to any of the drugs in the list of possible drug allergies
+        public MedicineTypeEnum ReplacementMedicine(Medicine medicine)
+        {
+            return ReplacementMedicineMap.ReplacemetMedicine[medicine.Type];
         }
 
         public ObservableCollection<Medicine> ReadAll()
