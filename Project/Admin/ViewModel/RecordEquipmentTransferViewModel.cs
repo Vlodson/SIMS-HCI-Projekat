@@ -131,13 +131,18 @@ namespace Admin.ViewModel
                     mainWindow.Height = 430;
                     mainWindow.CurrentView = new MainMenuView();
                     break;
+                case "save":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
             }
         }
 
         public void OnSave()
         {
             equipmentTransferController.RecordTransfer(equipmentTransfer.Id);
-            OnNavigation("home");
+            OnNavigation("save");
         }
     }
 }

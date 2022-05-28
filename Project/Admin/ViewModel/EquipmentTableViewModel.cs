@@ -85,6 +85,7 @@ namespace Admin.ViewModel
             equipmentController.RemoveEquipment(SelectedEquipment.Id, SelectedEquipment.RoomId);
             Equipment.Remove(SelectedEquipment);
         }
+
         public bool CanRemove()
         {
             return SelectedEquipment is not null;
@@ -137,14 +138,21 @@ namespace Admin.ViewModel
 
     public class FriendlyEquipment
     {
+        private RoomController roomController;
+
         public String Id { get; set; }
         public String RoomId { get; set; }
+        public String RoomNb { get; set; }
         public String Type { get; set; }
 
         public FriendlyEquipment(Equipment equipment)
         {
+            var app = Application.Current as App;
+            roomController = app.roomController;
+
             Id = equipment.Id;
             RoomId = equipment.RoomId;
+            RoomNb =  roomController.ReadRoom(equipment.RoomId).RoomNb.ToString();
             Type = EquipmentTypeEnumExtensions.ToFriendlyString(equipment.Type);
         }
 

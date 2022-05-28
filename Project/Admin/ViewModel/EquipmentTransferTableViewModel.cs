@@ -95,7 +95,15 @@ namespace Admin.ViewModel
         }
         public void OnQuery()
         {
-            return;
+            EquipmentTransfers.Clear();
+            if (String.IsNullOrEmpty(Search))
+            {
+                ObservableCollection<EquipmentTransfer> equipmentTransfers = equipmentTransferController.ReadAll();
+                foreach (EquipmentTransfer equipmentTransferItem in equipmentTransfers)
+                    EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransferItem));
+                return;
+            }
+
         }
         public void OnNavigation(String view)
         {

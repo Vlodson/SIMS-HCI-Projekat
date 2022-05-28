@@ -21,7 +21,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Text="{Binding Path=Id, Mode=TwoWay}" IsReadOnly="True" Grid.Column="0" />
-                <TextBox Text="{Binding Path=RoomId, Mode=TwoWay}" IsReadOnly="True" Grid.Column="1" />
+                <TextBox Text="{Binding Path=RoomNb, Mode=TwoWay}" IsReadOnly="True" Grid.Column="1" />
                 <TextBox Text="{Binding Path=Type, Mode=TwoWay}" IsReadOnly="True" Grid.Column="2" />
             </Grid>
         </DataTemplate>
@@ -94,7 +94,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Id" Grid.Column="0" Grid.Row="0" FontWeight="Bold" />
-            <TextBlock Text="Room Id" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
+            <TextBlock Text="Room Nb" Grid.Column="1" Grid.Row="0" FontWeight="Bold" />
             <TextBlock Text="Type" Grid.Column="2" Grid.Row="0" FontWeight="Bold" />
             
             <ListBox ItemsSource="{Binding Equipment}" SelectedItem="{Binding SelectedEquipment, Mode=TwoWay}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
