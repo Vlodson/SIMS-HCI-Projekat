@@ -80,18 +80,23 @@ namespace Service
             _roomRepo.NewRoom(newRoom);
 
             // add room equipment
-            ObservableCollection<Equipment> originEquipment = renovation.OriginRoom.Equipment;
-            ObservableCollection<Equipment> destinationEquipment = renovation.DestinationRoom.Equipment;
-
-            foreach (Equipment equipment in originEquipment)
-                _roomRepo.AddEquipment(newRoom.Id, equipment);
-
-            foreach (Equipment equipment in destinationEquipment)
-                _roomRepo.AddEquipment(newRoom.Id, equipment);
+            TransferAllRoomEquipment(renovation.OriginRoom.Equipment, newRoom);
+            TransferAllRoomEquipment(renovation.DestinationRoom.Equipment, newRoom);
 
             // delete rooms
             _roomRepo.DeleteRoom(renovation.OriginRoom.Id);
             _roomRepo.DeleteRoom(renovation.DestinationRoom.Id);
+        }
+
+        private void TransferAllRoomEquipment(ObservableCollection<Equipment> equipment, Room destination)
+        {
+            ObservableCollection<Equipment> equipmentCopy = new ObservableCollection<Equipment>(equipment);
+
+            foreach(Equipment eq in equipmentCopy)
+            {
+                _roomRepo.AddEquipment(destination.Id, eq);
+                eq.RoomId = destination.Id;
+            }
         }
 
         public void SplitRoom(Renovation renovation)
