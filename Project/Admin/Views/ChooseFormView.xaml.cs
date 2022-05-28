@@ -10,21 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Admin.Views;
+using Admin.ViewModel;
 
-namespace Admin.View
+namespace Admin.Views
 {
     /// <summary>
-    /// Interaction logic for OrderProductsWindow.xaml
+    /// Interaction logic for ChooseFormView.xaml
     /// </summary>
-    public partial class OrderProductsWindow : Window
+    public partial class ChooseFormView : UserControl
     {
-        public OrderProductsWindow()
+        public ChooseFormView()
         {
             InitializeComponent();
-            this.DataContext = new OrderProductsView();
+            this.DataContext = new ChooseFormViewModel();
         }
     }
 }

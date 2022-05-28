@@ -1,12 +1,13 @@
-﻿<Window x:Class="Admin.View.HospitalLayoutSubmenuWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Admin.View"
-        mc:Ignorable="d"
-        FontSize="18"
-        Title="HospitalLayoutSubmenuWindow" Height="430" Width="750">
+﻿<UserControl x:Class="Admin.Views.HospitalLayoutSubmenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Admin.Views"
+             xmlns:data="clr-namespace:Model;assembly=HospitalMain"
+             mc:Ignorable="d" 
+             FontSize="20"
+             d:DesignHeight="430" d:DesignWidth="750">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10" />
@@ -24,7 +25,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
             <!-- buttons -->
-            <Button x:Name="backBtn" Click="backBtn_Click" Style="{StaticResource ButtonWithIcon}">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="back" Style="{StaticResource ButtonWithIcon}">
                 <Image Source="..\Icons\back-16.png" />
             </Button>
         </StackPanel>
@@ -59,4 +60,4 @@
         <StackPanel x:Name="floorButtons" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
         </StackPanel>
     </Grid>
-</Window>
+</UserControl>

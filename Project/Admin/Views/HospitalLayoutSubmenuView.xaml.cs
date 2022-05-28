@@ -19,25 +19,38 @@ using Controller;
 using Utility;
 using HospitalMain.Enums;
 
-namespace Admin.View
+using Admin.ViewModel;
+
+namespace Admin.Views
 {
     /// <summary>
-    /// Interaction logic for HospitalLayoutSubmenuWindow.xaml
+    /// Interaction logic for HospitalLayoutSubmenuView.xaml
     /// </summary>
-    public partial class HospitalLayoutSubmenuWindow : Window
+    public partial class HospitalLayoutSubmenuView : UserControl
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        private UserControl callerView;
+        private object callerVM;
+        private String VMCastType;
 
-        public HospitalLayoutSubmenuWindow()
+        public HospitalLayoutSubmenuView(UserControl callerView, object callerVM, String VMCastType)
         {
             InitializeComponent();
-            this.Show();
 
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
+
+            this.callerView = callerView;
+            this.callerVM = callerVM;
+            this.VMCastType = VMCastType;
+
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
 
             roomList = new ObservableCollection<Room>();
             floorRoomList = new ObservableCollection<Room>();
@@ -49,6 +62,32 @@ namespace Admin.View
             // always show first floor when opening
             floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
             makeBlueprint();
+        }
+
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    // its always gonna be vertical so hard set them here
+                    if(_roomController.GetSelectedRoom() is null)
+                    {
+                        switch (VMCastType)
+                        {
+                            case "transfer":
+                                ((ScheduleEquipmentTransferViewModel)callerVM).SelectedRoomNb = "No room selected";
+                                break;
+                            case "renovation":
+                                ((ScheduleRenovationViewModel)callerVM).DestinationRoomNb = "No room selected";
+                                break;
+                        }
+                    }
+
+                    mainWindow.Height = 750;
+                    mainWindow.Width = 430;
+                    mainWindow.CurrentView = callerView;
+                    break;
+            }
         }
 
         private void makeBlueprint()
@@ -64,7 +103,16 @@ namespace Admin.View
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetSelectedRoom(r);
-                    this.Close();
+                    switch (VMCastType)
+                    {
+                        case "transfer":
+                            ((ScheduleEquipmentTransferViewModel)callerVM).SelectedRoomNb = r.RoomNb.ToString();
+                            break;
+                        case "renovation":
+                            ((ScheduleRenovationViewModel)callerVM).DestinationRoomNb = r.RoomNb.ToString();
+                            break;
+                    }
+                    OnNavigation("back");
                 };
 
                 TextBlock roomId = new TextBlock();
@@ -115,9 +163,5 @@ namespace Admin.View
             }
         }
 
-        private void backBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
     }
 }
