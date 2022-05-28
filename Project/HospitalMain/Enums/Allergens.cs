@@ -16,6 +16,11 @@ namespace HospitalMain.Enums
         Ambrozija,
         Perje,
         Bademi,
-        Kopriva
+        Kopriva,
+        Analgesic,
+        Antibiotic,
+        Diuretic,
+        Bronchodilator,
+        Antihypertensive
     }
 }
