@@ -18,31 +18,66 @@ using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
+using Admin.ViewModel;
 
-namespace Admin.View
+namespace Admin.Views
 {
     /// <summary>
-    /// Interaction logic for MainMenuWindow.xaml
+    /// Interaction logic for MainMenuView.xaml
     /// </summary>
-    public partial class MainMenuWindow : Window
+    public partial class MainMenuView : UserControl
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         public ObservableCollection<Room> roomList;
         public ObservableCollection<Room> floorRoomList;
         private RoomController _roomController;
 
-        public MainMenuWindow()
+        public MainMenuView()
         {
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
+
             InitializeComponent();
             var app = Application.Current as App;
             _roomController = app.roomController;
             this.DataContext = this;
 
-            // wpf is actually comically retarded, so i need to "show" the current window
-            // so it can calculate the auto widths and heights even though it fucking rendered them
-            this.Show();
+            roomList = _roomController.ReadAll();
+            makeFloorButtons();
+
+            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
+            makeBlueprint();
         }
 
-        public void makeBlueprint()
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "chooseForm":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new ChooseFormView();
+                    break;
+                case "tables":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new EquipmentTableView();
+                    break;
+                case "checkMed":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new RequestMedicineCheckView();
+                    break;
+                case "order":
+                    mainWindow.Width = 430;
+                    mainWindow.Height = 750;
+                    mainWindow.CurrentView = new OrderProductsView();
+                    break;
+            }
+        }
+
+        private void makeBlueprint()
         {
             upperRooms.Children.Clear();
             lowerRooms.Children.Clear();
@@ -59,15 +94,12 @@ namespace Admin.View
                 room.MouseDown += (s, e) =>
                 {
                     _roomController.SetClipboardRoom(r);
-                    this.Hide();
-                    ChooseFormWindow formWindow = new ChooseFormWindow();
-                    formWindow.Owner = this;
-                    formWindow.Show();
+                    OnNavigation("chooseForm");
                 };
 
                 TextBlock roomId = new TextBlock();
                 roomId.Text = r.RoomNb + " " + RoomTypeEnumExtensions.ToFriendlyString(r.Type);
-                roomId.Margin = new Thickness(5,0,5,0);
+                roomId.Margin = new Thickness(5, 0, 5, 0);
                 roomId.TextWrapping = TextWrapping.Wrap;
                 roomId.HorizontalAlignment = HorizontalAlignment.Center;
                 roomId.VerticalAlignment = VerticalAlignment.Center;
@@ -91,11 +123,11 @@ namespace Admin.View
             floorButtons.Children.Clear();
 
             int floors = roomList.Max(r => r.Floor); // what a weird way to find maximum values, but also powerful
-            for(int i = 1; i < floors+1; i++)
+            for (int i = 1; i < floors + 1; i++)
             {
                 Button floorBtn = new Button();
                 floorBtn.Content = "Floor " + i;
-                floorBtn.Padding = new Thickness(5,0,5,0);
+                floorBtn.Padding = new Thickness(5, 0, 5, 0);
                 floorBtn.Click += (s, e) =>
                 {
                     // clean what you currently have drawn
@@ -107,7 +139,7 @@ namespace Admin.View
                     int floorNb = int.Parse(Regex.Match(pressedFloorNb.Content.ToString(), @"\d+").Value);
 
                     floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == floorNb));
-                    
+
                     makeBlueprint();
                 };
 
@@ -115,44 +147,6 @@ namespace Admin.View
             }
         }
 
-        private void tableViewBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            TableWindow tableWindow = new TableWindow();
-            tableWindow.Hide();
-            tableWindow.ShowDialog();
-            this.Show();
-        }
 
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            // every time it shows, redraw it because i cant access makeBlueprint from somewhere else :(
-            roomList = new ObservableCollection<Room>();
-            floorRoomList = new ObservableCollection<Room>();
-
-            roomList = _roomController.ReadAll();
-
-            makeFloorButtons();
-
-            // always show first floor when opening
-            floorRoomList = new ObservableCollection<Room>(roomList.Where(r => r.Floor == 1));
-            makeBlueprint();
-        }
-
-        private void requestMedicineCheckBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            RequestMedicineCheckWindow requestCheck = new RequestMedicineCheckWindow();
-            requestCheck.ShowDialog();
-            this.Show();
-        }
-
-        private void OrderBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            OrderProductsWindow orderWindow = new OrderProductsWindow();
-            orderWindow.ShowDialog();
-            this.Show();
-        }
     }
 }

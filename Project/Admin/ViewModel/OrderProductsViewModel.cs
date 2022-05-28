@@ -12,16 +12,20 @@ using Utility;
 using HospitalMain.Enums;
 using Enums;
 
+using Admin.Views;
+
 namespace Admin.ViewModel
 {
     public class OrderProductsViewModel: BindableBase
     {
         public ICommandTemplate OrderCommand { get; private set; }
-        public ICommandTemplate DiscardCommand { get; private set; }
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+        public ICommandTemplate FillCommand { get; private set; }
 
         private MedicineController medicineController;
         private RoomController roomController;
         private EquipmentController equipmentController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
         public ObservableCollection<String> OrderType { get; set; }
         public ObservableCollection<String> ProductType { get; set; }
@@ -104,7 +108,8 @@ namespace Admin.ViewModel
         public OrderProductsViewModel()
         {
             OrderCommand = new ICommandTemplate(OnOrder, CanOrder);
-            DiscardCommand = new ICommandTemplate(OnDiscard);
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
+            FillCommand = new ICommandTemplate(OnFill);
 
             var app = Application.Current as App;
             medicineController = app.medicineController;
@@ -124,11 +129,20 @@ namespace Admin.ViewModel
         {
             if(SelectedOrderType == "Medicine")
             {
-                AddMedicine();   
+                AddMedicine();
+                MessageBox.Show("Medicine successfully ordered");
+                mainWindow.Width = 750;
+                mainWindow.Height = 430;
+                mainWindow.CurrentView = new MainMenuView();
+
             }
             else if(SelectedOrderType == "Equipment")
             {
-                AddEquipment();   
+                AddEquipment();
+                MessageBox.Show("Equipment successfully ordered");
+                mainWindow.Width = 750;
+                mainWindow.Height = 430;
+                mainWindow.CurrentView = new MainMenuView();
             }
         }
 
@@ -180,9 +194,33 @@ namespace Admin.ViewModel
             return (!String.IsNullOrEmpty(SelectedOrderType) && !String.IsNullOrEmpty(SelectedProductType) && !String.IsNullOrEmpty(Amount) && ArrivalDate >= DateTime.Today);
         }
 
-        public void OnDiscard()
+        public void OnNavigation(String view)
         {
-            // revert view to previous
+            switch (view)
+            {
+                case "back":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "home":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "logout":
+                    break;
+                case "discard":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+            }
+        }
+
+        public void OnFill()
+        {
+
         }
 
     }
