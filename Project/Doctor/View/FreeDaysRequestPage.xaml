@@ -19,6 +19,7 @@
                 <ComboBox ItemsSource="{Binding Reasons}" SelectedValue="{Binding SelectedItem,Mode = TwoWay}" Margin="171,242,264,200"></ComboBox>
                 <Label Content="Razlog" Margin="26,240,456,198"/>
                 <Button Content="Posalji" Template="{StaticResource BasicButton}" Margin="398,355,46,82" Command="{Binding SendRequestCommand}"/>
+                <Button Content="Pogledaj sve" Template="{StaticResource BasicButton}" Margin="74,355,340,82" Command="{Binding ShowAll}"/>
             </Grid>
 
 

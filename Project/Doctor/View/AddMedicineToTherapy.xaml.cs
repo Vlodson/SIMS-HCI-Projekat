@@ -3,6 +3,7 @@ using Model;
 using Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -35,13 +36,14 @@ namespace Doctor.View
 
         private string patientBind;
         private DateTime dateBind;
+        public ObservableCollection<Medicine> MedicinesBind { get; set; }
         private Examination selectedExam;
         private int dur;
 
         private TherapyController _therapyController;
-        private TherapyRepo _therapyRepo;
         private ReportPage _reportPage;
         private PatientController _patientController;
+        private MedicineController _medicineController;
 
         public string PatientBind { get => patientBind; set => patientBind = value; }
         public DateTime DateBind { get => dateBind; set => dateBind = value; }
@@ -67,10 +69,11 @@ namespace Doctor.View
 
             App app = Application.Current as App;
             _therapyController = app.therapyController;
-            _therapyRepo = app.therapyRepo;
             _patientController = app.patientController;
+            _medicineController = app.medicineController;
 
             PatientBind = _patientController.ReadPatient(exam.PatientId).NameSurname;
+            MedicinesBind = _medicineController.ReadAll();
             DateBind = exam.Date;
             selectedExam = exam;
             _reportPage = reportPage;
