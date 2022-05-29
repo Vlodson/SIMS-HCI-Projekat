@@ -37,14 +37,14 @@ namespace Repository
             return null;
         }
 
-        public void SetEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
+        public void SetEquipment(Equipment newEquipment)
         {
             for(int i = 0; i < Equipment.Count; i++)
             {
-                if (Equipment[i].Id.Equals(equipmentId))
+                if (Equipment[i].Id.Equals(newEquipment.Id))
                 {
-                    Equipment[i].RoomId = newRoomId;
-                    Equipment[i].Type = newType;
+                    Equipment[i].RoomId = newEquipment.RoomId;
+                    Equipment[i].Type = newEquipment.Type;
                     break;
                 }
             }

@@ -182,7 +182,7 @@ namespace Admin.ViewModel
             for (int i = 0; i < int.Parse(Amount); i++)
             {
                 Equipment equipment = new Equipment(id.ToString(), storageRoom.Id, (EquipmentTypeEnum)Enum.Parse(typeof(EquipmentTypeEnum), SelectedProductType));
-                equipmentController.CreateEquipment(id.ToString(), storageRoom.Id, (EquipmentTypeEnum)Enum.Parse(typeof(EquipmentTypeEnum), SelectedProductType));
+                equipmentController.CreateEquipment(equipment);
                 roomController.AddEquipment(storageRoom.Id, equipment);
                 
                 id++;

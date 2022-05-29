@@ -146,52 +146,42 @@ namespace Admin.ViewModel
             switch (SplitMerge)
             {
                 case "ordinary":
-                    _renovationController.ScheduleRenovation(
+                    _renovationController.ScheduleRenovation(new Renovation(
                         id.ToString(),
-                        OriginRoom.Id,
-                        "",
+                        OriginRoom,
+                        null,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
-                        );
+                        ));
                     break;
-                case "merge":
-                    _renovationController.ScheduleRenovation(
-                        id.ToString(),
-                        OriginRoom.Id,
-                        destinationRoom.Id,
-                        SelectedRenovationType,
-                        DateOnly.Parse(StartDate.ToShortDateString()),
-                        DateOnly.Parse(EndDate.ToShortDateString())
-                        );
 
-                    _renovationController.MergeRooms(new Renovation(
+                case "merge":
+                    Renovation merge = new Renovation(
                         id.ToString(),
                         OriginRoom,
                         destinationRoom,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
-                        ));
+                        );
+
+                    _renovationController.ScheduleRenovation(merge);
+                    _renovationController.MergeRooms(merge);
                     break;
+
                 case "split":
-                    _renovationController.ScheduleRenovation(
+                    Renovation split = new Renovation(
                         id.ToString(),
-                        OriginRoom.Id,
-                        "",
+                        OriginRoom,
+                        null,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
                         );
 
-                    _renovationController.SplitRoom(new Renovation(
-                        id.ToString(),
-                        OriginRoom,
-                        new Room(),
-                        SelectedRenovationType,
-                        DateOnly.Parse(StartDate.ToShortDateString()),
-                        DateOnly.Parse(EndDate.ToShortDateString())
-                        ));
+                    _renovationController.ScheduleRenovation(split);
+                    _renovationController.SplitRoom(split);
                     break;
             }
 

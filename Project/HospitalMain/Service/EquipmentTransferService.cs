@@ -26,10 +26,6 @@ namespace Service
 
         public bool ScheduleTransfer(EquipmentTransfer equipmentTransfer)
         {
-            Room originRoom = _roomRepo.GetRoom(equipmentTransfer.OriginRoom.Id);
-            Room destinationRoom = _roomRepo.GetRoom(equipmentTransfer.DestinationRoom.Id);
-            Equipment equipment = _equipmentRepo.GetEquipment(equipmentTransfer.Equipment.Id);
-
             // make new schedule with no signature, cuz thats recording, and thats when the actual transfer happens
             _equipmentTransferRepo.NewEquipmentTransfer(equipmentTransfer);
 
@@ -49,7 +45,7 @@ namespace Service
                 return false;
 
             // change equipment room id
-            _equipmentRepo.SetEquipment(equipmentTransfer.Equipment.Id, equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment.Type);
+            _equipmentRepo.SetEquipment(equipmentTransfer.Equipment);
 
             // legacy code that worked with signature, that doesnt exist anymore
             _equipmentTransferRepo.SetEquipmentTransfer(equipmentTransfer); 

@@ -26,11 +26,8 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
-        public bool ScheduleRenovation(String id, String originRoomId, String destinationRoomId, RenovationTypeEnum type, DateOnly startDate, DateOnly endDate)
+        public bool ScheduleRenovation(Renovation renovation)
         {
-            Room originRoom = _roomRepo.GetRoom(originRoomId);
-            Room destinationRoom = _roomRepo.GetRoom(destinationRoomId);
-            Renovation renovation = new Renovation(id, originRoom, destinationRoom, type, startDate, endDate);
             _renovationRepo.NewRenovation(renovation);
             return true;
         }
@@ -40,8 +37,8 @@ namespace Service
             Renovation renovation = _renovationRepo.GetRenovation(renovationId);
             Room originRoom = renovation.OriginRoom;
             
-            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative, originRoom.PreviousType);
-            _renovationRepo.SetRenovation(renovation.Id, renovation.OriginRoom, renovation.DestinationRoom, renovation.Type, renovation.StartDate, renovation.EndDate);
+            _roomRepo.SetRoom(originRoom);
+            _renovationRepo.SetRenovation(renovation);
             
             return true;
         }
@@ -64,7 +61,7 @@ namespace Service
             foreach(Renovation renovation in _renovationRepo.Renovations)
             {
                 if (renovation.EndDate >= DateOnly.Parse(DateTime.Now.ToShortDateString()))
-                    _roomRepo.SetRoom(renovation.OriginRoom.Id, renovation.OriginRoom.Equipment, renovation.OriginRoom.Floor, renovation.OriginRoom.RoomNb, renovation.OriginRoom.Occupancy, renovation.OriginRoom.PreviousType, renovation.OriginRoom.PreviousType);
+                    _roomRepo.SetRoom(renovation.OriginRoom);
             }
         }
 
@@ -107,11 +104,10 @@ namespace Service
             int number = roomList.Where(r => r.Floor == renovation.OriginRoom.Floor).Max(r1 => r1.RoomNb) + 1;
 
             // change origin status
-            Room originRoom = renovation.OriginRoom;
-            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative, originRoom.Type);
+            _roomRepo.SetRoom(renovation.OriginRoom);
 
             // generate new room and add it to the repo
-            Room newRoom = new Room(id.ToString(), originRoom.Floor, number, false, RoomTypeEnum.Inoperative, originRoom.Type);
+            Room newRoom = new Room(id.ToString(), renovation.OriginRoom.Floor, number, false, RoomTypeEnum.Inoperative, renovation.OriginRoom.Type);
             _roomRepo.NewRoom(newRoom);
         }
 
