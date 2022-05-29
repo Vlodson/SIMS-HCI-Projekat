@@ -13,6 +13,9 @@ namespace Enums
         Diuretic,
         Bronchodilator,
         Antihypertensive,
-        Erythromycin
+        Erythromycin,
+        Antihistamine,
+        NSAID,
+        Corticosteriod
     }
 }

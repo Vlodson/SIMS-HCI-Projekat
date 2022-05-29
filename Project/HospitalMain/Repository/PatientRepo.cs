@@ -36,15 +36,6 @@ namespace Repository
                 LoadPatient();
         }
 
-       public PatientRepo(string dbPath, ObservableCollection<Patient> patientCollection)
-       {
-            this.DBPath=dbPath;
-            this.Patients = patientCollection;
-            //Guest guest = new Guest("123");
-            Patient p1 = new Patient("123", "0111000802463","Jelena", "Dinic", "0615235548", "jelena@mail.com", "Partizanska 23, Novi Sad", Gender.Ženski, new DateTime(2000, 11, 1), "4", false, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
-            this.Patients.Add(p1);
-       }
-
       public bool NewPatient(Patient patient)
       {
 
@@ -127,79 +118,6 @@ namespace Repository
             return true;
       }
 
-      
-      public Answer ContainsAnswer(String idPatient, String idAnswer)
-      {
-            foreach(Answer answer in GetPatient(idPatient).Answers)
-            {
-                if (idAnswer.Equals(answer.IdDoctor))
-                {
-                    return answer;
-                }
-            }
-            return null;
-      }
-
-      
-      public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
-        {
-            Answer existing = ContainsAnswer(medicalRecord.ID, doctorId);
-            if (existing == null) return true;
-            if(existing != null && existing.CounterGrades >= medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-      public void AddAnswer(String idPatient, Answer answer)
-      {
-            Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
-            if (existing == null)
-            {
-                answer.CounterGrades = 1;
-                GetPatient(idPatient).Answers.Add(answer);
-            }
-            else
-            {
-                answer.CounterGrades = existing.CounterGrades + 1;
-                GetPatient(idPatient).Answers.Remove(existing);
-                GetPatient(idPatient).Answers.Add(answer);
-            } 
-            SavePatient();
-      }
-        public void CheckMonth(Patient patient)
-        {
-            if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
-            {
-                patient.CurrentMonth = DateTime.Now.ToString("MM");
-                patient.NumberCanceling = 0;
-                patient.NumberNewExams = 0;
-            }
-        }
-        //public PatientAccountService patientAccountService;
-
-        public bool CheckStatusCancelled(String id)
-        {
-            CheckMonth(GetPatient(id));
-            if (GetPatient(id).NumberCanceling > 5)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        public bool CheckStatusAdded(String id)
-        {
-            CheckMonth(GetPatient(id));
-            if (GetPatient(id).NumberNewExams > 10)
-            {
-                return false;
-            }
-            return true;
-        }
     }
 
    }

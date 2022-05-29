@@ -12,14 +12,17 @@ using Utility;
 using HospitalMain.Enums;
 using Enums;
 
+using Admin.Views;
 
 namespace Admin.ViewModel
 {
     public class RequestMedicineCheckViewModel: BindableBase
     {
         public ICommandTemplate SendCommand { get; private set; }
-        public ICommandTemplate DiscardCommand { get; private set; }
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+        public ICommandTemplate FillCommand { get; private set; }
 
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
         private MedicineController _medicineController;
         private DoctorController _doctorController;
         private String ingredients;
@@ -103,7 +106,8 @@ namespace Admin.ViewModel
         public RequestMedicineCheckViewModel()
         {
             SendCommand = new ICommandTemplate(OnSend, CanSend);
-            DiscardCommand = new ICommandTemplate(OnDiscard);
+            FillCommand = new ICommandTemplate(OnFill);
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
 
             var app = Application.Current as App;
             _medicineController = app.medicineController;
@@ -112,13 +116,17 @@ namespace Admin.ViewModel
             MedicineList = new List<Medicine>(_medicineController.ReadAll());
 
             Medicines = new ObservableCollection<Medicine>(MedicineList.Where(m => m.Status == StatusEnum.Pending));
-            Doctors = _doctorController.GetAll();
+            Doctors = _doctorController.GetAllDoctors();
             ArrivalDate = DateTime.Now;
         }
 
         public void OnSend()
         {
-            // send to doctor
+            // TODO: send to doctor
+            MessageBox.Show("Request sent");
+            mainWindow.Width = 750;
+            mainWindow.Height = 430;
+            mainWindow.CurrentView = new MainMenuView();
         }
 
         public bool CanSend()
@@ -126,9 +134,36 @@ namespace Admin.ViewModel
             return (SelectedMedicine is not null && SelectedDoctor is not null && Comment is not null);
         }
 
-        public void OnDiscard()
+        public void OnFill()
         {
-            // return to previous window
+            // TODO
+        }
+
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    // delete request
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "home":
+                    // delete request
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "logout":
+                    break;
+                case "discard":
+                    // delete request
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+            }
         }
 
     }

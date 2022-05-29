@@ -65,7 +65,7 @@ namespace Secretary.ViewModel
 
         private void FillDoctorComboBoxData()
         {
-            foreach(Doctor doctor in doctorController.GetAll())
+            foreach(Doctor doctor in doctorController.GetAllDoctors())
             {
                 doctorComboBox.Add(new ComboBoxData<Doctor> { Name = doctor.Name + " " + doctor.Surname, Value = doctor });
             }

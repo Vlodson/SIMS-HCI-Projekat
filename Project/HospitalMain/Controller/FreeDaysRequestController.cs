@@ -36,5 +36,10 @@ namespace Controller
             return _requestService.CheckIfDoctorHasFreeDays(doctorID, days);
         }
 
+        public int GenerateID()
+        {
+            return _requestService.GenerateID();
+        }
+
     }
 }

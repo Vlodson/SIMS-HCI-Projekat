@@ -52,9 +52,9 @@ namespace Controller
         }
 
 
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
+        public List<Notification> GetPatientNotifications(MedicalRecord medicalRecord)
         {
-            return medRecordService.GetNotificationTimes(medicalRecord);
+            return medRecordService.GetPatientNotifications(medicalRecord);
         }
 
 

@@ -106,7 +106,7 @@ namespace Patient.ViewModel
             _doctorController = app.DoctorController;
             _examController = app.ExamController;
 
-            AvailableDates = _doctorController.MoveExaminations(ExaminationsList.selected);
+            AvailableDates = _doctorController.AvailableMoveExaminations(ExaminationsList.selected);
             switch (ExaminationsList.selected.DoctorType)
             {
                 case Model.DoctorType.Pulmonology:

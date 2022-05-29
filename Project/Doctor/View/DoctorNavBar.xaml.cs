@@ -50,7 +50,7 @@ namespace Doctor.View
                 _patientRepo.LoadPatient();
             if (File.Exists(_roomRepo.dbPath))
                 _roomRepo.LoadRoom();
-            if (File.Exists(_examRepo.dbPath))
+            if (File.Exists(_examRepo.DBPath))
                 _examRepo.LoadExamination();
 
         }

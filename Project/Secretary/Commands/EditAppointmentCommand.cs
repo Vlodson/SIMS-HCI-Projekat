@@ -51,7 +51,7 @@ namespace Secretary.Commands
         private void UpdateExaminations()
         {
             _crudAppointmentsViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = _examController.GetExaminations();
 
             foreach(Examination exam in examinationsFromBase)
             {

@@ -37,7 +37,7 @@ namespace Patient.View
             _roomController = app.RoomController;
             _patientController = app.PatientController;
 
-            ExamsAvailable.ItemsSource = _doctorController.MoveExaminations(ExaminationsList.selected);
+            ExamsAvailable.ItemsSource = _doctorController.AvailableMoveExaminations(ExaminationsList.selected);
             Odeljenje.Content = ExaminationsList.selected.DoctorType;
             Lekar.Content = ExaminationsList.selected.DoctorNameSurname;
             StariTermin.Content = ExaminationsList.selected.Date;

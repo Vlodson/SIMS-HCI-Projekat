@@ -10,21 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Admin.Views;
-
-namespace Admin.View
+namespace Doctor.View
 {
     /// <summary>
-    /// Interaction logic for RequestMedicineCheckWindow.xaml
+    /// Interaction logic for ShowAllRequests.xaml
     /// </summary>
-    public partial class RequestMedicineCheckWindow : Window
+    public partial class ShowAllRequests : Page
     {
-        public RequestMedicineCheckWindow()
+        public ShowAllRequests()
         {
             InitializeComponent();
-            this.DataContext = new RequestMedicineCheckView();
+            this.DataContext = new ViewModel.ShowAllRequestsViewModel();
         }
     }
 }

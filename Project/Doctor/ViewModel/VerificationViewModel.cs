@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Enums;
 using Model;
 using Repository;
 using System;

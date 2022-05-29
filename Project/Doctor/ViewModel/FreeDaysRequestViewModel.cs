@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Doctor.View;
 using Enums;
 using Model;
 using Repository;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace ViewModel
 {
@@ -32,7 +34,9 @@ namespace ViewModel
         private readonly FreeDaysRequestController _freeDaysRequestController;
         private readonly FreeDaysRequestRepo _freeDaysRequestRepo;
         private readonly DoctorRepo _doctorRepo;
+
         public MyICommand SendRequestCommand { get; set; }
+        public MyICommand ShowAll { get; set; }
 
         public FreeDaysReasons Reason
         {
@@ -66,7 +70,9 @@ namespace ViewModel
             FreeDaysLeft = doctor.FreeDaysLeft.ToString();
 
             SendRequestCommand = new MyICommand(OnSend, CanSend);
+            ShowAll = new MyICommand(OnExecute);
         }
+
         public string FreeDaysLeft
         {
             get { return freeDaysLeft; }
@@ -118,11 +124,19 @@ namespace ViewModel
         public void OnSend()
         {
            
-            FreeDaysRequest request = new FreeDaysRequest(Int32.Parse(freeDaysLeft), _doctorController.GetDoctor(MainWindow._uid).Id, DateTime.Parse(startDate), DateTime.Parse(endDate), selectedItem);
+            FreeDaysRequest request = new FreeDaysRequest(_freeDaysRequestController.GenerateID().ToString(), StatusEnum.Pending, _doctorController.GetDoctor(MainWindow._uid).Id, DateTime.Parse(startDate), DateTime.Parse(endDate), selectedItem, "");
             _freeDaysRequestController.NewRequest(request);
             _freeDaysRequestRepo.SaveRequest();
             _doctorController.GetDoctor(MainWindow._uid).FreeDaysLeft -= (DateTime.Parse(endDate) - DateTime.Parse(startDate)).TotalDays;
             _doctorRepo.SaveDoctor();
         }
+
+
+        public void OnExecute()
+        {
+            ShowAllRequests requestsPage = new ShowAllRequests();
+            
+        }
+
     }
 }
