@@ -44,7 +44,7 @@ namespace Secretary.ViewModel
             DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
             EditAppointmentCommand = new GoToEditAppointmentCommand(this);
 
-            ObservableCollection<Examination> examinationsFromBase = examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = examController.GetExaminations();
             foreach(Examination examination in examinationsFromBase)
             {
                 examinationList.Add(new ExaminationViewModel(examination));

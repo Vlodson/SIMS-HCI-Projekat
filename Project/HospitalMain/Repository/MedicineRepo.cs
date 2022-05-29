@@ -12,14 +12,14 @@ namespace Repository
 {
     public class MedicineRepo
     {
-        public String dbPath { get; set; }
+        public String DBPath { get; set; }
         public ObservableCollection<Medicine> Medicine { get; set; }
 
         public MedicineRepo(string db_path)
         {
-            this.dbPath = db_path;
+            this.DBPath = db_path;
             Medicine = new ObservableCollection<Medicine>();
-            if (File.Exists(dbPath))
+            if (File.Exists(DBPath))
                 LoadMedicine();
         }
 
@@ -66,14 +66,14 @@ namespace Repository
 
         public void LoadMedicine()
         {
-            using FileStream medicineFileStream = File.OpenRead(dbPath);
+            using FileStream medicineFileStream = File.OpenRead(DBPath);
             this.Medicine = JsonSerializer.Deserialize<ObservableCollection<Medicine>>(medicineFileStream);
         }
 
         public void SaveMedicine()
         {
             string jsonString = JsonSerializer.Serialize(this.Medicine);
-            File.WriteAllText(dbPath, jsonString);
+            File.WriteAllText(DBPath, jsonString);
         }
     }
 }

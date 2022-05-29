@@ -14,7 +14,7 @@ namespace Service
     public class MedicalRecordService
     {
 
-        private MedicalRecordRepo medicalRecordRepo;
+        private readonly MedicalRecordRepo medicalRecordRepo;
 
         public MedicalRecordService(MedicalRecordRepo medicalRecordRepo)
         {
@@ -87,7 +87,15 @@ namespace Service
 
         public void AddNewReport(string id, Report report)
         {
-            medicalRecordRepo.AddNewReport(id, report);
+            foreach (MedicalRecord mr in medicalRecordRepo.MedicalRecords)
+            {
+                if (mr.ID.Equals(id))
+                {
+                    mr.Reports.Add(report);
+    
+                    break;
+                }
+            }
         }
 
         public void CheckNotification(MedicalRecord medicalRecord, Notification notification)

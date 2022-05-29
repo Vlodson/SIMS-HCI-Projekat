@@ -44,7 +44,7 @@ namespace Doctor.View
             _medicalRecordController = app.medicalRecordController;
             _medicalRecordRepo = app.medicalRecordRepo;
 
-            if (File.Exists(_reportRepo.dbPath))
+            if (File.Exists(_reportRepo.DBPath))
                 _reportRepo.LoadReport();
             if(File.Exists(_medicalRecordRepo.DBPath))
                 _medicalRecordRepo.LoadMedicalRecord();
