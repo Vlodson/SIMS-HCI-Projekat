@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.Views"
         mc:Ignorable="d"
-        Title="NEwAlarm" Height="450" Width="539">
+        Title="NEwAlarm" Height="323" Width="539">
     <Window.Resources>
         <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
             <Setter Property="Template">
@@ -81,29 +81,29 @@
         </TextBox>
         <Label Content="Vreme" HorizontalAlignment="Left" Margin="5,136,0,0" VerticalAlignment="Top"/>
         <Label Content="Dani" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top"/>
-        <ListBox Background="white" x:Name="monday" SelectionMode="Multiple" SelectedIndex="{Binding Monday}"  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="49,181,433,207">
-            <ListBoxItem Background="white">pon</ListBoxItem>
+        <ListBox Background="white" x:Name="monday" SelectionMode="Multiple" SelectedIndex="{Binding Monday}"  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="49,181,433,82">
+            <ListBoxItem Background="white" Height="63">pon</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" x:Name="tuesday" SelectionMode="Multiple" SelectedIndex="{Binding Tuesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="109,181,373,207">
+        <ListBox Background="white" x:Name="tuesday" SelectionMode="Multiple" SelectedIndex="{Binding Tuesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="109,181,373,82">
             <ListBoxItem Background="white">uto</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Wednesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="174,181,308,207">
+        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Wednesday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="174,181,308,82">
             <ListBoxItem Background="white">sre</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Thursday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="234,181,248,207">
+        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Thursday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="234,181,248,82">
             <ListBoxItem Background="white">čet</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Friday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="294,181,188,207">
+        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Friday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="294,181,188,82">
             <ListBoxItem Background="white">pet</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Saturday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="354,181,128,207">
+        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Saturday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="354,181,128,82">
             <ListBoxItem Background="white">sub</ListBoxItem>
         </ListBox>
-        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Sunday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="414,181,68,207">
+        <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Sunday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="414,181,68,82">
             <ListBoxItem Background="white">ned</ListBoxItem>
         </ListBox>
 
-        <Grid x:Name="Hours" Margin="49,121,221,142">
+        <Grid x:Name="Hours" Margin="49,121,221,60">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="2*"/>
@@ -116,7 +116,7 @@
 
 
 
-        <Grid x:Name="Minutes" Margin="119,122,150,140">
+        <Grid x:Name="Minutes" Margin="117,122,152,82">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
                 <RowDefinition Height="2*"/>
@@ -127,7 +127,7 @@
             <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="9,9,0,0" SmallChange="1" Width="50" Height="30"/>
         </Grid>
         <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="109,119,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="414,272,0,0" VerticalAlignment="Top">
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="414,246,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

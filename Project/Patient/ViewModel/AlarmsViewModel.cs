@@ -92,7 +92,7 @@ namespace Patient.ViewModel
                         case 6:
                             days += "sub ";
                             break;
-                        case 7:
+                        case 0:
                             days += "ned ";
                             break;
                     }

@@ -56,7 +56,12 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <DataGrid ItemsSource="{Binding PersonalNotifications}" SelectedItem="{Binding SelectedNotification}" AutoGenerateColumns="False"  Margin="517,194,40,130">
+        <DataGrid ItemsSource="{Binding PersonalNotifications}" SelectedItem="{Binding SelectedNotification}" CanUserAddRows="False" AutoGenerateColumns="False"  Margin="517,194,40,130">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Text}" Width="*"/>
                 <DataGridTextColumn Header="Vreme" Binding="{Binding Time}" Width="*"/>

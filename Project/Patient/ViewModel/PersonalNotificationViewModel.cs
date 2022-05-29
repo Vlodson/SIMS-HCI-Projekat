@@ -225,7 +225,7 @@ namespace Patient.ViewModel
             }
             if (Sunday == 0)
             {
-                selectedDays.Add(7);
+                selectedDays.Add(0);
             }
             PersonalNotification personalNotification = new PersonalNotification(Login.loggedId, Text, selectedDays, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hours, Minutes, 0));
             _personalNotificationController.AddPersonalNotification(personalNotification);

@@ -153,10 +153,11 @@ namespace Patient.View
             List<HospitalMain.Model.PersonalNotification> personalNotificationList = personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
             foreach(HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
             {
-                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour <= DateTime.Now.Hour && personalNotification.Time.Minute <= DateTime.Now.Minute)
+                //Console.WriteLine((int)DateTime.Now.DayOfWeek);
+                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute == DateTime.Now.Minute)
                 {
                     MessageBox.Show(personalNotification.Text);
-                    personalNotificationController.SetNotificationRead(personalNotification);
+                    //personalNotificationController.SetNotificationRead(personalNotification);
                 }
             }
             Thread.Sleep(100);
