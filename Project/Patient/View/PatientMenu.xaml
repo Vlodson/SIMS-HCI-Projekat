@@ -125,7 +125,7 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button  Style="{StaticResource MenuBarButtons}" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="MenuClick">
+        <Button  Style="{StaticResource MenuBarButtons}" ToolTip="Meni" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="MenuClick">
             <StackPanel>
                 <Image Source="/Images/icons8-menu-24.png"/>
             </StackPanel>
@@ -133,7 +133,7 @@
         
         <!--<StackPanel Width="50" Height="786" Margin="10,130,964,-148">-->
 
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0" Click="MedicalREcordClick">
+        <Button HorizontalAlignment="Left" ToolTip="Karton" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0" Click="MedicalREcordClick">
             <StackPanel>
                 <Image Source="/Images/folder.png"/>
             </StackPanel>
@@ -159,27 +159,27 @@
         </Button>
         <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="112,7,0,0" VerticalAlignment="Top"/>
         <Image Source="/Images/logo2.png"  Margin="-9,2,916,669"></Image>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0" Click="Button_Click">
+        <Button HorizontalAlignment="Left" ToolTip="Termini" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0" Click="Button_Click">
             <StackPanel>
                 <Image Source="/Images/appointments.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,340,0,0" Click="GradingsClick">
+        <Button HorizontalAlignment="Left" ToolTip="Ocene" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,340,0,0" Click="GradingsClick">
             <StackPanel>
                 <Image Source="/Images/survey.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0" Click="AlarmsClick">
+        <Button HorizontalAlignment="Left" ToolTip="Podsetnici" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0" Click="AlarmsClick">
             <StackPanel>
                 <Image Source="/Images/clock.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left"  Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,550,0,0">
+        <Button HorizontalAlignment="Left" ToolTip="Izveštaji" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,550,0,0">
             <StackPanel>
                 <Image Source="/Images/reportPdf.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,649,0,0">
+        <Button HorizontalAlignment="Left" ToolTip="Tutorijal" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,649,0,0">
             <StackPanel>
                 <Image Source="/Images/tutorial.png"/>
             </StackPanel>

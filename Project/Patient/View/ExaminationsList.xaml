@@ -75,7 +75,7 @@
             <ColumnDefinition Width="277*"/>
         </Grid.ColumnDefinitions>
         <!--ItemsSource="{Binding Path= Examinations, Mode=TwoWay}"-->
-        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding ExaminationsForDate}" SelectionMode="Single" IsReadOnly="True" Background="#b2d8d8" AutoGenerateColumns="False" Margin="30,415,29,51" Grid.ColumnSpan="2">
+        <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding ExaminationsForDate}" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" Margin="30,415,29,51" Grid.ColumnSpan="2">
             <DataGrid.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -116,16 +116,7 @@
 
 
 
-        <Button Background="#b2d8d8" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick">
-            <StackPanel>
-                <Image Source="/Images/arrow-small-left.png"/>
-            </StackPanel>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+        
         <Calendar x:Name="Calendar" Style="{StaticResource StyleCalendar}" Width="900" Height="400" Grid.ColumnSpan="2" Margin="23,58,36,195" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate" >
             
         </Calendar>

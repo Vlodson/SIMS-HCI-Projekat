@@ -42,26 +42,42 @@
         <Label Content="Podsetnici" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Lični podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="517,142,0,0" VerticalAlignment="Top"/>
         <Label Content="Sistemski podsetnici" FontSize="28" HorizontalAlignment="Left" Margin="45,142,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" HorizontalAlignment="Left" Margin="821,583,0,0" VerticalAlignment="Top">
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="714,578,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Ukloni" Command="{Binding RemovePersonalNotificationCommand}" HorizontalAlignment="Left" Margin="881,583,0,0" VerticalAlignment="Top">
+        <Button Content="Ukloni" Command="{Binding RemovePersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="819,578,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <DataGrid ItemsSource="{Binding PersonalNotifications}" SelectedItem="{Binding SelectedNotification}" AutoGenerateColumns="False"  Margin="517,194,40,146">
+        <DataGrid ItemsSource="{Binding PersonalNotifications}" SelectedItem="{Binding SelectedNotification}" CanUserAddRows="False" AutoGenerateColumns="False"  Margin="517,194,40,130">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Text}" Width="*"/>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Time}" Width="*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding TimeString}" Width="*"/>
                 <DataGridTextColumn Header="Dani" Binding="{Binding DaysString}" Width="*"/>
                 <DataGridCheckBoxColumn Header="Aktivan" Binding="{Binding Status}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid ItemsSource="{Binding Notifications}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="45,194,512,130">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding ContentTable}"  Width="*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding DateTimeNotificationTable}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 

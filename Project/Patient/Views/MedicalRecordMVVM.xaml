@@ -58,7 +58,7 @@
         <Label Content="{Binding BloodType}" HorizontalAlignment="Left" Margin="858,133,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Gender}" HorizontalAlignment="Left" Margin="858,164,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Allergens}" HorizontalAlignment="Left" Margin="118,228,0,0" VerticalAlignment="Top"/>
-        <Button Content="Izmeni" Command="{Binding ChangeMedicalRecordCommand}" HorizontalAlignment="Left" Margin="873,239,0,0" VerticalAlignment="Top">
+        <Button Content="Izmeni" Command="{Binding ChangeMedicalRecordCommand}" Width="100" HorizontalAlignment="Left" Margin="806,241,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -87,22 +87,13 @@
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Pregledaj" Command="{Binding ViewReportCommand}" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top">
+        <Button Content="Pregledaj" Command="{Binding ViewReportCommand}" Width="100" HorizontalAlignment="Left" Margin="806,591,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Background="#b2d8d8" Command="{Binding MenuBack}" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26">
-            <StackPanel>
-                <Image Source="/Images/arrow-small-left.png"/>
-            </StackPanel>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+
     </Grid>
 </Page>
