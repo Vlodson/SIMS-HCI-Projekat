@@ -192,42 +192,5 @@ namespace Repository
             File.WriteAllText(DBPath, jsonString);
             return true;
         }
-
-
-        public void AddNewReport(string id, Report report)
-        {
-            foreach(MedicalRecord mr in MedicalRecords)
-            {
-                if(mr.ID.Equals(id))
-                {
-                    mr.Reports.Add(report);
-                    //GenerateNotifications(report, mr);
-                    break;
-                }
-            }
-        }
-        /*
-        public void GenerateNotifications(Report report, MedicalRecord mr)
-        {
-            foreach (Therapy therapy in report.Therapy)
-            {
-                DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                int addingHours = 24 / therapy.PerDay;
-
-                for (int i = 0; i < therapy.Duration; ++i)
-                {
-                    for (int j = 0; j < therapy.PerDay; ++j)
-                    {
-                        DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
-                        String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
-                        Notification notification = new Notification(content, false, dateTime);
-                        mr.Notifications.Add(notification);
-
-                    }
-                }
-            }
-        }
-        */
     }
 }

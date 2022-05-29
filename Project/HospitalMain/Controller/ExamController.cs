@@ -68,16 +68,6 @@ namespace Controller
         {
             return _patientService.AppointmentRoomEditValidation(ExamID, dateTime, RoomID);
         }
-
-        public ObservableCollection<Examination> getAllExaminations()
-        {
-            return _patientService.getAllExaminations();
-        }
-
-        public Examination getExamination(String examID)
-        {
-            return _patientService.GetExam(examID);
-        }
       
         public bool PatientCreateExam(Examination examination, DateTime newDate)
         {
@@ -122,7 +112,10 @@ namespace Controller
         {
             _doctorService.EditExams(id, examination);
         }
-
+        public Examination GetExamination(String examID)
+        {
+            return _patientService.GetExam(examID);
+        }
         public void PatientEditExamForMoving(Examination examination, DateTime dateTime)
         {
             _patientService.EditExamForMoving(examination.Id, dateTime);

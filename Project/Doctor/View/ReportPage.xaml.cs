@@ -61,7 +61,7 @@ namespace Doctor.View
             this.DateBind = exam.Date;
             this.selectedExam = exam;
 
-            if (File.Exists(_therapyRepo.dbPath))
+            if (File.Exists(_therapyRepo.DBPath))
                 _therapyRepo.LoadTherapy();
 
             therapyBind = _therapyController.findById(exam.Id);

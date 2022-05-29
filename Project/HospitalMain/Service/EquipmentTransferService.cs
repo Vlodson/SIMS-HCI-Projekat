@@ -54,7 +54,7 @@ namespace Service
 
         public bool OccupiedAtTheTime(EquipmentTransfer equipmentTransfer)
         {
-            foreach(Examination examination in _examinationRepo.ExaminationList)
+            foreach(Examination examination in _examinationRepo.Examinations)
             {
                 if (equipmentTransfer.OriginRoom.Id == examination.ExamRoomId || equipmentTransfer.DestinationRoom.Id == examination.ExamRoomId)
                     if (equipmentTransfer.StartDate >= examination.Date && equipmentTransfer.EndDate <= examination.Date.AddMinutes(examination.Duration))

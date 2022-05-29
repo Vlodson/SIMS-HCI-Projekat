@@ -64,19 +64,14 @@ namespace Service
             return maxID + 1;
         }
 
-        public ObservableCollection<Examination> getAllExaminations()
+        public ObservableCollection<Examination> GetAllExaminations()
         {
-            return _examinationRepo.ExaminationList;
+            return _examinationRepo.Examinations;
         }
 
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();
-        }
-
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
-        {
-            throw new NotImplementedException();
         }
 
         public Model.Patient GetPatient(String id)
@@ -86,7 +81,7 @@ namespace Service
 
         public bool AppointmentRoomValidation(DateTime date, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach(Examination exam in examinationsFromBase)
             {
@@ -101,7 +96,7 @@ namespace Service
 
         public bool AppointmentDoctorValidation(DateTime date, Doctor doctor)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -116,7 +111,7 @@ namespace Service
 
         public bool AppointmentPatientValidation(DateTime date, String PatientID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -131,7 +126,7 @@ namespace Service
 
         public bool AppointmentRoomEditValidation(String ExamID, DateTime date, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -150,7 +145,7 @@ namespace Service
 
         public bool AppointmentDoctorEditValidation(String ExamID, DateTime date, Doctor doctor)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -169,7 +164,7 @@ namespace Service
 
         public bool AppointmentPatientEditValidation(String ExamID, DateTime date, String PatientID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -286,7 +281,7 @@ namespace Service
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
             ObservableCollection<Examination> patientExaminations = new ObservableCollection<Examination>();
-            foreach (Examination exam in _examinationRepo.ExaminationList)
+            foreach (Examination exam in _examinationRepo.Examinations)
             {
                 if (exam.PatientId.Equals(id)) patientExaminations.Add(exam);
             }
@@ -301,13 +296,13 @@ namespace Service
 
         public ObservableCollection<Examination> GetExaminations()
         {
-            return _examinationRepo.ExaminationList;
+            return _examinationRepo.Examinations;
         }
 
         public List<Examination> GetExamByTime(DateTime dateTime)
         {
             List<Examination> returnList = new List<Examination>();
-            foreach (Examination examination in _examinationRepo.ExaminationList)
+            foreach (Examination examination in _examinationRepo.Examinations)
             {
                 if (examination.Date.Equals(dateTime))
                 {

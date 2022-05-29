@@ -12,20 +12,15 @@ namespace Repository
 {
     public class ExaminationRepo
     {
-        public String dbPath { get; set; }
-        public ObservableCollection<Examination> ExaminationList { get; set; }
+        public String DBPath { get; set; }
+        public ObservableCollection<Examination> Examinations { get; set; }
         public Examination TemporaryExam { get; set; }
         public int ValidationCounter { get; set; }
 
         public ExaminationRepo(String dbPath)
         {
-            this.dbPath = dbPath;
-            ExaminationList = new ObservableCollection<Examination>();
-
-            /*Examination exam1 = new Examination("idRoom", new DateTime(2022, 6,6,12,12,0), "idExam", 30, ExaminationTypeEnum.Surgery, "1", "d1");
-            Examination exam2 = new Examination("idRoom1", new DateTime(2021, 2, 2, 12, 12, 0), "idExam1", 30, ExaminationTypeEnum.Surgery, "1", "d11");
-            examinationList.Add(exam1);
-            examinationList.Add(exam2);*/
+            this.DBPath = dbPath;
+            Examinations = new ObservableCollection<Examination>();
 
             Examination exam1 = new Examination("12", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
             Examination exam2 = new Examination("11", new DateTime(2022, 6, 5, 12, 30, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
@@ -38,16 +33,16 @@ namespace Repository
             Examination exam9 = new Examination("10A", new DateTime(2022, 6, 7, 14, 00, 00), "9", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d1");
             Examination exam10 = new Examination("11", new DateTime(2022, 6, 7, 10, 00, 00), "10", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d14");
 
-            this.ExaminationList.Add(exam1);
-            this.ExaminationList.Add(exam2);
-            this.ExaminationList.Add(exam3);
-            this.ExaminationList.Add(exam4);
-            this.ExaminationList.Add(exam5);
-            this.ExaminationList.Add(exam6);
-            this.ExaminationList.Add(exam7);
-            this.ExaminationList.Add(exam8);
-            this.ExaminationList.Add(exam9);
-            this.ExaminationList.Add(exam10);
+            this.Examinations.Add(exam1);
+            this.Examinations.Add(exam2);
+            this.Examinations.Add(exam3);
+            this.Examinations.Add(exam4);
+            this.Examinations.Add(exam5);
+            this.Examinations.Add(exam6);
+            this.Examinations.Add(exam7);
+            this.Examinations.Add(exam8);
+            this.Examinations.Add(exam9);
+            this.Examinations.Add(exam10);
 
             if (File.Exists(dbPath))
                 LoadExamination();
@@ -56,13 +51,13 @@ namespace Repository
 
         public void RemoveExamination(String id)
         {
-            ExaminationList.Remove(GetExaminationById(id));
+            Examinations.Remove(GetExaminationById(id));
             SaveExamination();
         }
 
         public Examination GetExaminationById(String id)
         {
-            foreach(Examination examination in ExaminationList)
+            foreach(Examination examination in Examinations)
             {
                 if(examination.Id.Equals(id))
                 {
@@ -74,14 +69,14 @@ namespace Repository
         public bool NewExamination(Examination examination)
         {
             
-            foreach(Examination exam in ExaminationList)
+            foreach(Examination exam in Examinations)
             {
                 if(exam.Id.Equals(examination.Id))
                 {
                     return false;
                 }
             }
-            ExaminationList.Add(examination);
+            Examinations.Add(examination);
             SaveExamination();
             return true;
         }
@@ -89,7 +84,7 @@ namespace Repository
         public void SetExamination(string examID, Examination examination)
         {
             
-            foreach(Examination exam in ExaminationList)
+            foreach(Examination exam in Examinations)
             {
                 if (exam.Id.Equals(examID))
                 {
@@ -109,39 +104,25 @@ namespace Repository
         public bool LoadExamination()
         {
             
-            using FileStream stream = File.OpenRead(dbPath);
-            ExaminationList = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
+            using FileStream stream = File.OpenRead(DBPath);
+            Examinations = JsonSerializer.Deserialize<ObservableCollection<Examination>>(stream);
             
             return true;
         }
 
         public bool SaveExamination()
         {
-            string jsonString = JsonSerializer.Serialize(ExaminationList);
+            string jsonString = JsonSerializer.Serialize(Examinations);
 
-            File.WriteAllText(dbPath, jsonString);
+            File.WriteAllText(DBPath, jsonString);
             return true;
-        }
-
-
-        public ObservableCollection<Examination> ReadEndedExams()
-        {
-            ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
-                foreach (Examination exam in this.ExaminationList)
-                {
-                    int res = DateTime.Compare(exam.Date, DateTime.Now);
-                    if (res < 0)
-                        endedExams.Add(exam);
-
-                }
-            return endedExams;
         }
 
         //moze da se prebaci za lekara
         public List<Examination> getExamByTime(DateTime dateTime)
         {
             List<Examination> returnList = new List<Examination> ();
-            foreach(Examination examination in this.ExaminationList)
+            foreach(Examination examination in this.Examinations)
             {
                 if (examination.Date.Equals(dateTime))
                 {
@@ -150,17 +131,6 @@ namespace Repository
             }
             return returnList;
         }
-
-        public bool occupiedDate(DateTime dt)
-        {
-            foreach(Examination exam in this.ExaminationList)
-            {
-                if (exam.Date.Equals(dt))
-                    return true;
-            }
-            return false;
-        }
-
 
     }
 }

@@ -38,7 +38,7 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
-            int examID = _examController.generateID(_examController.getAllExaminations());
+            int examID = _examController.generateID(_examController.GetExaminations());
             int duration = 30;
 
             //pravljenje novog pregleda
@@ -56,7 +56,7 @@ namespace Secretary.Commands
         private void UpdateExaminations()
         {
             _crudAppointmentsViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = _examController.GetExaminations();
 
             foreach(Examination examination in examinationsFromBase)
             {

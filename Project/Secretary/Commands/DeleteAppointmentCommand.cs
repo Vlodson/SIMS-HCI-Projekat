@@ -34,7 +34,7 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
-            Examination exam = _examController.getExamination(_crudAppointmentsViewModel.ExaminationViewModel.ID);
+            Examination exam = _examController.GetExamination(_crudAppointmentsViewModel.ExaminationViewModel.ID);
 
            _examController.RemoveExam(exam);
             UpdateExaminations();
@@ -43,7 +43,7 @@ namespace Secretary.Commands
         private void UpdateExaminations()
         {
             _crudAppointmentsViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = _examController.GetExaminations();
 
             foreach(Examination examination in examinationsFromBase)
             {

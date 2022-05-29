@@ -45,7 +45,7 @@ namespace Service
 
         public bool OccupiedAtTheTime(Renovation renovation)
         {
-            foreach (Examination examination in _examinationRepo.ExaminationList)
+            foreach (Examination examination in _examinationRepo.Examinations)
             {
                 if (renovation.OriginRoom.Id == examination.ExamRoomId) // destination room missing here. to add after merge/split
                     if (renovation.StartDate >= DateOnly.Parse(examination.Date.ToShortDateString()) && renovation.EndDate <= DateOnly.Parse(examination.Date.AddMinutes(examination.Duration).ToShortDateString()))

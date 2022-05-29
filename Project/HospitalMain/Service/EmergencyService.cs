@@ -26,7 +26,7 @@ namespace HospitalMain.Service
         {
             ObservableCollection<Doctor> listOfDoctors = new ObservableCollection<Doctor>();
 
-            foreach (Doctor doctor in _doctorRepo.DoctorList)
+            foreach (Doctor doctor in _doctorRepo.Doctors)
             {
                 if (doctor.Type == doctorType)
                 {
@@ -40,7 +40,7 @@ namespace HospitalMain.Service
         private ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
             ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
-            foreach (Examination exam in _examinationRepo.ExaminationList)
+            foreach (Examination exam in _examinationRepo.Examinations)
             {
                 if (exam.DoctorId.Equals(id))
                     examsForDoctor.Add(exam);

@@ -12,13 +12,13 @@ namespace Repository
 {
     public class ReportRepo
     {
-        public string dbPath { get; set; }
-        public ObservableCollection<Report> reports { get; set; }
+        public string DBPath { get; set; }
+        public ObservableCollection<Report> Reports { get; set; }
 
         public ReportRepo(string dbPath)
         {
-            this.dbPath = dbPath;
-            this.reports = new ObservableCollection<Report>();
+            this.DBPath = dbPath;
+            this.Reports = new ObservableCollection<Report>();
 
             Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
             Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
@@ -36,27 +36,27 @@ namespace Repository
 
         public bool LoadReport()
         {
-            using FileStream fileStream = File.OpenRead(dbPath);
-            this.reports = JsonSerializer.Deserialize<ObservableCollection<Report>>(fileStream);
+            using FileStream fileStream = File.OpenRead(DBPath);
+            this.Reports = JsonSerializer.Deserialize<ObservableCollection<Report>>(fileStream);
             return true;
         }
 
         public bool SaveReport()
         {
-            string jsonString = JsonSerializer.Serialize(reports);
-            File.WriteAllText(dbPath, jsonString);
+            string jsonString = JsonSerializer.Serialize(Reports);
+            File.WriteAllText(DBPath, jsonString);
             return true;
         }
 
         public void NewReport(Report report)
         {
-            reports.Add(report);
+            Reports.Add(report);
         }
 
         public ObservableCollection<Report> findByPatientId(string id)
         {
             ObservableCollection<Report> reportsForPatient = new ObservableCollection<Report>();
-            foreach (Report report in reports)
+            foreach (Report report in Reports)
             {
                 if (report.PatientId.Equals(id))
                     reportsForPatient.Add(report);
