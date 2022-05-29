@@ -43,15 +43,16 @@ namespace Repository
             return null;
         }
 
-        public void SetRenovation(String renovationId, Room newOriginRoom, Room newDestinationRoom, RenovationTypeEnum newType, DateOnly newStartDate, DateOnly newEndDate)
+        public void SetRenovation(Renovation newRenovation)
         {
             for(int i = 0; i < Renovations.Count; i++)
-                if (Renovations[i].Id.Equals(renovationId))
+                if (Renovations[i].Id.Equals(newRenovation.Id))
                 {
-                    Renovations[i].OriginRoom = newOriginRoom;
-                    Renovations[i].Type = newType;
-                    Renovations[i].StartDate = newStartDate;
-                    Renovations[i].EndDate = newEndDate;
+                    Renovations[i].OriginRoom = newRenovation.OriginRoom;
+                    Renovations[i].DestinationRoom = newRenovation.DestinationRoom;
+                    Renovations[i].Type = newRenovation.Type;
+                    Renovations[i].StartDate = newRenovation.StartDate;
+                    Renovations[i].EndDate = newRenovation.EndDate;
                     break;
                 }
         }

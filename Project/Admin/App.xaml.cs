@@ -79,8 +79,11 @@ namespace Admin
                 if (i > 10)
                     floor = 2;
 
-                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                Room r = new Room(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                roomController.CreateRoom(r);
+
+                Equipment e = new Equipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                equipmentController.CreateEquipment(e);
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
 
                 ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();

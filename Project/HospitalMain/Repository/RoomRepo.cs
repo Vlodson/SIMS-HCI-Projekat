@@ -41,18 +41,18 @@ namespace Repository
             return null;
         }
       
-        public void SetRoom(String roomId, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
+        public void SetRoom(Room newRoom)
         {
             for(int i = 0; i < Rooms.Count; i++)
             {
-                if (Rooms[i].Id.Equals(roomId))
+                if (Rooms[i].Id.Equals(newRoom.Id))
                 {
-                    Rooms[i].Equipment = newEquipment;
-                    Rooms[i].Floor = newFloor;
-                    Rooms[i].RoomNb = newRoomNb;
-                    Rooms[i].Occupancy = newOccupancy;
-                    Rooms[i].Type = newType;
-                    Rooms[i].PreviousType = newPreviousType;
+                    Rooms[i].Equipment = newRoom.Equipment;
+                    Rooms[i].Floor = newRoom.Floor;
+                    Rooms[i].RoomNb = newRoom.RoomNb;
+                    Rooms[i].Occupancy = newRoom.Occupancy;
+                    Rooms[i].Type = newRoom.Type;
+                    Rooms[i].PreviousType = newRoom.PreviousType;
                     break;
                 }
             }

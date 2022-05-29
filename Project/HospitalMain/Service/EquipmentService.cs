@@ -25,9 +25,8 @@ namespace Service
             _roomRepo = roomRepo;
         }
 
-        public bool CreateEquipment(String equipmentId, String roomId, EquipmentTypeEnum type)
+        public bool CreateEquipment(Equipment equipment)
         {
-            Equipment equipment = new Equipment(equipmentId, roomId, type);
             return _equipmentRepo.NewEquipment(equipment);
         }
 
@@ -37,9 +36,9 @@ namespace Service
             return _equipmentRepo.DeleteEquipment(equipmentId);
         }
 
-        public void EditEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
+        public void EditEquipment(Equipment newEquipment)
         {
-            _equipmentRepo.SetEquipment(equipmentId, newRoomId, newType);
+            _equipmentRepo.SetEquipment(newEquipment);
         }
 
         public Equipment ReadEquipment(String equipmentId)

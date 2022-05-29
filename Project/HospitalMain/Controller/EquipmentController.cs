@@ -20,17 +20,17 @@ namespace Controller
             _equipmentService = equipmentService;
         }
 
-        public bool CreateEquipment(String equipmentId, String roomId, EquipmentTypeEnum type)
+        public bool CreateEquipment(Equipment equipment)
         {
-            return _equipmentService.CreateEquipment(equipmentId, roomId, type);
+            return _equipmentService.CreateEquipment(equipment);
         }
         public bool RemoveEquipment(String equipmentId, String roomId)
         {
             return _equipmentService.RemoveEquipment(equipmentId, roomId);
         }
-        public void EditEquipment(String equipmentId, String newRoomId, EquipmentTypeEnum newType)
+        public void EditEquipment(Equipment newEquipment)
         {
-            _equipmentService.EditEquipment(equipmentId, newRoomId, newType);
+            _equipmentService.EditEquipment(newEquipment);
         }
         public Equipment ReadEquipment(String equipmentId)
         {
