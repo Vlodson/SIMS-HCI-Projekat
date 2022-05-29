@@ -37,6 +37,7 @@ namespace Patient.View
         private DoctorRepo _doctorRepo;
         private PersonalNotificationController _personalNotificationController;
         
+        public NavigationService NavService { get; set; }
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -65,7 +66,7 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
             _personalNotificationController = app.personalNotificationController;
-            
+            NavService = this.Menu.NavigationService;
             
             _doctorRepo.SaveDoctor();
 
@@ -176,7 +177,9 @@ namespace Patient.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Window.GetWindow(this).Content = new ExaminationsList();
-            Menu.Content = new ExaminationsList();
+            //Menu.Content = new ExaminationsList();
+            Page examinationsList = new ExaminationsList();
+            this.NavService.Navigate(examinationsList);
             
         }
 
@@ -218,12 +221,17 @@ namespace Patient.View
         private void GradingsClick(object sender, RoutedEventArgs e)
         {
             //Menu.Content = new Questionnaires();
-            Menu.Content = new QuestionnairePage();
+            //Menu.Content = new QuestionnairePage();
+            Page questionnairePage = new QuestionnairePage();
+            this.NavService.Navigate(questionnairePage);
+
         }
 
         private void MedicalREcordClick(object sender, RoutedEventArgs e)
         {
-            Menu.Content = new MedicalRecordMVVM();
+            //Menu.Content = new MedicalRecordMVVM();
+            Page medicalRecordMVVM = new MedicalRecordMVVM();
+            this.NavService.Navigate(medicalRecordMVVM);
         }
 
         private void MenuClick(object sender, RoutedEventArgs e)
@@ -233,7 +241,9 @@ namespace Patient.View
 
         private void AlarmsClick(object sender, RoutedEventArgs e)
         {
-            Menu.Content = new Alarms();
+            //Menu.Content = new Alarms();
+            Page alarms = new Alarms();
+            this.NavService.Navigate(alarms);
         }
     }
 }
