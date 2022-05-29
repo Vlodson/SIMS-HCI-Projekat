@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid Margin="0,0,0,-6">
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Lični podaci dostupni za izmenu" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Ime" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>

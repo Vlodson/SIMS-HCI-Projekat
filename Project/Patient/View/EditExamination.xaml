@@ -15,7 +15,7 @@
     </Window.Resources>
     <Grid Margin="0,0,0,-16">
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Izmena termina" FontSize="32" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
         <DataGrid x:Name="ExamsAvailable" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="270" Margin="338,87,0,0" VerticalAlignment="Top" Width="446">
