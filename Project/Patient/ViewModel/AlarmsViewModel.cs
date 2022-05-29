@@ -1,4 +1,7 @@
-﻿using HospitalMain.Controller;
+﻿using Controller;
+using HospitalMain.Controller;
+using HospitalMain.Model;
+using Model;
 using Patient.View;
 using Patient.Views;
 using System;
@@ -27,8 +30,10 @@ namespace Patient.ViewModel
         private HospitalMain.Model.PersonalNotification selectedNotification;
 
         private PersonalNotificationController _personalNotificationsController;
+        private MedicalRecordController _medicalRecordController;
 
         private ObservableCollection<HospitalMain.Model.PersonalNotification> personalNotifications;
+        private ObservableCollection<Notification> notifications;
 
         public ObservableCollection<HospitalMain.Model.PersonalNotification> PersonalNotifications
         {
@@ -43,6 +48,18 @@ namespace Patient.ViewModel
             }
         }
 
+        public ObservableCollection<Notification> Notifications
+        {
+            get
+            {
+                return notifications;
+            }
+            set
+            {
+                notifications = value;
+                OnPropertyChanged("Notifications");
+            }
+        }
         public HospitalMain.Model.PersonalNotification SelectedNotification
         {
             get
@@ -62,11 +79,26 @@ namespace Patient.ViewModel
         {
             App app = Application.Current as App;
             _personalNotificationsController = app.personalNotificationController;
+            _medicalRecordController = app.MedicalRecordController;
 
             AddPersonalNotificationCommand = new MyICommand(OnAddPersonalNotification);
             RemovePersonalNotificationCommand = new MyICommand(OnRemoveCommand, CanRemove);
 
             PersonalNotifications = new ObservableCollection<HospitalMain.Model.PersonalNotification>();
+            MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
+            Notifications = new ObservableCollection<Notification>(_medicalRecordController.GetNotificationTimes(medicalRecord));
+            foreach(Notification notification in Notifications)
+            {
+                if(notification.DateTimeNotification < DateTime.Now)
+                {
+                    notification.ContentTable = notification.Content.Split("u")[0];
+                    notification.DateTimeNotificationTable = notification.DateTimeNotification.ToString("dd.MM.yyyy. HH:mm");
+                }
+                else
+                {
+                    Notifications.Remove(notification);
+                }
+            }
             foreach(HospitalMain.Model.PersonalNotification personalNotification in _personalNotificationsController.GetPatientPersonalNotifications(Login.loggedId))
             {
                 String days = "";
@@ -98,6 +130,7 @@ namespace Patient.ViewModel
                     }
                 }
                 personalNotification.DaysString = days;
+                personalNotification.TimeString = personalNotification.Time.ToString("HH:mm");
                 PersonalNotifications.Add(personalNotification);
             }
         }

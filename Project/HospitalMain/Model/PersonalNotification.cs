@@ -91,6 +91,7 @@ namespace HospitalMain.Model
         }
 
         public String DaysString { get; set; }
+        public String TimeString { get; set; }
 
         public PersonalNotification(string patientId, string text, List<int> days,DateTime time)
         {

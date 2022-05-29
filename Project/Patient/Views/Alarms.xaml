@@ -64,9 +64,20 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Naziv" Binding="{Binding Text}" Width="*"/>
-                <DataGridTextColumn Header="Vreme" Binding="{Binding Time}" Width="*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding TimeString}" Width="*"/>
                 <DataGridTextColumn Header="Dani" Binding="{Binding DaysString}" Width="*"/>
                 <DataGridCheckBoxColumn Header="Aktivan" Binding="{Binding Status}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid ItemsSource="{Binding Notifications}" AutoGenerateColumns="False" CanUserAddRows="False" Margin="45,194,516,130">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naziv" Binding="{Binding ContentTable}"  Width="*"/>
+                <DataGridTextColumn Header="Vreme" Binding="{Binding DateTimeNotificationTable}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
