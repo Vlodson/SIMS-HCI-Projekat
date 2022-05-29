@@ -72,7 +72,7 @@
         </Grid.Background>
         <Label Content="Novi podsetnik" FontSize="28" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Naziv" HorizontalAlignment="Left" Margin="7,84,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="51,88,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Width="120" Height="22">
+        <TextBox HorizontalAlignment="Left" Margin="51,88,0,0" TextWrapping="Wrap" Text="{Binding Text}" VerticalAlignment="Top" Width="115" Height="20">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="6"/>
@@ -111,7 +111,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollBar x:Name="scrollBarHours" Value="{Binding Hours}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="50"/>
+            <ScrollBar x:Name="scrollBarHours" Value="{Binding Hours}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="50" Height="30"/>
         </Grid>
 
 
@@ -124,9 +124,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="10,10,0,0" SmallChange="1" Width="50"/>
+            <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="9,9,0,0" SmallChange="1" Width="50" Height="30"/>
         </Grid>
-        <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="111,121,0,0" VerticalAlignment="Top"/>
+        <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="109,119,0,0" VerticalAlignment="Top"/>
         <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="414,272,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
