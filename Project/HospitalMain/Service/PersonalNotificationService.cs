@@ -31,9 +31,16 @@ namespace HospitalMain.Service
             return _personalNotificationRepo.ReadAllPersonalNotifications().Where(personalNotification => personalNotification.PatientId.Equals(patientID)).ToList();
         }
 
-        public void SetNotificationRead(PersonalNotification personalNotification)
+        public void ChangeNotificationStatus(PersonalNotification personalNotification)
         {
-            personalNotification.Status = false;
+            if(personalNotification.Status == true)
+            {
+                personalNotification.Status = false;
+            }
+            else
+            {
+                personalNotification.Status = true;
+            }
             _personalNotificationRepo.SavePersonalNotification();
         }
 

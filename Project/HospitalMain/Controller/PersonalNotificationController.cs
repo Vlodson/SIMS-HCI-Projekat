@@ -32,9 +32,9 @@ namespace HospitalMain.Controller
             return _personalNotificationService.GetPatientPersonalNotifications(patientID);
         }
 
-        public void SetNotificationRead(PersonalNotification personalNotification)
+        public void ChangeNotificationStatus(PersonalNotification personalNotification)
         {
-            _personalNotificationService.SetNotificationRead(personalNotification);
+            _personalNotificationService.ChangeNotificationStatus(personalNotification);
         }
     }
 }

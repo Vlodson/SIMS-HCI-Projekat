@@ -28,6 +28,7 @@ namespace Patient.ViewModel
         }
 
         private HospitalMain.Model.PersonalNotification selectedNotification;
+        private bool isChecked;
 
         private PersonalNotificationController _personalNotificationsController;
         private MedicalRecordController _medicalRecordController;
@@ -73,6 +74,22 @@ namespace Patient.ViewModel
                 RemovePersonalNotificationCommand.RaiseCanExecuteChanged();
             }
         }
+
+        public bool IsChecked
+        {
+            get
+            {
+                return isChecked;
+            }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged("IsChecked");
+                _personalNotificationsController.ChangeNotificationStatus(SelectedNotification);
+                
+            }
+        }
+
         public MyICommand AddPersonalNotificationCommand { get; set; }
         public MyICommand RemovePersonalNotificationCommand { get; set; }
         public AlarmsViewModel()
