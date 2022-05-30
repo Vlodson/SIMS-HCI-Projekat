@@ -38,6 +38,7 @@ namespace ViewModel
         public MyICommand SendRequestCommand { get; set; }
         public MyICommand ShowAll { get; set; }
 
+
         public FreeDaysReasons Reason
         {
             get { return reason; }
@@ -71,6 +72,7 @@ namespace ViewModel
 
             SendRequestCommand = new MyICommand(OnSend, CanSend);
             ShowAll = new MyICommand(OnExecute);
+
         }
 
         public string FreeDaysLeft
@@ -123,7 +125,6 @@ namespace ViewModel
         }
         public void OnSend()
         {
-           
             FreeDaysRequest request = new FreeDaysRequest(_freeDaysRequestController.GenerateID().ToString(), StatusEnum.Pending, _doctorController.GetDoctor(MainWindow._uid).Id, DateTime.Parse(startDate), DateTime.Parse(endDate), selectedItem, "");
             _freeDaysRequestController.NewRequest(request);
             _freeDaysRequestRepo.SaveRequest();
@@ -135,7 +136,7 @@ namespace ViewModel
         public void OnExecute()
         {
             ShowAllRequests requestsPage = new ShowAllRequests();
-            
+            DoctorNavBar.navigation.Navigate(requestsPage);
         }
 
     }

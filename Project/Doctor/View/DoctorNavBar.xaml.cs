@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Doctor.View
@@ -29,11 +30,14 @@ namespace Doctor.View
         private MedicalRecordRepo _medicalRecordRepo;
         private UserAccountRepo _userAccountRepo;
         private DoctorRepo _doctorRepo;
+        public static NavigationService navigation;
 
         public DoctorNavBar()
         {
             InitializeComponent();
             this.DataContext = this;
+
+            navigation = this.Main.NavigationService;
 
             App app = Application.Current as App;
             _examRepo = app.examRepo;

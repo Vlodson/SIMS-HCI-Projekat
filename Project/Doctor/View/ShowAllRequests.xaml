@@ -10,13 +10,20 @@
 
     <Grid Margin="0,0,142,398">
 
-        <DataGrid x:Name="dataGridExams" ItemsSource="{Binding examinations, Mode=OneWay}" Height="350" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="104,118,34,-174" VerticalScrollBarVisibility="Visible">
+        <DataGrid x:Name="dataGridExams" ItemsSource="{Binding Requests, Mode=OneWay}" Height="350" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="38,118,-107,-174" VerticalScrollBarVisibility="Visible">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Razlog" Binding="{Binding Reason }" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pocetak" Binding="{Binding StartDate}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Header="" Binding="{Binding RejectionReason}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Razlog" Binding="{Binding Reason }" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pocetak" Binding="{Binding StartDate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Opis" Binding="{Binding RejectionReason}" Width="250" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                            <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
 
         </DataGrid>

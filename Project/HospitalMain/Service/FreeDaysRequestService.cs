@@ -81,5 +81,18 @@ namespace Service
             }
             return false;
         }
+        public ObservableCollection<FreeDaysRequest> ReadAllByDoctorId(string id)
+        {
+            ObservableCollection<FreeDaysRequest> requests = new ObservableCollection<FreeDaysRequest>();
+            foreach (FreeDaysRequest request in _requestRepo.Requests)
+            {
+                if (request.DoctorId.Equals(id))
+                {
+                    requests.Add(request);
+                }
+            }
+
+            return requests;
+        }
     }
 }

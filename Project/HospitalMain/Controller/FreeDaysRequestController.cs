@@ -40,6 +40,10 @@ namespace Controller
         {
             return _requestService.GenerateID();
         }
+        public ObservableCollection<FreeDaysRequest> ReadAllByDoctorId(string id)
+        {
+            return _requestService.ReadAllByDoctorId(id);
+        }
 
     }
 }
