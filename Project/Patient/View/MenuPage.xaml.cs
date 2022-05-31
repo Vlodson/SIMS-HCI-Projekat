@@ -147,5 +147,10 @@ namespace Patient.View
         {
             Window.GetWindow(this).Content = new PatientMenu();
         }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

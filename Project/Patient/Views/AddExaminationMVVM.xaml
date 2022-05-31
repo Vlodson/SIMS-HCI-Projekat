@@ -85,7 +85,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="EndDate" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <local:MinMaxDateValidation/>
+                        <local:MaxDateValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>
