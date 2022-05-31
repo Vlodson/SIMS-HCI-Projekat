@@ -131,6 +131,9 @@ namespace Admin.ViewModel
                 case "renovations":
                     mainWindow.CurrentView = new RenovationTableView();
                     break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
             }
         }
 

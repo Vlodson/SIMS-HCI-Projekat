@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,66 +10,77 @@ using Model;
 using Controller;
 using Utility;
 using HospitalMain.Enums;
+using HospitalMain.Model;
 
 using Admin.Views;
 
 namespace Admin.ViewModel
 {
-    public class RoomTableViewModel: BindableBase
+    public class RatingsViewModel: BindableBase
     {
         public ICommandTemplate<String> NavigationCommand { get; private set; }
         public ICommandTemplate RemoveCommand { get; private set; }
         public ICommandTemplate QueryCommand { get; private set; }
 
-        private RoomController roomController;
+        private AnswerController answerController;
         private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
 
         private String search;
-        private ObservableCollection<FriendlyRoom> rooms;
-
         public String Search
         {
             get { return search; }
             set
             {
-                if(search != value)
+                if (search != value)
                 {
                     search = value;
                     OnPropertyChanged("Search");
                 }
             }
         }
-        public ObservableCollection<FriendlyRoom> Rooms
+
+        private ObservableCollection<FriendlyAnswer> answers;
+        public ObservableCollection<FriendlyAnswer> Answers
         {
-            get { return rooms; }
+            get { return answers; }
             set
             {
-                if(rooms != value)
+                answers = value;
+                OnPropertyChanged("Answers");
+            }
+        }
+        private FriendlyEquipment selectedAnswer;
+        public FriendlyEquipment SelectedAnswer
+        {
+            get { return selectedAnswer; }
+            set
+            {
+                if (selectedAnswer != value)
                 {
-                    rooms = value;
-                    OnPropertyChanged("Rooms");
+                    selectedAnswer = value;
+                    OnPropertyChanged("SelectedAnswer");
+                    RemoveCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        public RoomTableViewModel()
+        public RatingsViewModel()
         {
             NavigationCommand = new ICommandTemplate<String>(OnNavigation);
             RemoveCommand = new ICommandTemplate(OnRemove, CanRemove);
             QueryCommand = new ICommandTemplate(OnQuery);
 
             var app = Application.Current as App;
-            roomController = app.roomController;
+            answerController = app.answerController;
 
-            ObservableCollection<Room> rooms = roomController.ReadAll();
+            Dictionary<Doctor, Answer> doctorReviews = answerController.DoctorRatings();
 
-            Rooms = new ObservableCollection<FriendlyRoom>();
-            foreach(Room room in rooms)
-                Rooms.Add(new FriendlyRoom(room));
+            Answers = new ObservableCollection<FriendlyAnswer>();
+            foreach (Doctor d in doctorReviews.Keys)
+                Answers.Add(new FriendlyAnswer(d, doctorReviews[d]));
 
             Search = "Enter Query";
         }
-
         public void OnRemove()
         {
             return;
@@ -81,14 +93,7 @@ namespace Admin.ViewModel
 
         public void OnQuery()
         {
-            Rooms.Clear();
-            if (String.IsNullOrEmpty(Search))
-            {
-                ObservableCollection<Room> rooms = roomController.ReadAll();
-                foreach (Room roomItem in rooms)
-                    Rooms.Add(new FriendlyRoom(roomItem));
-                return;
-            }
+            return;
         }
 
         public void OnNavigation(String view)
@@ -102,8 +107,8 @@ namespace Admin.ViewModel
                     break;
                 case "logout":
                     break;
-                case "equipment":
-                    mainWindow.CurrentView = new EquipmentTableView();
+                case "rooms":
+                    mainWindow.CurrentView = new RoomTableView();
                     break;
                 case "medicine":
                     mainWindow.CurrentView = new MedicineTableView();
@@ -114,29 +119,23 @@ namespace Admin.ViewModel
                 case "renovations":
                     mainWindow.CurrentView = new RenovationTableView();
                     break;
-                case "answers":
-                    mainWindow.CurrentView = new RatingsView();
+                case "equipment":
+                    mainWindow.CurrentView = new EquipmentTableView();
                     break;
             }
         }
 
     }
 
-    public class FriendlyRoom
+    public class FriendlyAnswer
     {
-        public String Id { get; set; }
-        public int Floor { get; set; }
-        public int RoomNb { get; set; }
-        public bool Occupancy { get; set; }
-        public String Type { get; set; }
+        public String FullName;
+        public double Average;
 
-        public FriendlyRoom(Room room)
+        public FriendlyAnswer(Doctor doctor, Answer answer)
         {
-            Id = room.Id;
-            Floor = room.Floor;
-            RoomNb = room.RoomNb;
-            Occupancy = room.Occupancy;
-            Type = RoomTypeEnumExtensions.ToFriendlyString(room.Type);
+            FullName = doctor.NameSurname;
+            Average = AnswerController.AverageRating(answer);
         }
     }
 }
