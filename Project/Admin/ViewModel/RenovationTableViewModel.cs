@@ -130,6 +130,9 @@ namespace Admin.ViewModel
                 case "equipment":
                     mainWindow.CurrentView = new EquipmentTableView();
                     break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
             }
         }
 
