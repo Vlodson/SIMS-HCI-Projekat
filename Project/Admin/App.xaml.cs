@@ -90,7 +90,7 @@ namespace Admin
                 for(int j = 0; j < 4; j++)
                     ingredients.Add( (IngredientEnum)((j+i)%5) );
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending,"d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending,"d1", new DateTime(2020, 5, 5, 11, 11, 11), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)
@@ -98,7 +98,7 @@ namespace Admin
                 Room OriginRoom = roomController.ReadRoom(i.ToString());
                 Room DestinationRoom = roomController.ReadRoom(((i + 1) % 20).ToString());
                 Equipment equipment = equipmentController.ReadEquipment(i.ToString());
-                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 10, 10, 13, 0, 0));
+                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 5, 5, 13, 0, 0));
                 equipmentTransferController.ScheduleTransfer(equipmentTransfer);
                 equipmentTransferController.RecordTransfer(i.ToString());
             }
