@@ -77,6 +77,11 @@ namespace Controller
             _roomService.RemoveSelectedRoom();
         }
 
+        public String GenerateID()
+        {
+            return _roomService.GenerateID();
+        }
+
         public bool LoadRoom()
         {
             return _roomService.LoadRoom();

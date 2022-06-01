@@ -50,6 +50,11 @@ namespace Controller
         {
             return _equipmentTransferService.ReadAll();
         }
+        public String GenerateID()
+        {
+            return _equipmentTransferService.GenerateID();
+        }
+
         public bool LoadEquipmentTransfer()
         {
             return _equipmentTransferService.LoadEquipmentTransfer();

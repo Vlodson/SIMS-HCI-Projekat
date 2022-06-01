@@ -56,6 +56,16 @@ namespace Controller
             return _medicineService.CheckAllergens(medicine, medicalRecord);
         }
 
+        public String GenerateID()
+        {
+            return _medicineService.GenerateID();
+        }
+
+        public static String GenerateName(MedicineTypeEnum type)
+        {
+            return MedicineService.GeneranteName(type);
+        }
+
         public void LoadMedicine()
         {
             _medicineService.LoadMedicine();

@@ -96,6 +96,16 @@ namespace Service
             _repository.LoadMedicine();
         }
 
+        public String GenerateID()
+        {
+            return _repository.GenerateID();
+        }
+
+        public static String GeneranteName(MedicineTypeEnum type)
+        {
+            return MedicineRepo.GenerateName(type);
+        }
+
         public void SaveMedicine()
         {
             _repository.SaveMedicine();

@@ -85,6 +85,11 @@ namespace Service
             return _equipmentTransferRepo.equipmentTransfers;
         }
 
+        public String GenerateID()
+        {
+            return _equipmentTransferRepo.GenerateID();
+        }
+
         public bool LoadEquipmentTransfer()
         {
             return _equipmentTransferRepo.LoadEquipmentTransfer();

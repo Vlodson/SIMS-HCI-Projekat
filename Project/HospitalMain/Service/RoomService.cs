@@ -78,6 +78,11 @@ namespace Service
             _repo.RemoveSelectedRoom();
         }
 
+        public String GenerateID()
+        {
+            return _repo.GenerateID();
+        }
+
         public bool LoadRoom()
         {
             return _repo.LoadRoom();

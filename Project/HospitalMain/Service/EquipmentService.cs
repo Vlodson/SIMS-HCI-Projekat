@@ -60,6 +60,11 @@ namespace Service
             return queriedEquipment;
         }
 
+        public String GenerateID()
+        {
+            return _equipmentRepo.GenerateID();
+        }
+
         public bool LoadEquipment()
         {
             return _equipmentRepo.LoadEquipment();

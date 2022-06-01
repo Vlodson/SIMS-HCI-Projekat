@@ -131,6 +131,11 @@ namespace Service
             return _renovationRepo.Renovations;
         }
 
+        public String GenerateID()
+        {
+            return _renovationRepo.GenerateID();
+        }
+
         public bool LoadRenovation()
         {
             return _renovationRepo.LoadRenovation();

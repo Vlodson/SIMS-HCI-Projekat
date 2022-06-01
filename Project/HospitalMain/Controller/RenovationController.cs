@@ -67,6 +67,10 @@ namespace Controller
         {
             return _renovationService.ReadAll();
         }
+        public String GenerateID()
+        {
+            return _renovationService.GenerateID();
+        }
 
         public bool LoadRenovation()
         {

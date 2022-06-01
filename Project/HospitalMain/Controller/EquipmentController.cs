@@ -46,6 +46,10 @@ namespace Controller
             return _equipmentService.QueryEquipment(query);
         }
 
+        public String GenerateID()
+        {
+            return _equipmentService.GenerateID();
+        }
         public bool LoadEquipment()
         {
             return _equipmentService.LoadEquipment();
