@@ -57,6 +57,7 @@ namespace Secretary
 
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjQ5MjM0QDMyMzAyZTMxMmUzMFNoQ1huVGdPUHA3RUU1ZXljUzl2SjNqeGxaZCtmMXlZWE1RYWh6bVhRcXM9");
 
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);

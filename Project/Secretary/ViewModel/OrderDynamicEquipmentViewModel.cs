@@ -67,7 +67,7 @@ namespace Secretary.ViewModel
             set { _shortDescription = value; OnPropertyChanged(nameof(ShortDescription)); }
         }
 
-        public OrderDynamicEquipmentViewModel(MainViewModel mainViewModel)
+        public OrderDynamicEquipmentViewModel(EquipmentViewModel equipmentViewModel, MainViewModel mainViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _dynamicEquipmentController = app.DynamicEquipmentController;
@@ -75,7 +75,7 @@ namespace Secretary.ViewModel
             FillEquipmentTypeComboBoxData();
 
             OrderCommand = new OrderCommand(this, _dynamicEquipmentController, mainViewModel);
-            //ShowGraphicCommand = new...
+            ShowGraphicCommand = new ShowGraphicCommand(equipmentViewModel, mainViewModel);
         }
     }
 }

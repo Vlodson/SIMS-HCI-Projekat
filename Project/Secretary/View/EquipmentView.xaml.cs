@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Secretary.View;
-using System.Diagnostics;
-using Secretary.Stores;
-using Secretary.Commands;
-using Secretary.ViewModel;
 
-namespace Secretary
+namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EquipmentView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EquipmentView : UserControl
     {
-        private String _username;
-
-        public MainWindow(LogInViewModel logInViewModel)
+        public EquipmentView()
         {
             InitializeComponent();
-
-            DataContext = new MainViewModel(this, logInViewModel);
-            //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
-
     }
 }

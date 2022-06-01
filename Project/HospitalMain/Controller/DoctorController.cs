@@ -21,6 +21,11 @@ namespace Controller
             _emergencyService = emergencyService;
         }
 
+        public void SubstractDoctorsFreeDays(string doctorID, double days)
+        {
+            _doctorService.SubstractDoctorsFreeDays(doctorID, days);
+        }
+
         public DoctorType GetDoctorsType(string doctorID)
         {
             return _doctorService.GetDoctorsType(doctorID);

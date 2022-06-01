@@ -68,6 +68,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.Schedule.Windows" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\arrow-small-left.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

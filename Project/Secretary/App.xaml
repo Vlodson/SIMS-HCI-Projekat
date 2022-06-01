@@ -79,7 +79,15 @@
             <DataTemplate DataType="{x:Type viewmodels:FreeDaysRequestViewModel}">
                 <view:TabRequestView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewmodels:EquipmentViewModel}">
+                <view:EquipmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:GraphicViewModel}">
+                <view:StorageGraphView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

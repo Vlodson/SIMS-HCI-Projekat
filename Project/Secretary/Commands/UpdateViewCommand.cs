@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Secretary.Commands
 {
     public class UpdateViewCommand : CommandBase
     {
         private MainViewModel _mainViewModel;
+        private MainWindow _mainWindow;
 
-        public UpdateViewCommand(MainViewModel mainViewModel)
+        public UpdateViewCommand(MainViewModel mainViewModel, MainWindow mainWindow)
         {
             _mainViewModel = mainViewModel;
+            _mainWindow = mainWindow;
         }
 
         public override void Execute(object? parameter)
@@ -36,6 +39,13 @@ namespace Secretary.Commands
             } else if(parameter.ToString() == "Requests")
             {
                 _mainViewModel.CurrentViewModel = new RequestsViewModel(_mainViewModel);
+            } else if(parameter.ToString() == "Logout")
+            {
+                LogInWindow _loginWindow = new LogInWindow();
+                Application.Current.MainWindow = _loginWindow;
+                _loginWindow.Show();
+
+                _mainWindow.Close();
             }
         }
     }
