@@ -76,6 +76,16 @@ namespace Repository
         {
             return clipboardRenovation;
         }
+
+        public String GenerateID()
+        {
+            int id = 0;
+            if (Renovations.Count > 0)
+                id = Renovations.Max(r => int.Parse(r.Id));
+
+            return id.ToString();
+        }
+
         public bool LoadRenovation()
         {
             using FileStream fileStream = File.OpenRead(dbPath);

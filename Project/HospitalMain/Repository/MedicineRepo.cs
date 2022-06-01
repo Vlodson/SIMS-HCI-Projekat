@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,8 @@ using System.Text.Json;
 using System.IO;
 
 using Model;
+using Utility;
+using Enums;
 
 namespace Repository
 {
@@ -62,6 +65,23 @@ namespace Repository
                 }
 
             return false;
+        }
+
+        public String GenerateID()
+        {
+            int id = 0;
+            if (Medicine.Count > 0)
+                id = Medicine.Max(r => int.Parse(r.Id));
+
+            return id.ToString();
+        }
+
+        public static String GenerateName(MedicineTypeEnum type)
+        {
+            // get the enum map, generate a random number, use it to index to get a random name return the name
+            var random = new Random();
+            int random_index = random.Next(MedicineNamesMap.MedicineTypeNameMap[type].Count);
+            return MedicineNamesMap.MedicineTypeNameMap[type][random_index];
         }
 
         public void LoadMedicine()
