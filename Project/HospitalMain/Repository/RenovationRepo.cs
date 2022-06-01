@@ -81,7 +81,7 @@ namespace Repository
         {
             int id = 0;
             if (Renovations.Count > 0)
-                id = Renovations.Max(r => int.Parse(r.Id));
+                id = Renovations.Max(r => int.Parse(r.Id)) + 1;
 
             return id.ToString();
         }

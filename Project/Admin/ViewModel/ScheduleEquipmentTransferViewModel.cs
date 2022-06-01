@@ -215,7 +215,7 @@ namespace Admin.ViewModel
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
             DestinationRoom = roomController.GetSelectedRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, DestinationRoom, equipment, StartDate, EndDate);
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, StartDate, EndDate);
             equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             OnNavigation("record"); 
         }
@@ -226,7 +226,7 @@ namespace Admin.ViewModel
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
             DestinationRoom = roomController.GetSelectedRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer("0", originRoom, DestinationRoom, equipment, StartDate, EndDate);
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, StartDate, EndDate);
             equipmentTransferController.SetClipboardEquipmentTransfer(equipmentTransfer);
             // dont turn off
         }

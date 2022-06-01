@@ -71,7 +71,7 @@ namespace Repository
         {
             int id = 0;
             if (Medicine.Count > 0)
-                id = Medicine.Max(r => int.Parse(r.Id));
+                id = Medicine.Max(r => int.Parse(r.Id)) + 1;
 
             return id.ToString();
         }

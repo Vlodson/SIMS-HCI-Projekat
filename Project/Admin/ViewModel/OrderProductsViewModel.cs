@@ -151,15 +151,16 @@ namespace Admin.ViewModel
             List<Medicine> medicineList = new List<Medicine>(medicineController.ReadAll());
             int id = medicineList.Max(m => int.Parse(m.Id)) + 1;
             String name = "Lek" + id.ToString();
+            MedicineTypeEnum type = (MedicineTypeEnum)Enum.Parse(typeof(MedicineTypeEnum), SelectedProductType);
 
             for (int i = 0; i < int.Parse(Amount); i++)
             {
                 ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum> { IngredientEnum.Metopropol, IngredientEnum.Cetirizine, IngredientEnum.Cipofloxacin };
 
                 medicineController.NewMedicine(
-                    new Medicine(id.ToString(),
-                    name,
-                    (MedicineTypeEnum)Enum.Parse(typeof(MedicineTypeEnum), SelectedProductType),
+                    new Medicine(medicineController.GenerateID(),
+                    MedicineController.GenerateName(type),
+                    type,
                     ingredients,
                     StatusEnum.Pending,
                     null,
@@ -177,15 +178,12 @@ namespace Admin.ViewModel
             List<Equipment> equipmentList = new List<Equipment>(equipmentController.ReadAll());
 
             Room storageRoom = roomList.Where(r => r.Type == RoomTypeEnum.Storage_Room).First();
-            int id = equipmentList.Max(e => int.Parse(e.Id.ToString()));
-
             for (int i = 0; i < int.Parse(Amount); i++)
             {
-                Equipment equipment = new Equipment(id.ToString(), storageRoom.Id, (EquipmentTypeEnum)Enum.Parse(typeof(EquipmentTypeEnum), SelectedProductType));
+                Equipment equipment = new Equipment(equipmentController.GenerateID(), storageRoom.Id, (EquipmentTypeEnum)Enum.Parse(typeof(EquipmentTypeEnum), SelectedProductType));
                 equipmentController.CreateEquipment(equipment);
                 roomController.AddEquipment(storageRoom.Id, equipment);
                 
-                id++;
             }
         }
 

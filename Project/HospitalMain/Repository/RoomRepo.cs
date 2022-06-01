@@ -127,7 +127,7 @@ namespace Repository
         {
             int id = 0;
             if (Rooms.Count > 0)
-                id = Rooms.Max(r => int.Parse(r.Id));
+                id = Rooms.Max(r => int.Parse(r.Id)) + 1;
 
             return id.ToString();
         }

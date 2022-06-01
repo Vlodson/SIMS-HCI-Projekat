@@ -66,7 +66,7 @@ namespace Repository
         {
             int id = 0;
             if (Equipment.Count > 0)
-                id = Equipment.Max(r => int.Parse(r.Id));
+                id = Equipment.Max(r => int.Parse(r.Id)) + 1;
 
             return id.ToString();
         }

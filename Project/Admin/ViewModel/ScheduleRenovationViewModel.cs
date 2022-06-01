@@ -147,7 +147,7 @@ namespace Admin.ViewModel
             {
                 case "ordinary":
                     _renovationController.ScheduleRenovation(new Renovation(
-                        id.ToString(),
+                        _renovationController.GenerateID(),
                         OriginRoom,
                         null,
                         SelectedRenovationType,
@@ -158,7 +158,7 @@ namespace Admin.ViewModel
 
                 case "merge":
                     Renovation merge = new Renovation(
-                        id.ToString(),
+                        _renovationController.GenerateID(),
                         OriginRoom,
                         destinationRoom,
                         SelectedRenovationType,
@@ -172,7 +172,7 @@ namespace Admin.ViewModel
 
                 case "split":
                     Renovation split = new Renovation(
-                        id.ToString(),
+                        _renovationController.GenerateID(),
                         OriginRoom,
                         null,
                         SelectedRenovationType,
@@ -216,7 +216,7 @@ namespace Admin.ViewModel
             if (destinationRoom is null)
             {
                 renovation = new Renovation(
-                    id.ToString(),
+                    _renovationController.GenerateID(),
                     OriginRoom,
                     new Room(),
                     SelectedRenovationType,
@@ -227,7 +227,7 @@ namespace Admin.ViewModel
             else
             {
                 renovation = new Renovation(
-                    id.ToString(),
+                    _renovationController.GenerateID(),
                     OriginRoom,
                     _roomController.GetSelectedRoom(),
                     SelectedRenovationType,
