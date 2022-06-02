@@ -143,17 +143,19 @@ namespace Admin.ViewModel
         public void OnRecord()
         {
             Room destinationRoom = _roomController.GetSelectedRoom();
+
             switch (SplitMerge)
             {
                 case "ordinary":
-                    _renovationController.ScheduleRenovation(new Renovation(
+                    Renovation ordinary = new Renovation(
                         _renovationController.GenerateID(),
                         OriginRoom,
                         null,
                         SelectedRenovationType,
                         DateOnly.Parse(StartDate.ToShortDateString()),
                         DateOnly.Parse(EndDate.ToShortDateString())
-                        ));
+                        );
+                    _renovationController.ScheduleRenovation(ordinary);
                     break;
 
                 case "merge":
@@ -241,7 +243,16 @@ namespace Admin.ViewModel
 
         public void OnFill()
         {
-            // TODO
+            Renovation renovation = _renovationController.GetClipboardRenovation();
+            if(renovation is not null)
+            {
+                if (_roomController.ReadRoom(renovation.DestinationRoom.Id) is not null)
+                    DestinationRoomNb = renovation.DestinationRoom.RoomNb.ToString();
+                SplitMerge = "ordinary";
+                SelectedRenovationType = renovation.Type;
+                StartDate = renovation.StartDate.ToDateTime(new TimeOnly(12, 0, 0, 0));
+                EndDate = renovation.EndDate.ToDateTime(new TimeOnly(12, 0, 0, 0));
+            }
         }
 
         public void OnSelection()
