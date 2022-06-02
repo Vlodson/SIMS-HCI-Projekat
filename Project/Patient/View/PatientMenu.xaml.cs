@@ -246,5 +246,11 @@ namespace Patient.View
             Page alarms = new Alarms();
             this.NavService.Navigate(alarms);
         }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+            Page reportPage = new ReportPage();
+            this.NavService.Navigate(reportPage);
+        }
     }
 }

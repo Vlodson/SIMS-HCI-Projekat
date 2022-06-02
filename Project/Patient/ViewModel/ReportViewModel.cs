@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Patient.ViewModel
 {
@@ -32,7 +33,10 @@ namespace Patient.ViewModel
         private MedicalRecordController _medicalRecordController;
         private DoctorController _doctorController;
 
+        private PrintDialog _printDialog = new PrintDialog();
+
         public MyICommand EditNoteCommand { get; set; }
+        public MyICommand GeneratePdfCommand { get; set; }
 
         public String DateLabel
         {
@@ -121,5 +125,7 @@ namespace Patient.ViewModel
             note = thisReport.Note;
             OnPropertyChanged("Note");
         }
+
+        
     }
 }

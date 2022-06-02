@@ -14,6 +14,8 @@ using HospitalMain.Enums;
 using System.IO;
 using HospitalMain.Repository;
 using HospitalMain.Service;
+using System.Collections.ObjectModel;
+using Enums;
 
 namespace Patient
 {
@@ -127,9 +129,18 @@ namespace Patient
                 if (i > 10)
                     floor = 2;
 
-                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                Room r = new Room(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                RoomController.CreateRoom(r);
+
+                Equipment e = new Equipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                EquipmentController.CreateEquipment(e);
                 RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
+
+                ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                for (int j = 0; j < 4; j++)
+                    ingredients.Add((IngredientEnum)((j + i) % 5));
+
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending, "d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)

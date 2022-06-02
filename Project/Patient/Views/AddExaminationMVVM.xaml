@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
@@ -85,7 +85,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="EndDate" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <local:MinMaxDateValidation/>
+                        <local:MaxDateValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>

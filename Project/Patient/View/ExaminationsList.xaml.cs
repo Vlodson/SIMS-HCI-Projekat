@@ -231,8 +231,8 @@ namespace Patient.View
             {
                 if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
-                    //if (selected.Date.CompareTo(DateTime.Now) >= 0)
-                    if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month<DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
+                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                    //if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month<DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
                     {
                         Message.Visibility = Visibility.Hidden;
                         //EditExamination editExamination = new EditExamination();
@@ -312,7 +312,8 @@ namespace Patient.View
             {
                 if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
-                    if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month < DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
+                    //if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month < DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
+                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
                         WesNowRemove yesNoRemove = new WesNowRemove();

@@ -103,7 +103,7 @@ namespace Patient.ViewModel
 
             PersonalNotifications = new ObservableCollection<HospitalMain.Model.PersonalNotification>();
             MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
-            Notifications = new ObservableCollection<Notification>(_medicalRecordController.GetNotificationTimes(medicalRecord));
+            Notifications = new ObservableCollection<Notification>(_medicalRecordController.GetPatientNotifications(medicalRecord));
             foreach(Notification notification in Notifications)
             {
                 if(notification.DateTimeNotification < DateTime.Now)

@@ -8,12 +8,12 @@
         Title="NotificationsMVVM" Height="435" Width="400">
     <Grid>
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Aktuelna obaveštenja" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <ListBox ItemsSource="{Binding ShowingNotifications}" SelectedItem="{Binding SelectedNotification}" Margin="0,68,0,54">
             <ListBox.Background>
-                <SolidColorBrush Color="#66b2b2"/>
+                <SolidColorBrush Color="#b2d8d8"/>
             </ListBox.Background>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
