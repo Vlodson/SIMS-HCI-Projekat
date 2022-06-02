@@ -7,7 +7,7 @@
       xmlns:View="clr-namespace:Secretary.View;assembly=Secretary" x:Class="Patient.Views.ReportPage"
       mc:Ignorable="d" 
       d:DesignHeight="703" d:DesignWidth="959"
-      Title="ReportPage" Loaded="loaded">
+      Title="ReportPage" >
 
     <Grid>
         <Grid.Background>
@@ -110,16 +110,14 @@
                 <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Generiši PDF" Width="100" HorizontalAlignment="Left" Margin="789,576,0,0" VerticalAlignment="Top" Click="GEneratePdf">
+        <Button Command="{Binding GeneratePdfCommand}" Content="Generiši PDF" Width="100" HorizontalAlignment="Left" Margin="789,576,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Frame Margin="45,128,57,72">
-            
-        </Frame>
+        
 
 
 

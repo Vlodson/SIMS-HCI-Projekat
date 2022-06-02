@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Patient.ViewModel
 {
@@ -27,6 +28,9 @@ namespace Patient.ViewModel
         private List<Examination> examinations;
 
         private ExamController _examinationController;
+        public MyICommand GeneratePdfCommand { get; set; }
+
+        private PrintDialog _printDialog = new PrintDialog();
 
         public DateTime StartDate
         {
@@ -90,6 +94,8 @@ namespace Patient.ViewModel
             App app = Application.Current as App;
             _examinationController = app.ExamController;
 
+            GeneratePdfCommand = new MyICommand(OnGeneratePdfCommand);
+
             StartDate = DateTime.Now;
             EndDate = DateTime.Now.AddDays(5);
 
@@ -102,6 +108,13 @@ namespace Patient.ViewModel
                     Examinations.Add(exam);
                 }
             }
+        }
+
+        public void OnGeneratePdfCommand()
+        {
+            PrintedReport printedReport = new PrintedReport(StartDate, EndDate);
+            //printedReport.ShowDialog();
+            _printDialog.PrintVisual(printedReport, "Izveštaj");
         }
     }
 }
