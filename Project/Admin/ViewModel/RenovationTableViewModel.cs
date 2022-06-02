@@ -105,6 +105,10 @@ namespace Admin.ViewModel
                     Renovations.Add(new FriendlyRenovation(renovationItem));
                 return;
             }
+
+            ObservableCollection<Renovation> queriedRenovations = renovationController.QueryRenovations(Search);
+            foreach (Renovation queriedItem in queriedRenovations)
+                Renovations.Add(new FriendlyRenovation(queriedItem));
         }
 
         public void OnNavigation(String view)
