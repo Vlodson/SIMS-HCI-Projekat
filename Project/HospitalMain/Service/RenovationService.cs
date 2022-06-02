@@ -9,6 +9,7 @@ using System.Threading;
 
 using Repository;
 using Model;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Service
@@ -134,6 +135,15 @@ namespace Service
         public String GenerateID()
         {
             return _renovationRepo.GenerateID();
+        }
+
+        public ObservableCollection<Renovation> QueryRenovations(String query)
+        {
+            List<Renovation> renovationList = new List<Renovation>(_renovationRepo.Renovations);
+
+            ObservableCollection<Renovation> queriedRenovations = new ObservableCollection<Renovation>(QueryUtility.DoQuery<Renovation>(renovationList, query));
+
+            return queriedRenovations;
         }
 
         public bool LoadRenovation()

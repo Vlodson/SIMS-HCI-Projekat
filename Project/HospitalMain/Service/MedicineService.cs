@@ -101,6 +101,15 @@ namespace Service
             return _repository.GenerateID();
         }
 
+        public ObservableCollection<Medicine> QueryMedicine(String query)
+        {
+            List<Medicine> medicineList = new List<Medicine>(_repository.Medicine);
+
+            ObservableCollection<Medicine> queriedMedicine = new ObservableCollection<Medicine>(QueryUtility.DoQuery<Medicine>(medicineList, query));
+
+            return queriedMedicine;
+        }
+
         public static String GeneranteName(MedicineTypeEnum type)
         {
             return MedicineRepo.GenerateName(type);

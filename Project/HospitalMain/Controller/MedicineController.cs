@@ -66,6 +66,11 @@ namespace Controller
             return MedicineService.GeneranteName(type);
         }
 
+        public ObservableCollection<Medicine> QueryMedicine(String query)
+        {
+            return _medicineService.QueryMedicine(query);
+        }
+
         public void LoadMedicine()
         {
             _medicineService.LoadMedicine();

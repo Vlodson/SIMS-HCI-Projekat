@@ -55,6 +55,11 @@ namespace Controller
             return _equipmentTransferService.GenerateID();
         }
 
+        public ObservableCollection<EquipmentTransfer> QueryEquipmentTransfers(String query)
+        {
+            return _equipmentTransferService.QueryEquipmentTransfers(query);
+        }
+
         public bool LoadEquipmentTransfer()
         {
             return _equipmentTransferService.LoadEquipmentTransfer();

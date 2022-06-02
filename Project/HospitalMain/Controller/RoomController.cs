@@ -82,6 +82,11 @@ namespace Controller
             return _roomService.GenerateID();
         }
 
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            return _roomService.QueryRooms(query);
+        }
+
         public bool LoadRoom()
         {
             return _roomService.LoadRoom();

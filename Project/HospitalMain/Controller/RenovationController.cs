@@ -72,6 +72,11 @@ namespace Controller
             return _renovationService.GenerateID();
         }
 
+        public ObservableCollection<Renovation> QueryRenovations(String query)
+        {
+            return _renovationService.QueryRenovations(query);
+        }
+
         public bool LoadRenovation()
         {
             return _renovationService.LoadRenovation();
