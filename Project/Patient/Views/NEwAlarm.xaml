@@ -81,6 +81,7 @@
         </TextBox>
         <Label Content="Vreme" HorizontalAlignment="Left" Margin="5,136,0,0" VerticalAlignment="Top"/>
         <Label Content="Dani" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top"/>
+        <!--
         <ListBox Background="white" x:Name="monday" SelectionMode="Multiple" SelectedIndex="{Binding Monday}"  ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="49,181,433,82">
             <ListBoxItem Background="white" Height="63">pon</ListBoxItem>
         </ListBox>
@@ -102,7 +103,7 @@
         <ListBox Background="white" SelectionMode="Multiple" SelectedIndex="{Binding Sunday}" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" Margin="414,181,68,82">
             <ListBoxItem Background="white">ned</ListBoxItem>
         </ListBox>
-
+        -->
         <Grid x:Name="Hours" Margin="49,121,221,60">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
@@ -127,13 +128,21 @@
             <ScrollBar x:Name="scrollBarMinutes" Value="{Binding Minutes}" HorizontalAlignment="Left" Style="{DynamicResource MySimpleScrollBar}" VerticalAlignment="Top" Maximum="59" Margin="9,9,0,0" SmallChange="1" Width="50" Height="30"/>
         </Grid>
         <Label Content=":" FontSize="28" HorizontalAlignment="Left" Margin="109,119,0,0" VerticalAlignment="Top"/>
-        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="414,246,0,0" VerticalAlignment="Top">
+        <Button Content="Kreiraj" Command="{Binding AddPersonalNotificationCommand}" Width="100" HorizontalAlignment="Left" Margin="429,261,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
+
+        <CheckBox Content="pon" IsChecked="{Binding MondayChecked}" HorizontalAlignment="Left" Margin="51,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="uto" IsChecked="{Binding TuesdayChecked}" HorizontalAlignment="Left" Margin="105,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="sre" IsChecked="{Binding WednesdayChecked}" HorizontalAlignment="Left" Margin="157,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="čet" IsChecked="{Binding ThursdayChecked}" HorizontalAlignment="Left" Margin="206,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="pet" IsChecked="{Binding FridayChecked}" HorizontalAlignment="Left" Margin="261,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="sub" IsChecked="{Binding SaturdayChecked}" HorizontalAlignment="Left" Margin="318,187,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="ned" IsChecked="{Binding SundayChecked}" HorizontalAlignment="Left" Margin="374,187,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
