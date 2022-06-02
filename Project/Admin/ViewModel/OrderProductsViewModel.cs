@@ -127,7 +127,9 @@ namespace Admin.ViewModel
 
         public void OnOrder()
         {
-            if(SelectedOrderType == "Medicine")
+            OrderProductsClipboard.ClipboardOrderProducts = new OrderProductsUtility(SelectedOrderType, selectedProductType, Amount, ArrivalDate);
+
+            if (SelectedOrderType == "Medicine")
             {
                 AddMedicine();
                 MessageBox.Show("Medicine successfully ordered");
@@ -170,6 +172,8 @@ namespace Admin.ViewModel
 
                 id++;
             }
+
+
         }
 
         private void AddEquipment()
@@ -218,7 +222,13 @@ namespace Admin.ViewModel
 
         public void OnFill()
         {
-
+            if(OrderProductsClipboard.ClipboardOrderProducts is not null)
+            {
+                SelectedOrderType = OrderProductsClipboard.ClipboardOrderProducts.SelectedOrderType;
+                SelectedProductType = OrderProductsClipboard.ClipboardOrderProducts.SelectedProductType;
+                Amount = OrderProductsClipboard.ClipboardOrderProducts.Amount;
+                ArrivalDate = OrderProductsClipboard.ClipboardOrderProducts.ArrivalDate;
+            }
         }
 
     }
