@@ -104,6 +104,10 @@ namespace Admin.ViewModel
                 return;
             }
 
+            ObservableCollection<EquipmentTransfer> queriedEquipmentTransfers = equipmentTransferController.QueryEquipmentTransfers(Search);
+            foreach (EquipmentTransfer equipmentTransferItem in queriedEquipmentTransfers)
+                EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransferItem));
+
         }
         public void OnNavigation(String view)
         {

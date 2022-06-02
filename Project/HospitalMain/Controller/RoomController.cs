@@ -77,6 +77,16 @@ namespace Controller
             _roomService.RemoveSelectedRoom();
         }
 
+        public String GenerateID()
+        {
+            return _roomService.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            return _roomService.QueryRooms(query);
+        }
+
         public bool LoadRoom()
         {
             return _roomService.LoadRoom();

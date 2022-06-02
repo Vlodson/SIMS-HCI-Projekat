@@ -89,6 +89,10 @@ namespace Admin.ViewModel
                     Rooms.Add(new FriendlyRoom(roomItem));
                 return;
             }
+
+            ObservableCollection<Room> queriedRooms = roomController.QueryRooms(Search);
+            foreach (Room room in queriedRooms)
+                Rooms.Add(new FriendlyRoom(room));
         }
 
         public void OnNavigation(String view)

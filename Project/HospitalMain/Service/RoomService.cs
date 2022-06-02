@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 using Model;
 using Repository;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Service
@@ -76,6 +78,20 @@ namespace Service
         public void RemoveSelectedRoom()
         {
             _repo.RemoveSelectedRoom();
+        }
+
+        public String GenerateID()
+        {
+            return _repo.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            List<Room> roomList = new List<Room>(_repo.Rooms);
+
+            ObservableCollection<Room> queriedRooms = new ObservableCollection<Room>(QueryUtility.DoQuery<Room>(roomList, query));
+
+            return queriedRooms;
         }
 
         public bool LoadRoom()
