@@ -122,6 +122,7 @@ namespace Admin.ViewModel
 
         public void OnSend()
         {
+            RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck = new RequestMedicineCheckUtility(Ingredients, Type, SelectedMedicine, ArrivalDate, Comment, SelectedDoctor);
             // TODO: send to doctor
             MessageBox.Show("Request sent");
             mainWindow.Width = 750;
@@ -136,7 +137,20 @@ namespace Admin.ViewModel
 
         public void OnFill()
         {
-            // TODO
+            if (RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck is not null)
+            {
+                if (_medicineController.GetMedicine(RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Medicine.Id) is not null)
+                {
+                    SelectedMedicine = RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Medicine;
+                    Type = RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Type;                    
+                    Ingredients = RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Ingredients;
+                }
+
+                if (_doctorController.GetDoctor(RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Doctor.Id) is not null)
+                    SelectedDoctor = RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.Doctor;
+
+                ArrivalDate = RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck.ArrivalDate;
+            }
         }
 
         public void OnNavigation(String view)

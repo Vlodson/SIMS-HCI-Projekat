@@ -12,7 +12,7 @@ namespace Utility
 
     public static class OrderProductsClipboard
     {
-        public static String DBPath;
+        public static String DBPath { get; set; }
         public static OrderProductsUtility ClipboardOrderProducts { get; set; }
         public static void LoadOrderProducts()
         {
