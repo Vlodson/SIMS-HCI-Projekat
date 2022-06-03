@@ -124,25 +124,6 @@ namespace Controller
             return patientService.GetExamByTime(dateTime);
         }
 
-        public Questionnaire GetHospitalQuestionnaire()
-        {
-            return patientService.GetHospitalQuestionnaire();
-        }
-
-        public Questionnaire GetDoctorQuestionnaire()
-        {
-            return patientService.GetDoctorQuestionnaire();
-        }
-
-        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
-        {
-            return patientService.CheckAnswerAvailable(doctorId, medicalRecord);
-        }
-        public void AddAnswer(String patientId, Answer answer)
-        {
-            patientService.AddAnswer(patientId, answer);
-        }
-
         public List<String> GetPatientsDoctors(String patientId)
         {
             return patientService.GetPatientsDoctors(patientId);

@@ -16,6 +16,7 @@ using HospitalMain.Repository;
 using HospitalMain.Service;
 using System.Collections.ObjectModel;
 using Enums;
+using HospitalMain.Controller;
 
 namespace Patient
 {
@@ -49,7 +50,7 @@ namespace Patient
 
         public HospitalMain.Controller.PersonalNotificationController personalNotificationController { get; set; }
 
-
+        public QuestionnaireController QuestionnaireController { get; set; }
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -74,6 +75,7 @@ namespace Patient
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
             ReferralRepo referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
             PersonalNotificationRepo personalNotificationRepo = new PersonalNotificationRepo(GlobalPaths.PersonalNotificationDBPath);
+            
 
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
@@ -90,7 +92,8 @@ namespace Patient
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
 
-            PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);    
+            PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);
+            QuestionnaireService questionnaireService = new QuestionnaireService(questionnaireRepo, PatientRepo);
 
             EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
 
@@ -107,6 +110,7 @@ namespace Patient
             medicineController = new MedicineController(medicineService);
             ReferralController = new ReferralController(referralService);
             personalNotificationController = new HospitalMain.Controller.PersonalNotificationController(personalNotificationService);
+            QuestionnaireController = new QuestionnaireController(questionnaireService);
 
             if (File.Exists(GlobalPaths.EquipmentDBPath))
                 EquipmentController.LoadEquipment();
