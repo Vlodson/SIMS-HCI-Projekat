@@ -175,7 +175,7 @@ namespace Secretary.ViewModel
             //Doctor = cRUDAppointmentsViewModel.ExaminationViewModel.Doctor;
             //ExaminationTypeEnum = cRUDAppointmentsViewModel.ExaminationViewModel.Type;
 
-            Doctor = doctorController.GetAll().First();
+            Doctor = doctorController.GetAllDoctors().First();
             Patient = patientController.ReadAllPatients().First();
             Room = roomController.ReadAll().First();
 

@@ -174,7 +174,7 @@ namespace Secretary.ViewModel
             roomController = app.RoomController;
             _mainViewModel = mainViewModel;
 
-            Doctor = doctorController.GetAll().First();
+            Doctor = doctorController.GetAllDoctors().First();
             Patient = _patientController.ReadAllPatients().First();
 
             FillPatientListBox();

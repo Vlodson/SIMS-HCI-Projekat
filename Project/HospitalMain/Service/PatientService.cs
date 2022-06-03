@@ -66,7 +66,7 @@ namespace Service
 
         public Examination getExamByTime(DateTime dateTime)
         {
-            foreach(Examination e in _examinationRepo.ExaminationList)
+            foreach(Examination e in _examinationRepo.Examinations)
             {
                 if(e.Date == dateTime)
                 {

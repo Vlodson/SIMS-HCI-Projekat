@@ -84,7 +84,7 @@ namespace HospitalMain.Service
 
         public ObservableCollection<Doctor> GetFreeDoctors(DateTime dateTime)
         {
-            ObservableCollection<Doctor> doctors = new ObservableCollection<Doctor>(_doctorRepo.DoctorList);
+            ObservableCollection<Doctor> doctors = new ObservableCollection<Doctor>(_doctorRepo.Doctors);
             foreach(Doctor doctor in doctors.ToList())
             {
                 foreach(Examination exam in _doctorService.ExaminationsForDoctor(doctor.Id))
