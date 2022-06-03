@@ -33,9 +33,9 @@ namespace Repository
             this.Requests.Add(request4);
             this.Requests.Add(request5);
 
-            SaveRequest();
-            //if (File.Exists(DBPath))
-            //    LoadRequest();
+            //SaveRequest();
+            if (File.Exists(DBPath))
+                LoadRequest();
         }
         public bool NewRequest(FreeDaysRequest request)
         {
@@ -64,6 +64,7 @@ namespace Repository
             }
             SaveRequest();
         }
+        
 
         public bool LoadRequest()
         {

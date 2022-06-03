@@ -46,9 +46,9 @@ namespace Controller
             return _emergencyService.EmergencyValidation(dateTime, doctorType);
         }
 
-        public ObservableCollection<Doctor> GetAll()
+        public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return _doctorService.GetDoctors();
+            return _doctorService.GetAllDoctors();
         }
 
         public Doctor GetDoctor(string id)
@@ -70,15 +70,10 @@ namespace Controller
         {
             return _doctorService.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
         }
-        /*
-        public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
+
+        public List<Examination> AvailableMoveExaminations(Examination examination)
         {
-            return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);
-        }
-        */
-        public List<Examination> MoveExaminations(Examination examination)
-        {
-            return _doctorService.MoveExaminations(examination);
+            return _doctorService.AvailableMoveExaminations(examination);
         }
         public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType selectedSpec)
         {

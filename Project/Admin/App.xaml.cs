@@ -28,6 +28,7 @@ namespace Admin
         public UserAccountController userAccountController { get; set; }
         public MedicineController medicineController { get; set; }
         public DoctorController doctorController { get; set; }
+        public AnswerController answerController { get; set; }
 
         public App()
         {
@@ -40,6 +41,7 @@ namespace Admin
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
             var doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             var patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
+            var questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
@@ -49,6 +51,8 @@ namespace Admin
             var medicineService = new MedicineService(medicineRepo);
             var doctorService = new DoctorService(doctorRepo, examinationRepo, roomRepo, patientRepo);
             var emergencyService = new EmergencyService(examinationRepo, doctorRepo);
+            var patientService = new PatientService(patientRepo, examinationRepo, doctorRepo, roomRepo, questionnaireRepo);
+            var answerService = new AnswerService(patientService, doctorService);
 
             roomController = new RoomController(roomService);
             equipmentController = new EquipmentController(equipmentService);
@@ -57,6 +61,7 @@ namespace Admin
             userAccountController = new UserAccountController(userAccountService);
             medicineController = new MedicineController(medicineService);
             doctorController = new DoctorController(doctorService, emergencyService);
+            answerController = new AnswerController(answerService);
 
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
@@ -79,27 +84,23 @@ namespace Admin
                 if (i > 10)
                     floor = 2;
 
-                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
-                roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
+                String r_id = roomController.GenerateID();
+                Room r = new Room(r_id, floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                roomController.CreateRoom(r);
+
+                String e_id = equipmentController.GenerateID();
+                Equipment e = new Equipment(e_id, r_id, (EquipmentTypeEnum)(i % 10));
+                equipmentController.CreateEquipment(e);
+                roomController.AddEquipment(r_id, equipmentController.ReadEquipment(e_id));
 
                 ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
                 for(int j = 0; j < 4; j++)
                     ingredients.Add( (IngredientEnum)((j+i)%5) );
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending,"d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
+                String id = medicineController.GenerateID();
+                MedicineTypeEnum type = (MedicineTypeEnum)(i % 5);
+                medicineController.NewMedicine(new Medicine(id, MedicineController.GenerateName(type), type, ingredients, StatusEnum.Pending, "d1", new DateTime(2020, 5, 5, 11, 11, 11), "No comment"));
             }
-
-            for (int i = 0; i < 20; i++)
-            {
-                Room OriginRoom = roomController.ReadRoom(i.ToString());
-                Room DestinationRoom = roomController.ReadRoom(((i + 1) % 20).ToString());
-                Equipment equipment = equipmentController.ReadEquipment(i.ToString());
-                EquipmentTransfer equipmentTransfer = new EquipmentTransfer(i.ToString(), OriginRoom, DestinationRoom, equipment, new DateTime(2022, 10, 10, 12, 0, 0), new DateTime(2022, 10, 10, 13, 0, 0));
-                equipmentTransferController.ScheduleTransfer(equipmentTransfer);
-                equipmentTransferController.RecordTransfer(i.ToString());
-            }
-
 
             var finishRenovations = new Timer(state => renovationController.FinishRenovation(), null, 0, 6000);
         }

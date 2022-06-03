@@ -39,26 +39,26 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Label Content="Lični podaci" FontSize="18" HorizontalAlignment="Left" Margin="33,94,0,0" VerticalAlignment="Top"/>
-        <Label Content="Ime" HorizontalAlignment="Left" Margin="38,133,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prezime" HorizontalAlignment="Left" Margin="33,164,0,0" VerticalAlignment="Top"/>
-        <Label Content="JMBG" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lični podaci" FontSize="24" HorizontalAlignment="Left" Margin="33,94,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Ime" HorizontalAlignment="Left" Margin="38,133,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Prezime" HorizontalAlignment="Left" Margin="33,164,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="JMBG" HorizontalAlignment="Left" Margin="33,195,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Name}" HorizontalAlignment="Left" Margin="123,133,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Surname}" HorizontalAlignment="Left" Margin="123,164,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Jmbg}" HorizontalAlignment="Left" Margin="123,195,0,0" VerticalAlignment="Top"/>
-        <Label Content="Vreme rođenja" HorizontalAlignment="Left" Margin="393,133,0,0" VerticalAlignment="Top"/>
-        <Label Content="Mail" HorizontalAlignment="Left" Margin="396,164,0,0" VerticalAlignment="Top"/>
-        <Label Content="Telefon" HorizontalAlignment="Left" Margin="393,195,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Vreme rođenja" HorizontalAlignment="Left" Margin="393,133,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Mail" HorizontalAlignment="Left" Margin="396,164,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Telefon" HorizontalAlignment="Left" Margin="393,195,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding DateBirth}" HorizontalAlignment="Left" Margin="515,133,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Mail}" HorizontalAlignment="Left" Margin="515,164,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Phone}" HorizontalAlignment="Left" Margin="515,195,0,0" VerticalAlignment="Top"/>
-        <Label Content="Krvna grupa" HorizontalAlignment="Left" Margin="744,133,0,0" VerticalAlignment="Top"/>
-        <Label Content="Pol" HorizontalAlignment="Left" Margin="744,164,0,0" VerticalAlignment="Top"/>
-        <Label Content="Alergeni" HorizontalAlignment="Left" Margin="33,228,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Krvna grupa" HorizontalAlignment="Left" Margin="744,133,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Pol" HorizontalAlignment="Left" Margin="744,164,0,0" VerticalAlignment="Top"/>
+        <Label FontWeight="Bold" Content="Alergeni" HorizontalAlignment="Left" Margin="33,228,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding BloodType}" HorizontalAlignment="Left" Margin="858,133,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Gender}" HorizontalAlignment="Left" Margin="858,164,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Allergens}" HorizontalAlignment="Left" Margin="118,228,0,0" VerticalAlignment="Top"/>
-        <Button Content="Izmeni" Command="{Binding ChangeMedicalRecordCommand}" HorizontalAlignment="Left" Margin="873,239,0,0" VerticalAlignment="Top">
+        <Button Content="Izmeni" Command="{Binding ChangeMedicalRecordCommand}" Width="100" HorizontalAlignment="Left" Margin="806,241,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -74,7 +74,7 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Label Content="Istorija pregleda" FontSize="18" HorizontalAlignment="Left" Margin="33,302,0,0" VerticalAlignment="Top"/>
+        <Label Content="Istorija pregleda" FontSize="24" HorizontalAlignment="Left" Margin="33,302,0,0" VerticalAlignment="Top"/>
         <DataGrid ItemsSource ="{Binding Reports}" SelectedItem="{Binding SelectedReport}" AutoGenerateColumns="False" SelectionMode="Single" Margin="38,352,53,117">
             <DataGrid.Resources>
                 <Style TargetType="Border">
@@ -87,22 +87,13 @@
                 <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Pregledaj" Command="{Binding ViewReportCommand}" HorizontalAlignment="Left" Margin="866,591,0,0" VerticalAlignment="Top">
+        <Button Content="Pregledaj" Command="{Binding ViewReportCommand}" Width="100" HorizontalAlignment="Left" Margin="806,591,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Background="#b2d8d8" Command="{Binding MenuBack}" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26">
-            <StackPanel>
-                <Image Source="/Images/arrow-small-left.png"/>
-            </StackPanel>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+
     </Grid>
 </Page>

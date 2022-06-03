@@ -36,5 +36,14 @@ namespace Controller
             return _requestService.CheckIfDoctorHasFreeDays(doctorID, days);
         }
 
+        public int GenerateID()
+        {
+            return _requestService.GenerateID();
+        }
+        public ObservableCollection<FreeDaysRequest> ReadAllByDoctorId(string id)
+        {
+            return _requestService.ReadAllByDoctorId(id);
+        }
+
     }
 }

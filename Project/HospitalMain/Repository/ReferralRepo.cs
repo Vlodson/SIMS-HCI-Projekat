@@ -56,9 +56,6 @@ namespace Repository
             return true;
         }
 
-        public List<Referral> GetAll()
-        {
-            return Referrals.ToList();
-        }
+        
     }
 }

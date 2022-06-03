@@ -59,7 +59,7 @@ namespace Service
 
         public bool CheckIfDoctorHasFreeDays(string doctorID, int days)
         {
-            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.DoctorList;
+            ObservableCollection<Doctor> doctorsFromBase = _doctorRepo.Doctors;
             foreach(Doctor doctor in doctorsFromBase)
             {
                 if (doctor.Id.Equals(doctorID))
@@ -77,6 +77,19 @@ namespace Service
                 return true;
             }
             return false;
+        }
+        public ObservableCollection<FreeDaysRequest> ReadAllByDoctorId(string id)
+        {
+            ObservableCollection<FreeDaysRequest> requests = new ObservableCollection<FreeDaysRequest>();
+            foreach (FreeDaysRequest request in _requestRepo.Requests)
+            {
+                if (request.DoctorId.Equals(id))
+                {
+                    requests.Add(request);
+                }
+            }
+
+            return requests;
         }
     }
 }

@@ -3,22 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Repository
 {
     public class DoctorRepo
     {
-        public string dbPath { get; set; }
-        public ObservableCollection<Doctor> DoctorList { get; set; }
+        public string DBPath { get; set; }
+        public ObservableCollection<Doctor> Doctors { get; set; }
 
         public DoctorRepo(string dbPath)
         {
-            this.dbPath = dbPath;
-            this.DoctorList = new ObservableCollection<Doctor>();
+            this.DBPath = dbPath;
+            this.Doctors = new ObservableCollection<Doctor>();
 
             List<Examination> examinationsDoctor1 = new List<Examination>();
             DateTime dtDoctor1 = DateTime.Now;
@@ -48,76 +45,33 @@ namespace Repository
             DateTime dtDoctor7 = DateTime.Now;
             Doctor doctor7 = new Doctor("d16", "Goran", "Djuric", dtDoctor7, DoctorType.Cardiology, 20, examinationsDoctor7);
 
-            this.DoctorList.Add(doctor1);
-            this.DoctorList.Add(doctor2);
-            this.DoctorList.Add(doctor3);
-            this.DoctorList.Add(doctor4);
-            this.DoctorList.Add(doctor5);
-            this.DoctorList.Add(doctor6);
-            this.DoctorList.Add(doctor7);
+            this.Doctors.Add(doctor1);
+            this.Doctors.Add(doctor2);
+            this.Doctors.Add(doctor3);
+            this.Doctors.Add(doctor4);
+            this.Doctors.Add(doctor5);
+            this.Doctors.Add(doctor6);
+            this.Doctors.Add(doctor7);
 
             if (File.Exists(dbPath))
                 LoadDoctor();
 
         }
 
-        public bool AddExaminationToDoctor(String doctorID, Examination examination)
-        {
-            foreach(Doctor doctor in this.DoctorList)
-            {
-                if (doctorID.Equals(doctor.Id))
-                {
-                    doctor.Examinations.Add(examination);
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public void EditDoctorsExamination(String doctorID, Examination newExamination)
-        {
-            foreach (Doctor doctor in this.DoctorList)
-            {
-                if (doctorID.Equals(doctor.Id))
-                {
-                    foreach(Examination exam in doctor.Examinations)
-                    {
-                        if (exam.Id.Equals(newExamination.Id))
-                        {
-                            exam.Id = newExamination.Id;
-                            exam.ExamRoomId = newExamination.ExamRoomId;
-                            exam.Duration = newExamination.Duration;
-                            exam.Date = newExamination.Date;
-                            exam.PatientId = newExamination.PatientId;
-                            exam.EType = newExamination.EType;
-                            break;
-                        }
-                    }
-                    break;
-                }
-            }
-        }
-
         public bool LoadDoctor()
         {
 
-            using FileStream stream = File.OpenRead(dbPath);
-            this.DoctorList = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
+            using FileStream stream = File.OpenRead(DBPath);
+            this.Doctors = JsonSerializer.Deserialize<ObservableCollection<Doctor>>(stream);
 
             return true;
         }
-
-
 
         public bool SaveDoctor()
         {
-            string jsonString = JsonSerializer.Serialize(DoctorList);
-
-            File.WriteAllText(dbPath, jsonString);
+            string jsonString = JsonSerializer.Serialize(Doctors);
+            File.WriteAllText(DBPath, jsonString);
             return true;
         }
-
-
-
     }
 }

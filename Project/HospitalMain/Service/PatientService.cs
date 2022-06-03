@@ -12,12 +12,14 @@ namespace Service
 {
     public class PatientService
     {
-        //dodato
         private readonly PatientRepo _patientRepo;
         private readonly ExaminationRepo _examinationRepo;
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
         private readonly QuestionnaireRepo _questionaryRepo;
+
+        private int maxCancelling;
+        private int maxAdding;
 
         public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
         {
@@ -26,6 +28,9 @@ namespace Service
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
             _questionaryRepo = questionnaireRepo;
+
+            maxCancelling = 5;
+            maxAdding = 10;
         }
 
         public Examination getTemporaryExam()
@@ -73,17 +78,12 @@ namespace Service
 
         public ObservableCollection<Examination> getAllExaminations()
         {
-            return _examinationRepo.ExaminationList;
+            return _examinationRepo.Examinations;
         }
 
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();
-        }
-
-        private List<DateTime> GetFreeDates(Doctor doctor, int maxDates)
-        {
-            throw new NotImplementedException();
         }
 
         public Model.Patient GetPatient(String id)
@@ -93,7 +93,7 @@ namespace Service
 
         public bool AppointmentRoomValidation(DateTime date, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach(Examination exam in examinationsFromBase)
             {
@@ -108,7 +108,7 @@ namespace Service
 
         public bool AppointmentDoctorValidation(DateTime date, Doctor doctor)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -123,7 +123,7 @@ namespace Service
 
         public bool AppointmentPatientValidation(DateTime date, String PatientID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -138,7 +138,7 @@ namespace Service
 
         public bool AppointmentRoomEditValidation(String ExamID, DateTime date, String RoomID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -157,7 +157,7 @@ namespace Service
 
         public bool AppointmentDoctorEditValidation(String ExamID, DateTime date, Doctor doctor)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -176,7 +176,7 @@ namespace Service
 
         public bool AppointmentPatientEditValidation(String ExamID, DateTime date, String PatientID)
         {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.ExaminationList;
+            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
 
             foreach (Examination exam in examinationsFromBase)
             {
@@ -214,7 +214,7 @@ namespace Service
         public Room GetFreeRoomFromRoomsWhereOccupied(List<Room> patientRooms, DateTime dateTime)
         {
             Room getRoom = new Room();
-            foreach (Examination examinationExists in _examinationRepo.getExamByTime(dateTime))
+            foreach (Examination examinationExists in GetExamByTime(dateTime))
             {
 
                 foreach (Room room in patientRooms)
@@ -231,7 +231,7 @@ namespace Service
         public Room GetFirstRoom(DateTime dateTime, List<Room> patientRooms)
         {
             Room getRoom = new Room();
-            if(_examinationRepo.getExamByTime(dateTime).Count == 0)
+            if(GetExamByTime(dateTime).Count == 0)
             {
                 getRoom=GetFreeRoomFromRooms(patientRooms);
             }
@@ -265,9 +265,7 @@ namespace Service
             Patient patient = _patientRepo.GetPatient(examination.PatientId);
             patient.NumberCanceling += 1;
             _patientRepo.SavePatient();
-            _examinationRepo.DeleteExamination(examination.Id);
-            //Room room = _roomRepo.GetRoom(examination.ExamRoomId);
-            //_roomRepo.SetRoom(room.Id, room.Equipment, room.Floor, room.RoomNb, false, room.Type);
+            _examinationRepo.RemoveExamination(examination.Id);
         }
 
         public void SetExam(string examID, DateTime date, String roomId, int duration, ExaminationTypeEnum examType, String patientId, String doctorId)
@@ -292,9 +290,14 @@ namespace Service
             _examinationRepo.SetExamination(examId, examination);
         }
 
-        public ObservableCollection<Examination> ReadMyExams(string id)
+        public ObservableCollection<Examination> ReadPatientExams(string id)
         {
-            return _examinationRepo.ExaminationsForPatient(id);
+            ObservableCollection<Examination> patientExaminations = new ObservableCollection<Examination>();
+            foreach (Examination exam in _examinationRepo.Examinations)
+            {
+                if (exam.PatientId.Equals(id)) patientExaminations.Add(exam);
+            }
+            return patientExaminations;
             
         }
 
@@ -305,45 +308,142 @@ namespace Service
 
         public ObservableCollection<Examination> GetExaminations()
         {
-            return _examinationRepo.ExaminationList;
+            return _examinationRepo.Examinations;
         }
 
         public List<Examination> GetExamByTime(DateTime dateTime)
         {
-            return _examinationRepo.getExamByTime(dateTime);
+            List<Examination> returnList = new List<Examination>();
+            foreach (Examination examination in _examinationRepo.Examinations)
+            {
+                if (examination.Date.Equals(dateTime))
+                {
+                    returnList.Add(examination);
+                }
+            }
+            return returnList;
         }
 
         public Questionnaire GetHospitalQuestionnaire()
         {
-            return _questionaryRepo.GetHospitalQuestionnaire();
+            foreach (Questionnaire questionnaire in _questionaryRepo.questionnaireList)
+            {
+                if (questionnaire.IdDoctor.Equals("hospital"))
+                {
+                    return questionnaire;
+                }
+            }
+            return null;
         }
 
         public Questionnaire GetDoctorQuestionnaire()
         {
-            return _questionaryRepo.GetDoctorQuestionnaire();
+            foreach (Questionnaire questionnaire in _questionaryRepo.questionnaireList)
+            {
+                if (!questionnaire.IdDoctor.Equals("hospital"))
+                {
+                    return questionnaire;
+                }
+            }
+            return null;
         }
         public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
         {
-            return _patientRepo.CheckAnswerAvailable(doctorId, medicalRecord);
+            Answer existing = ContainsAnswer(medicalRecord.ID, doctorId);
+            if (existing == null) return true;
+            if (existing != null && existing.CounterGrades >= medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
+
+        public Answer ContainsAnswer(String idPatient, String idAnswer)
+        {
+            foreach (Answer answer in GetPatient(idPatient).Answers)
+            {
+                if (idAnswer.Equals(answer.IdDoctor))
+                {
+                    return answer;
+                }
+            }
+            return null;
+        }
+
         public void AddAnswer(String idPatient, Answer answer)
         {
-            _patientRepo.AddAnswer(idPatient, answer);
+            Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
+            if (existing == null)
+            {
+                answer.CounterGrades = 1;
+            }
+            else
+            {
+                answer.CounterGrades = existing.CounterGrades + 1;
+                GetPatient(idPatient).Answers.Remove(existing);
+            }
+            GetPatient(idPatient).Answers.Add(answer);
+            _patientRepo.SavePatient();
+        }
+
+        public bool DoctorExists(String doctorId, List<String> doctors)
+        {
+            bool exists = false;
+            foreach (String id in doctors)
+            {
+                if (id.Equals(doctorId))
+                {
+                    exists = true;
+                    break;
+                }
+            }
+            return exists;
         }
 
         public List<String> GetPatientsDoctors(String patientId)
         {
-            return _examinationRepo.GetPatientsDoctors(patientId);
+            List<String> doctors = new List<String>();
+            foreach (Examination examination in ReadPatientExams(patientId))
+            {
+                if (!DoctorExists(examination.DoctorId, doctors) && (examination.Date.CompareTo(DateTime.Now) < 0))
+                {
+                    doctors.Add(examination.DoctorId);
+                }
+            }
+            return doctors;
+        }
+
+        public void CheckMonth(Patient patient)
+        {
+            if (!patient.CurrentMonth.Equals(DateTime.Now.ToString("MM")))
+            {
+                patient.CurrentMonth = DateTime.Now.ToString("MM");
+                patient.NumberCanceling = 0;
+                patient.NumberNewExams = 0;
+            }
         }
 
         public bool CheckStatusCancelled(String id)
         {
-            return _patientRepo.CheckStatusCancelled(id);
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberCanceling > maxCancelling)
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool CheckStatusAdded(String id)
         {
-            return _patientRepo.CheckStatusAdded(id);
+            CheckMonth(GetPatient(id));
+            if (GetPatient(id).NumberNewExams > maxAdding)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

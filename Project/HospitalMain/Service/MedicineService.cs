@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Model;
 using Repository;
+using Enums;
+using Utility;
 
 namespace Service
 {
@@ -43,21 +45,74 @@ namespace Service
             ObservableCollection<Medicine> pendingMedicines = new ObservableCollection<Medicine>();
             foreach(Medicine medicine in _repository.Medicine)
             {
-                if (medicine.Status.ToString().Equals("Pending") && id.Equals(medicine.ReviewingDoctor))
+                if (medicine.Status.ToString().Equals(StatusEnum.Pending.ToString()) && id.Equals(medicine.ReviewingDoctor))
                     pendingMedicines.Add(medicine);
             }
 
             return pendingMedicines;
+        }
+        public ObservableCollection<Medicine> ReadAllApproved()
+        {
+            ObservableCollection<Medicine> approvedMedicines = new ObservableCollection<Medicine>();
+            foreach (Medicine medicine in _repository.Medicine)
+            {
+                if (medicine.Status.ToString().Equals(StatusEnum.Pending.ToString()))
+                    approvedMedicines.Add(medicine);
+            }
+
+            return approvedMedicines;
+        }
+
+        // call to see which possible allergies to medication exist
+        public List<MedicineTypeEnum> PossibleMedicineAllergens()
+        {
+            return new List<MedicineTypeEnum>(ReplacementMedicineMap.ReplacemetMedicine.Keys);
+        }
+
+        // call if patient is allergic to any of the drugs in the list of possible drug allergies
+        public MedicineTypeEnum ReplacementMedicine(Medicine medicine)
+        {
+            return ReplacementMedicineMap.ReplacemetMedicine[medicine.Type];
         }
 
         public ObservableCollection<Medicine> ReadAll()
         {
             return _repository.Medicine;
         }
+        public bool CheckAllergens(Medicine medicine, MedicalRecord medicalRecord)
+        {
+            foreach(var allergen in medicalRecord.Allergens)
+            {
+                if(medicine.Type.ToString().Equals(allergen.ToString()))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         public void LoadMedicine()
         {
             _repository.LoadMedicine();
+        }
+
+        public String GenerateID()
+        {
+            return _repository.GenerateID();
+        }
+
+        public ObservableCollection<Medicine> QueryMedicine(String query)
+        {
+            List<Medicine> medicineList = new List<Medicine>(_repository.Medicine);
+
+            ObservableCollection<Medicine> queriedMedicine = new ObservableCollection<Medicine>(QueryUtility.DoQuery<Medicine>(medicineList, query));
+
+            return queriedMedicine;
+        }
+
+        public static String GeneranteName(MedicineTypeEnum type)
+        {
+            return MedicineRepo.GenerateName(type);
         }
 
         public void SaveMedicine()

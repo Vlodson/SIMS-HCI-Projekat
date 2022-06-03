@@ -151,6 +151,7 @@ namespace Repository
             return false;
         }
 
+        /*
         public MedicalRecord ReadMedicalRecord(String medRecordID)
         {
             foreach(MedicalRecord medRecord in MedicalRecords)
@@ -163,6 +164,7 @@ namespace Repository
 
             return null;
         }
+        */
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)
         //{
@@ -189,70 +191,6 @@ namespace Repository
             string jsonString = JsonSerializer.Serialize(MedicalRecords);
             File.WriteAllText(DBPath, jsonString);
             return true;
-        }
-
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            
-            LoadMedicalRecord();
-            return medicalRecord.Notifications.ToList();
-        }
-
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
-        {
-            foreach (MedicalRecord oneMedRecord in MedicalRecords)
-            {
-                if (oneMedRecord.ID.Equals(medicalRecord.ID))
-                {
-                    
-                    foreach(Notification not in oneMedRecord.Notifications)
-                    {
-                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
-                        {
-                            oneMedRecord.Notifications.Remove(not);
-                            SaveMedicalRecord();
-                            break;
-                        }
-                    }
-                    
-                    
-                }
-            }
-
-        }
-
-        public void AddNewReport(string id, Report report)
-        {
-            foreach(MedicalRecord mr in MedicalRecords)
-            {
-                if(mr.ID.Equals(id))
-                {
-                    mr.Reports.Add(report);
-                    GenerateNotifications(report, mr);
-                    break;
-                }
-            }
-        }
-        public void GenerateNotifications(Report report, MedicalRecord mr)
-        {
-            foreach (Therapy therapy in report.Therapy)
-            {
-                DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                int addingHours = 24 / therapy.PerDay;
-
-                for (int i = 0; i < therapy.Duration; ++i)
-                {
-                    for (int j = 0; j < therapy.PerDay; ++j)
-                    {
-                        DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
-                        String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
-                        Notification notification = new Notification(content, false, dateTime);
-                        mr.Notifications.Add(notification);
-
-                    }
-                }
-            }
         }
     }
 }

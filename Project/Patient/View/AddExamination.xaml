@@ -17,7 +17,7 @@
 
 
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <DataGrid x:Name="ExamsAvailable" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" HorizontalAlignment="Left" Height="282" Margin="383,75,0,0" VerticalAlignment="Top" Width="401">
             <DataGrid.Columns>

@@ -11,8 +11,14 @@
             <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Beleška" FontSize="28" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="{Binding CurrentNote}" VerticalAlignment="Top" Width="332" Height="236"/>
-        <Button Content="Potvrdi" Command="{Binding AddNoteCommand}" HorizontalAlignment="Left" Margin="303,299,0,0" VerticalAlignment="Top">
+        <TextBox HorizontalAlignment="Left" Margin="10,58,0,0" TextWrapping="Wrap" Text="{Binding CurrentNote}" VerticalAlignment="Top" Width="332" Height="236">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button Content="Potvrdi" Command="{Binding AddNoteCommand}" Width="100" HorizontalAlignment="Left" Margin="242,299,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

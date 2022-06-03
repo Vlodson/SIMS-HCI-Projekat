@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Patient.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Patient.Views
         public Alarms()
         {
             InitializeComponent();
+            this.DataContext = new AlarmsViewModel();
         }
     }
 }

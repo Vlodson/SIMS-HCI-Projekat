@@ -37,7 +37,7 @@ namespace Secretary.Commands
             Examination exam = _examController.getExamination(_homePageViewModel.SelectedExamination.ID);
 
             //Examination exam = _examController.GetExamByTime(_homePageViewModel.SelectedDate);
-
+            
            _examController.RemoveExam(exam);
             UpdateExaminations();
         }

@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Zakazivanje termina" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Top" FontSize="32"/>
 
@@ -85,7 +85,7 @@
             <DatePicker.SelectedDate>
                 <Binding Path="EndDate" NotifyOnValidationError="True">
                     <Binding.ValidationRules>
-                        <local:MinMaxDateValidation/>
+                        <local:MaxDateValidationRule/>
                     </Binding.ValidationRules>
                 </Binding>
             </DatePicker.SelectedDate>
@@ -117,7 +117,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Prikaži termine" Command="{Binding ShowExaminationsCommand}" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="185,260,0,0" VerticalAlignment="Top">
+        <Button Content="Prikaži termine" Command="{Binding ShowExaminationsCommand}" Width="100" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="160,276,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

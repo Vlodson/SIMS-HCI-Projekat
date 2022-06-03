@@ -93,7 +93,7 @@ namespace Secretary.Commands
 
         private int generateExamID()
         {
-            return _examController.generateID(_examController.getAllExaminations());
+            return _examController.generateID(_examController.GetExaminations());
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

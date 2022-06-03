@@ -9,6 +9,7 @@ using System.Threading;
 
 using Repository;
 using Model;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Service
@@ -26,11 +27,8 @@ namespace Service
             _examinationRepo = examinationRepo;
         }
 
-        public bool ScheduleRenovation(String id, String originRoomId, String destinationRoomId, RenovationTypeEnum type, DateOnly startDate, DateOnly endDate)
+        public bool ScheduleRenovation(Renovation renovation)
         {
-            Room originRoom = _roomRepo.GetRoom(originRoomId);
-            Room destinationRoom = _roomRepo.GetRoom(destinationRoomId);
-            Renovation renovation = new Renovation(id, originRoom, destinationRoom, type, startDate, endDate);
             _renovationRepo.NewRenovation(renovation);
             return true;
         }
@@ -40,15 +38,15 @@ namespace Service
             Renovation renovation = _renovationRepo.GetRenovation(renovationId);
             Room originRoom = renovation.OriginRoom;
             
-            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative, originRoom.PreviousType);
-            _renovationRepo.SetRenovation(renovation.Id, renovation.OriginRoom, renovation.DestinationRoom, renovation.Type, renovation.StartDate, renovation.EndDate);
+            _roomRepo.SetRoom(originRoom);
+            _renovationRepo.SetRenovation(renovation);
             
             return true;
         }
 
         public bool OccupiedAtTheTime(Renovation renovation)
         {
-            foreach (Examination examination in _examinationRepo.ExaminationList)
+            foreach (Examination examination in _examinationRepo.Examinations)
             {
                 if (renovation.OriginRoom.Id == examination.ExamRoomId) // destination room missing here. to add after merge/split
                     if (renovation.StartDate >= DateOnly.Parse(examination.Date.ToShortDateString()) && renovation.EndDate <= DateOnly.Parse(examination.Date.AddMinutes(examination.Duration).ToShortDateString()))
@@ -64,7 +62,7 @@ namespace Service
             foreach(Renovation renovation in _renovationRepo.Renovations)
             {
                 if (renovation.EndDate >= DateOnly.Parse(DateTime.Now.ToShortDateString()))
-                    _roomRepo.SetRoom(renovation.OriginRoom.Id, renovation.OriginRoom.Equipment, renovation.OriginRoom.Floor, renovation.OriginRoom.RoomNb, renovation.OriginRoom.Occupancy, renovation.OriginRoom.PreviousType, renovation.OriginRoom.PreviousType);
+                    _roomRepo.SetRoom(renovation.OriginRoom);
             }
         }
 
@@ -80,18 +78,23 @@ namespace Service
             _roomRepo.NewRoom(newRoom);
 
             // add room equipment
-            ObservableCollection<Equipment> originEquipment = renovation.OriginRoom.Equipment;
-            ObservableCollection<Equipment> destinationEquipment = renovation.DestinationRoom.Equipment;
-
-            foreach (Equipment equipment in originEquipment)
-                _roomRepo.AddEquipment(newRoom.Id, equipment);
-
-            foreach (Equipment equipment in destinationEquipment)
-                _roomRepo.AddEquipment(newRoom.Id, equipment);
+            TransferAllRoomEquipment(renovation.OriginRoom.Equipment, newRoom);
+            TransferAllRoomEquipment(renovation.DestinationRoom.Equipment, newRoom);
 
             // delete rooms
             _roomRepo.DeleteRoom(renovation.OriginRoom.Id);
             _roomRepo.DeleteRoom(renovation.DestinationRoom.Id);
+        }
+
+        private void TransferAllRoomEquipment(ObservableCollection<Equipment> equipment, Room destination)
+        {
+            ObservableCollection<Equipment> equipmentCopy = new ObservableCollection<Equipment>(equipment);
+
+            foreach(Equipment eq in equipmentCopy)
+            {
+                _roomRepo.AddEquipment(destination.Id, eq);
+                eq.RoomId = destination.Id;
+            }
         }
 
         public void SplitRoom(Renovation renovation)
@@ -102,11 +105,10 @@ namespace Service
             int number = roomList.Where(r => r.Floor == renovation.OriginRoom.Floor).Max(r1 => r1.RoomNb) + 1;
 
             // change origin status
-            Room originRoom = renovation.OriginRoom;
-            _roomRepo.SetRoom(originRoom.Id, originRoom.Equipment, originRoom.Floor, originRoom.RoomNb, originRoom.Occupancy, RoomTypeEnum.Inoperative, originRoom.Type);
+            _roomRepo.SetRoom(renovation.OriginRoom);
 
             // generate new room and add it to the repo
-            Room newRoom = new Room(id.ToString(), originRoom.Floor, number, false, RoomTypeEnum.Inoperative, originRoom.Type);
+            Room newRoom = new Room(id.ToString(), renovation.OriginRoom.Floor, number, false, RoomTypeEnum.Inoperative, renovation.OriginRoom.Type);
             _roomRepo.NewRoom(newRoom);
         }
 
@@ -128,6 +130,20 @@ namespace Service
         public ObservableCollection<Renovation> ReadAll()
         {
             return _renovationRepo.Renovations;
+        }
+
+        public String GenerateID()
+        {
+            return _renovationRepo.GenerateID();
+        }
+
+        public ObservableCollection<Renovation> QueryRenovations(String query)
+        {
+            List<Renovation> renovationList = new List<Renovation>(_renovationRepo.Renovations);
+
+            ObservableCollection<Renovation> queriedRenovations = new ObservableCollection<Renovation>(QueryUtility.DoQuery<Renovation>(renovationList, query));
+
+            return queriedRenovations;
         }
 
         public bool LoadRenovation()

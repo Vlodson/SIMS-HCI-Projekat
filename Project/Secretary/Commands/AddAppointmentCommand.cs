@@ -37,7 +37,7 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
-            int examID = _examController.generateID(_examController.getAllExaminations());
+            int examID = _examController.generateID(_examController.GetExaminations());
             int duration = 30;
 
             foreach(SelectableItemWrapper<Doctor> doctor in _addAppointmentViewModel.DoctorListBox)
