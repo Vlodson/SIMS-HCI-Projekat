@@ -39,7 +39,7 @@ namespace Service
 
         public void SubstractDoctorsFreeDays(string doctorID, double days)
         {
-            ObservableCollection<Doctor> doctors = _doctorRepo.DoctorList;
+            ObservableCollection<Doctor> doctors = _doctorRepo.Doctors;
             foreach(Doctor doctor in doctors)
             {
                 if (doctor.Id.Equals(doctorID))

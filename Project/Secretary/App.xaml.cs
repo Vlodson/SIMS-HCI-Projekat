@@ -116,15 +116,18 @@ namespace Secretary
             {
                 if(i % 3 == 0)
                 {
-                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Meeting_Room, RoomTypeEnum.Meeting_Room);
+                    Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Meeting_Room, RoomTypeEnum.Meeting_Room);
+                    RoomController.CreateRoom(room);
                 } 
                 else if(i % 3 == 1)
                 {
-                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Patient_Room, RoomTypeEnum.Patient_Room);
+                    Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Patient_Room, RoomTypeEnum.Patient_Room);
+                    RoomController.CreateRoom(room);
                 } 
                 else if(i % 3 == 2)
                 {
-                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Operation_Room, RoomTypeEnum.Operation_Room);
+                    Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Operation_Room, RoomTypeEnum.Operation_Room);
+                    RoomController.CreateRoom(room);
                 }
             }
         }

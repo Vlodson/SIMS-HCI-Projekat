@@ -34,7 +34,7 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
-            Examination exam = _examController.getExamination(_homePageViewModel.SelectedExamination.ID);
+            Examination exam = _examController.GetExamination(_homePageViewModel.SelectedExamination.ID);
 
             //Examination exam = _examController.GetExamByTime(_homePageViewModel.SelectedDate);
             
@@ -45,7 +45,7 @@ namespace Secretary.Commands
         private void UpdateExaminations()
         {
             _homePageViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = _examController.GetExaminations();
 
             foreach(Examination examination in examinationsFromBase)
             {
