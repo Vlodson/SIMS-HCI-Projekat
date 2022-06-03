@@ -16,6 +16,7 @@ namespace Secretary.ViewModel
     {
 
         private FreeDaysRequestController _freeDaysRequestController;
+        private DoctorController _doctorController;
 
         //lista zahteva
         private ObservableCollection<FreeRequestViewModel> _freeDaysRequestsList;
@@ -89,12 +90,13 @@ namespace Secretary.ViewModel
         {
             var app = System.Windows.Application.Current as App;
             _freeDaysRequestController = app.FreeDaysController;
+            _doctorController = app.DoctorController;
 
             _freeDaysRequestsList = new ObservableCollection<FreeRequestViewModel>();
             _mainViewModel = mainViewModel;
 
             //inicijalizacija komandi
-            ApproveCommand = new ApproveRequestCommand(this, _freeDaysRequestController, _mainViewModel);
+            ApproveCommand = new ApproveRequestCommand(this, _freeDaysRequestController, _mainViewModel, _doctorController);
             RejectCommand = new RejectRequestCommand(this, _freeDaysRequestController, _mainViewModel);
 
             ObservableCollection<FreeDaysRequest> requestsFromBase = _freeDaysRequestController.GetAllPendingRequests();

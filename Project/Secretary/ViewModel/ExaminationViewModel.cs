@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Model;
 using HospitalMain.Enums;
 using Controller;
+using System.Windows.Media;
 
 namespace Secretary.ViewModel
 {
@@ -16,7 +17,7 @@ namespace Secretary.ViewModel
         private readonly DoctorController _doctorController;
 
         public String ExamRoomID => _examination.ExamRoomId;
-        public String Date => _examination.Date.ToString("g");
+        public DateTime StartDate => _examination.Date;
         public String ID => _examination.Id;
         public int Duration => _examination.Duration;
         public ExaminationTypeEnum Type => _examination.EType;
@@ -26,9 +27,6 @@ namespace Secretary.ViewModel
 
         public ExaminationViewModel(Examination examination)
         {
-            var app = System.Windows.Application.Current as App;
-            _doctorController = app.DoctorController;
-
             _examination = examination;
         }
 

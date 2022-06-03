@@ -39,8 +39,11 @@ namespace Secretary.ViewModel
         public ICommand UpdateViewCommand { get; set; }
 
         private DynamicEquipmentController _dynamicEquipmentController;
+        private LogInViewModel _logInViewModel;
 
-        public MainViewModel(LogInViewModel logInViewModel)
+        public LogInViewModel LogInViewModel => _logInViewModel;
+
+        public MainViewModel(MainWindow mainWindow, LogInViewModel logInViewModel)
         {
             var app = System.Windows.Application.Current as App;
             _dynamicEquipmentController = app.DynamicEquipmentController;
@@ -50,11 +53,12 @@ namespace Secretary.ViewModel
             thread.IsBackground = true;
             thread.Start();
 
-            CurrentViewModel = new AccountsViewModel();
+            _logInViewModel = logInViewModel;
+            CurrentViewModel = new HomeViewModel();
 
             Username = logInViewModel.Username;
 
-            UpdateViewCommand = new UpdateViewCommand(this);
+            UpdateViewCommand = new UpdateViewCommand(this, mainWindow);
         }
 
         private void CheckIfEquipmentArrived()

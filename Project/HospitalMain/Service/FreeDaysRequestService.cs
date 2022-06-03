@@ -38,21 +38,18 @@ namespace Service
             return pendingRequests;
         }
 
-        public int GenerateID()
+        public ObservableCollection<FreeDaysRequest> GetAllAcceptedRequests()
         {
-            int maxID = 0;
-            ObservableCollection<FreeDaysRequest> requests = _requestRepo.Requests;
-
-            foreach (FreeDaysRequest request in requests)
+            ObservableCollection<FreeDaysRequest> acceptedRequests = new ObservableCollection<FreeDaysRequest>();
+            foreach(FreeDaysRequest request in _requestRepo.Requests)
             {
-                int requestID = Int32.Parse(request.ID);
-                if (requestID > maxID)
+                if(request.Status == Enums.StatusEnum.Approved)
                 {
-                    maxID = requestID;
+                    acceptedRequests.Add(request);
                 }
             }
 
-            return maxID + 1;
+            return acceptedRequests;
         }
 
         public void EditRequestStatus(FreeDaysRequest request)

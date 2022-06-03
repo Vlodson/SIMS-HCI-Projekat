@@ -10,6 +10,7 @@ using Secretary.ViewModel;
 using HospitalMain.Repository;
 using HospitalMain.Service;
 using HospitalMain.Controller;
+using HospitalMain.Enums;
 
 namespace Secretary
 {
@@ -50,17 +51,29 @@ namespace Secretary
         public UserAccountController UserAccountController { get; set; }
         
         public RoomRepo RoomRepo { get; set; }
+        public RoomController RoomController { get; set; }
         public EquipmentRepo EquipmentRepo { get; set; }
+
+        public MeetingsRepo MeetingsRepo { get; set; }
+        public MeetingsService MeetingsService { get; set; }
+        public MeetingController MeetingController { get; set; }
+        public RenovationRepo RenovationRepo { get; set; }
+        public EquipmentTransferRepo EquipmentTransferRepo { get; set; }
 
         //treba odraditi navigaciju kako valja
         private readonly NavigationStore _navigationStore;
 
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NjQ5MjM0QDMyMzAyZTMxMmUzMFNoQ1huVGdPUHA3RUU1ZXljUzl2SjNqeGxaZCtmMXlZWE1RYWh6bVhRcXM9");
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("sr-Latn-RS");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("sr-Latn-RS");
 
             ExaminationRepo = new ExaminationRepo(GlobalPaths.ExamsDBPath);
             EquipmentRepo = new EquipmentRepo(GlobalPaths.EquipmentDBPath);
             RoomRepo = new RoomRepo(GlobalPaths.RoomsDBPath, EquipmentRepo);
+            RoomService roomService = new RoomService(RoomRepo);
+            RoomController = new RoomController(roomService);
             QuestionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
             DynamicEquipmentRepo = new DynamicEquipmentRepo(GlobalPaths.DynamicEquipmentDBPath);
             DynamicEquipmentService = new DynamicEquipmentService(DynamicEquipmentRepo, EquipmentRepo, RoomRepo);
@@ -91,6 +104,29 @@ namespace Secretary
             FreeDaysRequestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             FreeDaysRequestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
             FreeDaysController = new FreeDaysRequestController(FreeDaysRequestService);
+
+            RenovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, RoomRepo);
+            EquipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, RoomRepo, EquipmentRepo);
+
+            MeetingsRepo = new MeetingsRepo(GlobalPaths.MeetingsDBPath);
+            MeetingsService = new MeetingsService(MeetingsRepo, DoctorRepo, RoomRepo, doctorService, RenovationRepo, EquipmentTransferRepo, FreeDaysRequestService);
+            MeetingController = new MeetingController(MeetingsService);
+
+            for(int i = 1; i <= 15; i++)
+            {
+                if(i % 3 == 0)
+                {
+                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Meeting_Room, RoomTypeEnum.Meeting_Room);
+                } 
+                else if(i % 3 == 1)
+                {
+                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Patient_Room, RoomTypeEnum.Patient_Room);
+                } 
+                else if(i % 3 == 2)
+                {
+                    RoomController.CreateRoom(i.ToString(), 1, i, false, RoomTypeEnum.Operation_Room, RoomTypeEnum.Operation_Room);
+                }
+            }
         }
 
         //protected override void OnStartup(StartupEventArgs e)

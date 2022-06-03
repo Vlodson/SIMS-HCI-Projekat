@@ -16,38 +16,40 @@ namespace Secretary.Commands
 
     public class DeleteAppointmentCommand : CommandBase
     {
-        private readonly CRUDAppointmentsViewModel _crudAppointmentsViewModel;
+        private readonly HomePageViewModel _homePageViewModel;
         private readonly ExamController _examController;
 
-        public DeleteAppointmentCommand(CRUDAppointmentsViewModel cRUDAppointmentsViewModel, ExamController examController)
+        public DeleteAppointmentCommand(HomePageViewModel homePageViewModel, ExamController examController)
         {
-            _crudAppointmentsViewModel = cRUDAppointmentsViewModel;
+            _homePageViewModel = homePageViewModel;
             _examController = examController;
 
-            _crudAppointmentsViewModel.PropertyChanged += OnViewModelPropertyChanged;
+            _homePageViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_crudAppointmentsViewModel.ExaminationViewModel == null) && base.CanExecute(parameter);
+            return !(_homePageViewModel.SelectedExamination == null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            Examination exam = _examController.GetExamination(_crudAppointmentsViewModel.ExaminationViewModel.ID);
+            Examination exam = _examController.getExamination(_homePageViewModel.SelectedExamination.ID);
 
+            //Examination exam = _examController.GetExamByTime(_homePageViewModel.SelectedDate);
+            
            _examController.RemoveExam(exam);
             UpdateExaminations();
         }
 
         private void UpdateExaminations()
         {
-            _crudAppointmentsViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.GetExaminations();
+            _homePageViewModel.ExaminationList.Clear();
+            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
 
             foreach(Examination examination in examinationsFromBase)
             {
-                _crudAppointmentsViewModel.ExaminationList.Add(new ExaminationViewModel(examination));
+                _homePageViewModel.ExaminationList.Add(new ExaminationViewModel(examination));
             }
         }
 

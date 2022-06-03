@@ -37,6 +37,19 @@ namespace Service
             return DoctorType.None;
         }
 
+        public void SubstractDoctorsFreeDays(string doctorID, double days)
+        {
+            ObservableCollection<Doctor> doctors = _doctorRepo.DoctorList;
+            foreach(Doctor doctor in doctors)
+            {
+                if (doctor.Id.Equals(doctorID))
+                {
+                    doctor.FreeDaysLeft = doctor.FreeDaysLeft - days;
+                    break;
+                }
+            }
+        }
+
         public bool AddExaminationToDoctor(String doctorId, Examination examination)
         {
             foreach (Doctor doctor in _doctorRepo.Doctors)
