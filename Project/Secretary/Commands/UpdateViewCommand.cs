@@ -21,9 +21,9 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
-            if(parameter.ToString() == "Appointments")
+            if(parameter.ToString() == "Book")
             {
-                _mainViewModel.CurrentViewModel = new CRUDAppointmentsViewModel();
+                _mainViewModel.CurrentViewModel = new BookViewModel(_mainViewModel);
             } 
             else if(parameter.ToString() == "UserAccounts")
             {
@@ -46,6 +46,9 @@ namespace Secretary.Commands
                 _loginWindow.Show();
 
                 _mainWindow.Close();
+            } else if(parameter.ToString() == "HomePage")
+            {
+                _mainViewModel.CurrentViewModel = new HomeViewModel();
             }
         }
     }

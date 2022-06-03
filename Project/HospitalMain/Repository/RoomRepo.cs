@@ -23,6 +23,8 @@ namespace Repository
             this.dbPath = db_path;
             this._equipmentRepo = equipmentRepo;
             this.Rooms = new ObservableCollection<Room>();
+
+
         }
       
         public bool NewRoom(Room room)

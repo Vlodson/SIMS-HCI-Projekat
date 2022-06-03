@@ -26,5 +26,6 @@ namespace Utility
         public static String QuestionnaireDBPath = Path.Combine(DBPath, "Questionnaires.json");
         public static String RequestDBPath = Path.Combine(DBPath, "Request.json");
         public static String ReferralDBPath = Path.Combine(DBPath, "Referrals.json");
+        public static String MeetingsDBPath = Path.Combine(DBPath, "Meetings.json");
     }
 }

@@ -31,7 +31,22 @@ namespace Controller
         {
             _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType, newPreviousType);
         }
-      
+
+        public ObservableCollection<Room> GetAllRoomsByExamType(ExaminationTypeEnum examinationTypeEnum)
+        {
+            return _roomService.GetAllRoomsByExamType(examinationTypeEnum);
+        }
+
+        public ObservableCollection<Room> GetAllPatientRooms()
+        {
+            return _roomService.GetAllPatientRooms();
+        }
+
+        public ObservableCollection<Room> GetAllOperationRooms()
+        {
+            return _roomService.GetAllOperationRooms();
+        }
+
         public Room ReadRoom(String roomId)
         {
             return _roomService.ReadRoom(roomId);

@@ -80,13 +80,6 @@ namespace Secretary.ViewModel
         private void FillPatientsComboBoxData()
         {
             ObservableCollection<Patient> patientsFromBase = _patientController.ReadAllPatients();
-            //ObservableCollection<PatientViewModel> patientViewModels = new ObservableCollection<PatientViewModel>(); 
-
-            //foreach(Patient patient in patientsFromBase)
-            //{
-            //    patientViewModels.Add(new PatientViewModel(patient));
-            //}
-
             foreach(Patient patient in patientsFromBase)
             {
                 patientComboBox.Add(new ComboBoxData<Patient> { Name = patient.ID + " " + patient.Name + " " + patient.Surname, Value = patient } );

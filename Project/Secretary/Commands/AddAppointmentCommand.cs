@@ -9,6 +9,7 @@ using System.Windows;
 using Controller;
 using Model;
 using Secretary.ViewModel;
+using Secretary.ViewUtils;
 
 namespace Secretary.Commands
 {
@@ -16,16 +17,14 @@ namespace Secretary.Commands
     {
         private readonly AddAppointmentViewModel _addAppointmentViewModel;
         private readonly ExamController _examController;
-        private readonly CRUDAppointmentsViewModel _crudAppointmentsViewModel;
+        private readonly MainViewModel _mainViewModel;
         private readonly DoctorController _doctorController;
-        private Window _addApointment;
 
-        public AddAppointmentCommand(AddAppointmentViewModel addAppointmentViewModel, CRUDAppointmentsViewModel cRUDAppointmentsViewModel,ExamController examController, Window addApointment, DoctorController doctorController)
+        public AddAppointmentCommand(AddAppointmentViewModel addAppointmentViewModel, MainViewModel mainViewModel,ExamController examController, DoctorController doctorController)
         {
             _addAppointmentViewModel = addAppointmentViewModel;
-            _crudAppointmentsViewModel = cRUDAppointmentsViewModel;
+            _mainViewModel = mainViewModel;
             _examController = examController;
-            _addApointment = addApointment;
             _doctorController = doctorController;
 
             _addAppointmentViewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -33,7 +32,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _examController.AppointmentDoctorValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.PatientID) && _examController.AppointmentRoomValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.RoomID) && !string.IsNullOrEmpty(_addAppointmentViewModel.PatientID) && base.CanExecute(parameter);
+            return _examController.AppointmentDoctorValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
@@ -41,32 +40,36 @@ namespace Secretary.Commands
             int examID = _examController.generateID(_examController.getAllExaminations());
             int duration = 30;
 
+            foreach(SelectableItemWrapper<Doctor> doctor in _addAppointmentViewModel.DoctorListBox)
+            {
+                if (doctor.IsSelected)
+                {
+                    _addAppointmentViewModel.Doctor = doctor.Item;
+                }
+            }
+
+            foreach(SelectableItemWrapper<Patient> patient in _addAppointmentViewModel.PatientListBox)
+            {
+                if (patient.IsSelected)
+                {
+                    _addAppointmentViewModel.Patient = patient.Item;
+                }
+            }
+
             //pravljenje novog pregleda
-            Examination examination = new Examination(_addAppointmentViewModel.RoomID, _addAppointmentViewModel.Date, examID.ToString(), duration, _addAppointmentViewModel.ExaminationTypeEnum, _addAppointmentViewModel.PatientID, _addAppointmentViewModel.Doctor.Id);
+            Examination examination = new Examination(_addAppointmentViewModel.Room.Id, _addAppointmentViewModel.Date, examID.ToString(), duration, _addAppointmentViewModel.ExaminationTypeEnum, _addAppointmentViewModel.Patient.ID, _addAppointmentViewModel.Doctor.Id);
             _examController.CreateExamination(examination);
             _doctorController.AddExaminationToDoctor(_addAppointmentViewModel.Doctor.Id, examination);
 
-            //update liste pregleda
-            UpdateExaminations();
-
-            //zatvaranje prozora
-            _addApointment.Close();
-        }
-
-        private void UpdateExaminations()
-        {
-            _crudAppointmentsViewModel.ExaminationList.Clear();
-            ObservableCollection<Examination> examinationsFromBase = _examController.getAllExaminations();
-
-            foreach(Examination examination in examinationsFromBase)
+            if(parameter.ToString() == "Add")
             {
-                _crudAppointmentsViewModel.ExaminationList.Add(new ExaminationViewModel(examination));
+                _mainViewModel.CurrentViewModel = new BookViewModel(_mainViewModel);
             }
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AddAppointmentViewModel.RoomID) || e.PropertyName == nameof(AddAppointmentViewModel.PatientID) || e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor))
+            if (e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor))
             {
                 OnCanExecutedChanged();
             }

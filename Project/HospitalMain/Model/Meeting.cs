@@ -25,7 +25,18 @@ namespace HospitalMain.Model
         private String _meetingTopic;
         private String _roomID;
         private DateTime _dateTime;
-        private ObservableCollection<Doctor> doctors;
+        private ObservableCollection<Doctor> _doctors;
+
+        public Meeting() { }
+
+        public Meeting(string id, string meetingTopic, string roomID, DateTime dateTime, ObservableCollection<Doctor> doctors)
+        {
+            _id = id;
+            _meetingTopic = meetingTopic;
+            _roomID = roomID;
+            _dateTime = dateTime;
+            _doctors = doctors;
+        }
 
         public String ID
         {
@@ -81,12 +92,12 @@ namespace HospitalMain.Model
 
         public ObservableCollection<Doctor> Doctors
         {
-            get { return doctors; }
+            get { return _doctors; }
             set
             {
-                if(doctors != value)
+                if(_doctors != value)
                 {
-                    doctors = value;
+                    _doctors = value;
                     OnPropertyChanged(nameof(Doctors));
                 }
             }

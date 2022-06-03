@@ -21,8 +21,9 @@ namespace HospitalMain.Service
         private DoctorService _doctorService;
         private RenovationRepo _renovationRepo;
         private EquipmentTransferRepo _equipmentTransferRepo;
+        private FreeDaysRequestService _freeDaysRequestService;
 
-        public MeetingsService(MeetingsRepo meetingsRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, DoctorService doctorService, RenovationRepo renovationRepo, EquipmentTransferRepo equipmentTransferRepo)
+        public MeetingsService(MeetingsRepo meetingsRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, DoctorService doctorService, RenovationRepo renovationRepo, EquipmentTransferRepo equipmentTransferRepo, FreeDaysRequestService freeDaysRequestService)
         {
             _meetingsRepo = meetingsRepo;
             _doctorRepo = doctorRepo;
@@ -30,6 +31,23 @@ namespace HospitalMain.Service
             _doctorService = doctorService;
             _renovationRepo = renovationRepo;
             _equipmentTransferRepo = equipmentTransferRepo;
+            _freeDaysRequestService = freeDaysRequestService;
+        }
+
+        public int generateID()
+        {
+            int maxID = 0;
+
+            foreach (Meeting meeting in _meetingsRepo.MeetingsList)
+            {
+                int meetingID = Int32.Parse(meeting.ID);
+                if (meetingID > maxID)
+                {
+                    maxID = meetingID;
+                }
+            }
+
+            return maxID + 1;
         }
 
         public bool BookNewMeeting(Meeting newMeeting)
@@ -49,8 +67,8 @@ namespace HospitalMain.Service
 
         public ObservableCollection<Doctor> GetFreeDoctors(DateTime dateTime)
         {
-            ObservableCollection<Doctor> doctors = _doctorRepo.DoctorList;
-            foreach(Doctor doctor in doctors)
+            ObservableCollection<Doctor> doctors = new ObservableCollection<Doctor>(_doctorRepo.DoctorList);
+            foreach(Doctor doctor in doctors.ToList())
             {
                 foreach(Examination exam in _doctorService.ExaminationsForDoctor(doctor.Id))
                 {
@@ -60,7 +78,17 @@ namespace HospitalMain.Service
                         break;
                     }
                 }
+
+                foreach(FreeDaysRequest freeDaysRequest in _freeDaysRequestService.GetAllAcceptedRequests())
+                {
+                    if (doctor.Id.Equals(freeDaysRequest.DoctorId) && dateTime >= freeDaysRequest.StartDate && dateTime <= freeDaysRequest.EndDate)
+                    {
+                        doctors.Remove(doctor);
+                        break;
+                    }
+                }
             }
+
             return doctors;
         }
 
@@ -98,9 +126,9 @@ namespace HospitalMain.Service
             return freeMeetingRooms;
         }
 
-        public void CheckIfRoomIsFree(Room room, DateTime dateTime, ObservableCollection<Room> freeMeetingRooms)
+        private void CheckIfRoomIsFree(Room room, DateTime dateTime, ObservableCollection<Room> freeMeetingRooms)
         {
-            ObservableCollection<Meeting> meetings = _meetingsRepo.MeetingsList;
+            ObservableCollection<Meeting> meetings = new ObservableCollection<Meeting>(_meetingsRepo.MeetingsList);
             foreach(Meeting meeting in meetings)
             {
                 if (meeting.RoomID.Equals(room.Id) && dateTime < meeting.DateTime.AddMinutes(30) && dateTime > meeting.DateTime.AddMinutes(-30))
@@ -113,8 +141,8 @@ namespace HospitalMain.Service
 
         private ObservableCollection<Room> GetAllMeetingRooms()
         {
-            ObservableCollection<Room> rooms = _roomRepo.Rooms;
-            foreach(Room room in rooms)
+            ObservableCollection<Room> rooms = new ObservableCollection<Room>(_roomRepo.Rooms);
+            foreach(Room room in rooms.ToList())
             {
                 if(room.Type != RoomTypeEnum.Meeting_Room)
                 {

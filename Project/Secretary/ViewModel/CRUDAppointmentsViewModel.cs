@@ -40,7 +40,7 @@ namespace Secretary.ViewModel
 
             examinationList = new ObservableCollection<ExaminationViewModel>();
 
-            AddAppointmentCommand = new GoToAddApointmentCommand(this);
+            //AddAppointmentCommand = new GoToAddApointmentCommand(this);
             DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
             EditAppointmentCommand = new GoToEditAppointmentCommand(this);
 

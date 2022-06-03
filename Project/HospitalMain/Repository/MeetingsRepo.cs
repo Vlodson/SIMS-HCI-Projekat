@@ -21,8 +21,8 @@ namespace HospitalMain.Repository
             MeetingsList = new ObservableCollection<Meeting>();
 
             //SaveMeetings();
-            //if (File.Exists(DBPath))
-            //    LoadMeetings();
+            if (File.Exists(DBPath))
+                LoadMeetings();
         }
 
         public bool BookNewMeeting(Meeting newMeeting)

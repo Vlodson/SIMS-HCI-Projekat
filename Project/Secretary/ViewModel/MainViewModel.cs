@@ -54,7 +54,7 @@ namespace Secretary.ViewModel
             thread.Start();
 
             _logInViewModel = logInViewModel;
-            CurrentViewModel = new AccountsViewModel();
+            CurrentViewModel = new HomeViewModel();
 
             Username = logInViewModel.Username;
 

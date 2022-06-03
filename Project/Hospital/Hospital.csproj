@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,11 +55,20 @@
     <Reference Include="Syncfusion.Schedule.Base, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.Schedule.Base.20.1.0.58\lib\net46\Syncfusion.Schedule.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Schedule.Windows, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>packages\Syncfusion.Schedule.Windows.20.1.0.58\lib\net46\Syncfusion.Schedule.Windows.dll</HintPath>
+    <Reference Include="Syncfusion.SfBusyIndicator.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.SfBusyIndicator.WPF.20.1.0.58\lib\net46\Syncfusion.SfBusyIndicator.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfChart.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.SfChart.WPF.20.1.0.58\lib\net46\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.SfInput.WPF.20.1.0.58\lib\net46\Syncfusion.SfInput.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfScheduler.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.SfScheduler.WPF.20.1.0.58\lib\net46\Syncfusion.SfScheduler.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.SfSkinManager.WPF.20.1.0.58\lib\net46\Syncfusion.SfSkinManager.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Shared.Base, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.Shared.Base.20.1.0.58\lib\net46\Syncfusion.Shared.Base.dll</HintPath>
@@ -65,8 +76,14 @@
     <Reference Include="Syncfusion.Shared.Windows, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.Shared.Windows.20.1.0.58\lib\net46\Syncfusion.Shared.Windows.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Shared.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.Shared.WPF.20.1.0.58\lib\net46\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.SpellChecker.Base, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.SpellChecker.Base.20.1.0.58\lib\net46\Syncfusion.SpellChecker.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.MaterialLight.WPF, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>packages\Syncfusion.Themes.MaterialLight.WPF.20.1.0.58\lib\net46\Syncfusion.Themes.MaterialLight.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Tools.Base, Version=20.1460.0.58, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.Tools.Base.20.1.0.58\lib\net46\Syncfusion.Tools.Base.dll</HintPath>
