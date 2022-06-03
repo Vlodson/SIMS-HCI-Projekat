@@ -11,29 +11,38 @@ namespace Secretary.Commands
 {
     public class GoToEditAppointmentCommand : CommandBase
     {
-        private readonly CRUDAppointmentsViewModel _crudAppointmentsViewModel;
-        public GoToEditAppointmentCommand(CRUDAppointmentsViewModel cRUDAppointmentsViewModel)
-        {
-            _crudAppointmentsViewModel = cRUDAppointmentsViewModel;
+        private readonly HomePageViewModel _homePageViewModel;
+        private readonly HomeViewModel _homeViewModel;
 
-            _crudAppointmentsViewModel.PropertyChanged += OnViewModelPropertyChanged;
+        public GoToEditAppointmentCommand(HomePageViewModel homePageViewModel, HomeViewModel homeViewModel)
+        {
+            _homePageViewModel = homePageViewModel;
+            _homeViewModel = homeViewModel;
+
+            _homePageViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
 
         public override bool CanExecute(object? parameter)
         {
-            return !(_crudAppointmentsViewModel.ExaminationViewModel == null) && base.CanExecute(parameter);
+            //!(_homePageViewModel.SelectedExamination == null) &&
+            return  base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
         {
-            EditAppointment editAppointment = new EditAppointment();
-            editAppointment.DataContext = new EditAppointmentViewModel(_crudAppointmentsViewModel, editAppointment);
-            editAppointment.ShowDialog();
+            if(parameter.ToString() == "EditAppointment")
+            {
+                _homeViewModel.CurrentHomeView = new EditAppointmentViewModel(_homeViewModel, _homePageViewModel);
+            }
+
+            //EditAppointment editAppointment = new EditAppointment();
+            //editAppointment.DataContext = new EditAppointmentViewModel(_crudAppointmentsViewModel, editAppointment);
+            //editAppointment.ShowDialog();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CRUDAppointmentsViewModel.ExaminationViewModel))
+            if (e.PropertyName == nameof(HomePageViewModel.SelectedExamination))
             {
                 OnCanExecutedChanged();
             }

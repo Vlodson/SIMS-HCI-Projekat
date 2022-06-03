@@ -39,6 +39,11 @@ namespace Controller
             return _patientService.generateID(examinations);
         }
 
+        public Examination GetExamByTime(DateTime dateTime)
+        {
+            return _patientService.getExamByTime (dateTime);
+        }
+
         public bool AppointmentDoctorValidation(DateTime dateTime, Doctor doctor)
         {
             return _patientService.AppointmentDoctorValidation(dateTime, doctor);

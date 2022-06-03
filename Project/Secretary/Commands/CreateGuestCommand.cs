@@ -1,5 +1,6 @@
 ﻿using Controller;
 using HospitalMain.Model;
+using Model;
 using Secretary.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,8 @@ namespace Secretary.Commands
             int newGuestID = _patientController.generateID();
 
             //pravljenje guest-a
-            _patientController.CreateGuest(newGuestID.ToString(), _createGuestViewModel.Name, _createGuestViewModel.Surname, _createGuestViewModel.Gender);
+            Patient patient = new Patient(newGuestID.ToString(), "", _createGuestViewModel.Name, _createGuestViewModel.Surname, "", "", "", _createGuestViewModel.Gender, new DateTime(), "", true, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
+            _patientController.CreateGuest(patient);
 
             if(parameter.ToString() == "CreateGuest")
             {

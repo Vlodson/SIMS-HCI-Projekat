@@ -41,8 +41,8 @@ namespace Secretary.ViewModel
             examinationList = new ObservableCollection<ExaminationViewModel>();
 
             //AddAppointmentCommand = new GoToAddApointmentCommand(this);
-            DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
-            EditAppointmentCommand = new GoToEditAppointmentCommand(this);
+            //DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
+            //EditAppointmentCommand = new GoToEditAppointmentCommand(this);
 
             ObservableCollection<Examination> examinationsFromBase = examController.getAllExaminations();
             foreach(Examination examination in examinationsFromBase)

@@ -38,6 +38,16 @@ namespace HospitalMain.Controller
             return _meetingsService.DeleteMeeting(meetingID);
         }
 
+        public Meeting GetMeetingByID(String meetingID)
+        {
+            return _meetingsService.GetMeetingByID(meetingID);
+        }
+
+        public ObservableCollection<Meeting> GetAllMeetings()
+        {
+            return _meetingsService.GetAllMeetings();
+        }
+
         public ObservableCollection<Room> GetFreeRooms(DateTime dateTime)
         {
             return _meetingsService.GetFreeRooms(dateTime);

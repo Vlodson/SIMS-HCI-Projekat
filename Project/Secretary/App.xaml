@@ -109,7 +109,19 @@
             <DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
                 <view:HomePage/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewmodels:HomePageMeetingsViewModel}">
+                <view:HomePageMeetings/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditAppointmentViewModel}">
+                <view:EditAppointmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditMeetingViewModel}">
+                <view:EditMeetingView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

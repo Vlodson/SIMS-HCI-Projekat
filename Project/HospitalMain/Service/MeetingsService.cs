@@ -65,6 +65,23 @@ namespace HospitalMain.Service
             return _meetingsRepo.DeleteMeeting(meetingID);
         }
 
+        public Meeting GetMeetingByID(String meetingID)
+        {
+            foreach(Meeting meeting in _meetingsRepo.MeetingsList)
+            {
+                if (meetingID.Equals(meeting.ID))
+                {
+                    return meeting;
+                }
+            }
+            return null;
+        }
+
+        public ObservableCollection<Meeting> GetAllMeetings()
+        {
+            return _meetingsRepo.MeetingsList;
+        }
+
         public ObservableCollection<Doctor> GetFreeDoctors(DateTime dateTime)
         {
             ObservableCollection<Doctor> doctors = new ObservableCollection<Doctor>(_doctorRepo.DoctorList);

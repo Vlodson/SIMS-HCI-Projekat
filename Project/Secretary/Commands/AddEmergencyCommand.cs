@@ -77,7 +77,7 @@ namespace Secretary.Commands
                 ExaminationViewModel selectedSuggestedAppointment = _emergencyViewModel.SelectedAppointment;
 
                 //kreiranje/pomeranje novog termina
-                Examination newExamination = new Examination(bookedExamRoomID, Convert.ToDateTime(selectedSuggestedAppointment.Date), bookedExamID, duration, bookedExamType, bookedExamPatientID, selectedSuggestedAppointment.Doctor.Id);
+                Examination newExamination = new Examination(bookedExamRoomID, selectedSuggestedAppointment.StartDate, bookedExamID, duration, bookedExamType, bookedExamPatientID, selectedSuggestedAppointment.Doctor.Id);
                 _examController.CreateExamination(newExamination);
 
             }

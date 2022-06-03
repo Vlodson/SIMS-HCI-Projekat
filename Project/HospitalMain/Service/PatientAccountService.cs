@@ -37,14 +37,14 @@ namespace Service
             return maxID + 1;
       }
 
-      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
+      public bool CreatePatient(Patient newPatient)
       {
-            return patientRepo.NewPatient(new Patient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false, answers, DateTime.Now.ToString("MM"), 0, 0));
+            return patientRepo.NewPatient(newPatient);
       }
 
-      public bool CreateGuest(String id, String name, String surname, Gender gender, List<Answer> answers)
+      public bool CreateGuest(Patient guest)
       {
-            return patientRepo.NewPatient(new Patient(id, "", name, surname, "", "", "", gender, new DateTime(), "", true, answers, DateTime.Now.ToString("MM"), 0, 0));
+            return patientRepo.NewPatient(guest);
       }
       
       public bool RemovePatient(String patientId)
@@ -52,9 +52,9 @@ namespace Service
             return patientRepo.DeletePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String ucin, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String newMedicalRecordID, List<Answer> answers, String currentMonth, int numberCanceling, int numberNewExams)
+      public void EditPatient(Patient patient)
       {
-            patientRepo.SetPaetient(patientId, new Patient(patientId, ucin, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, newMedicalRecordID, false, answers, currentMonth, numberCanceling, numberNewExams));
+            patientRepo.SetPaetient(patient.ID, patient);
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -67,9 +67,8 @@ namespace Service
             return patientRepo.Patients;
       }
       
-      public bool UpgradeGuest(String guestId, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
+      public bool UpgradeGuest(Patient patient)
       {
-            Patient patient = new Patient(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, false, answers, DateTime.Now.ToString("MM"), 0, 0);
             return patientRepo.NewPatient(patient);
       }
    

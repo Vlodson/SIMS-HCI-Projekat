@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for EditAppointment.xaml
+    /// Interaction logic for EditAppointmentView.xaml
     /// </summary>
-    public partial class EditAppointment : Window
+    public partial class EditAppointmentView : UserControl
     {
-        public EditAppointment()
+        public EditAppointmentView()
         {
             InitializeComponent();
         }
