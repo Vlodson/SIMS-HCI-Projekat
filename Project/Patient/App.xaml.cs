@@ -51,6 +51,7 @@ namespace Patient
         public HospitalMain.Controller.PersonalNotificationController personalNotificationController { get; set; }
 
         public QuestionnaireController QuestionnaireController { get; set; }
+        public NotificationController NotificationController { get; set; }
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -94,6 +95,7 @@ namespace Patient
 
             PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);
             QuestionnaireService questionnaireService = new QuestionnaireService(questionnaireRepo, PatientRepo);
+            NotificationService notificationService = new NotificationService(medicalRecordRepo);
 
             EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
 
@@ -111,6 +113,7 @@ namespace Patient
             ReferralController = new ReferralController(referralService);
             personalNotificationController = new HospitalMain.Controller.PersonalNotificationController(personalNotificationService);
             QuestionnaireController = new QuestionnaireController(questionnaireService);
+            NotificationController = new NotificationController(notificationService);
 
             if (File.Exists(GlobalPaths.EquipmentDBPath))
                 EquipmentController.LoadEquipment();

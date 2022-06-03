@@ -32,6 +32,7 @@ namespace Patient.ViewModel
 
         private PersonalNotificationController _personalNotificationsController;
         private MedicalRecordController _medicalRecordController;
+        private NotificationController _notificationController;
 
         private ObservableCollection<HospitalMain.Model.PersonalNotification> personalNotifications;
         private ObservableCollection<Notification> notifications;
@@ -97,13 +98,14 @@ namespace Patient.ViewModel
             App app = Application.Current as App;
             _personalNotificationsController = app.personalNotificationController;
             _medicalRecordController = app.MedicalRecordController;
+            _notificationController = app.NotificationController;
 
             AddPersonalNotificationCommand = new MyICommand(OnAddPersonalNotification);
             RemovePersonalNotificationCommand = new MyICommand(OnRemoveCommand, CanRemove);
 
             PersonalNotifications = new ObservableCollection<HospitalMain.Model.PersonalNotification>();
             MedicalRecord medicalRecord = _medicalRecordController.GetMedicalRecord(Login.loggedId);
-            Notifications = new ObservableCollection<Notification>(_medicalRecordController.GetPatientNotifications(medicalRecord));
+            Notifications = new ObservableCollection<Notification>(_notificationController.GetPatientNotifications(medicalRecord));
             foreach(Notification notification in Notifications)
             {
                 if(notification.DateTimeNotification < DateTime.Now)

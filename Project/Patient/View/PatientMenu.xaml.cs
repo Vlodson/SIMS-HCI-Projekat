@@ -36,6 +36,7 @@ namespace Patient.View
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
         private PersonalNotificationController _personalNotificationController;
+        private NotificationController _notificationController;
         
         public NavigationService NavService { get; set; }
 
@@ -66,6 +67,8 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
             _personalNotificationController = app.personalNotificationController;
+            _notificationController = app.NotificationController;
+
             NavService = this.Menu.NavigationService;
             
             _doctorRepo.SaveDoctor();
@@ -138,11 +141,12 @@ namespace Patient.View
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
             PersonalNotificationController personalNotificationController = app.personalNotificationController;
+            NotificationController notificationController = app.NotificationController;
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
             
-            foreach(Notification notification in medicalRecordController.GetPatientNotifications(patientMedicalRecord))
+            foreach(Notification notification in notificationController.GetPatientNotifications(patientMedicalRecord))
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
