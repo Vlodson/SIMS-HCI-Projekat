@@ -82,8 +82,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" />
-            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1">
+            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" IsEnabled="False" />
+            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1" IsEnabled="False" >
                 <Image Source="..\Icons\search-16.png" />
             </Button>
         </Grid>
