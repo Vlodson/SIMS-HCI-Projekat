@@ -94,6 +94,7 @@ namespace Service
         }
 
         public bool CheckIfDoctorIsOnVacation(String doctorID, DateTime dateTime)
+
         {
             ObservableCollection<FreeDaysRequest> requests = _freeDaysRequestService.GetAllAcceptedRequests();
             foreach(FreeDaysRequest freeDaysRequest in requests)
