@@ -105,5 +105,10 @@ namespace Doctor.View
             ReferralPage referralPage = new ReferralPage(selectedExam);
             NavigationService.Navigate(referralPage);
         }
+        private void AddExcuses_Click(object sender, RoutedEventArgs e)
+        {
+            ExcusesPage excusesPage = new ExcusesPage(selectedExam);
+            NavigationService.Navigate(excusesPage);
+        }
     }
 }

@@ -54,7 +54,6 @@ namespace Model
                 if (examId != value)
                 {
                     examId = value;
-                    // OnPropertyChanged("ExamId");
                 }
             }
         }
