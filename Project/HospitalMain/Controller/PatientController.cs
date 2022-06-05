@@ -30,14 +30,14 @@ namespace Controller
             return patientAccService.generateID();
         } 
 
-      public bool CreatePatient(String id, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID)
+      public bool CreatePatient(Patient newPatient)
       {
-            return patientAccService.CreatePatient(id, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, new List<Answer>());
+            return patientAccService.CreatePatient(newPatient);
       }
       
-      public bool CreateGuest(String id, String name, String surname, Gender gender)
+      public bool CreateGuest(Patient guest)
       {
-            return patientAccService.CreateGuest(id, name, surname, gender, new List<Answer>());
+            return patientAccService.CreateGuest(guest);
       }
 
       public bool RemovePatient(String patientId)
@@ -45,9 +45,9 @@ namespace Controller
             return patientAccService.RemovePatient(patientId);
       }
       
-      public void EditPatient(String patientId, String newUCIN, String newName, String newSurname, String newPhoneNum, String newMail, String newAdress, Gender newGender, DateTime newDoB, String medicalRecordID)
+      public void EditPatient(Patient patient)
       {
-            patientAccService.EditPatient(patientId, newUCIN, newName, newSurname, newPhoneNum, newMail, newAdress, newGender, newDoB, medicalRecordID, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
+            patientAccService.EditPatient(patient);
       }
       
       public Model.Patient ReadPatient(String patientId)
@@ -60,9 +60,9 @@ namespace Controller
             return patientAccService.ReadAllPatients();
       }
       
-      public bool UpgradeGuest(String guestId,  String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime doB, String medicalRecordID, List<Answer> answers)
+      public bool UpgradeGuest(Patient patient)
       {
-            return patientAccService.UpgradeGuest(guestId, ucin, name, surname, phoneNum, mail, adress, gender, doB, medicalRecordID, answers);
+            return patientAccService.UpgradeGuest(patient);
       }
       
       public System.Collections.ArrayList patientAccountService;
@@ -122,25 +122,6 @@ namespace Controller
         public List<Examination> GetExamByTime(DateTime dateTime)
         {
             return patientService.GetExamByTime(dateTime);
-        }
-
-        public Questionnaire GetHospitalQuestionnaire()
-        {
-            return patientService.GetHospitalQuestionnaire();
-        }
-
-        public Questionnaire GetDoctorQuestionnaire()
-        {
-            return patientService.GetDoctorQuestionnaire();
-        }
-
-        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
-        {
-            return patientService.CheckAnswerAvailable(doctorId, medicalRecord);
-        }
-        public void AddAnswer(String patientId, Answer answer)
-        {
-            patientService.AddAnswer(patientId, answer);
         }
 
         public List<String> GetPatientsDoctors(String patientId)

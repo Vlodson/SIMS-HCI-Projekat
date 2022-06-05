@@ -65,30 +65,5 @@ namespace Repository
             return true;
         }
 
-        public Questionnaire GetHospitalQuestionnaire()
-        {
-            foreach(Questionnaire questionnaire in questionnaireList)
-            {
-                if (questionnaire.IdDoctor.Equals("hospital"))
-                {
-                    return questionnaire;
-                }
-            }
-            return null;
-        }
-
-        public Questionnaire GetDoctorQuestionnaire()
-        {
-            foreach (Questionnaire questionnaire in questionnaireList)
-            {
-                if (!questionnaire.IdDoctor.Equals("hospital"))
-                {
-                    return questionnaire;
-                }
-            }
-            return null;
-        }
-
-
     }
 }

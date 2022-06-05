@@ -14,11 +14,11 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
 
         <Label Content="Izmena termina" FontSize="32" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" RenderTransformOrigin="-6.978,-0.706"/>
-        
+
         <Label Content="Odeljenje:" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding DoctorType}" Name="Odeljenje" HorizontalAlignment="Left" Margin="105,87,0,0" VerticalAlignment="Top"/>
         <Label Content="Lekar:" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
@@ -33,7 +33,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Potvrdi izmenu" Command="{Binding EditExaminationCommand}" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="700,362,0,0" VerticalAlignment="Top">
+        <Button Content="Potvrdi izmenu" Command="{Binding EditExaminationCommand}" Width="100" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="684,362,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

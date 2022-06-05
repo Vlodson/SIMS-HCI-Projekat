@@ -44,23 +44,23 @@ namespace Doctor.View
             _medicalRecordController = app.medicalRecordController;
             _medicalRecordRepo = app.medicalRecordRepo;
 
-            if (File.Exists(_reportRepo.dbPath))
+            if (File.Exists(_reportRepo.DBPath))
                 _reportRepo.LoadReport();
             if(File.Exists(_medicalRecordRepo.DBPath))
                 _medicalRecordRepo.LoadMedicalRecord();
 
             _selectedMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
             reports = _reportController.findByPatientId(patient.ID);
-            idLbl.Content = _selectedMedicalRecord.ID;
-            ucinLbl.Content = _selectedMedicalRecord.UCIN;
-            nameLbl.Content = _selectedMedicalRecord.Name;
-            surnameLbl.Content = _selectedMedicalRecord.Surname;
-            phoneLbl.Content = _selectedMedicalRecord.PhoneNumber;
-            emailLbl.Content = _selectedMedicalRecord.Mail;
-            addressLbl.Content = _selectedMedicalRecord.Adress;
-            GenderLbl.Content = _selectedMedicalRecord.Gender;
-            dobLbl.Content = _selectedMedicalRecord.DoB;
-            bloodLbl.Content = _selectedMedicalRecord.BloodType;
+            idLbl.Text = _selectedMedicalRecord.ID;
+            ucinLbl.Text = _selectedMedicalRecord.UCIN;
+            nameLbl.Text = _selectedMedicalRecord.Name;
+            surnameLbl.Text = _selectedMedicalRecord.Surname;
+            phoneLbl.Text = _selectedMedicalRecord.PhoneNumber;
+            emailLbl.Text = _selectedMedicalRecord.Mail;
+            addressLbl.Text = _selectedMedicalRecord.Adress;
+            genderLbl.Text = _selectedMedicalRecord.Gender.ToString();
+            dobLbl.Text = _selectedMedicalRecord.DoB.ToString();
+            bloodLbl.Text = _selectedMedicalRecord.BloodType.ToString();
         }
 
         private void Save_Click(object sender, RoutedEventArgs e)

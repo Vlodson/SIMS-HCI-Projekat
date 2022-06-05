@@ -11,6 +11,8 @@ using Controller;
 using Secretary.Commands;
 using Secretary.View;
 using System.Windows;
+using Secretary.ViewUtils;
+using System.Collections.ObjectModel;
 
 namespace Secretary.ViewModel
 {
@@ -18,26 +20,59 @@ namespace Secretary.ViewModel
     {
         private ExamController examController;
         private DoctorController doctorController;
-        private PatientController patientController; 
+        private PatientController _patientController;
+        private RoomController roomController;
 
-        //id pacijenta
-        private String patientID;
-        public String PatientID
+        private ObservableCollection<SelectableItemWrapper<Patient>> patientListBox = new ObservableCollection<SelectableItemWrapper<Patient>>();
+        public ObservableCollection<SelectableItemWrapper<Patient>> PatientListBox
         {
-            get { return patientID; }
-            set { patientID = value; OnPropertyChanged(nameof(PatientID)); }
+            get { return patientListBox; }
+            set { patientListBox = value; OnPropertyChanged(nameof(PatientListBox)); }
         }
 
-        //id sobe
-        private String roomID;
-
-        public String RoomID
+        private Patient _patient;
+        public Patient Patient
         {
-            get { return roomID; }
-            set { roomID = value; OnPropertyChanged(nameof(RoomID)); }
+            get { return _patient; }
+            set { _patient = value; OnPropertyChanged(nameof(Patient)); }
         }
 
-        private DateTime date = new DateTime(2022, 1, 1);
+        private void FillPatientListBox()
+        {
+            patientListBox.Clear();
+            foreach(Patient patient in _patientController.ReadAllPatients())
+            {
+                patientListBox.Add(new SelectableItemWrapper<Patient> { IsSelected = false, Item = patient });
+            }
+        }
+
+        private ObservableCollection<ComboBoxData<Room>> roomComboBox = new ObservableCollection<ComboBoxData<Room>>();
+        public ObservableCollection<ComboBoxData<Room>> RoomComboBox
+        {
+            get { return roomComboBox; }
+            set { roomComboBox = value; OnPropertyChanged(nameof(RoomComboBox)); }
+        }
+
+        //selected
+        private Room _room;
+        public Room Room
+        {
+            get { return _room; }
+            set { _room = value; OnPropertyChanged(nameof(Room)); }
+        }
+
+        private void FillRoomComboBoxData()
+        {
+            roomComboBox.Clear();
+            ObservableCollection<Room> rooms = roomController.GetAllRoomsByExamType(ExaminationTypeEnum);
+            foreach (Room room in rooms)
+            {
+                roomComboBox.Add(new ComboBoxData<Room> { Name = room.RoomNb.ToString(), Value = room });
+            }
+            Room = rooms.First();
+        }
+
+        private DateTime date = DateTime.Now;
 
         public DateTime Date
         {
@@ -47,13 +82,11 @@ namespace Secretary.ViewModel
 
         public ICommand AddCommand { get; }
 
-        //Doktor
-        private List<ComboBoxData<Doctor>> doctorComboBox = new List<ComboBoxData<Doctor>>();
-
-        public List<ComboBoxData<Doctor>> DoctorComboBox
+        private ObservableCollection<SelectableItemWrapper<Doctor>> doctorListBox = new ObservableCollection<SelectableItemWrapper<Doctor>>();
+        public ObservableCollection<SelectableItemWrapper<Doctor>> DoctorListBox
         {
-            get { return doctorComboBox; }
-            set { doctorComboBox = value; OnPropertyChanged(nameof(DoctorComboBox)); }
+            get { return doctorListBox; }
+            set { doctorListBox = value; OnPropertyChanged(nameof(DoctorListBox)); }
         }
 
         private Doctor doctor;
@@ -63,11 +96,12 @@ namespace Secretary.ViewModel
             set { doctor = value; OnPropertyChanged(nameof(Doctor)); }
         }
 
-        private void FillDoctorComboBoxData()
+        private void FillDoctorListBox()
         {
-            foreach(Doctor doctor in doctorController.GetAll())
+            doctorListBox.Clear();
+            foreach(String doctorID in doctorController.GetDoctorsBySpecialization(DoctorType))
             {
-                doctorComboBox.Add(new ComboBoxData<Doctor> { Name = doctor.Name + " " + doctor.Surname, Value = doctor });
+                doctorListBox.Add(new SelectableItemWrapper<Doctor> { IsSelected = false, Item = doctorController.GetDoctor(doctorID) });
             }
         }
 
@@ -83,7 +117,12 @@ namespace Secretary.ViewModel
         public DoctorType DoctorType
         {
             get { return doctorType; }
-            set { doctorType = value; OnPropertyChanged(nameof(DoctorType)); }
+            set
+            {
+                doctorType = value;
+                OnPropertyChanged(nameof(DoctorType));
+                FillDoctorListBox();
+            }
         }
 
         private void FillDoctorTypeComboBoxData()
@@ -104,7 +143,16 @@ namespace Secretary.ViewModel
 
         
         private ExaminationTypeEnum examinationTypeEnum;
-        public ExaminationTypeEnum ExaminationTypeEnum { get { return examinationTypeEnum; } set { examinationTypeEnum = value; OnPropertyChanged(nameof(ExaminationTypeEnum)); } }
+        public ExaminationTypeEnum ExaminationTypeEnum
+        {
+            get { return examinationTypeEnum; }
+            set
+            {
+                examinationTypeEnum = value; 
+                OnPropertyChanged(nameof(ExaminationTypeEnum));
+                FillRoomComboBoxData();
+            }
+        }
 
         private void FillExamTypeComboBoxData()
         {
@@ -114,25 +162,30 @@ namespace Secretary.ViewModel
             }
         }
 
-        private Window _addApointment;
+        private MainViewModel _mainViewModel;
 
-        public AddAppointmentViewModel(CRUDAppointmentsViewModel cRUDAppointmentsViewModel, Window addAppointment)
+        public AddAppointmentViewModel(MainViewModel mainViewModel)
         {
 
             var app = System.Windows.Application.Current as App;
             doctorController = app.DoctorController;
             examController = app.ExamController;
-            patientController = app.PatientController;
-            doctor = doctorController.GetDoctor("d1");
+            _patientController = app.PatientController;
+            roomController = app.RoomController;
+            _mainViewModel = mainViewModel;
 
-            _addApointment = addAppointment;
+            Doctor = doctorController.GetAllDoctors().First();
+            Patient = _patientController.ReadAllPatients().First();
+
+            FillPatientListBox();
+            FillDoctorListBox();
+            FillRoomComboBoxData();
 
             FillDoctorTypeComboBoxData();
-            FillDoctorComboBoxData();
             FillExamTypeComboBoxData();
 
             //this treba kao param
-            AddCommand = new AddAppointmentCommand(this, cRUDAppointmentsViewModel, examController, _addApointment, doctorController);
+            AddCommand = new AddAppointmentCommand(this, _mainViewModel, examController, doctorController);
         }
     }
 }

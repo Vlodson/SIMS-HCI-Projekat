@@ -22,8 +22,12 @@ namespace Utility
         public static String TherapyDBPath = Path.Combine(DBPath, "Therapy.json");
         public static String ReportDBPath = Path.Combine(DBPath, "Reports.json");
         public static String UserDBPath = Path.Combine(DBPath, "Users.json");
+        public static String DynamicEquipmentDBPath = Path.Combine(DBPath, "DynamicEquipment.json");
         public static String QuestionnaireDBPath = Path.Combine(DBPath, "Questionnaires.json");
         public static String RequestDBPath = Path.Combine(DBPath, "Request.json");
         public static String ReferralDBPath = Path.Combine(DBPath, "Referrals.json");
+        public static String MeetingsDBPath = Path.Combine(DBPath, "Meetings.json");
+        public static String PersonalNotificationDBPath = Path.Combine(DBPath, "PersonalNotifications.json");
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using Model;
 using System;
@@ -24,6 +25,7 @@ namespace Patient.View
     {
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
+        private NotificationController _notificationController;
 
         private List<String> notificationsList;
         private List<DateTime> notificationsTimeList;
@@ -50,6 +52,7 @@ namespace Patient.View
             App app = Application.Current as App;
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
+            _notificationController = app.NotificationController;
 
             String patientId = Login.loggedId;
             notificationsTimeList = new List<DateTime>();
@@ -59,7 +62,7 @@ namespace Patient.View
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 
             List<String> notifications = new List<String>();
-            foreach(Notification notification in _medicalRecordController.GetNotificationTimes(patientMedicalRecord))
+            foreach(Notification notification in _notificationController.GetPatientNotifications(patientMedicalRecord))
             {
                 notifications.Add(notification.Content);
             }
@@ -84,8 +87,8 @@ namespace Patient.View
                 foreach (int index in selectedItemIndexes)
                 {
 
-                    Notification notification = _medicalRecordController.GetNotificationTimes(patientMedicalRecord)[index];
-                    _medicalRecordController.EditReadNotification(patientMedicalRecord, notification);
+                    Notification notification = _notificationController.GetPatientNotifications(patientMedicalRecord)[index];
+                    _notificationController.EditReadNotification(patientMedicalRecord, notification);
                 }
                 this.Close();
             }

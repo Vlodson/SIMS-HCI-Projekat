@@ -83,7 +83,7 @@
         <RadioButton x:Name="hospital53"  GroupName="hospital5" Content="3" HorizontalAlignment="Left" Margin="273,453,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="hospital54" GroupName="hospital5" Content="4" HorizontalAlignment="Left" Margin="303,453,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="hospital55" GroupName="hospital5" Content="5" HorizontalAlignment="Left" Margin="333,453,0,0" VerticalAlignment="Top"/>
-        <Button Content="Predaj" Style="{StaticResource Buttons}" FontSize="13" HorizontalAlignment="Left" Margin="381,535,0,0" VerticalAlignment="Top" Click="Add_Answers">
+        <Button Content="Dodaj ocenu" Style="{StaticResource Buttons}" Width="100" FontSize="13" HorizontalAlignment="Left" Margin="333,541,0,0" VerticalAlignment="Top" Click="Add_Answers">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -122,12 +122,8 @@
         <RadioButton x:Name="doctor44"  GroupName="doctor4" Content="4" HorizontalAlignment="Left" Margin="784,440,0,0" VerticalAlignment="Top"/>
         <RadioButton x:Name="doctor45"  GroupName="doctor4" Content="5" HorizontalAlignment="Left" Margin="814,440,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton x:Name="doctor51" GroupName="doctor5" Content="1" IsChecked="True" HorizontalAlignment="Left" Margin="694,481,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="doctor52"  GroupName="doctor5" Content="2" HorizontalAlignment="Left" Margin="724,481,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="doctor53"  GroupName="doctor5" Content="3" HorizontalAlignment="Left" Margin="754,481,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="doctor54" GroupName="doctor5" Content="4" HorizontalAlignment="Left" Margin="784,481,0,0" VerticalAlignment="Top"/>
-        <RadioButton x:Name="doctor55" GroupName="doctor5" Content="5" HorizontalAlignment="Left" Margin="814,481,0,0" VerticalAlignment="Top"/>
-        <Button Content="Predaj" Style="{StaticResource Buttons}" FontSize="13" HorizontalAlignment="Left" Margin="858,541,0,0" VerticalAlignment="Top" Click="AddDoctorAnswer">
+       
+        <Button Content="Dodaj ocenu" Style="{StaticResource Buttons}" Width="100" FontSize="13" HorizontalAlignment="Left" Margin="798,544,0,0" VerticalAlignment="Top" Click="AddDoctorAnswer">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -137,18 +133,9 @@
         <Label Content="Lekar" HorizontalAlignment="Left" Margin="508,232,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="Doctors" ItemsSource="{Binding DoctorsAvailable}" HorizontalAlignment="Left" Margin="694,234,0,0" VerticalAlignment="Top" Width="120"/>
 
-        <Button Background="#b2d8d8" Style="{StaticResource Buttons}"  HorizontalAlignment="Left" Margin="23,634,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="MenuClick" >
-            <StackPanel>
-                <Image Source="/Images/arrow-small-left.png"/>
-            </StackPanel>
-            <Button.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="5"/>
-                </Style>
-            </Button.Resources>
-        </Button>
+
         <Label x:Name="ErrorMessage" Visibility="Hidden" Content="Morate izabrati lekara" Foreground="Red" HorizontalAlignment="Left" Margin="502,541,0,0" VerticalAlignment="Top"/>
-        
+
 
 
 

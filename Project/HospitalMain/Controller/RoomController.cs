@@ -17,9 +17,9 @@ namespace Controller
             this._roomService = _roomService;
         }
 
-        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type, RoomTypeEnum previousType)
+        public bool CreateRoom(Room room)
         {
-            return _roomService.CreateRoom(id, floor, roomNb, occupancy, type, previousType);
+            return _roomService.CreateRoom(room);
         }
       
         public bool RemoveRoom(String roomId)
@@ -27,11 +27,26 @@ namespace Controller
             return _roomService.RemoveRoom(roomId);
         }
       
-        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
+        public void EditRoom(Room newRoom)
         {
-            _roomService.EditRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType, newPreviousType);
+            _roomService.EditRoom(newRoom);
         }
-      
+
+        public ObservableCollection<Room> GetAllRoomsByExamType(ExaminationTypeEnum examinationTypeEnum)
+        {
+            return _roomService.GetAllRoomsByExamType(examinationTypeEnum);
+        }
+
+        public ObservableCollection<Room> GetAllPatientRooms()
+        {
+            return _roomService.GetAllPatientRooms();
+        }
+
+        public ObservableCollection<Room> GetAllOperationRooms()
+        {
+            return _roomService.GetAllOperationRooms();
+        }
+
         public Room ReadRoom(String roomId)
         {
             return _roomService.ReadRoom(roomId);
@@ -75,6 +90,16 @@ namespace Controller
         public void RemoveSelectedRoom()
         {
             _roomService.RemoveSelectedRoom();
+        }
+
+        public String GenerateID()
+        {
+            return _roomService.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            return _roomService.QueryRooms(query);
         }
 
         public bool LoadRoom()

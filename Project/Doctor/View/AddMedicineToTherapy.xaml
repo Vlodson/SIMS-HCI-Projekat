@@ -10,10 +10,10 @@
       Title="AddMedicineToTherapy">
 
     <Grid Margin="10,10,0,0">
-        <TextBlock Foreground="Black" Margin="36,117,571,530" >Pacijent:</TextBlock>
+        <TextBlock FontWeight="Bold" Foreground="Black" Margin="36,117,571,530" >Pacijent:</TextBlock>
         <TextBlock Foreground="Black" Margin="136,117,382,533" Text="{Binding PatientBind}" ></TextBlock>
-        <TextBlock Foreground="Black" Margin="36,157,423,494" >Datum i vreme pregleda:</TextBlock>
-        <TextBlock Foreground="Black" Margin="292,153,30,494" Text="{Binding DateBind}"></TextBlock>
+        <TextBlock FontWeight="Bold" Foreground="Black" Margin="36,157,398,494" >Datum i vreme pregleda:</TextBlock>
+        <TextBlock Foreground="Black" Margin="307,153,30,494" Text="{Binding DateBind}"></TextBlock>
 
 
         <Grid Margin="174,268,30,51">
@@ -23,12 +23,14 @@
                     <Label Content="Trajanje(dana):" Margin="0,52,219,100" />
                     <Label Content="Dnevno:" Margin="51,107,219,48" />
                     <Label Content="Recept:" Margin="60,153,228,0"/>
-                    <ComboBox Margin="164,8,0,0" Name ="comboBoxMedicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Height="34" >
-                        <ComboBoxItem>lek2</ComboBoxItem>
-                        <ComboBoxItem>lek3</ComboBoxItem>
-                        <ComboBoxItem>lek4</ComboBoxItem>
+                    <ComboBox Margin="164,8,0,0" ItemsSource="{Binding MedicinesBind}" SelectedItem="{Binding SelectedMedicine}" Name ="comboBoxMedicine" HorizontalAlignment="Left" VerticalAlignment="Top" Width="141" Height="34">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                        <TextBox Name ="textBoxDuration" TextWrapping="Wrap" Margin="164,57,219,139" Width="141" Height="34" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
                             <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
@@ -41,7 +43,7 @@
                     </TextBox>
                     <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="164,110,219,86" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
-                            <Binding Path="Dur" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Per" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:IntValueRule/>
                                 </Binding.ValidationRules>

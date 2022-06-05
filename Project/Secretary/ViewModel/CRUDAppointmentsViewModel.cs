@@ -40,11 +40,11 @@ namespace Secretary.ViewModel
 
             examinationList = new ObservableCollection<ExaminationViewModel>();
 
-            AddAppointmentCommand = new GoToAddApointmentCommand(this);
-            DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
-            EditAppointmentCommand = new GoToEditAppointmentCommand(this);
+            //AddAppointmentCommand = new GoToAddApointmentCommand(this);
+            //DeleteAppointmentCommand = new DeleteAppointmentCommand(this, examController);
+            //EditAppointmentCommand = new GoToEditAppointmentCommand(this);
 
-            ObservableCollection<Examination> examinationsFromBase = examController.getAllExaminations();
+            ObservableCollection<Examination> examinationsFromBase = examController.GetExaminations();
             foreach(Examination examination in examinationsFromBase)
             {
                 examinationList.Add(new ExaminationViewModel(examination));

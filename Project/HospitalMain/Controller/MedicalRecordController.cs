@@ -51,22 +51,14 @@ namespace Controller
             return medRecordService.GetAllMedicalRecords();
         }
 
-
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            return medRecordService.GetNotificationTimes(medicalRecord);
-        }
-
-
         public void AddNewReport(string id, Report report)
         {
             medRecordService.AddNewReport(id, report);
         }
 
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        public void AddNote(Report report,String note)
         {
-            medRecordService.EditReadNotification(medicalRecord, notification);
+            medRecordService.AddNote(report,note);
         }
-
     }
 }

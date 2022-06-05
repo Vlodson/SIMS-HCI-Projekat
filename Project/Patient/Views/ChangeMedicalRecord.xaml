@@ -14,7 +14,7 @@
     </Window.Resources>
     <Grid Margin="0,0,0,-6">
         <Grid.Background>
-            <SolidColorBrush Color="#66b2b2"/>
+            <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
         <Label Content="Lični podaci dostupni za izmenu" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label Content="Ime" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top"/>
@@ -49,7 +49,7 @@
                 </Style>
             </TextBox.Resources>
         </TextBox>
-        <Button Content="Predaj zahtev" Command="{Binding RequestCommand}" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="391,195,0,0" VerticalAlignment="Top">
+        <Button Content="Predaj zahtev" Command="{Binding RequestCommand}" Width="100" Style="{StaticResource Buttons}" HorizontalAlignment="Left" Margin="372,190,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

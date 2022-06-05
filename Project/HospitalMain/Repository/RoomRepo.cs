@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
+using System.Linq;
 
 using HospitalMain.Enums;
 using Model;
@@ -23,6 +24,8 @@ namespace Repository
             this.dbPath = db_path;
             this._equipmentRepo = equipmentRepo;
             this.Rooms = new ObservableCollection<Room>();
+
+
         }
       
         public bool NewRoom(Room room)
@@ -41,18 +44,18 @@ namespace Repository
             return null;
         }
       
-        public void SetRoom(String roomId, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
+        public void SetRoom(Room newRoom)
         {
             for(int i = 0; i < Rooms.Count; i++)
             {
-                if (Rooms[i].Id.Equals(roomId))
+                if (Rooms[i].Id.Equals(newRoom.Id))
                 {
-                    Rooms[i].Equipment = newEquipment;
-                    Rooms[i].Floor = newFloor;
-                    Rooms[i].RoomNb = newRoomNb;
-                    Rooms[i].Occupancy = newOccupancy;
-                    Rooms[i].Type = newType;
-                    Rooms[i].PreviousType = newPreviousType;
+                    Rooms[i].Equipment = newRoom.Equipment;
+                    Rooms[i].Floor = newRoom.Floor;
+                    Rooms[i].RoomNb = newRoom.RoomNb;
+                    Rooms[i].Occupancy = newRoom.Occupancy;
+                    Rooms[i].Type = newRoom.Type;
+                    Rooms[i].PreviousType = newRoom.PreviousType;
                     break;
                 }
             }
@@ -120,6 +123,15 @@ namespace Repository
         public void RemoveSelectedRoom()
         {
             selectedRoom = null;
+        }
+
+        public String GenerateID()
+        {
+            int id = 0;
+            if (Rooms.Count > 0)
+                id = Rooms.Max(r => int.Parse(r.Id)) + 1;
+
+            return id.ToString();
         }
 
         public bool LoadRoom()

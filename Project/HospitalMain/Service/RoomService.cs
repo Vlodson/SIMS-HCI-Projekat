@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 using Model;
 using Repository;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Service
@@ -17,11 +19,10 @@ namespace Service
             _repo = roomRepo;
         }
 
-        public bool CreateRoom(String id, int floor, int roomNb, bool occupancy, RoomTypeEnum type, RoomTypeEnum previousType)
+        public bool CreateRoom(Room room)
         {
             // logic for failed addition needed
-            Room r = new Room(id, floor, roomNb, occupancy, type, previousType);
-            return _repo.NewRoom(r);
+            return _repo.NewRoom(room);
         }
       
         public bool RemoveRoom(String roomId)
@@ -29,11 +30,51 @@ namespace Service
             return _repo.DeleteRoom(roomId);
         }
       
-        public void EditRoom(String id, ObservableCollection<Equipment> newEquipment, int newFloor, int newRoomNb, bool newOccupancy, RoomTypeEnum newType, RoomTypeEnum newPreviousType)
+        public void EditRoom(Room newRoom)
         {
-            _repo.SetRoom(id, newEquipment, newFloor, newRoomNb, newOccupancy, newType, newPreviousType);
+            _repo.SetRoom(newRoom);
+        }
+
+        public ObservableCollection<Room> GetAllRoomsByExamType(ExaminationTypeEnum examinationTypeEnum)
+        {
+            if(examinationTypeEnum == ExaminationTypeEnum.OrdinaryExamination)
+            {
+                return GetAllPatientRooms();
+            } else if (examinationTypeEnum == ExaminationTypeEnum.Surgery)
+            {
+                return GetAllOperationRooms();
+            }
+            return null;
+        }
+
+        public ObservableCollection<Room> GetAllOperationRooms()
+        {
+            ObservableCollection<Room> operationRooms = new ObservableCollection<Room>();
+            foreach(Room room in _repo.Rooms)
+            {
+                if(room.Type == RoomTypeEnum.Operation_Room)
+                {
+                    operationRooms.Add(room);
+                }
+            }
+
+            return operationRooms;
         }
       
+        public ObservableCollection<Room> GetAllPatientRooms()
+        {
+            ObservableCollection<Room> patientRooms = new ObservableCollection<Room>();
+            foreach(Room room in _repo.Rooms)
+            {
+                if(room.Type == RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+
+            return patientRooms;
+        }
+
         public Room ReadRoom(String roomId)
         {
             return _repo.GetRoom(roomId);
@@ -77,6 +118,20 @@ namespace Service
         public void RemoveSelectedRoom()
         {
             _repo.RemoveSelectedRoom();
+        }
+
+        public String GenerateID()
+        {
+            return _repo.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            List<Room> roomList = new List<Room>(_repo.Rooms);
+
+            ObservableCollection<Room> queriedRooms = new ObservableCollection<Room>(QueryUtility.DoQuery<Room>(roomList, query));
+
+            return queriedRooms;
         }
 
         public bool LoadRoom()

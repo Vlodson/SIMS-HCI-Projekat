@@ -14,7 +14,7 @@ namespace Service
     public class MedicalRecordService
     {
 
-        private MedicalRecordRepo medicalRecordRepo;
+        private readonly MedicalRecordRepo medicalRecordRepo;
 
         public MedicalRecordService(MedicalRecordRepo medicalRecordRepo)
         {
@@ -23,7 +23,19 @@ namespace Service
 
         public int generateID()
         {
-            return medicalRecordRepo.generateID();
+            int maxID = 0;
+            ObservableCollection<MedicalRecord> medicicalRecords = medicalRecordRepo.MedicalRecords;
+
+            foreach (MedicalRecord medicalRecord in medicicalRecords)
+            {
+                int medicalRecordID = Int32.Parse(medicalRecord.ID);
+                if (medicalRecordID > maxID)
+                {
+                    maxID = medicalRecordID;
+                }
+            }
+
+            return maxID + 1;
         }
 
         public bool CreateMedicalRecord(String medRecordID, String ucin, String name, String surname, String phoneNum, String mail, String adress, Gender gender, DateTime dob, BloodType bloodType, ObservableCollection<Report> reports, ObservableCollection<Allergens> allergens, ObservableCollection<Notification> notifications)
@@ -43,38 +55,40 @@ namespace Service
 
         public MedicalRecord GetMedicalRecord(String medRecordID)
         {
-            return medicalRecordRepo.ReadMedicalRecord(medRecordID);
+            foreach (MedicalRecord medRecord in medicalRecordRepo.MedicalRecords)
+            {
+                if (medRecord.ID.Equals(medRecordID))
+                {
+                    return medRecord;
+                }
+            }
+
+            return null;
         }
 
         public ObservableCollection<MedicalRecord> GetAllMedicalRecords()
         {
-            return medicalRecordRepo.ReadAllMedicalRecords();
+            return medicalRecordRepo.MedicalRecords;
         }
 
-
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            List<Notification> unreadNotifications = new List<Notification>();
-            foreach(Notification notification in medicalRecordRepo.GetNotificationTimes(medicalRecord))
-            {
-                if(notification.DateTimeNotification.CompareTo(DateTime.Now) < 0)
-                {
-                    unreadNotifications.Add(notification);
-                }
-            }
-            return unreadNotifications;
-        }
 
         public void AddNewReport(string id, Report report)
         {
-            medicalRecordRepo.AddNewReport(id, report);
+            foreach (MedicalRecord mr in medicalRecordRepo.MedicalRecords)
+            {
+                if (mr.ID.Equals(id))
+                {
+                    mr.Reports.Add(report);
+    
+                    break;
+                }
+            }
         }
 
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
+        public void AddNote(Report report,String note)
         {
-            medicalRecordRepo.EditReadNotification(medicalRecord, notification);
+            report.Note = note;
+            medicalRecordRepo.SaveMedicalRecord();
         }
-
-
     }
 }

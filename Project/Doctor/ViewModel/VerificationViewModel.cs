@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Enums;
 using Model;
 using Repository;
 using System;
@@ -96,9 +97,9 @@ namespace ViewModel
         public void OnSend()
         {
             if (IsChecked1)
-                selectedMedicine.Status = Enums.MedicineStatusEnum.Approved;
+                selectedMedicine.Status = Enums.StatusEnum.Approved;
             else
-                selectedMedicine.Status = Enums.MedicineStatusEnum.Rejected;
+                selectedMedicine.Status = Enums.StatusEnum.Rejected;
             _medicineRepo.SaveMedicine();
         }
     }

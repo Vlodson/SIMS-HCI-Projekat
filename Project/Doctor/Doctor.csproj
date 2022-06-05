@@ -46,7 +46,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+    <ProjectReference Include="..\Secretary\Secretary.csproj" />
   </ItemGroup>
 
 </Project>

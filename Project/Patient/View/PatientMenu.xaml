@@ -91,14 +91,14 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="82,650,0,0" VerticalAlignment="Top">
+        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="82,650,0,0" VerticalAlignment="Top" Click="AlarmsClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Izveštaji" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="358,649,0,0" VerticalAlignment="Top">
+        <Button Content="Izveštaji" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="358,649,0,0" VerticalAlignment="Top" Click="ReportClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -113,32 +113,33 @@
             </Button.Resources>
         </Button>
 
-        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
-        
-        
-        <Rectangle HorizontalAlignment="Left" Height="864"  VerticalAlignment="Top" Width="50" Margin="10,10,0,0">
+        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate"/>
+
+
+        <Rectangle HorizontalAlignment="Left" Height="864"  VerticalAlignment="Top" Width="54" Margin="8,-16,0,0">
             <Rectangle.Fill>
                 <VisualBrush Stretch="None">
                     <VisualBrush.Visual>
-                        <Border CornerRadius="20,20,20,20"  Width="50" Height="786" Background="#b2d8d8"></Border>
+                        <Border CornerRadius="20,20,20,20"  Width="65" Height="786" Background="#b2d8d8"></Border>
                     </VisualBrush.Visual>
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button  Style="{StaticResource MenuBarButtons}" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="MenuClick">
-            <StackPanel>
+        <Button Style="{StaticResource MenuBarButtons}" ToolTip="Meni" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Click="MenuClick">
+            <StackPanel Orientation="Horizontal">
                 <Image Source="/Images/icons8-menu-24.png"/>
+                <TextBlock>Meni</TextBlock>
             </StackPanel>
         </Button>
-        
+
         <!--<StackPanel Width="50" Height="786" Margin="10,130,964,-148">-->
 
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0" Click="MedicalREcordClick">
+        <Button HorizontalAlignment="Left" ToolTip="Karton" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,130,0,0" Click="MedicalREcordClick">
             <StackPanel>
                 <Image Source="/Images/folder.png"/>
             </StackPanel>
         </Button>
-        <Rectangle HorizontalAlignment="Center" Height="77" Width="1024"  VerticalAlignment="Top" Margin="0,-12,0,0">
+        <Rectangle HorizontalAlignment="Center" Height="48" Width="1024"  VerticalAlignment="Top" Margin="0,-12,0,0">
             <Rectangle.Fill>
                 <VisualBrush Stretch="None">
                     <VisualBrush.Visual>
@@ -147,46 +148,90 @@
                 </VisualBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="971,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+
+        <!--</StackPanel>-->
+        <Frame x:Name="Menu" Margin="65,65,0,0" NavigationUIVisibility="Hidden"></Frame>
+        <Grid Margin="0,0,-70,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="241*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+            </Grid.RowDefinitions>
+            <Rectangle HorizontalAlignment="Center" Height="56" Margin="0,10,0,0" VerticalAlignment="Top" Width="1140" Grid.RowSpan="2">
+                <Rectangle.Fill>
+                    <VisualBrush Stretch="None">
+                        <VisualBrush.Visual>
+                            <Border CornerRadius="20,20,20,20"  Width="1124" Height="280" Background="#b2d8d8"></Border>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+        <Button Height="75" Style="{StaticResource MenuBarButtons}" ToolTip="Meni" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Click="MenuClick">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/icons8-menu-24.png"/>
+                <TextBlock>Meni</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Karton" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,141,0,0" Click="MedicalREcordClick">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/folder.png"/>
+                <TextBlock>Karton</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Termini" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,216,0,0" Click="Button_Click">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/appointments.png"/>
+                <TextBlock>Termini</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Ocene" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,292,0,0" Click="GradingsClick">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/survey.png"/>
+                <TextBlock>Ocene</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Podsetnici" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,367,0,0" Click="AlarmsClick">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/clock.png"/>
+                <TextBlock>Alarmi</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Izveštaji" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,448,0,0" Click="ReportClick">
+            <StackPanel Orientation="Vertical">
+                <Image Width="35" Source="/Images/reportPdf.png"/>
+                <TextBlock>Izveštaji</TextBlock>
+            </StackPanel>
+        </Button>
+        <Button Height="75" HorizontalAlignment="Left" ToolTip="Tutorijal" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,523,0,0">
+            <StackPanel>
+                <Image Width="35" Source="/Images/tutorial.png"/>
+                <TextBlock>Tutorijal</TextBlock>
+            </StackPanel>
+        </Button>
+
+        <Image Source="/Images/logo2.png"  Margin="-6,0,918,668"></Image>
+        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="100,2,0,0" VerticalAlignment="Top"/>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="972,16,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="927,23,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="927,16,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
             <StackPanel>
                 <Image Source="/Images/bell.png"/>
             </StackPanel>
         </Button>
-        <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="112,7,0,0" VerticalAlignment="Top"/>
-        <Image Source="/Images/logo2.png"  Margin="-9,2,916,669"></Image>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,235,0,0" Click="Button_Click">
-            <StackPanel>
-                <Image Source="/Images/appointments.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,340,0,0" Click="GradingsClick">
-            <StackPanel>
-                <Image Source="/Images/survey.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,445,0,0">
-            <StackPanel>
-                <Image Source="/Images/clock.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left"  Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,550,0,0">
-            <StackPanel>
-                <Image Source="/Images/reportPdf.png"/>
-            </StackPanel>
-        </Button>
-        <Button HorizontalAlignment="Left" Style="{StaticResource MenuBarButtons}" VerticalAlignment="Top" Margin="10,649,0,0">
-            <StackPanel>
-                <Image Source="/Images/tutorial.png"/>
-            </StackPanel>
-        </Button>
-        <!--</StackPanel>-->
-        <Frame x:Name="Menu" Margin="65,65,0,0" NavigationUIVisibility="Hidden"></Frame>
-
 
     </Grid>
 </Page>

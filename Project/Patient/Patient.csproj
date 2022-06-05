@@ -33,6 +33,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>4</VersionMinor>
+      <VersionMajor>2</VersionMajor>
+      <Guid>215d64d2-031c-33c7-96e3-61794cd1ee61</Guid>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\appointments.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -61,10 +70,21 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+    <ProjectReference Include="..\Secretary\Secretary.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Validation\" />
+  </ItemGroup>
+
+  <ItemGroup>
+
+    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
+    <PackageReference Include="Syncfusion.Pdf.WinForms" Version="20.1.0.58" />
+
   </ItemGroup>
 
   <ItemGroup>

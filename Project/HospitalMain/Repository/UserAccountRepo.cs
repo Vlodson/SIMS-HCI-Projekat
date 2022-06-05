@@ -37,11 +37,6 @@ namespace Repository
                 LoadUserAccounts();
             }
         }
-    
-        public ObservableCollection<UserAccount> GetAllUserAccounts()
-        {
-            return UserAccCollection;
-        }
 
         public bool AddUserAccount(UserAccount userAcc)
         {

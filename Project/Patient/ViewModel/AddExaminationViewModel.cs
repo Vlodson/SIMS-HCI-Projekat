@@ -85,7 +85,7 @@ namespace Patient.ViewModel
                 selectedType = value;
                 OnPropertyChanged("SelectedType");
                 doctors = new List<Doctor>();
-                foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                foreach (Doctor doctor in _doctorController.GetAllDoctors().ToList())
                 {
                     if (doctor.Type == SelectedType)
                     {
@@ -107,7 +107,7 @@ namespace Patient.ViewModel
                 {
                     if (!doctorIds.Contains(refferal.DoctorId)) doctorIds.Add(refferal.DoctorId);
                 }
-                foreach (Doctor doctor in _doctorController.GetAll().ToList())
+                foreach (Doctor doctor in _doctorController.GetAllDoctors().ToList())
                 {
                     if (doctor.Type == DoctorType.General && doctor.Type == SelectedType)
                     {
@@ -353,7 +353,7 @@ namespace Patient.ViewModel
         {
             if(SelectedDoctor == null)
             {
-                List<Doctor> doctors = _doctorController.GetAll().ToList();
+                List<Doctor> doctors = _doctorController.GetAllDoctors().ToList();
                 List<Examination> examinations = new List<Examination>();
                 switch (selectedTypeString)
                 {
@@ -398,7 +398,7 @@ namespace Patient.ViewModel
                 {
                     if (priority) //prioritet je lekar
                     {
-                        ObservableCollection<Doctor> getDoctors = _doctorController.GetAll();
+                        ObservableCollection<Doctor> getDoctors = _doctorController.GetAllDoctors();
                         DateTime before = startDate.Date.AddDays(-4);
                         if (before.CompareTo(DateTime.Now) < 0)
                         {
@@ -462,7 +462,7 @@ namespace Patient.ViewModel
         private void OnTypeChanged()
         {
             doctors = new List<Doctor>();
-            foreach (Doctor doctor in _doctorController.GetAll().ToList())
+            foreach (Doctor doctor in _doctorController.GetAllDoctors().ToList())
             {
                 if (doctor.Type == SelectedType)
                 {

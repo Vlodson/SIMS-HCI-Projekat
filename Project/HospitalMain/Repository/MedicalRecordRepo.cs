@@ -22,7 +22,6 @@ namespace Repository
         {
             this.DBPath = dbPath;
             this.MedicalRecords = new ObservableCollection<MedicalRecord>();
-
             Therapy therapy1 = new Therapy("t1", "lek1", 5, 2, true);
             Therapy therapy2 = new Therapy("t2", "lek2", 5, 2, false);
             Therapy therapy3 = new Therapy("t3", "lek3", 5, 2, true);
@@ -31,11 +30,11 @@ namespace Repository
             ts.Add(therapy2);
             ts.Add(therapy3);
 
-            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts);
+            Report report = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d1", ts, "");
             ObservableCollection<Report> reports = new ObservableCollection<Report>();
             reports.Add(report);
 
-            Report report1 = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d14", new ObservableCollection<Therapy>());
+            Report report1 = new Report("examId", "Neki opis", new DateTime(2022, 5, 1), "p1", "d14", new ObservableCollection<Therapy>(), "");
             reports.Add(report1);
 
 
@@ -99,23 +98,6 @@ namespace Repository
                 LoadMedicalRecord();
 
         }
-
-        public int generateID()
-        {
-            int maxID = 0;
-            ObservableCollection<MedicalRecord> medicicalRecords = MedicalRecords;
-
-            foreach(MedicalRecord medicalRecord in medicicalRecords)
-            {
-                int medicalRecordID = Int32.Parse(medicalRecord.ID);
-                if (medicalRecordID > maxID)
-                {
-                    maxID = medicalRecordID;
-                }
-            }
-          
-            return maxID + 1;
-        }
         
         public bool NewMedicalRecord(MedicalRecord medRecord)
         {
@@ -169,6 +151,7 @@ namespace Repository
             return false;
         }
 
+        /*
         public MedicalRecord ReadMedicalRecord(String medRecordID)
         {
             foreach(MedicalRecord medRecord in MedicalRecords)
@@ -181,11 +164,7 @@ namespace Repository
 
             return null;
         }
-
-        public ObservableCollection<MedicalRecord> ReadAllMedicalRecords()
-        {
-            return MedicalRecords;
-        }
+        */
 
         //public void EditAllergens(String medRecordID, ObservableCollection<String> newAllergens)
         //{
@@ -212,70 +191,6 @@ namespace Repository
             string jsonString = JsonSerializer.Serialize(MedicalRecords);
             File.WriteAllText(DBPath, jsonString);
             return true;
-        }
-
-        public List<Notification> GetNotificationTimes(MedicalRecord medicalRecord)
-        {
-            
-            LoadMedicalRecord();
-            return medicalRecord.Notifications.ToList();
-        }
-
-        public void EditReadNotification(MedicalRecord medicalRecord, Notification notification)
-        {
-            foreach (MedicalRecord oneMedRecord in MedicalRecords)
-            {
-                if (oneMedRecord.ID.Equals(medicalRecord.ID))
-                {
-                    
-                    foreach(Notification not in oneMedRecord.Notifications)
-                    {
-                        if(not.Content == notification.Content && not.DateTimeNotification == notification.DateTimeNotification)
-                        {
-                            oneMedRecord.Notifications.Remove(not);
-                            SaveMedicalRecord();
-                            break;
-                        }
-                    }
-                    
-                    
-                }
-            }
-
-        }
-
-        public void AddNewReport(string id, Report report)
-        {
-            foreach(MedicalRecord mr in MedicalRecords)
-            {
-                if(mr.ID.Equals(id))
-                {
-                    mr.Reports.Add(report);
-                    GenerateNotifications(report, mr);
-                    break;
-                }
-            }
-        }
-        public void GenerateNotifications(Report report, MedicalRecord mr)
-        {
-            foreach (Therapy therapy in report.Therapy)
-            {
-                DateTime start = new DateTime(report.CreateDate.Year, report.CreateDate.Month, report.CreateDate.Day, 0, 0, 0);
-                DateTime end = report.CreateDate.AddDays(therapy.Duration);
-                int addingHours = 24 / therapy.PerDay;
-
-                for (int i = 0; i < therapy.Duration; ++i)
-                {
-                    for (int j = 0; j < therapy.PerDay; ++j)
-                    {
-                        DateTime dateTime = start.AddDays(i).AddHours(j * addingHours);
-                        String content = "Popiti lek " + therapy.Medicine + " u " + dateTime.ToString();
-                        Notification notification = new Notification(content, false, dateTime);
-                        mr.Notifications.Add(notification);
-
-                    }
-                }
-            }
         }
     }
 }

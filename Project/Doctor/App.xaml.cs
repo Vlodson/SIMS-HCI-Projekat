@@ -13,6 +13,7 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using HospitalMain.Enums;
 using Enums;
+using HospitalMain.Service;
 
 namespace Doctor
 {
@@ -43,6 +44,7 @@ namespace Doctor
         public ReferralRepo referralRepo { get; set; }
         public MedicineRepo medicineRepo { get; set; }
         public QuestionnaireRepo questionnaireRepo { get; set; }
+        public FreeDaysRequestRepo FreeDaysRequestRepo { get; set; }
         public UserAccountController userAccountController { get; set; }
         public UserAccountRepo userAccountRepo { get; set; }
         public EquipmentController equipmentController { get; set; }
@@ -69,9 +71,12 @@ namespace Doctor
             requestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
             medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
-            
+            FreeDaysRequestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
+            questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
 
-            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo);
+
+            var freeDaysRequestsService = new FreeDaysRequestService(requestRepo, doctorRepo);
+            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo, freeDaysRequestsService);
             var therapyService = new TherapyService(therapyRepo);
             var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo, patientRepo);
             var roomService = new RoomService(roomRepo);
@@ -81,12 +86,13 @@ namespace Doctor
             var userAccountService = new UserAccountService(userAccountRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
             var equipmentTransferService = new EquipmentTransferService(transferRepo, roomRepo, equipmentRepo, examRepo);
-            var requestService = new FreeDaysRequestService(requestRepo);
+            var requestService = new FreeDaysRequestService(requestRepo, doctorRepo);
             var referralService = new ReferralService(referralRepo);
             var medicineService = new MedicineService(medicineRepo);
+            var emergencyService = new EmergencyService(examRepo, doctorRepo);
 
             examController = new ExamController(patientService, doctorService);
-            doctorController = new DoctorController(doctorService);
+            doctorController = new DoctorController(doctorService, emergencyService);
             patientController = new PatientController(patientService, patientAccountService);
             therapyController = new TherapyController(therapyService);
             roomController = new RoomController(roomService);
@@ -99,24 +105,27 @@ namespace Doctor
             referralController = new ReferralController(referralService);
             medicineController = new MedicineController(medicineService);
 
-
             for (int i = 0; i < 20; i++)
             {
                 int floor = 1;
                 if (i > 10)
                     floor = 2;
 
-                roomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                equipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                Room r = new Room(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                roomController.CreateRoom(r);
+
+                Equipment e = new Equipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                equipmentController.CreateEquipment(e);
                 roomController.AddEquipment(i.ToString(), equipmentController.ReadEquipment(i.ToString()));
 
-                /*ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
                 for (int j = 0; j < 4; j++)
                     ingredients.Add((IngredientEnum)((j + i) % 5));
-                Model.Doctor doctor = new Model.Doctor();
 
-                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, MedicineStatusEnum.Pending, doctor, new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));*/
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending, "d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
             }
+            roomRepo.SaveRoom();
+
         }
     }
 }

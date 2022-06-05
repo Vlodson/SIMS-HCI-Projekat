@@ -39,23 +39,44 @@ namespace Controller
             return _patientService.generateID(examinations);
         }
 
-        public bool checkIfAppointmentExists(DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public Examination GetExamByTime(DateTime dateTime)
         {
-            return _patientService.CheckIfAppointmentExists(date, doctor, PatientID, RoomID);
+            return _patientService.getExamByTime (dateTime);
         }
 
-        public bool checkIfAppointmentExistsForEditing(String ExamID, DateTime date, Doctor doctor, String PatientID, String RoomID)
+        public bool CheckIfDoctorIsOnVacation(String doctorID, DateTime dateTime)
         {
-            return _patientService.CheckIfAppointmentExistsForEditing(ExamID ,date, doctor, PatientID, RoomID);
-        }
-        public ObservableCollection<Examination> getAllExaminations()
-        {
-            return _patientService.getAllExaminations();
+            return _patientService.CheckIfDoctorIsOnVacation (doctorID, dateTime);
         }
 
-        public Examination getExamination(String examID)
+        public bool AppointmentDoctorValidation(DateTime dateTime, Doctor doctor)
         {
-            return _patientService.GetExam(examID);
+            return _patientService.AppointmentDoctorValidation(dateTime, doctor);
+        }
+           
+        public bool AppointmentPatientValidation(DateTime dateTime, String PatientID)
+        {
+            return _patientService.AppointmentPatientValidation(dateTime, PatientID);
+        }
+
+        public bool AppointmentRoomValidation(DateTime dateTime, String RoomID)
+        {
+            return _patientService.AppointmentRoomValidation(dateTime, RoomID);
+        }
+
+        public bool AppointmentDoctorEditValidation(String ExamID, DateTime dateTime, Doctor doctor)
+        {
+            return _patientService.AppointmentDoctorEditValidation(ExamID, dateTime, doctor);
+        }
+
+        public bool AppointmentPatientEditValidation(String ExamID, DateTime dateTime, String PatientID)
+        {
+            return _patientService.AppointmentPatientEditValidation(ExamID, dateTime, PatientID);
+        }
+
+        public bool AppointmentRoomEditValidation(String ExamID, DateTime dateTime, String RoomID)
+        {
+            return _patientService.AppointmentRoomEditValidation(ExamID, dateTime, RoomID);
         }
       
         public bool PatientCreateExam(Examination examination, DateTime newDate)
@@ -89,7 +110,7 @@ namespace Controller
 
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
-            return _patientService.ReadMyExams(id);
+            return _patientService.ReadPatientExams(id);
         }
 
         public ObservableCollection<Examination> ReadDoctorExams(string id)
@@ -101,7 +122,10 @@ namespace Controller
         {
             _doctorService.EditExams(id, examination);
         }
-
+        public Examination GetExamination(String examID)
+        {
+            return _patientService.GetExam(examID);
+        }
         public void PatientEditExamForMoving(Examination examination, DateTime dateTime)
         {
             _patientService.EditExamForMoving(examination.Id, dateTime);

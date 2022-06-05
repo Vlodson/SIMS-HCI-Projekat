@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using HospitalMain.Repository;
 using Model;
@@ -29,12 +30,17 @@ namespace Patient.View
     /// </summary>
     public partial class PatientMenu : Page
     {
+        private int counter = 0;
+
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
+        private PersonalNotificationController _personalNotificationController;
+        private NotificationController _notificationController;
         
+        public NavigationService NavService { get; set; }
 
         public static ObservableCollection<Examination> Examinations
         {
@@ -62,10 +68,17 @@ namespace Patient.View
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
-            
+            _personalNotificationController = app.personalNotificationController;
+            _notificationController = app.NotificationController;
+
+            NavService = this.Menu.NavigationService;
             
             _doctorRepo.SaveDoctor();
-            Timer t = new Timer(TimerCallback, null, 0, 60000);
+
+            
+            //TimerCallback timerDelegate = new TimerCallback(CheckStatus);
+
+            //Timer t = new Timer(timerDelegate, null, 0, 0);
 
             ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
             foreach (Examination exam in examinations)
@@ -104,33 +117,76 @@ namespace Patient.View
             }
             MenuCalendar.DataContext = DatesExaminations;
             //dataGridExaminations.ItemsSource = ExaminationsForDate;
+
+
+                //MyMethod();
+                //List<HospitalMain.Model.PersonalNotification> personalNotificationList = _personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+                //foreach (HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+                //{
+                //    if (personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute < DateTime.Now.Minute)
+                //    {
+                //        MessageBox.Show(personalNotification.Text);
+                //        personalNotification.Status = false;
+                //    }
+                //}
+            Thread thread = new Thread(CheckStatus);
+            thread.Start();
+
         }
 
-        private static void TimerCallback(Object o)
+        //private static void TimerCallback(Object o)
+        private static void CheckStatus()
         {
             //ovde isto kao za obavestenja
             String patientId = Login.loggedId;
             App app = Application.Current as App;
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
+            PersonalNotificationController personalNotificationController = app.personalNotificationController;
+            NotificationController notificationController = app.NotificationController;
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
             
-            foreach(Notification notification in medicalRecordController.GetNotificationTimes(patientMedicalRecord))
+            foreach(Notification notification in notificationController.GetPatientNotifications(patientMedicalRecord))
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
                     //MessageBox.Show(notification.Content);
                 }
             }
-            
-            
+
+            List<HospitalMain.Model.PersonalNotification> personalNotificationList = personalNotificationController.GetPatientPersonalNotifications(Login.loggedId);
+            foreach(HospitalMain.Model.PersonalNotification personalNotification in personalNotificationList)
+            {
+                //Console.WriteLine((int)DateTime.Now.DayOfWeek);
+                if(personalNotification.Status == true && personalNotification.Days.Contains((int)DateTime.Now.DayOfWeek) && personalNotification.Time.Hour == DateTime.Now.Hour && personalNotification.Time.Minute == DateTime.Now.Minute)
+                {
+                    MessageBox.Show(personalNotification.Text);
+                    //personalNotificationController.SetNotificationRead(personalNotification);
+                }
+            }
+            Thread.Sleep(100);
+
+
+        }
+
+        async Task RunPeriodically(Action action, TimeSpan interval, CancellationToken token)
+        {
+
+            while (true)
+            {
+                
+                action();
+                await Task.Delay(interval, token);
+            }
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Window.GetWindow(this).Content = new ExaminationsList();
-            Menu.Content = new ExaminationsList();
+            //Menu.Content = new ExaminationsList();
+            Page examinationsList = new ExaminationsList();
+            this.NavService.Navigate(examinationsList);
             
         }
 
@@ -169,20 +225,75 @@ namespace Patient.View
             HighlightDay(button, date);
         }
 
+        private void ChangeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if(counter != 0)
+            {
+                DateTime selected = (DateTime)MenuCalendar.SelectedDate;
+                ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+                DateTime today = DateTime.Now;
+
+                List<Examination> examinationsForDate = new List<Examination>();
+                foreach (Examination exam in examinations)
+                {
+                    if (exam.Date.Date == selected.Date)
+                    {
+                        Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                        if (doctor.Type == DoctorType.Pulmonology)
+                        {
+                            exam.DoctorTypeString = "Pulmologija";
+                        }
+                        else if (doctor.Type == DoctorType.Cardiology)
+                        {
+                            exam.DoctorTypeString = "Kardiologija";
+                        }
+                        //ovde dodati neurologiju i dermatologiju
+                        else
+                        {
+                            exam.DoctorTypeString = "Opšta praksa";
+                        }
+                        examinationsForDate.Add(exam);
+                    }
+                }
+                ShowExaminations showExaminations = new ShowExaminations(examinationsForDate);
+                showExaminations.ShowDialog();
+            }
+
+            ++counter;
+        }
+
         private void GradingsClick(object sender, RoutedEventArgs e)
         {
             //Menu.Content = new Questionnaires();
-            Menu.Content = new QuestionnairePage();
+            //Menu.Content = new QuestionnairePage();
+            Page questionnairePage = new QuestionnairePage();
+            this.NavService.Navigate(questionnairePage);
+
         }
 
         private void MedicalREcordClick(object sender, RoutedEventArgs e)
         {
-            Menu.Content = new MedicalRecordMVVM();
+            //Menu.Content = new MedicalRecordMVVM();
+            Page medicalRecordMVVM = new MedicalRecordMVVM();
+            this.NavService.Navigate(medicalRecordMVVM);
         }
 
         private void MenuClick(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Content = new PatientMenu();
+        }
+
+        private void AlarmsClick(object sender, RoutedEventArgs e)
+        {
+            //Menu.Content = new Alarms();
+            Page alarms = new Alarms();
+            this.NavService.Navigate(alarms);
+        }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+            Page reportPage = new ReportPage();
+            this.NavService.Navigate(reportPage);
         }
     }
 }

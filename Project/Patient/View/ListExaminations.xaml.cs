@@ -43,7 +43,7 @@ namespace Patient.View
             this.DataContext = this;
             App app = Application.Current as App;
             _examinationRepo = app.ExaminationRepo;
-            if (File.Exists(_examinationRepo.dbPath))
+            if (File.Exists(_examinationRepo.DBPath))
                 _examinationRepo.LoadExamination();
             _examinationController = app.ExamController;
             Examinations = _examinationController.ReadPatientExams("2");

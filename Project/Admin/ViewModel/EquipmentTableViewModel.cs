@@ -10,11 +10,33 @@ using Controller;
 using Utility;
 using HospitalMain.Enums;
 
+using Admin.Views;
+
 namespace Admin.ViewModel
 {
     public class EquipmentTableViewModel: BindableBase
     {
+        public ICommandTemplate<String> NavigationCommand { get; private set; }
+        public ICommandTemplate RemoveCommand { get; private set; }
+        public ICommandTemplate QueryCommand { get; private set; }
+
         private EquipmentController equipmentController;
+        private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+        private String search;
+        public String Search
+        {
+            get { return search; }
+            set
+            {
+                if (search != value)
+                {
+                    search = value;
+                    OnPropertyChanged("Search");
+                }
+            }
+        }
+
         private ObservableCollection<FriendlyEquipment> equipment;
         public ObservableCollection<FriendlyEquipment> Equipment
         {
@@ -35,11 +57,15 @@ namespace Admin.ViewModel
                 {
                     selectedEquipment = value;
                     OnPropertyChanged("SelectedEquipment");
+                    RemoveCommand.RaiseCanExecuteChanged();
                 }
             }
         }
         public EquipmentTableViewModel()
         {
+            NavigationCommand = new ICommandTemplate<String>(OnNavigation);
+            RemoveCommand = new ICommandTemplate(OnRemove, CanRemove);
+            QueryCommand = new ICommandTemplate(OnQuery);
 
             var app = Application.Current as App;
             equipmentController = app.equipmentController;
@@ -50,35 +76,95 @@ namespace Admin.ViewModel
             Equipment = new ObservableCollection<FriendlyEquipment>();
             foreach(Equipment equipmentItem in equipment)
                 Equipment.Add(new FriendlyEquipment(equipmentItem));
+
+            Search = "Enter Query";
         }
 
-        public void RemoveEquipment()
+        public void OnRemove()
         {
             equipmentController.RemoveEquipment(SelectedEquipment.Id, SelectedEquipment.RoomId);
             Equipment.Remove(SelectedEquipment);
         }
 
-        public void QueryEquipment(String query)
+        public bool CanRemove()
         {
-            ObservableCollection<Equipment> queriedEquipment = equipmentController.QueryEquipment(query);
-            Equipment = new ObservableCollection<FriendlyEquipment>();
+            return SelectedEquipment is not null;
+        }
+
+        public void OnQuery()
+        {
+            Equipment.Clear();
+            if (String.IsNullOrEmpty(Search))
+            {
+                ObservableCollection<Equipment> equipment = equipmentController.ReadAll();
+                foreach (Equipment equipmentItem in equipment)
+                    Equipment.Add(new FriendlyEquipment(equipmentItem));
+                return;
+            }
+
+            ObservableCollection<Equipment> queriedEquipment = equipmentController.QueryEquipment(Search);
             foreach(Equipment queriedItem in queriedEquipment)
                 Equipment.Add(new FriendlyEquipment(queriedItem));
             
         }
+
+        public void OnNavigation(String view)
+        {
+            switch (view)
+            {
+                case "back":
+                    mainWindow.Width = 750;
+                    mainWindow.Height = 430;
+                    mainWindow.CurrentView = new MainMenuView();
+                    break;
+                case "logout":
+                    break;
+                case "rooms":
+                    mainWindow.CurrentView = new RoomTableView();
+                    break;
+                case "medicine":
+                    mainWindow.CurrentView = new MedicineTableView();
+                    break;
+                case "transfers":
+                    mainWindow.CurrentView = new EquipmentTransferTableView();
+                    break;
+                case "renovations":
+                    mainWindow.CurrentView = new RenovationTableView();
+                    break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
+                    break;
+            }
+        }
+
     }
 
     public class FriendlyEquipment
     {
+        private RoomController roomController;
+
         public String Id { get; set; }
         public String RoomId { get; set; }
+        public String RoomNb { get; set; }
         public String Type { get; set; }
 
         public FriendlyEquipment(Equipment equipment)
         {
+            var app = Application.Current as App;
+            roomController = app.roomController;
+
             Id = equipment.Id;
             RoomId = equipment.RoomId;
+            RoomNb =  roomController.ReadRoom(equipment.RoomId).RoomNb.ToString();
             Type = EquipmentTypeEnumExtensions.ToFriendlyString(equipment.Type);
+        }
+
+        public override string ToString()
+        {
+            return Type;
         }
     }
 }

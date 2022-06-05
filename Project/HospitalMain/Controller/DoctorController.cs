@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using HospitalMain.Service;
+using Model;
 using Service;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,17 @@ namespace Controller
     public class DoctorController
     {
         private readonly DoctorService _doctorService;
+        private readonly EmergencyService _emergencyService;
 
-        public DoctorController(DoctorService doctorService)
+        public DoctorController(DoctorService doctorService, EmergencyService emergencyService)
         {
             _doctorService = doctorService;
+            _emergencyService = emergencyService;
+        }
+
+        public void SubstractDoctorsFreeDays(string doctorID, double days)
+        {
+            _doctorService.SubstractDoctorsFreeDays(doctorID, days);
         }
 
         public DoctorType GetDoctorsType(string doctorID)
@@ -35,12 +43,12 @@ namespace Controller
 
         public bool EmergencyValidation(DateTime dateTime, DoctorType doctorType)
         {
-            return _doctorService.EmergencyValidation(dateTime, doctorType);
+            return _emergencyService.EmergencyValidation(dateTime, doctorType);
         }
 
-        public ObservableCollection<Doctor> GetAll()
+        public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return _doctorService.GetDoctors();
+            return _doctorService.GetAllDoctors();
         }
 
         public Doctor GetDoctor(string id)
@@ -50,32 +58,22 @@ namespace Controller
 
         public string CheckForAvailableDateForEmergency(DateTime dateTime, DoctorType doctorType)
         {
-            return _doctorService.CheckForAvailableDateForEmergency(dateTime, doctorType);
+            return _emergencyService.CheckForAvailableDateForEmergency(dateTime, doctorType);
         }
 
-        public Examination GetBookedExamination(DateTime dateTime, DoctorType doctorType)
+        public ObservableCollection<Examination> GetFreeExaminations(ObservableCollection<DateTime> startEndRange, DoctorType doctorType)
         {
-            return _doctorService.GetBookedExamination(dateTime, doctorType);
-        }
-
-        public ObservableCollection<Examination> GetFreeExaminations(DateTime startDate, DateTime endDate, DoctorType doctorType)
-        {
-            return _doctorService.GetFreeExaminations(startDate, endDate, doctorType);
+            return _emergencyService.GetFreeExaminations(startEndRange, doctorType);
         }
 
         public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
         {
             return _doctorService.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
         }
-        /*
-        public List<Examination> GetFreeGetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
+
+        public List<Examination> AvailableMoveExaminations(Examination examination)
         {
-            return _doctorService.GetFreeExaminations(doctor, startDate, endDate, priority);
-        }
-        */
-        public List<Examination> MoveExaminations(Examination examination)
-        {
-            return _doctorService.MoveExaminations(examination);
+            return _doctorService.AvailableMoveExaminations(examination);
         }
         public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType selectedSpec)
         {

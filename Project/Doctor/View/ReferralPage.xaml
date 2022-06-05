@@ -18,11 +18,11 @@
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="252" Canvas.Top="10" >IZDAJ UPUT</TextBlock>
         </Canvas>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="35,42,0,-72" >
-            <TextBlock Foreground="Black" Width="110">Pacijent:</TextBlock>
-            <TextBlock Foreground="Black" Text="{Binding NameSurnameBind}" Width="194" ></TextBlock>
+            <TextBlock FontWeight="Bold" Foreground="Black" Width="110" Height="44">Pacijent:</TextBlock>
+            <TextBlock Foreground="Black" Text="{Binding NameSurnameBind}" Width="194" Height="50" ></TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="35,95,0,-107">
-            <TextBlock Foreground="Black" Height="46" Width="280">Datum i vreme pregleda:</TextBlock>
+            <TextBlock FontWeight="Bold" Foreground="Black" Height="46" Width="280">Datum i vreme pregleda:</TextBlock>
             <TextBlock Foreground="Black" Text="{Binding DateBind}" Width="343" ></TextBlock>
         </StackPanel>
         <Border Grid.Row="3" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="35,186,41,-476">

@@ -28,8 +28,8 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <Button Grid.Row="2" x:Name="add" Content="Zakazi " Click="add_Click" Margin="65,228,501,-237" />
-        <Button Grid.Row="2" x:Name="update" Content="Izmeni " Click="update_Click" Margin="285,212,309,-221" />
-        <Button Grid.Row="2" x:Name="cancel" Content="Otkazi " Click="cancel_Click" Margin="472,227,80,-237" ></Button>
+        <Button Grid.Row="2" x:Name="add" Content="Zakazi" Click="add_Click" Margin="65,228,501,-237" />
+        <Button Grid.Row="2" x:Name="update" Content="Izmeni" Click="update_Click" Margin="285,212,309,-221" />
+        <Button Grid.Row="2" x:Name="cancel" Content="Otkazi" Click="cancel_Click" Margin="472,227,80,-237" ></Button>
     </Grid>
 </Page>

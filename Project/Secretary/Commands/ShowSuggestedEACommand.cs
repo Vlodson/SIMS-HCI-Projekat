@@ -25,7 +25,11 @@ namespace Secretary.Commands
         {
             _emergencyViewModel.SuggestedAppointments.Clear();
 
-            ObservableCollection<Examination> suggestedExams = _doctorController.GetFreeExaminations(_emergencyViewModel.DateTime, _emergencyViewModel.DateTime.AddHours(3), _emergencyViewModel.DoctorType);
+            ObservableCollection<DateTime> DateTimeRange = new ObservableCollection<DateTime>();
+            DateTimeRange.Add(_emergencyViewModel.DateTime);
+            DateTimeRange.Add(_emergencyViewModel.DateTime.AddHours(3));
+
+            ObservableCollection<Examination> suggestedExams = _doctorController.GetFreeExaminations(DateTimeRange, _emergencyViewModel.DoctorType);
 
             foreach (Examination exam in suggestedExams)
             {

@@ -1,3 +1,4 @@
+using HospitalMain.Enums;
 using Model;
 using Repository;
 using System;
@@ -25,18 +26,67 @@ namespace Service
         }
 
         public DoctorType GetDoctorsType(string doctorID)
+
         {
-            return _doctorRepo.GetDoctorsType(doctorID);
+            foreach (Doctor doctor in _doctorRepo.Doctors)
+            {
+                if (doctor.Id.Equals(doctorID))
+                {
+                    return doctor.Type;
+                }
+            }
+            return DoctorType.None;
+        }
+
+        public void SubstractDoctorsFreeDays(string doctorID, double days)
+
+        {
+            ObservableCollection<Doctor> doctors = _doctorRepo.Doctors;
+            foreach(Doctor doctor in doctors)
+            {
+                if (doctor.Id.Equals(doctorID))
+                {
+                    doctor.FreeDaysLeft = doctor.FreeDaysLeft - days;
+                    break;
+                }
+            }
         }
 
         public bool AddExaminationToDoctor(String doctorId, Examination examination)
         {
-            return _doctorRepo.AddExaminationToDoctor(doctorId, examination);
+            foreach (Doctor doctor in _doctorRepo.Doctors)
+            {
+                if (doctorId.Equals(doctor.Id))
+                {
+                    doctor.Examinations.Add(examination);
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public void EditDoctorsExamination(String doctorID, Examination newExamination)
+        public void EditDoctorsExamination(String doctorId, Examination newExamination)
         {
-            _doctorRepo.EditDoctorsExamination(doctorID, newExamination);
+            foreach (Doctor doctor in _doctorRepo.Doctors)
+            {
+                if (doctorId.Equals(doctor.Id))
+                {
+                    foreach (Examination exam in doctor.Examinations)
+                    {
+                        if (exam.Id.Equals(newExamination.Id))
+                        {
+                            exam.Id = newExamination.Id;
+                            exam.ExamRoomId = newExamination.ExamRoomId;
+                            exam.Duration = newExamination.Duration;
+                            exam.Date = newExamination.Date;
+                            exam.PatientId = newExamination.PatientId;
+                            exam.EType = newExamination.EType;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
 
         public void CreateExam(Examination exam)
@@ -46,12 +96,12 @@ namespace Service
 
         public void RemoveExam(Examination exam)
         {
-            _examinationRepo.DeleteExamination(exam.Id);
+            _examinationRepo.RemoveExamination(exam.Id);
         }
 
         public void RemoveExam(string examID)
         {
-            _examinationRepo.DeleteExamination(examID);
+            _examinationRepo.RemoveExamination(examID);
         }
 
         public void EditExams(string id, Examination exam)
@@ -59,14 +109,21 @@ namespace Service
             _examinationRepo.SetExamination(id,exam);
         }
 
-        public ObservableCollection<Doctor> GetDoctors()
+        public ObservableCollection<Doctor> GetAllDoctors()
         {
-            return _doctorRepo.GetAllDoctors();
+            return _doctorRepo.Doctors;
         }
 
         public Doctor GetDoctor(string id)
         {
-            return _doctorRepo.GetDoctor(id);
+            foreach (Doctor doctor in _doctorRepo.Doctors)
+            {
+                if (doctor.Id.Equals(id))
+                {
+                    return doctor;
+                }
+            }
+            return null;
         }
 
         //public ObservableCollection<Examination> GetDox(DateTime dateTime, DoctorType doctorType)
@@ -84,85 +141,63 @@ namespace Service
         //    }
         //}
 
-        //ova fja se poziva samo u slucaju kada svi doktori odredjene specijalizacije imaju zakazane termine kada je i hitan slucaj
-        //funkcija vraca prvi termin na koji naidje, a koji se poklapa sa hitnim slucajem
-        public Examination GetBookedExamination(DateTime dateTime, DoctorType doctorType)
+        public ObservableCollection<Examination> ExaminationsForDoctor(string id)
         {
-            ObservableCollection<Doctor> doctors = _doctorRepo.GetDoctorsByType(doctorType);
-
-            foreach(Doctor doctor in doctors)
+            ObservableCollection<Examination> examsForDoctor = new ObservableCollection<Examination>();
+            foreach (Examination exam in _examinationRepo.Examinations)
             {
-                foreach(Examination exam in _examinationRepo.ExaminationsForDoctor(doctor.Id))
+                if (exam.DoctorId.Equals(id))
+                    examsForDoctor.Add(exam);
+            }
+            return examsForDoctor;
+        }
+
+        public List<DateTime> GenerateExaminationTimes(DateTime startDate, DateTime endDate)
+        {
+            List<DateTime> examinationTimes = new List<DateTime>();
+            int days = Convert.ToInt32((endDate.Date - startDate.Date).TotalDays);
+            for (int i = 0; i < days + 1; ++i)
+            {
+                //za svaki dan generise koji sve termini postoje
+                DateTime start = new DateTime(startDate.Date.AddDays(i).Year, startDate.Date.AddDays(i).Month, startDate.Date.AddDays(i).Day, 7, 0, 0);
+                for (int j = 0; j < 16; ++j)
                 {
-                    if(exam.Date == dateTime)
-                    {
-                        return exam;
-                    }
+                    examinationTimes.Add(start.AddMinutes(j * 30));
                 }
             }
-            return null;
+            return examinationTimes;
         }
 
-        //ova funkcija vraca id prvog doktora na kojeg naidje odredjene specijalizacije, koji nema zakazan termin u terminu hitnog slucaja (jednostavnija opcija)
-        //u suprotnom vraca prazan string (ide se na tezu opciju, jer nema doktora koji ima slobodan termin u terminu hitnog slucaja) 
-        public string CheckForAvailableDateForEmergency(DateTime dateTime, DoctorType doctorType)
+        public bool CheckDoctorsExaminationExists(String doctorId, DateTime dateTime)
         {
-            ObservableCollection<Doctor> doctors = _doctorRepo.GetDoctorsByType(doctorType);
-            
-            foreach (Doctor doctor in doctors)
+            foreach (Examination doctorsExamination in ExaminationsForDoctor(doctorId))
             {
-                bool flag = false;
-                ObservableCollection<Examination> exams = _examinationRepo.ExaminationsForDoctor(doctor.Id);
-                foreach(Examination exam in exams)
+                if (doctorsExamination.Date == dateTime)
                 {
-                    if(exam.Date == dateTime)
-                    {
-                        flag = true;
-                        break;
-                    }
+                    return false;
                 }
-                if (flag)
+            }
+            return true;
+        }
+        public List<Examination> GenerateFreeExaminationTimes(List<DateTime> generatedExaminationTimes, Doctor doctor)
+        {
+            List<Examination> freeExaminationTimes = new List<Examination>();
+            foreach (DateTime dt in generatedExaminationTimes)
+            {
+                bool free = CheckDoctorsExaminationExists(doctor.Id, dt);
+                if (free)
                 {
-                    continue;
+                    freeExaminationTimes.Add(new Examination("", dt, "-1", 1, ExaminationTypeEnum.OrdinaryExamination, "", doctor.Id));
                 }
-                return doctor.Id;
             }
-            return "";
+            return freeExaminationTimes;
         }
 
-        //validacija kod hitnih slucajeva
-        public bool EmergencyValidation(DateTime dateTime, DoctorType doctorType)
-        {
-            if(CheckForAvailableDateForEmergency(dateTime, doctorType) != "")
-            {
-                return true;
-            } 
-            else
-            {
-                //dobavljam zakazan termin koji ce biti pomeren
-                Examination bookedExam = GetBookedExamination(dateTime, doctorType);
-
-                //cuvam njegove info u propertiju iz examRepo-a
-                _examinationRepo.TemporaryExam = bookedExam;
-
-                //brojac povecavam
-                _examinationRepo.ValidationCounter++;
-
-                return false;
-            }
-        }
-
-        //funkcija koja vraca slobodne termine u odredjenom periodu razlicitih doktora iste specijalizacije, kako bi se odabrao jedan od tih termina u koji ce biti pomeren pregled i pacijent koga je pomerio hitan slucaj
-        public ObservableCollection<Examination> GetFreeExaminations(DateTime startDate, DateTime endDate, DoctorType doctorType)
-        {
-            ObservableCollection<Doctor> doctors = _doctorRepo.GetDoctorsByType(doctorType);
-            ObservableCollection<Examination> listExams = _examinationRepo.GetFreeExaminations(startDate, endDate, doctors);
-            return listExams;
-        }
         public List<Examination> GenerateDoctorFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate)
         {
-            
-            List<Examination> examinations = _examinationRepo.GenerateDoctorFreeExaminations(doctor, startDate, endDate);
+
+            List<DateTime> examinationsTime = GenerateExaminationTimes(startDate, endDate);
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationsTime, doctor);
             List<Examination> examinationsWithRooms = new List<Examination>();
             foreach(Examination exam in examinations)
             {
@@ -176,7 +211,7 @@ namespace Service
             List<Room> patientRooms = new List<Room>();
             foreach (Room room in _roomRepo.Rooms)
             {
-                if (room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
+                if (room.Type == RoomTypeEnum.Patient_Room)
                 {
                     patientRooms.Add(room);
                 }
@@ -197,54 +232,18 @@ namespace Service
                 return false;
             }
         }
-        /*
-        public List<Examination> GetFreeExaminations(Doctor doctor, DateTime startDate, DateTime endDate, bool priority)
-        {
-            ObservableCollection<Doctor> doctors = _doctorRepo.GetAllDoctors();
-            List<Examination> listExaminations = _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
-            List<Examination> listExaminationsWithRooms = new List<Examination>();
-            //provera da li postoji slobodna prostorija za dati termin
-            
-            foreach (Examination exam in listExaminations)
-            {
-                List<Room> patientRooms = new List<Room>();
-                foreach(Room room in _roomRepo.Rooms)
-                {
-                    if(room.Type == HospitalMain.Enums.RoomTypeEnum.Patient_Room)
-                    {
-                        patientRooms.Add(room);
-                    }
-                }
-                foreach (Examination examinationExists in _examinationRepo.getExamByTime(exam.Date))
-                {
-                    int counter = 0;
-                    foreach (Room room in patientRooms)
-                    {
-                        if (room.Occupancy == true)
-                        {
-                            ++counter;
-                        }
-                    }
-                    if (counter < patientRooms.Count)
-                    {
-                        listExaminationsWithRooms.Add(exam);
-                    }
-                }
-                if(_examinationRepo.getExamByTime(exam.Date).Count == 0)
-                {
-                    listExaminationsWithRooms.Add(exam);
-                }
-                //exam.DoctorNameSurname = _doctorController.GetDoctor(doctor.Id).NameSurname;
-            }
-            //return _examinationRepo.GetFreeExaminationsForDoctor(doctor, startDate, endDate, priority, doctors);
-            return listExaminationsWithRooms;
-        }
-        */
 
-        public List<Examination> MoveExaminations(Examination examination)
+        public List<Examination> GetMovingDatesForExamination(Examination examination, Doctor doctor)
         {
-            Doctor doctor = _doctorRepo.GetDoctor(examination.DoctorId);
-            List<Examination> listForDoctor = _examinationRepo.GetMovingDatesForExamination(examination, doctor);
+            List<DateTime> examinationTimes = GenerateExaminationTimes(examination.Date.AddDays(1), examination.Date.AddDays(6));
+            List<Examination> examinations = GenerateFreeExaminationTimes(examinationTimes, doctor);
+            return examinations;
+        }
+
+        public List<Examination> AvailableMoveExaminations(Examination examination)
+        {
+            Doctor doctor = GetDoctor(examination.DoctorId);
+            List<Examination> listForDoctor = GetMovingDatesForExamination(examination, doctor);
             List<Examination> examinationsWithRooms = new List<Examination>();
             foreach (Examination exam in listForDoctor)
             {
@@ -255,13 +254,13 @@ namespace Service
 
         public ObservableCollection<Examination> ReadMyExams(string id)
         {
-            return _examinationRepo.ExaminationsForDoctor(id);
+            return ExaminationsForDoctor(id);
         }
 
         public ObservableCollection<Examination> ReadEndedExams()
         {
             ObservableCollection<Examination> endedExams = new ObservableCollection<Examination>();
-            foreach (Examination exam in _examinationRepo.examinationList)
+            foreach (Examination exam in _examinationRepo.Examinations)
             {
                 int res = DateTime.Compare(exam.Date, DateTime.Now);
                 if (res < 0)
@@ -275,12 +274,17 @@ namespace Service
 
         public bool occupiedDate(DateTime dt)
         {
-            return _examinationRepo.occupiedDate(dt);
+            foreach (Examination exam in _examinationRepo.Examinations)
+            {
+                if (exam.Date.Equals(dt))
+                    return true;
+            }
+            return false;
         }
         public ObservableCollection<string> GetDoctorsBySpecialization(DoctorType type)
         {
             ObservableCollection<string> list = new ObservableCollection<string>();
-            foreach (Doctor doctor in _doctorRepo.DoctorList)
+            foreach (Doctor doctor in _doctorRepo.Doctors)
             {
                 if (type == doctor.Type)
                 {

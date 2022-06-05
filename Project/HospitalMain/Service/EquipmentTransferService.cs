@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Repository;
 using Model;
+using Utility;
 
 namespace Service
 {
@@ -26,10 +28,6 @@ namespace Service
 
         public bool ScheduleTransfer(EquipmentTransfer equipmentTransfer)
         {
-            Room originRoom = _roomRepo.GetRoom(equipmentTransfer.OriginRoom.Id);
-            Room destinationRoom = _roomRepo.GetRoom(equipmentTransfer.DestinationRoom.Id);
-            Equipment equipment = _equipmentRepo.GetEquipment(equipmentTransfer.Equipment.Id);
-
             // make new schedule with no signature, cuz thats recording, and thats when the actual transfer happens
             _equipmentTransferRepo.NewEquipmentTransfer(equipmentTransfer);
 
@@ -49,7 +47,7 @@ namespace Service
                 return false;
 
             // change equipment room id
-            _equipmentRepo.SetEquipment(equipmentTransfer.Equipment.Id, equipmentTransfer.DestinationRoom.Id, equipmentTransfer.Equipment.Type);
+            _equipmentRepo.SetEquipment(equipmentTransfer.Equipment);
 
             // legacy code that worked with signature, that doesnt exist anymore
             _equipmentTransferRepo.SetEquipmentTransfer(equipmentTransfer); 
@@ -58,7 +56,7 @@ namespace Service
 
         public bool OccupiedAtTheTime(EquipmentTransfer equipmentTransfer)
         {
-            foreach(Examination examination in _examinationRepo.examinationList)
+            foreach(Examination examination in _examinationRepo.Examinations)
             {
                 if (equipmentTransfer.OriginRoom.Id == examination.ExamRoomId || equipmentTransfer.DestinationRoom.Id == examination.ExamRoomId)
                     if (equipmentTransfer.StartDate >= examination.Date && equipmentTransfer.EndDate <= examination.Date.AddMinutes(examination.Duration))
@@ -87,6 +85,19 @@ namespace Service
         public ObservableCollection<EquipmentTransfer> ReadAll()
         {
             return _equipmentTransferRepo.equipmentTransfers;
+        }
+
+        public String GenerateID()
+        {
+            return _equipmentTransferRepo.GenerateID();
+        }
+        public ObservableCollection<EquipmentTransfer> QueryEquipmentTransfers(String query)
+        {
+            List<EquipmentTransfer> equipmentTransferList = new List<EquipmentTransfer>(_equipmentTransferRepo.equipmentTransfers);
+
+            ObservableCollection<EquipmentTransfer> queriedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(QueryUtility.DoQuery<EquipmentTransfer>(equipmentTransferList, query));
+
+            return queriedEquipmentTransfers;
         }
 
         public bool LoadEquipmentTransfer()

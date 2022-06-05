@@ -42,7 +42,7 @@ namespace Doctor.View
             _examController = app.examController;
             _examRepo = app.examRepo;
 
-            if (File.Exists(_examRepo.dbPath))
+            if (File.Exists(_examRepo.DBPath))
                 _examRepo.LoadExamination();
 
             Examinations = _examController.ReadDoctorExams(MainWindow._uid);

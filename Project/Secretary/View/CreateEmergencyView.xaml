@@ -37,7 +37,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,25,0,0">
-                    <Button Width="180" Height="30" VerticalContentAlignment="Center" CommandParameter="CreateGuest" Command="{Binding GoToCreateGuestFormCommand}" Content="Napravi guest nalog" FontSize="18">
+                    <Button Width="200" Height="30" VerticalContentAlignment="Center" CommandParameter="CreateGuest" Command="{Binding GoToCreateGuestFormCommand}" Content="Napravi guest nalog" FontSize="18">
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5" />
@@ -67,7 +67,13 @@
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Soba" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18"></TextBox>
+                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" Height="30">
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,25,0,0">
@@ -82,6 +88,7 @@
 
                 <StackPanel Grid.Column="1" Grid.RowSpan="5" Grid.Row="1" Margin="35,25,25,25">
                     <ListView Height="335" BorderBrush="CornflowerBlue" BorderThickness="2" SelectedItem="{Binding SelectedAppointment}" ItemsSource="{Binding SuggestedAppointments}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Background="White">
+
                         <ListView.View>
                             <GridView>
                                 <GridView.ColumnHeaderContainerStyle>
@@ -93,7 +100,7 @@
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
                                 
-                                <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding Date}" Width="190"/>
+                                <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding DateForEmergency}" Width="190"/>
                                 <GridViewColumn Header="Doktor" Width="190" DisplayMemberBinding="{Binding Doctor, Converter={StaticResource doctorFullNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                             </GridView>
                         </ListView.View>

@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="Secretary.View.AddAppointmentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converters="clr-namespace:Secretary.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Secretary.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="White">
+    <UserControl.Resources>
+        <converters:DoctorFullNameConverter x:Key="DoctorFullNameConverter"/>
+        <converters:PatientFullNameConverter x:Key="PatientFullNameConverter"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <GroupBox Margin="20" Header="Zakazivanje novog pregleda" Style="{StaticResource GroupBoxTheme2}">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <DockPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Margin="20">
+
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                        <Label Content="Tip pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=ExamTypeComboBox}" SelectedValue="{Binding Path=ExaminationTypeEnum }"></ComboBox>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                        <Label Content="Specijalizacija" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=DoctorTypeComboBox}" SelectedValue="{Binding Path=DoctorType }"></ComboBox>
+                    </StackPanel>
+
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                        <Label Content="Datum i vreme pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <DatePicker SelectedDate="{Binding Date}" FontSize="18" Margin="0 5 60 0">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                    </StackPanel>
+
+                    <StackPanel >
+                        <Label Content="Broj sobe" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=RoomComboBox}" SelectedValue="{Binding Path=Room}"></ComboBox>
+                    </StackPanel>
+                    
+                </DockPanel>
+
+                <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="20 10 20 16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Content="Doktori" FontSize="20" FontWeight="SemiBold" Margin="-5 0 0 0"></Label>
+
+                    <ListBox Grid.Row="1" SelectionMode="Single" ItemsSource="{Binding DoctorListBox, NotifyOnSourceUpdated=True}" BorderThickness="1.5" Margin="0 5 0 0" FontSize="18" BorderBrush="Black">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" Text="{Binding Item, Converter={StaticResource DoctorFullNameConverter}}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+
+                    <Label Grid.Row="2" Content="Pacijenti" FontSize="20" FontWeight="SemiBold" Margin="-5 0 0 0"></Label>
+
+                    <ListBox Grid.Row="3" SelectionMode="Single" ItemsSource="{Binding PatientListBox, NotifyOnSourceUpdated=True}" BorderThickness="1.5" Margin="0 5 0 0" FontSize="18" BorderBrush="Black">
+                        <ListBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock FontSize="18" Text="{Binding Item, Converter={StaticResource PatientFullNameConverter}}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="IsSelected" Value="{Binding Mode=TwoWay, Path=IsSelected}"/>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                    </ListBox>
+                </Grid>
+
+                <StackPanel HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.Row="3" Margin="0 30 25 0">
+                    <Button Width="150" Height="30" Command="{Binding AddCommand}" CommandParameter="Add" FontSize="18" Content="Zakaži">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

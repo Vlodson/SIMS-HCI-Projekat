@@ -7,8 +7,13 @@
       mc:Ignorable="d" 
       d:DesignHeight="692" d:DesignWidth="710"
       Title="FreeDaysRequestPage">
-   <Grid>
-        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="62,139,60,69">
+    <Grid>
+        <StackPanel Orientation="Horizontal"  Margin="61,82,61,532">
+            <Button Content="Slobodni dani " Width="170" IsEnabled="False"/>
+            <Button Content="Oprema" Width="150" Command="{Binding EquipmentCommand}"/>
+            <Button Content="Promena radnog vremena" Width="267" Command="{Binding WorkHoursCommand}"/>
+        </StackPanel>
+        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,26">
             <Grid>
                 <DatePicker SelectedDate="{Binding Path=EndDate}" Margin="377,143,25,307"/>
                 <Label Content="Broj preostalih dana" HorizontalAlignment="Left" Margin="26,47,0,0" VerticalAlignment="Top"/>
@@ -19,12 +24,13 @@
                 <ComboBox ItemsSource="{Binding Reasons}" SelectedValue="{Binding SelectedItem,Mode = TwoWay}" Margin="171,242,264,200"></ComboBox>
                 <Label Content="Razlog" Margin="26,240,456,198"/>
                 <Button Content="Posalji" Template="{StaticResource BasicButton}" Margin="398,355,46,82" Command="{Binding SendRequestCommand}"/>
+                <Button Content="Pogledaj sve" Template="{StaticResource BasicButton}" Margin="74,355,340,82" Command="{Binding ShowAll}"/>
             </Grid>
 
 
         </Border>
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
-            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="173" Canvas.Top="10" VerticalAlignment="Center" >FORMA ZA ZAHTEV</TextBlock>
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="96" Canvas.Top="11" VerticalAlignment="Top" >ODABERI FORMU ZA ZAHTEV</TextBlock>
         </Canvas>
     </Grid>
 </Page>

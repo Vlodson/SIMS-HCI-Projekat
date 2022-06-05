@@ -1,0 +1,34 @@
+﻿<Window x:Class="Patient.View.ShowExaminations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Patient.View"
+        mc:Ignorable="d"
+        Title="ShowExaminations" Height="450" Width="799">
+    <Window.Resources>
+        <Style x:Key="Border" TargetType="Border">
+            <Setter Property="CornerRadius" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.Background>
+            <SolidColorBrush Color="#b2d8d8"/>
+        </Grid.Background>
+        <Label Content="Pregledi" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="examinations" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,84,10,40">
+            <DataGrid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vrsta" FontSize="18" Binding="{Binding DoctorTypeString}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" FontSize="18" Binding="{Binding DoctorNameSurname}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" FontSize="18" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="*"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Window>

@@ -24,22 +24,58 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Orientation="Horizontal" Margin="30,40,40,40" Grid.Column="0" Grid.Row="0">
-                        <Button Width="100" Height="30" Content="Dodaj" Command="{Binding AddAccountCommand}" CommandParameter="AddPatientUser"></Button>
+                        <Button Width="100" Height="30" Content="Dodaj" Command="{Binding AddAccountCommand}" CommandParameter="AddPatientUser">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5 0 0 5" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
                         <Button Width="100" Height="30" Content="Izmeni" Command="{Binding EditAccountCommand}" CommandParameter="EditPatientUser"></Button>
-                        <Button Width="100" Height="30" Content="Obriši" Command="{Binding DeleteAccountCommand}"></Button>
+                        <Button Width="100" Height="30" Content="Obriši" Command="{Binding DeleteAccountCommand}">
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="0 5 5 0" />
+                                </Style>
+                            </Button.Resources>
+                        </Button>
                     </StackPanel>
 
-                    <Grid Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBox VerticalContentAlignment="Center" Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}" Height="35" Width="200" Style="{StaticResource SearchTheme}" Background="LightBlue" BorderBrush="LightBlue" BorderThickness="1">
+                    <Border BorderThickness="0" Grid.Column="1" Grid.Row="0" Background="LightBlue" CornerRadius="8" Height="35" Width="200">
+                        <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        </TextBox>
-                    </Grid>
+                            <Image Grid.Column="0" Height="20" Width="20" Source="/Images/SearchWhite.png" Margin="5 0 0 0"/>
+                            <TextBox VerticalContentAlignment="Center"
+                                    Text="{Binding Filter, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="35"
+                                    Width="200"
+                                    Style="{StaticResource SearchTheme}"
+                                    Background="LightBlue"
+                                    BorderBrush="LightBlue"
+                                    Grid.Column="1">
+                            </TextBox>
+                        </Grid>
+                    </Border>
 
                     <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="30">
-                        <DataGrid x:Name="dataGridPatientAccounts" ItemsSource="{Binding DataGridCollection}" CanUserResizeColumns="False" CanUserResizeRows="False" RowStyle="{StaticResource DataGridRowTheme}" SelectedItem="{Binding PatientViewModel}" AutoGenerateColumns="False" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="LightBlue" IsReadOnly="True" BorderThickness="3">
+                        <DataGrid x:Name="dataGridPatientAccounts" HorizontalContentAlignment="Center" VerticalGridLinesBrush="Transparent" MinRowHeight="30" HorizontalGridLinesBrush="LightGray" ItemsSource="{Binding DataGridCollection}" CanUserResizeColumns="False" CanUserResizeRows="False" RowStyle="{StaticResource DataGridRowTheme}" SelectedItem="{Binding PatientViewModel}" AutoGenerateColumns="False" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="LightBlue" IsReadOnly="True" BorderThickness="3">
+                            <DataGrid.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </DataGrid.Resources>
+                            
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="FontSize" Value="14"></Setter>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
                                 </Style>
                             </DataGrid.ColumnHeaderStyle>
 

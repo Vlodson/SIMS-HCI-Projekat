@@ -61,7 +61,7 @@ namespace Doctor.View
             this.DateBind = exam.Date;
             this.selectedExam = exam;
 
-            if (File.Exists(_therapyRepo.dbPath))
+            if (File.Exists(_therapyRepo.DBPath))
                 _therapyRepo.LoadTherapy();
 
             therapyBind = _therapyController.findById(exam.Id);
@@ -89,7 +89,7 @@ namespace Doctor.View
             string description = textBoxDescription.Text;
             ObservableCollection<Therapy> therapies = _therapyController.findById(selectedExam.Id);
 
-            Report report = new Report(selectedExam.Id, description, selectedExam.Date, selectedExam.PatientId, selectedExam.DoctorId, therapies);
+            Report report = new Report(selectedExam.Id, description, selectedExam.Date, selectedExam.PatientId, selectedExam.DoctorId, therapies, "");
             _reportController.NewReport(report);
             _medicalRecordController.AddNewReport(selectedExam.PatientId, report);
             _reportRepo.SaveReport();
@@ -104,6 +104,11 @@ namespace Doctor.View
         {
             ReferralPage referralPage = new ReferralPage(selectedExam);
             NavigationService.Navigate(referralPage);
+        }
+        private void AddExcuses_Click(object sender, RoutedEventArgs e)
+        {
+            ExcusesPage excusesPage = new ExcusesPage(selectedExam);
+            NavigationService.Navigate(excusesPage);
         }
     }
 }

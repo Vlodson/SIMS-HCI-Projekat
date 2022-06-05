@@ -47,6 +47,8 @@ namespace HospitalMain.Model
             }
         }
 
+        public String ContentTable { get; set; }
+        public String DateTimeNotificationTable { get; set; }
         public Notification(string content, bool isRead, DateTime dateTimeNotification)
         {
             Content = content;

@@ -13,6 +13,10 @@ using System.Windows;
 using HospitalMain.Enums;
 using System.IO;
 using HospitalMain.Repository;
+using HospitalMain.Service;
+using System.Collections.ObjectModel;
+using Enums;
+using HospitalMain.Controller;
 
 namespace Patient
 {
@@ -44,7 +48,10 @@ namespace Patient
 
         public ReferralController ReferralController { get; set; }
 
+        public HospitalMain.Controller.PersonalNotificationController personalNotificationController { get; set; }
 
+        public QuestionnaireController QuestionnaireController { get; set; }
+        public NotificationController NotificationController { get; set; }
         public App()
         {
             //ovo obrisati pa zamneiti iz fajla kad do toga dodjem
@@ -67,12 +74,16 @@ namespace Patient
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+            var freeDaysRequestsRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             ReferralRepo referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
+            PersonalNotificationRepo personalNotificationRepo = new PersonalNotificationRepo(GlobalPaths.PersonalNotificationDBPath);
+            
 
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
 
-            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo);
+            FreeDaysRequestService requestService = new FreeDaysRequestService(freeDaysRequestsRepo, DoctorRepo);
+            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo, requestService);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo, patientRepository);
             RoomService roomService = new RoomService(roomRepo);
@@ -84,8 +95,15 @@ namespace Patient
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
 
+            PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);
+            QuestionnaireService questionnaireService = new QuestionnaireService(questionnaireRepo, PatientRepo);
+            NotificationService notificationService = new NotificationService(medicalRecordRepo);
+
+            EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
+
+
             ExamController = new ExamController(patientService, doctorService);
-            DoctorController = new DoctorController(doctorService);
+            DoctorController = new DoctorController(doctorService, emergencyService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
@@ -95,6 +113,9 @@ namespace Patient
             renovationController = new RenovationController(renovationService);
             medicineController = new MedicineController(medicineService);
             ReferralController = new ReferralController(referralService);
+            personalNotificationController = new HospitalMain.Controller.PersonalNotificationController(personalNotificationService);
+            QuestionnaireController = new QuestionnaireController(questionnaireService);
+            NotificationController = new NotificationController(notificationService);
 
             if (File.Exists(GlobalPaths.EquipmentDBPath))
                 EquipmentController.LoadEquipment();
@@ -117,9 +138,18 @@ namespace Patient
                 if (i > 10)
                     floor = 2;
 
-                RoomController.CreateRoom(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                EquipmentController.CreateEquipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                Room r = new Room(i.ToString(), floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
+                RoomController.CreateRoom(r);
+
+                Equipment e = new Equipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
+                EquipmentController.CreateEquipment(e);
                 RoomController.AddEquipment(i.ToString(), EquipmentController.ReadEquipment(i.ToString()));
+
+                ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
+                for (int j = 0; j < 4; j++)
+                    ingredients.Add((IngredientEnum)((j + i) % 5));
+
+                medicineController.NewMedicine(new Medicine(i.ToString(), "Lek" + i.ToString(), (MedicineTypeEnum)(i % 5), ingredients, StatusEnum.Pending, "d1", new DateTime(2020, 10, 10, 11, 11, 11), "No comment"));
             }
 
             for (int i = 0; i < 20; i++)

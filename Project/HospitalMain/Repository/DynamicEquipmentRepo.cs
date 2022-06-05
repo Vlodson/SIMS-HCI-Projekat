@@ -1,4 +1,5 @@
-﻿using HospitalMain.Model;
+﻿using HospitalMain.Enums;
+using HospitalMain.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,20 @@ namespace HospitalMain.Repository
         {
             DBPath = dbPath;
             DynamicEquipment = new ObservableCollection<DynamicEquipmentRequest>();
+
+            DynamicEquipmentRequest request1 = new DynamicEquipmentRequest("1", 15, DynamicEquipmentTypeEnum.Bandages, "", DateTime.Now);
+            DynamicEquipmentRequest request2 = new DynamicEquipmentRequest("2", 35, DynamicEquipmentTypeEnum.Iodine, "", DateTime.Now);
+            DynamicEquipmentRequest request3 = new DynamicEquipmentRequest("3", 40, DynamicEquipmentTypeEnum.Needles, "", DateTime.Now);
+
+            DynamicEquipment.Add(request1);
+            DynamicEquipment.Add(request2);
+            DynamicEquipment.Add(request3);
+
+            //SaveDynamicEquipment();
+            if (File.Exists(DBPath))
+            {
+                LoadDynamicEquipment();
+            }
         }
 
         public bool OrderNewDynamicEquipmentRequest(DynamicEquipmentRequest dynamicEquipmentRequest)
@@ -45,6 +60,7 @@ namespace HospitalMain.Repository
                     dynamicEquipment.Quantity = newOrder.Quantity;
                     dynamicEquipment.ShortDescription = newOrder.ShortDescription;
                     dynamicEquipment.EquipmentType = newOrder.EquipmentType;
+                    dynamicEquipment.OrderDate = newOrder.OrderDate;
                     break;
                 }
             }
@@ -64,12 +80,12 @@ namespace HospitalMain.Repository
             SaveDynamicEquipment();
         }
 
-        //public bool LoadDynamicEquipment()
-        //{
-        //    using FileStream fileStream = File.OpenRead(DBPath);
-        //    DynamicEquipment = JsonSerializer.Deserialize<ObservableCollection<DynamicEquipmentRequest>>(fileStream);
-        //    return true;
-        //}
+        public bool LoadDynamicEquipment()
+        {
+            using FileStream fileStream = File.OpenRead(DBPath);
+            DynamicEquipment = JsonSerializer.Deserialize<ObservableCollection<DynamicEquipmentRequest>>(fileStream);
+            return true;
+        }
 
         public bool SaveDynamicEquipment()
         {

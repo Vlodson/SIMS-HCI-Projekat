@@ -2,6 +2,7 @@
 using HospitalMain.Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,21 @@ namespace HospitalMain.Controller
         public DynamicEquipmentController(DynamicEquipmentService dynamicEquipmentService)
         {
             _dynamicEquipmentService = dynamicEquipmentService;
+        }
+        
+        public void CheckIfOrderArrived()
+        {
+            _dynamicEquipmentService.CheckIfOrderArrived();
+        }
+
+        public int generateID()
+        {
+            return _dynamicEquipmentService.generateID();
+        }
+
+        public ObservableCollection<DynamicEquipmentRequest> GetAllRequests()
+        {
+            return _dynamicEquipmentService.getAllRequests();
         }
 
         public bool NewOrder(DynamicEquipmentRequest dynamicEquipmentRequest)
