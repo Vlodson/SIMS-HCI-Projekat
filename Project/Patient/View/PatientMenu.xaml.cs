@@ -30,12 +30,15 @@ namespace Patient.View
     /// </summary>
     public partial class PatientMenu : Page
     {
+        private int counter = 0;
+
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
         private ExamController _examinationController;
         private DoctorController _doctorController;
         private DoctorRepo _doctorRepo;
         private PersonalNotificationController _personalNotificationController;
+        private NotificationController _notificationController;
         
         public NavigationService NavService { get; set; }
 
@@ -66,6 +69,8 @@ namespace Patient.View
             _doctorController = app.DoctorController;
             _doctorRepo = app.DoctorRepo;
             _personalNotificationController = app.personalNotificationController;
+            _notificationController = app.NotificationController;
+
             NavService = this.Menu.NavigationService;
             
             _doctorRepo.SaveDoctor();
@@ -138,11 +143,12 @@ namespace Patient.View
             PatientController patientController = app.PatientController;
             MedicalRecordController medicalRecordController = app.MedicalRecordController;
             PersonalNotificationController personalNotificationController = app.personalNotificationController;
+            NotificationController notificationController = app.NotificationController;
 
             Model.Patient patient = patientController.ReadPatient(patientId);
             MedicalRecord patientMedicalRecord = medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
             
-            foreach(Notification notification in medicalRecordController.GetPatientNotifications(patientMedicalRecord))
+            foreach(Notification notification in notificationController.GetPatientNotifications(patientMedicalRecord))
             {
                 if(notification.DateTimeNotification.AddMinutes(10).Minute == DateTime.Now.Minute)
                 {
@@ -219,6 +225,43 @@ namespace Patient.View
             HighlightDay(button, date);
         }
 
+        private void ChangeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if(counter != 0)
+            {
+                DateTime selected = (DateTime)MenuCalendar.SelectedDate;
+                ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+                DateTime today = DateTime.Now;
+
+                List<Examination> examinationsForDate = new List<Examination>();
+                foreach (Examination exam in examinations)
+                {
+                    if (exam.Date.Date == selected.Date)
+                    {
+                        Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                        if (doctor.Type == DoctorType.Pulmonology)
+                        {
+                            exam.DoctorTypeString = "Pulmologija";
+                        }
+                        else if (doctor.Type == DoctorType.Cardiology)
+                        {
+                            exam.DoctorTypeString = "Kardiologija";
+                        }
+                        //ovde dodati neurologiju i dermatologiju
+                        else
+                        {
+                            exam.DoctorTypeString = "Opšta praksa";
+                        }
+                        examinationsForDate.Add(exam);
+                    }
+                }
+                ShowExaminations showExaminations = new ShowExaminations(examinationsForDate);
+                showExaminations.ShowDialog();
+            }
+
+            ++counter;
+        }
+
         private void GradingsClick(object sender, RoutedEventArgs e)
         {
             //Menu.Content = new Questionnaires();
@@ -245,6 +288,12 @@ namespace Patient.View
             //Menu.Content = new Alarms();
             Page alarms = new Alarms();
             this.NavService.Navigate(alarms);
+        }
+
+        private void ReportClick(object sender, RoutedEventArgs e)
+        {
+            Page reportPage = new ReportPage();
+            this.NavService.Navigate(reportPage);
         }
     }
 }

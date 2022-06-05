@@ -16,13 +16,15 @@ namespace Secretary.Commands
     {
         private FreeDaysRequestViewModel _freeDaysRequestViewModel;
         private FreeDaysRequestController _freeDaysRequestController;
+        private DoctorController _doctorController;
         private MainViewModel _mainViewModel;
 
-        public ApproveRequestCommand(FreeDaysRequestViewModel freeDaysRequestViewModel, FreeDaysRequestController freeDaysRequestController, MainViewModel mainViewModel)
+        public ApproveRequestCommand(FreeDaysRequestViewModel freeDaysRequestViewModel, FreeDaysRequestController freeDaysRequestController, MainViewModel mainViewModel, DoctorController doctorController)
         {
             _freeDaysRequestViewModel = freeDaysRequestViewModel;
             _freeDaysRequestController = freeDaysRequestController;
             _mainViewModel = mainViewModel;
+            _doctorController = doctorController;
 
             _freeDaysRequestViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -38,6 +40,10 @@ namespace Secretary.Commands
             //promeniti status zahteva koji je pikovan
             FreeDaysRequest request = new FreeDaysRequest(_freeDaysRequestViewModel.FreeDaysRequest.ID, StatusEnum.Approved, _freeDaysRequestViewModel.FreeDaysRequest.DoctorID, _freeDaysRequestViewModel.FreeDaysRequest.StartDate, _freeDaysRequestViewModel.FreeDaysRequest.EndDate, _freeDaysRequestViewModel.FreeDaysRequest.Reason, _freeDaysRequestViewModel.RejectionReason);
             _freeDaysRequestController.EditRequestStatus(request);
+
+            //oduzimanje slobodnih dana doktoru
+            double days = (_freeDaysRequestViewModel.FreeDaysRequest.EndDate - _freeDaysRequestViewModel.FreeDaysRequest.StartDate).TotalDays;
+            _doctorController.SubstractDoctorsFreeDays(_freeDaysRequestViewModel.FreeDaysRequest.DoctorID, days);
 
             //update tabele
             if(parameter.ToString() == "Approve")

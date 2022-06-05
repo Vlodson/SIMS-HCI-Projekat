@@ -38,6 +38,14 @@ namespace Patient.ViewModel
         private int saturday;
         private int sunday;
 
+        private bool mondayChecked;
+        private bool tuesdayChecked;
+        private bool wednesdayChecked;
+        private bool thursdayChecked;
+        private bool fridayChecked;
+        private bool saturdayChecked;
+        private bool sundayChecked;
+
         public MyICommand AddPersonalNotificationCommand { get; set; }
         public MyICommand SelectionChangedMondayCommand { get; set; }
 
@@ -172,6 +180,105 @@ namespace Patient.ViewModel
                 OnPropertyChanged("Sunday");
             }
         }
+
+        public bool MondayChecked
+        {
+            get
+            {
+                return mondayChecked;
+            }
+            set
+            {
+                if(mondayChecked == value) return;
+                mondayChecked = value;
+                OnPropertyChanged("MondayChecked");
+            }
+        }
+
+        public bool TuesdayChecked
+        {
+            get
+            {
+                return tuesdayChecked;
+            }
+            set
+            {
+                if (tuesdayChecked == value) return;
+                tuesdayChecked = value;
+                OnPropertyChanged("TuesdayChecked");
+            }
+        }
+
+        public bool WednesdayChecked
+        {
+            get
+            {
+                return wednesdayChecked;
+            }
+            set
+            {
+                if (wednesdayChecked == value) return;
+                wednesdayChecked = value;
+                OnPropertyChanged("WednesdayChecked");
+            }
+        }
+
+        public bool ThursdayChecked
+        {
+            get
+            {
+                return thursdayChecked;
+            }
+            set
+            {
+                if (thursdayChecked == value) return;
+                thursdayChecked = value;
+                OnPropertyChanged("ThursdayChecked");
+            }
+        }
+
+        public bool FridayChecked
+        {
+            get
+            {
+                return fridayChecked;
+            }
+            set
+            {
+                if (fridayChecked == value) return;
+                fridayChecked = value;
+                OnPropertyChanged("FridayChecked");
+            }
+        }
+
+        public bool SaturdayChecked
+        {
+            get
+            {
+                return saturdayChecked;
+            }
+            set
+            {
+                if (saturdayChecked == value) return;
+                saturdayChecked = value;
+                OnPropertyChanged("SaturdayChecked");
+            }
+        }
+
+        public bool SundayChecked
+        {
+            get
+            {
+                return sundayChecked;
+            }
+            set
+            {
+                if (sundayChecked == value) return;
+                sundayChecked = value;
+                OnPropertyChanged("SundayChecked");
+            }
+        }
+
         public PersonalNotificationViewModel(Window window)
         {
             App app = Application.Current as App;
@@ -192,6 +299,14 @@ namespace Patient.ViewModel
             //Saturday = -1;
             //Sunday = -1;
 
+            //mondayChecked = true;
+            //tuesdayChecked = true;
+            //wednesdayChecked = true;
+            //thursdayChecked = true;
+            //fridayChecked = true;
+            //saturdayChecked = true;
+            //sundayChecked = true;
+
             Text = "Naslov alarma";
             thisWindow = window;
         }
@@ -199,35 +314,65 @@ namespace Patient.ViewModel
         public void OnAddPersonalNotification()
         {
             List<int> selectedDays = new List<int>();
-            if (Monday == 0)
+            //if (Monday == 0)
+            //{
+            //    selectedDays.Add(1);
+            //}
+            //if (Tuesday == 0)
+            //{
+            //    selectedDays.Add(2);
+            //}
+            //if (Wednesday == 0)
+            //{
+            //    selectedDays.Add(3);
+            //}
+            //if (Thursday == 0)
+            //{
+            //    selectedDays.Add(4);
+            //}
+            //if (Friday == 0)
+            //{
+            //    selectedDays.Add(5);
+            //}
+            //if (Saturday == 0)
+            //{
+            //    selectedDays.Add(6);
+            //}
+            //if (Sunday == 0)
+            //{
+            //    selectedDays.Add(0);
+            //}
+            //checkbox
+            if (MondayChecked == true)
             {
                 selectedDays.Add(1);
             }
-            if (Tuesday == 0)
+            if (TuesdayChecked == true)
             {
                 selectedDays.Add(2);
             }
-            if (Wednesday == 0)
+            if (WednesdayChecked == true)
             {
                 selectedDays.Add(3);
             }
-            if (Thursday == 0)
+            if (ThursdayChecked == true)
             {
                 selectedDays.Add(4);
             }
-            if (Friday == 0)
+            if (FridayChecked == true)
             {
                 selectedDays.Add(5);
             }
-            if (Saturday == 0)
+            if (SaturdayChecked == true)
             {
                 selectedDays.Add(6);
             }
-            if (Sunday == 0)
+            if (SundayChecked == true)
             {
                 selectedDays.Add(0);
             }
             PersonalNotification personalNotification = new PersonalNotification(Login.loggedId, Text, selectedDays, new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Hours, Minutes, 0));
+            personalNotification.TimeString = personalNotification.Time.ToString("HH:mm");
             _personalNotificationController.AddPersonalNotification(personalNotification);
             thisWindow.Close();
         }

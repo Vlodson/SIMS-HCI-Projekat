@@ -67,6 +67,15 @@ namespace Controller
         {
             return _renovationService.ReadAll();
         }
+        public String GenerateID()
+        {
+            return _renovationService.GenerateID();
+        }
+
+        public ObservableCollection<Renovation> QueryRenovations(String query)
+        {
+            return _renovationService.QueryRenovations(query);
+        }
 
         public bool LoadRenovation()
         {

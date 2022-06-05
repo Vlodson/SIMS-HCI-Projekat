@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Secretary.View.BookView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Secretary.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
+    <Grid>
+        <TabControl Margin="25" FontSize="18">
+            <TabItem Header="Pregledi">
+                <ContentControl Content="{Binding AppointmentsTab}"/>
+            </TabItem>
+            <TabItem Header="Sastanci">
+                <ContentControl Content="{Binding MeetingsTab}"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -105,6 +105,10 @@ namespace Admin.ViewModel
                     Renovations.Add(new FriendlyRenovation(renovationItem));
                 return;
             }
+
+            ObservableCollection<Renovation> queriedRenovations = renovationController.QueryRenovations(Search);
+            foreach (Renovation queriedItem in queriedRenovations)
+                Renovations.Add(new FriendlyRenovation(queriedItem));
         }
 
         public void OnNavigation(String view)
@@ -129,6 +133,12 @@ namespace Admin.ViewModel
                     break;
                 case "equipment":
                     mainWindow.CurrentView = new EquipmentTableView();
+                    break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
                     break;
             }
         }

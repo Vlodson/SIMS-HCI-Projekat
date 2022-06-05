@@ -104,6 +104,10 @@ namespace Admin.ViewModel
                 return;
             }
 
+            ObservableCollection<EquipmentTransfer> queriedEquipmentTransfers = equipmentTransferController.QueryEquipmentTransfers(Search);
+            foreach (EquipmentTransfer equipmentTransferItem in queriedEquipmentTransfers)
+                EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransferItem));
+
         }
         public void OnNavigation(String view)
         {
@@ -127,6 +131,12 @@ namespace Admin.ViewModel
                     break;
                 case "renovations":
                     mainWindow.CurrentView = new RenovationTableView();
+                    break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
                     break;
             }
         }

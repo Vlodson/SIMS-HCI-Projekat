@@ -83,6 +83,15 @@ namespace Repository
             return clipboardEquipmentTransfer;
         }
 
+        public String GenerateID()
+        {
+            int id = 0;
+            if (equipmentTransfers.Count > 0)
+                id = equipmentTransfers.Max(r => int.Parse(r.Id)) + 1;
+
+            return id.ToString();
+        }
+
         public bool LoadEquipmentTransfer()
         {
             using FileStream fileStream = File.OpenRead(dbPath);

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using Repository;
 using Model;
+using Utility;
 
 namespace Service
 {
@@ -83,6 +85,19 @@ namespace Service
         public ObservableCollection<EquipmentTransfer> ReadAll()
         {
             return _equipmentTransferRepo.equipmentTransfers;
+        }
+
+        public String GenerateID()
+        {
+            return _equipmentTransferRepo.GenerateID();
+        }
+        public ObservableCollection<EquipmentTransfer> QueryEquipmentTransfers(String query)
+        {
+            List<EquipmentTransfer> equipmentTransferList = new List<EquipmentTransfer>(_equipmentTransferRepo.equipmentTransfers);
+
+            ObservableCollection<EquipmentTransfer> queriedEquipmentTransfers = new ObservableCollection<EquipmentTransfer>(QueryUtility.DoQuery<EquipmentTransfer>(equipmentTransferList, query));
+
+            return queriedEquipmentTransfers;
         }
 
         public bool LoadEquipmentTransfer()

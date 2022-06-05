@@ -31,7 +31,22 @@ namespace Controller
         {
             _roomService.EditRoom(newRoom);
         }
-      
+
+        public ObservableCollection<Room> GetAllRoomsByExamType(ExaminationTypeEnum examinationTypeEnum)
+        {
+            return _roomService.GetAllRoomsByExamType(examinationTypeEnum);
+        }
+
+        public ObservableCollection<Room> GetAllPatientRooms()
+        {
+            return _roomService.GetAllPatientRooms();
+        }
+
+        public ObservableCollection<Room> GetAllOperationRooms()
+        {
+            return _roomService.GetAllOperationRooms();
+        }
+
         public Room ReadRoom(String roomId)
         {
             return _roomService.ReadRoom(roomId);
@@ -75,6 +90,16 @@ namespace Controller
         public void RemoveSelectedRoom()
         {
             _roomService.RemoveSelectedRoom();
+        }
+
+        public String GenerateID()
+        {
+            return _roomService.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            return _roomService.QueryRooms(query);
         }
 
         public bool LoadRoom()

@@ -31,7 +31,7 @@ namespace Secretary
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel(logInViewModel);
+            DataContext = new MainViewModel(this, logInViewModel);
             //CRUDAppointmentsCommand = new NavigationCommand(navigationStore);
         }
 

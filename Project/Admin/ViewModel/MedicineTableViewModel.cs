@@ -107,6 +107,10 @@ namespace Admin.ViewModel
                     Medicines.Add(new FriendlyMedicine(medicineItem));
                 return;
             }
+
+            ObservableCollection<Medicine> queriedMedicine = medicineController.QueryMedicine(Search);
+            foreach (Medicine queriedMedicineItem in queriedMedicine)
+                Medicines.Add(new FriendlyMedicine(queriedMedicineItem));
         }
 
         public void OnNavigation(String view)
@@ -131,6 +135,12 @@ namespace Admin.ViewModel
                     break;
                 case "renovations":
                     mainWindow.CurrentView = new RenovationTableView();
+                    break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
                     break;
             }
         }

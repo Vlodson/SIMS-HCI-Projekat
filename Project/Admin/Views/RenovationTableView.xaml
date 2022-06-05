@@ -50,6 +50,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <!-- buttons -->
             <Button Command="{Binding NavigationCommand}" CommandParameter="back" Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
@@ -64,7 +65,11 @@
                 <Image Source="..\Icons\remove-16.png" />
             </Button>
 
-            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="help" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="10, 0">
+                <Image Source="..\Icons\question-mark-16.png" />
+            </Button>
+
+            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="5" Margin="0">
                 <Image Source="..\Icons\logout-16.png" />
             </Button>
         </Grid>
@@ -75,8 +80,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" />
-            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1">
+            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" IsEnabled="False" />
+            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1" IsEnabled="False" >
                 <Image Source="..\Icons\search-16.png" />
             </Button>
         </Grid>
@@ -107,25 +112,29 @@
             </ListBox>
         </Grid>
 
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Row="4" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content ="Equipment" Command="{Binding NavigationCommand}" CommandParameter="equipment" />
-            <Button Grid.Column="1" Content="Rooms" Command="{Binding NavigationCommand}" CommandParameter="rooms" />
-            <Button Grid.Column="2" Content="Medicine" Command="{Binding NavigationCommand}" CommandParameter="medicine" />
-            <Button Grid.Column="3" Content="Tranasfers" Command="{Binding NavigationCommand}" CommandParameter="transfers" />
-            <Button Grid.Column="4" Background="DarkGray" >
-                <Button.Content>
-                    <TextBlock Text="Renovation" TextDecorations="Underline" />
-                </Button.Content>
-            </Button>
-        </Grid>
+                <Button Grid.Column="0" Content ="Equipment" Command="{Binding NavigationCommand}" CommandParameter="equipment" />
+                <Button Grid.Column="1" Content="Rooms" Command="{Binding NavigationCommand}" CommandParameter="rooms" />
+                <Button Grid.Column="2" Content="Medicine" Command="{Binding NavigationCommand}" CommandParameter="medicine" />
+                <Button Grid.Column="3" Content="Tranasfers" Command="{Binding NavigationCommand}" CommandParameter="transfers" />
+                <Button Grid.Column="4" Background="DarkGray" >
+                    <Button.Content>
+                        <TextBlock Text="Renovation" TextDecorations="Underline" />
+                    </Button.Content>
+                </Button>
+                <Button Grid.Column="5" Content="Answers" Command="{Binding NavigationCommand}" CommandParameter="answers" />
+            </Grid>
+        </ScrollViewer>
 
     </Grid>
 

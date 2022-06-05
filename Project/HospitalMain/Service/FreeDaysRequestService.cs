@@ -24,20 +24,6 @@ namespace Service
             return _requestRepo.NewRequest(request);
         }
 
-        public ObservableCollection<FreeDaysRequest> GetAllPendingRequests()
-        {
-            ObservableCollection<FreeDaysRequest> pendingRequests = new ObservableCollection<FreeDaysRequest>();
-            foreach(FreeDaysRequest request in _requestRepo.Requests)
-            {
-                if(request.Status == Enums.StatusEnum.Pending)
-                {
-                    pendingRequests.Add(request);
-                }
-            }
-
-            return pendingRequests;
-        }
-
         public int GenerateID()
         {
             int maxID = 0;
@@ -53,6 +39,34 @@ namespace Service
             }
 
             return maxID + 1;
+        }
+
+        public ObservableCollection<FreeDaysRequest> GetAllPendingRequests()
+        {
+            ObservableCollection<FreeDaysRequest> pendingRequests = new ObservableCollection<FreeDaysRequest>();
+            foreach(FreeDaysRequest request in _requestRepo.Requests)
+            {
+                if(request.Status == Enums.StatusEnum.Pending)
+                {
+                    pendingRequests.Add(request);
+                }
+            }
+
+            return pendingRequests;
+        }
+
+        public ObservableCollection<FreeDaysRequest> GetAllAcceptedRequests()
+        {
+            ObservableCollection<FreeDaysRequest> acceptedRequests = new ObservableCollection<FreeDaysRequest>();
+            foreach(FreeDaysRequest request in _requestRepo.Requests)
+            {
+                if(request.Status == Enums.StatusEnum.Approved)
+                {
+                    acceptedRequests.Add(request);
+                }
+            }
+
+            return acceptedRequests;
         }
 
         public void EditRequestStatus(FreeDaysRequest request)

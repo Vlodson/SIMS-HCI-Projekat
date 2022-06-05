@@ -89,6 +89,10 @@ namespace Admin.ViewModel
                     Rooms.Add(new FriendlyRoom(roomItem));
                 return;
             }
+
+            ObservableCollection<Room> queriedRooms = roomController.QueryRooms(Search);
+            foreach (Room room in queriedRooms)
+                Rooms.Add(new FriendlyRoom(room));
         }
 
         public void OnNavigation(String view)
@@ -113,6 +117,12 @@ namespace Admin.ViewModel
                     break;
                 case "renovations":
                     mainWindow.CurrentView = new RenovationTableView();
+                    break;
+                case "answers":
+                    mainWindow.CurrentView = new RatingsView();
+                    break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
                     break;
             }
         }

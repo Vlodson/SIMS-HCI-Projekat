@@ -1,8 +1,10 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 using Model;
 using Repository;
+using Utility;
 using HospitalMain.Enums;
 
 namespace Service
@@ -32,7 +34,47 @@ namespace Service
         {
             _repo.SetRoom(newRoom);
         }
+
+        public ObservableCollection<Room> GetAllRoomsByExamType(ExaminationTypeEnum examinationTypeEnum)
+        {
+            if(examinationTypeEnum == ExaminationTypeEnum.OrdinaryExamination)
+            {
+                return GetAllPatientRooms();
+            } else if (examinationTypeEnum == ExaminationTypeEnum.Surgery)
+            {
+                return GetAllOperationRooms();
+            }
+            return null;
+        }
+
+        public ObservableCollection<Room> GetAllOperationRooms()
+        {
+            ObservableCollection<Room> operationRooms = new ObservableCollection<Room>();
+            foreach(Room room in _repo.Rooms)
+            {
+                if(room.Type == RoomTypeEnum.Operation_Room)
+                {
+                    operationRooms.Add(room);
+                }
+            }
+
+            return operationRooms;
+        }
       
+        public ObservableCollection<Room> GetAllPatientRooms()
+        {
+            ObservableCollection<Room> patientRooms = new ObservableCollection<Room>();
+            foreach(Room room in _repo.Rooms)
+            {
+                if(room.Type == RoomTypeEnum.Patient_Room)
+                {
+                    patientRooms.Add(room);
+                }
+            }
+
+            return patientRooms;
+        }
+
         public Room ReadRoom(String roomId)
         {
             return _repo.GetRoom(roomId);
@@ -76,6 +118,20 @@ namespace Service
         public void RemoveSelectedRoom()
         {
             _repo.RemoveSelectedRoom();
+        }
+
+        public String GenerateID()
+        {
+            return _repo.GenerateID();
+        }
+
+        public ObservableCollection<Room> QueryRooms(String query)
+        {
+            List<Room> roomList = new List<Room>(_repo.Rooms);
+
+            ObservableCollection<Room> queriedRooms = new ObservableCollection<Room>(QueryUtility.DoQuery<Room>(roomList, query));
+
+            return queriedRooms;
         }
 
         public bool LoadRoom()

@@ -30,7 +30,7 @@ namespace Secretary.ViewModel
         {
             _mainViewModel = mainViewModel;
 
-            EquipmentTab = new OrderDynamicEquipmentViewModel(_mainViewModel);
+            EquipmentTab = new EquipmentViewModel(_mainViewModel);
             AbsenceTab = new FreeDaysRequestViewModel(_mainViewModel);
         }
 

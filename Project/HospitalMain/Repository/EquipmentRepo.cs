@@ -62,6 +62,15 @@ namespace Repository
             return false;
         }
 
+        public String GenerateID()
+        {
+            int id = 0;
+            if (Equipment.Count > 0)
+                id = Equipment.Max(r => int.Parse(r.Id)) + 1;
+
+            return id.ToString();
+        }
+
         public bool LoadEquipment()
         {
             using FileStream fileStream = File.OpenRead(dbPath);

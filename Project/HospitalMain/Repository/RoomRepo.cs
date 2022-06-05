@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.IO;
+using System.Linq;
 
 using HospitalMain.Enums;
 using Model;
@@ -23,6 +24,8 @@ namespace Repository
             this.dbPath = db_path;
             this._equipmentRepo = equipmentRepo;
             this.Rooms = new ObservableCollection<Room>();
+
+
         }
       
         public bool NewRoom(Room room)
@@ -120,6 +123,15 @@ namespace Repository
         public void RemoveSelectedRoom()
         {
             selectedRoom = null;
+        }
+
+        public String GenerateID()
+        {
+            int id = 0;
+            if (Rooms.Count > 0)
+                id = Rooms.Max(r => int.Parse(r.Id)) + 1;
+
+            return id.ToString();
         }
 
         public bool LoadRoom()
