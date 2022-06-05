@@ -100,7 +100,7 @@
                                     </Style>
                                 </GridView.ColumnHeaderContainerStyle>
                                 
-                                <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding Date}" Width="190"/>
+                                <GridViewColumn Header="Termin" DisplayMemberBinding="{Binding DateForEmergency}" Width="190"/>
                                 <GridViewColumn Header="Doktor" Width="190" DisplayMemberBinding="{Binding Doctor, Converter={StaticResource doctorFullNameConverter}, UpdateSourceTrigger=PropertyChanged}"/>
                             </GridView>
                         </ListView.View>

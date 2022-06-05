@@ -30,10 +30,6 @@
                 <view:CRUDMedicalRecord/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type viewmodels:CRUDAppointmentsViewModel}">
-                <view:CRUDApointments/>
-            </DataTemplate>
-
             <DataTemplate DataType="{x:Type viewmodels:AccountsViewModel}">
                 <view:AccountsView/>
             </DataTemplate>

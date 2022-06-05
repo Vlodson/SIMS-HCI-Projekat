@@ -65,7 +65,8 @@ namespace HospitalMain.Service
 
         public void CheckIfOrderArrived()
         {
-            foreach(DynamicEquipmentRequest request in getAllRequests())
+            ObservableCollection<DynamicEquipmentRequest> requests = new ObservableCollection<DynamicEquipmentRequest>(getAllRequests());
+            foreach(DynamicEquipmentRequest request in requests)
             {
                 if(request.OrderDate.AddDays(3) < DateTime.Now)
                 {

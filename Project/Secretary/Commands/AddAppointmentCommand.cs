@@ -32,7 +32,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _examController.AppointmentDoctorValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
+            return _examController.CheckIfDoctorIsOnVacation(_addAppointmentViewModel.Doctor.Id, _addAppointmentViewModel.Date) && _examController.AppointmentDoctorValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomValidation(_addAppointmentViewModel.Date, _addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)
@@ -40,19 +40,21 @@ namespace Secretary.Commands
             int examID = _examController.generateID(_examController.GetExaminations());
             int duration = 30;
 
-            foreach(SelectableItemWrapper<Doctor> doctor in _addAppointmentViewModel.DoctorListBox)
-            {
-                if (doctor.IsSelected)
-                {
-                    _addAppointmentViewModel.Doctor = doctor.Item;
-                }
-            }
+            changeSelectedDoctor();
 
             foreach(SelectableItemWrapper<Patient> patient in _addAppointmentViewModel.PatientListBox)
             {
                 if (patient.IsSelected)
                 {
                     _addAppointmentViewModel.Patient = patient.Item;
+                }
+            }
+
+            foreach (SelectableItemWrapper<Doctor> doctor in _addAppointmentViewModel.DoctorListBox)
+            {
+                if (doctor.IsSelected)
+                {
+                    _addAppointmentViewModel.Doctor = doctor.Item;
                 }
             }
 
@@ -69,9 +71,21 @@ namespace Secretary.Commands
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor))
+            //changeSelectedDoctor();
+            if (e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor) || e.PropertyName == nameof(AddAppointmentViewModel.DoctorListBox))
             {
                 OnCanExecutedChanged();
+            }
+        }
+
+        private void changeSelectedDoctor()
+        {
+            foreach (SelectableItemWrapper<Doctor> doctor in _addAppointmentViewModel.DoctorListBox)
+            {
+                if (doctor.IsSelected)
+                {
+                    _addAppointmentViewModel.Doctor = doctor.Item;
+                }
             }
         }
     }

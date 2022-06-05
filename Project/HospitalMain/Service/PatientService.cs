@@ -17,17 +17,19 @@ namespace Service
         private readonly DoctorRepo _doctorRepo;
         private readonly RoomRepo _roomRepo;
         private readonly QuestionnaireRepo _questionaryRepo;
+        private readonly FreeDaysRequestService _freeDaysRequestService;
 
         private int maxCancelling;
         private int maxAdding;
 
-        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo)
+        public PatientService(PatientRepo patientRepo, ExaminationRepo examinationRepo, DoctorRepo doctorRepo, RoomRepo roomRepo, QuestionnaireRepo questionnaireRepo, FreeDaysRequestService freeDaysRequestService)
         {
             _patientRepo = patientRepo;
             _examinationRepo = examinationRepo;
             _doctorRepo = doctorRepo;
             _roomRepo = roomRepo;
             _questionaryRepo = questionnaireRepo;
+            _freeDaysRequestService = freeDaysRequestService;
 
             maxCancelling = 5;
             maxAdding = 10;
@@ -89,6 +91,19 @@ namespace Service
         public Model.Patient GetPatient(String id)
         {
             return _patientRepo.GetPatient(id);
+        }
+
+        public bool CheckIfDoctorIsOnVacation(String doctorID, DateTime dateTime)
+        {
+            ObservableCollection<FreeDaysRequest> requests = _freeDaysRequestService.GetAllAcceptedRequests();
+            foreach(FreeDaysRequest freeDaysRequest in requests)
+            {
+                if(freeDaysRequest.DoctorId.Equals(doctorID) && dateTime >= freeDaysRequest.StartDate && dateTime <= freeDaysRequest.EndDate)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool AppointmentRoomValidation(DateTime date, String RoomID)

@@ -42,6 +42,7 @@ namespace Admin
             var doctorRepo = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             var patientRepo = new PatientRepo(GlobalPaths.PatientsDBPath);
             var questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
+            var freeDaysRequestsRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             
             var roomService = new RoomService(roomRepo);
             var equipmentService = new EquipmentService(equipmentRepo, roomRepo);
@@ -51,7 +52,8 @@ namespace Admin
             var medicineService = new MedicineService(medicineRepo);
             var doctorService = new DoctorService(doctorRepo, examinationRepo, roomRepo, patientRepo);
             var emergencyService = new EmergencyService(examinationRepo, doctorRepo);
-            var patientService = new PatientService(patientRepo, examinationRepo, doctorRepo, roomRepo, questionnaireRepo);
+            var freeDaysRequestsService = new FreeDaysRequestService(freeDaysRequestsRepo, doctorRepo);
+            var patientService = new PatientService(patientRepo, examinationRepo, doctorRepo, roomRepo, questionnaireRepo, freeDaysRequestsService);
             var answerService = new AnswerService(patientService, doctorService);
 
             roomController = new RoomController(roomService);
