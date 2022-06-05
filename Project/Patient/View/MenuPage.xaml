@@ -68,7 +68,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Images/background1.jpg"/>
         </Grid.Background>
-        <Button Content="Termini" Style="{StaticResource Buttons}" FontSize="32" Width="250" Height="64" Click="Button_Click" HorizontalAlignment="Left" Margin="28,257,0,0" VerticalAlignment="Top">
+        <Button Content="Termini" Style="{StaticResource Buttons}" FontSize="32" Width="250" Height="64" Click="Button_Click" HorizontalAlignment="Left" Margin="28,225,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -76,35 +76,35 @@
             </Button.Resources>
         </Button>
 
-        <Button Content="Karton" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="28,124,0,0" VerticalAlignment="Top" Click="MedicalREcordClick">
+        <Button Content="Karton" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="28,92,0,0" VerticalAlignment="Top" Click="MedicalREcordClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Ocene" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="28,400,0,0" VerticalAlignment="Top" Click="GradingsClick" >
+        <Button Content="Ocene" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="28,398,0,0" VerticalAlignment="Top" Click="GradingsClick" >
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="28,574,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.496,0.578">
+        <Button Content="Podsetnici" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="28,540,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.496,0.578">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Izveštaji" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Center" Margin="0,574,0,0" VerticalAlignment="Top" Click="ReportClick">
+        <Button Content="Izveštaji" Style="{StaticResource Buttons}" Width="250" Height="66" HorizontalAlignment="Left" Margin="333,540,0,0" VerticalAlignment="Top" Click="ReportClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Tutorijal" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="699,574,0,0" VerticalAlignment="Top">
+        <Button Content="Tutorijal" Style="{StaticResource Buttons}" Width="250" Height="65" HorizontalAlignment="Left" Margin="670,542,0,0" VerticalAlignment="Top">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -112,6 +112,6 @@
             </Button.Resources>
         </Button>
 
-        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="316,124,0,185"/>
+        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,92,10,217"/>
     </Grid>
 </Page>

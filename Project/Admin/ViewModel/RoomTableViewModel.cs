@@ -121,6 +121,9 @@ namespace Admin.ViewModel
                 case "answers":
                     mainWindow.CurrentView = new RatingsView();
                     break;
+                case "help":
+                    mainWindow.CurrentView = new QueryHelpView(mainWindow.CurrentView);
+                    break;
             }
         }
 

@@ -36,6 +36,8 @@ namespace ViewModel
         private readonly DoctorRepo _doctorRepo;
 
         public MyICommand SendRequestCommand { get; set; }
+        public MyICommand EquipmentCommand { get; set; }
+        public MyICommand WorkHoursCommand { get; set; }
         public MyICommand ShowAll { get; set; }
 
 
@@ -71,6 +73,8 @@ namespace ViewModel
             FreeDaysLeft = doctor.FreeDaysLeft.ToString();
 
             SendRequestCommand = new MyICommand(OnSend, CanSend);
+            EquipmentCommand = new MyICommand(OnEquipment);
+            WorkHoursCommand = new MyICommand(OnWorkHours);
             ShowAll = new MyICommand(OnExecute);
 
         }
@@ -137,6 +141,16 @@ namespace ViewModel
         {
             ShowAllRequests requestsPage = new ShowAllRequests();
             DoctorNavBar.navigation.Navigate(requestsPage);
+        }
+        public void OnEquipment()
+        {
+            EquipmentRequestPage requestPage = new EquipmentRequestPage();
+            DoctorNavBar.navigation.Navigate(requestPage);
+        }
+        public void OnWorkHours()
+        {
+            WorkHoursRequest requestPage = new WorkHoursRequest();
+            DoctorNavBar.navigation.Navigate(requestPage);
         }
 
     }

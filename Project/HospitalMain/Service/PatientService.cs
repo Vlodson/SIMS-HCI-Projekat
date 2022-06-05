@@ -213,7 +213,7 @@ namespace Service
             return _examinationRepo.NewExamination(examination);
         }
 
-        public Room GetFreeRoomFromRooms(List<Room> patientRooms)
+        public Room GetFreeRoom(List<Room> patientRooms)
         {
             Room getRoom = new Room();
             foreach (Room room in patientRooms)
@@ -243,12 +243,12 @@ namespace Service
             }
             return getRoom;
         }
-        public Room GetFirstRoom(DateTime dateTime, List<Room> patientRooms)
+        public Room GetFirstFreeRoom(DateTime dateTime, List<Room> patientRooms)
         {
             Room getRoom = new Room();
             if(GetExamByTime(dateTime).Count == 0)
             {
-                getRoom=GetFreeRoomFromRooms(patientRooms);
+                getRoom=GetFreeRoom(patientRooms);
             }
             else
             {
@@ -261,7 +261,7 @@ namespace Service
             Room getRoom = new Room();
             List<Room> patientRooms = _roomRepo.Rooms.Where(r => r.Type == RoomTypeEnum.Patient_Room).ToList();
 
-            getRoom = GetFirstRoom(newDate, patientRooms);
+            getRoom = GetFirstFreeRoom(newDate, patientRooms);
             return getRoom;
         }
         public bool CreateExam(Examination examination, DateTime newDate)
@@ -272,8 +272,6 @@ namespace Service
             patient.NumberNewExams += 1;
             return _examinationRepo.NewExamination(examination);
         }
-
-        
 
         public void RemoveExam(Examination examination)
         {
@@ -339,43 +337,6 @@ namespace Service
             return returnList;
         }
 
-        public Questionnaire GetHospitalQuestionnaire()
-        {
-            foreach (Questionnaire questionnaire in _questionaryRepo.questionnaireList)
-            {
-                if (questionnaire.IdDoctor.Equals("hospital"))
-                {
-                    return questionnaire;
-                }
-            }
-            return null;
-        }
-
-        public Questionnaire GetDoctorQuestionnaire()
-        {
-            foreach (Questionnaire questionnaire in _questionaryRepo.questionnaireList)
-            {
-                if (!questionnaire.IdDoctor.Equals("hospital"))
-                {
-                    return questionnaire;
-                }
-            }
-            return null;
-        }
-        public bool CheckAnswerAvailable(String doctorId, MedicalRecord medicalRecord)
-        {
-            Answer existing = ContainsAnswer(medicalRecord.ID, doctorId);
-            if (existing == null) return true;
-            if (existing != null && existing.CounterGrades >= medicalRecord.Reports.Where(report => report.DoctorId.Equals(doctorId)).Count())
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
         public Answer ContainsAnswer(String idPatient, String idAnswer)
         {
             foreach (Answer answer in GetPatient(idPatient).Answers)
@@ -388,21 +349,7 @@ namespace Service
             return null;
         }
 
-        public void AddAnswer(String idPatient, Answer answer)
-        {
-            Answer existing = ContainsAnswer(idPatient, answer.IdDoctor);
-            if (existing == null)
-            {
-                answer.CounterGrades = 1;
-            }
-            else
-            {
-                answer.CounterGrades = existing.CounterGrades + 1;
-                GetPatient(idPatient).Answers.Remove(existing);
-            }
-            GetPatient(idPatient).Answers.Add(answer);
-            _patientRepo.SavePatient();
-        }
+
 
         public bool DoctorExists(String doctorId, List<String> doctors)
         {

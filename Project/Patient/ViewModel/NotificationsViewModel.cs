@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using Model;
 using Patient.View;
@@ -28,6 +29,8 @@ namespace Patient.ViewModel
 
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
+        private NotificationController _notificationController;
+
         private ObservableCollection<Notification> showingNotifications;
         private Notification selectedNotification;
 
@@ -64,6 +67,7 @@ namespace Patient.ViewModel
             App app = Application.Current as App;
             _patientController = app.PatientController;
             _medicalRecordController = app.MedicalRecordController;
+            _notificationController = app.NotificationController;
 
             RemoveNotificationsCommand = new MyICommand(OnRemoveNotifications, CanRemoveNotification);
 
@@ -76,7 +80,7 @@ namespace Patient.ViewModel
             //    showingNotifications.Add(notification.Content);
             //}
             //showingNotifications = _medicalRecordController.GetNotificationTimes(patientMedicalRecord);
-            showingNotifications = new ObservableCollection<Notification>(_medicalRecordController.GetPatientNotifications(patientMedicalRecord));
+            showingNotifications = new ObservableCollection<Notification>(_notificationController.GetPatientNotifications(patientMedicalRecord));
         }
 
         private bool CanRemoveNotification()
@@ -90,7 +94,7 @@ namespace Patient.ViewModel
             MedicalRecord patientMedicalRecord = _medicalRecordController.GetMedicalRecord(patient.MedicalRecordID);
 
             //showingNotifications.Remove(notification.Content);
-            _medicalRecordController.EditReadNotification(patientMedicalRecord, SelectedNotification);
+            _notificationController.EditReadNotification(patientMedicalRecord, SelectedNotification);
             ShowingNotifications.Remove(SelectedNotification);
             
         }

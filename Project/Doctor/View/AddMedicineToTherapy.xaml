@@ -10,10 +10,10 @@
       Title="AddMedicineToTherapy">
 
     <Grid Margin="10,10,0,0">
-        <TextBlock Foreground="Black" Margin="36,117,571,530" >Pacijent:</TextBlock>
+        <TextBlock FontWeight="Bold" Foreground="Black" Margin="36,117,571,530" >Pacijent:</TextBlock>
         <TextBlock Foreground="Black" Margin="136,117,382,533" Text="{Binding PatientBind}" ></TextBlock>
-        <TextBlock Foreground="Black" Margin="36,157,423,494" >Datum i vreme pregleda:</TextBlock>
-        <TextBlock Foreground="Black" Margin="292,153,30,494" Text="{Binding DateBind}"></TextBlock>
+        <TextBlock FontWeight="Bold" Foreground="Black" Margin="36,157,398,494" >Datum i vreme pregleda:</TextBlock>
+        <TextBlock Foreground="Black" Margin="307,153,30,494" Text="{Binding DateBind}"></TextBlock>
 
 
         <Grid Margin="174,268,30,51">
@@ -43,7 +43,7 @@
                     </TextBox>
                     <TextBox Name ="textBoxPerDay" Width="141" Height="34" TextWrapping="Wrap" Margin="164,110,219,86" Validation.ErrorTemplate="{StaticResource errorTemplate}">
                         <TextBox.Text>
-                            <Binding Path="Dur" Mode="TwoWay" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="Per" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
                                     <validation:IntValueRule/>
                                 </Binding.ValidationRules>

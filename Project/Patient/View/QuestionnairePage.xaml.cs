@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using HospitalMain.Model;
 using Model;
 using System;
@@ -29,7 +30,8 @@ namespace Patient.View
         public List<Doctor> DoctorsAvailable { get; set; }
         public PatientController _patientController;
         public DoctorController _doctorController;
-        MedicalRecordController _medicalRecordController;
+        public MedicalRecordController _medicalRecordController;
+        public QuestionnaireController _questionnaireController;
 
         public QuestionnairePage()
         {
@@ -38,8 +40,9 @@ namespace Patient.View
             _patientController = app.PatientController;
             _doctorController = app.DoctorController;
             _medicalRecordController = app.MedicalRecordController;
+            _questionnaireController = app.QuestionnaireController;
 
-            HospitalQuestionnary = _patientController.GetHospitalQuestionnaire().Questions;
+            HospitalQuestionnary = _questionnaireController.GetHospitalQuestionnaire().Questions;
 
             bolnica1.Content = HospitalQuestionnary[0];
             bolnica2.Content = HospitalQuestionnary[1];
@@ -47,7 +50,7 @@ namespace Patient.View
             bolnica4.Content = HospitalQuestionnary[3];
             bolnica5.Content = HospitalQuestionnary[4];
 
-            DoctorQuestionnary = _patientController.GetDoctorQuestionnaire().Questions;
+            DoctorQuestionnary = _questionnaireController.GetDoctorQuestionnaire().Questions;
             doktor1.Content = DoctorQuestionnary[0];
             doktor2.Content = DoctorQuestionnary[1];
             doktor3.Content = DoctorQuestionnary[2];
@@ -179,7 +182,7 @@ namespace Patient.View
             }
 
             Answer hospitalAnswer = new Answer("hospital", answers, 0);
-            _patientController.AddAnswer(Login.loggedId, hospitalAnswer);
+            _questionnaireController.AddAnswer(Login.loggedId, hospitalAnswer);
             QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
             questionnairesAccepted.ShowDialog();
         }
@@ -276,10 +279,10 @@ namespace Patient.View
 
                 int index = Doctors.SelectedIndex;
                 Doctor doctor = DoctorsAvailable[index];
-                if (_patientController.CheckAnswerAvailable(doctor.Id, _medicalRecordController.GetMedicalRecord(Login.loggedId)))
+                if (_questionnaireController.CheckAnswerAvailable(doctor.Id, _medicalRecordController.GetMedicalRecord(Login.loggedId)))
                 {
                     Answer doctorAnswer = new Answer(doctor.Id, answers, 0);
-                    _patientController.AddAnswer(Login.loggedId, doctorAnswer);
+                    _questionnaireController.AddAnswer(Login.loggedId, doctorAnswer);
                     QuestionnairesAccepted questionnairesAccepted = new QuestionnairesAccepted();
                     questionnairesAccepted.ShowDialog();
                 }

@@ -41,6 +41,7 @@ namespace Doctor.View
         public ObservableCollection<Medicine> MedicinesBind { get; set; }
         private Examination selectedExam;
         private int dur;
+        private int per;
 
         private TherapyController _therapyController;
         private ReportPage _reportPage;
@@ -80,8 +81,20 @@ namespace Doctor.View
                 OnPropertyChanged("Dur");
             }
         }
+        public int Per
+        {
+            get
+            {
+                return per;
+            }
+            set
+            {
+                per = value;
+                OnPropertyChanged("Per");
+            }
+        }
 
-        
+
 
         public AddMedicineToTherapy(ReportPage reportPage, Examination exam)
         {
@@ -104,12 +117,13 @@ namespace Doctor.View
         private void add_Click(object sender, RoutedEventArgs e)
         {
             if(!comboBoxMedicine.Text.Equals("") && !textBoxDuration.Text.Equals("") && !textBoxPerDay.Text.Equals("")){
-                string medicine = comboBoxMedicine.Text;
+                Medicine medicine = (Medicine)comboBoxMedicine.SelectedItem;
+                string med = medicine.Name;
                 int duration = Int32.Parse(textBoxDuration.Text);
                 int perDay = Int32.Parse(textBoxPerDay.Text);
                 bool prescription = (bool)checkBoxPrescription.IsChecked;
 
-                Therapy therapy = new Therapy(selectedExam.Id, medicine, duration, perDay, prescription);
+                Therapy therapy = new Therapy(selectedExam.Id, med, duration, perDay, prescription);
                 _therapyController.NewTherapy(therapy);
                 _reportPage = new ReportPage(selectedExam);
                 NavigationService.Navigate(_reportPage);
