@@ -129,7 +129,7 @@ namespace Model
             Ingredients = ingredients;
             Status = status;
             ReviewingDoctor = reviewingDoctor;
-            Comment = comment;
+            comment = comment;
         }
 
         public Medicine(Medicine medicine)
@@ -141,7 +141,7 @@ namespace Model
             this.ReviewingDoctor = medicine.ReviewingDoctor;
             this.ArrivalDate = medicine.ArrivalDate;
             this.Status = medicine.Status;
-            this.Comment = medicine.Comment;
+            this.comment = medicine.comment;
         }
     }
 }

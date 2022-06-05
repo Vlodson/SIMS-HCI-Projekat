@@ -38,8 +38,9 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
+            Patient patient = new Patient(_editAccountViewModel.ID, _editAccountViewModel.UCIN, _editAccountViewModel.Name, _editAccountViewModel.Surname, _editAccountViewModel.PhoneNumber, _editAccountViewModel.Mail, _editAccountViewModel.Adress, _editAccountViewModel.Gender, Convert.ToDateTime(_editAccountViewModel.DateOfBirth), _editAccountViewModel.MedicalRecordID, false, new List<Answer>(), DateTime.Now.ToString("MM"), 0, 0);
             //izmena pacijenta
-            _patientController.EditPatient(_editAccountViewModel.ID, _editAccountViewModel.UCIN, _editAccountViewModel.Name, _editAccountViewModel.Surname, _editAccountViewModel.PhoneNumber, _editAccountViewModel.Mail, _editAccountViewModel.Adress, _editAccountViewModel.Gender, Convert.ToDateTime(_editAccountViewModel.DateOfBirth), _editAccountViewModel.MedicalRecordID);
+            _patientController.EditPatient(patient);
 
             //update liste pacijenata
             UpdatePatients();

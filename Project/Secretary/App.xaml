@@ -1,12 +1,14 @@
 ﻿<Application x:Class="Secretary.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:Microsoft.UI.Xaml.Controls"
              xmlns:local="clr-namespace:Secretary"
              xmlns:viewmodels="clr-namespace:Secretary.ViewModel"
              xmlns:viewmodel="clr-namespace:Secretary"
              xmlns:view="clr-namespace:Secretary.View"
              StartupUri="LogInWindow.xaml">
     <Application.Resources>
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/SignInButtonStyle.xaml"/>
@@ -79,7 +81,47 @@
             <DataTemplate DataType="{x:Type viewmodels:FreeDaysRequestViewModel}">
                 <view:TabRequestView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewmodels:EquipmentViewModel}">
+                <view:EquipmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:GraphicViewModel}">
+                <view:StorageGraphView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:BookViewModel}">
+                <view:BookView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddMeetingViewModel}">
+                <view:AddMeetingView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:AddAppointmentViewModel}">
+                <view:AddAppointmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomePageViewModel}">
+                <view:HomePage/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:HomePageMeetingsViewModel}">
+                <view:HomePageMeetings/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditAppointmentViewModel}">
+                <view:EditAppointmentView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:EditMeetingViewModel}">
+                <view:EditMeetingView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

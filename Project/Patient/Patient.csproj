@@ -78,8 +78,13 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Syncfusion.Pdf.WinForms" Version="20.1.0.58" />
+
   </ItemGroup>
 
   <ItemGroup>

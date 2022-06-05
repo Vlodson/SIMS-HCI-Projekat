@@ -52,6 +52,7 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <!-- buttons -->
             <Button Command="{Binding NavigationCommand}" CommandParameter="back" Style="{StaticResource ButtonWithIcon}" Grid.Column="0" Margin="0">
@@ -66,7 +67,11 @@
                 <Image Source="..\Icons\remove-16.png" />
             </Button>
 
-            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="0">
+            <Button Command="{Binding NavigationCommand}" CommandParameter="help" Style="{StaticResource ButtonWithIcon}" Grid.Column="4" Margin="10, 0">
+                <Image Source="..\Icons\question-mark-16.png" />
+            </Button>
+
+            <Button Command="{Binding NavigationCommand}" CommandParameter="logout" Style="{StaticResource ButtonWithIcon}" Grid.Column="5" Margin="0">
                 <Image Source="..\Icons\logout-16.png" />
             </Button>
         </Grid>
@@ -77,8 +82,8 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" />
-            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1">
+            <TextBox x:Name="queryBox" Text="{Binding Path=Search}" Grid.Column="0" Background="#F5F5F5" IsEnabled="False" />
+            <Button Command="{Binding QueryCommand}" Background="Transparent" Grid.Column="1" IsEnabled="False" >
                 <Image Source="..\Icons\search-16.png" />
             </Button>
         </Grid>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Secretary.View.HomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:scheduler="clr-namespace:Syncfusion.UI.Xaml.Scheduler;assembly=Syncfusion.SfScheduler.WPF"
+             xmlns:local="clr-namespace:Secretary.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Margin="0 15 0 0" Content="Kalendar zakazanih pregleda" HorizontalContentAlignment="Center" FontSize="30" FontWeight="SemiBold"></Label>
+
+        <DockPanel VerticalAlignment="Bottom">
+            <RadioButton Content="Pregledi" IsChecked="True" Command="{Binding ShowAppointmentsCommand}" CommandParameter="Appointments" Height="25" FontSize="16" VerticalContentAlignment="Center" Margin="30 0 0 10"/>
+            <RadioButton Content="Sastanci" Command="{Binding ShowMeetingsCommand}" CommandParameter="Meetings" Height="25" FontSize="16" Margin="30 0 0 10" VerticalContentAlignment="Center"/>
+            <Button DockPanel.Dock="Right" FontSize="16" Height="25" Width="100" Command="{Binding DeleteAppointmentCommand}" Margin="0 0 30 10" Content="Obriši">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="0 10 10 0"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button DockPanel.Dock="Right" FontSize="16" Command="{Binding EditAppointmentCommand}" CommandParameter="EditAppointment" Height="25" Width="100" Margin="0 0 0 10" HorizontalAlignment="Right" Content="Izmeni">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10 0 0 10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </DockPanel>
+
+        <scheduler:SfScheduler x:Name="homeScheduler" SelectedDate="{Binding SelectedDate}" Grid.Row="2" AppointmentEditFlag="None" AllowedViewTypes="Week" ViewType="Week" Margin="30 0 30 30" ShowDatePickerButton="True" BorderBrush="Black" BorderThickness="2">
+            <scheduler:SfScheduler.DaysViewSettings>
+                <scheduler:DaysViewSettings StartHour="7" EndHour="15" TimeIntervalHeight="70" TimeIntervalSize="80" TimeRulerSize="50" TimeRulerFormat="HH:mm"/>
+            </scheduler:SfScheduler.DaysViewSettings>
+        </scheduler:SfScheduler>
+    </Grid>
+</UserControl>

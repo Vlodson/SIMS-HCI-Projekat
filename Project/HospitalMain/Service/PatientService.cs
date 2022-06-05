@@ -64,7 +64,19 @@ namespace Service
             return maxID + 1;
         }
 
-        public ObservableCollection<Examination> GetAllExaminations()
+        public Examination getExamByTime(DateTime dateTime)
+        {
+            foreach(Examination e in _examinationRepo.Examinations)
+            {
+                if(e.Date == dateTime)
+                {
+                    return e;
+                }
+            }
+            return null;
+        }
+
+        public ObservableCollection<Examination> getAllExaminations()
         {
             return _examinationRepo.Examinations;
         }

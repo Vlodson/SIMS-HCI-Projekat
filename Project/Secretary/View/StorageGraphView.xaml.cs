@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Secretary.View
 {
     /// <summary>
-    /// Interaction logic for AddApointment.xaml
+    /// Interaction logic for StorageGraphView.xaml
     /// </summary>
-    public partial class AddApointment : Window
+    public partial class StorageGraphView : UserControl
     {
-        public AddApointment()
+        public StorageGraphView()
         {
             InitializeComponent();
         }
-
-
     }
 }
