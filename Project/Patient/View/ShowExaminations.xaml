@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="ShowExaminations" Height="450" Width="684">
+        Title="ShowExaminations" Height="450" Width="799">
     <Window.Resources>
         <Style x:Key="Border" TargetType="Border">
             <Setter Property="CornerRadius" Value="5"/>
@@ -15,7 +15,7 @@
         <Grid.Background>
             <SolidColorBrush Color="#b2d8d8"/>
         </Grid.Background>
-        <Label Content="Pregledi na dan" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pregledi" FontSize="32" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="examinations" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,84,10,40">
             <DataGrid.Resources>
                 <Style TargetType="Border">
