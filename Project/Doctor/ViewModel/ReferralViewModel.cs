@@ -131,6 +131,8 @@ namespace ViewModel
         {
             Referral referral = new Referral(selectedDoctor, selectedExam.PatientId, (new Random()).Next(10000).ToString(), selectedSpec, selectedExam.Date);
             _referralController.NewReferral(referral);
+            ReportPage reportPage = new ReportPage(selectedExam);
+            DoctorNavBar.navigation.Navigate(reportPage);
         }
 
     }

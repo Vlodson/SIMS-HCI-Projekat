@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HospitalMain\HospitalMain.csproj" />
+    <ProjectReference Include="..\Secretary\Secretary.csproj" />
   </ItemGroup>
 
 </Project>

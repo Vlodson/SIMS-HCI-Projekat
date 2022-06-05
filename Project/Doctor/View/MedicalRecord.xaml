@@ -5,12 +5,34 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Doctor.View"
       mc:Ignorable="d" 
-      d:DesignHeight="395" d:DesignWidth="452"
+      d:DesignHeight="692" d:DesignWidth="710"
       Title="MedicalRecord">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="IZVESTAJI ODABRANOG PACIJENTA" VerticalAlignment="Top" FontSize="20"/>
-        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,158,34,118" >
+        <TextBlock Margin="34,17,646,644" FontWeight="Bold">Id:</TextBlock>
+        <TextBlock Margin="300,53,284,608" FontWeight="Bold">Krvna grupa:</TextBlock>
+        <TextBlock Margin="519,10,102,651" FontWeight="Bold">Alergeni:</TextBlock>
+        <TextBlock Margin="300,160,329,501" FontWeight="Bold">Telefon:</TextBlock>
+        <TextBlock Margin="34,53,633,609" FontWeight="Bold">Ime:</TextBlock>
+        <TextBlock Margin="34,88,591,573" FontWeight="Bold">Prezime:</TextBlock>
+        <TextBlock Margin="34,124,518,537" FontWeight="Bold">Datum rodjenja:</TextBlock>
+        <TextBlock Margin="34,160,613,501" FontWeight="Bold">JMBG:</TextBlock>
+        <TextBlock Margin="300,88,336,573" FontWeight="Bold">Adresa:</TextBlock>
+        <TextBlock Margin="300,124,343,538" FontWeight="Bold">E-mail:</TextBlock>
+        <TextBlock Margin="300,17,374,644" FontWeight="Bold">Pol:</TextBlock>
+        <TextBlock Margin="69,17,557,644" Name="idLbl"></TextBlock>
+        <TextBlock Margin="431,53,197,608" Name="bloodLbl"></TextBlock>
+        <TextBlock Margin="611,10,10,651" ></TextBlock>
+        <TextBlock Margin="381,160,178,501" Name="phoneLbl"></TextBlock>
+        <TextBlock Margin="90,53,495,609" Name="nameLbl"></TextBlock>
+        <TextBlock Margin="124,88,501,573" Name="surnameLbl"></TextBlock>
+        <TextBlock Margin="192,124,415,537" Name="dobLbl"></TextBlock>
+        <TextBlock Margin="102,160,421,501" Name="ucinLbl"></TextBlock>
+        <TextBlock Margin="382,88,203,573" Name="addressLbl"></TextBlock>
+        <TextBlock Margin="372,124,203,538" Name="emailLbl"></TextBlock>
+        <TextBlock Margin="355,17,319,644" Name="genderLbl"></TextBlock>
+        <TextBlock FontWeight="Bold" Margin="246,215,247,446">IZVJESTAJI PACIJENTA</TextBlock>
+        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,277,34,114" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
@@ -19,30 +41,11 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" Margin="0,277,0,0">
+        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" Margin="0,251,0,0" Height="412" VerticalAlignment="Top">
             <TextBox Name ="txtDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}" VerticalAlignment="Center" Width="283" Height="90" Margin="37,0,0,0"/>
-            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="342,84,0,0" VerticalAlignment="Top" Click="Save_Click"/>
+            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="546,354,0,0" VerticalAlignment="Top" Click="Save_Click"/>
         </Grid>
-        <Label Content="Id:" HorizontalAlignment="Left" Margin="34,44,0,0" VerticalAlignment="Top"/>
-        <Label Content="Ucin:" HorizontalAlignment="Left" Margin="309,70,0,0" VerticalAlignment="Top"/>
-        <Label Content="Ime:" HorizontalAlignment="Left" Margin="34,96,0,0" VerticalAlignment="Top"/>
-        <Label Content="Prezime:" HorizontalAlignment="Left" Margin="34,70,0,0" VerticalAlignment="Top"/>
-        <Label Content="Broj telefona:" HorizontalAlignment="Left" Margin="309,44,0,0" VerticalAlignment="Top"/>
-        <Label Content="E-mail:" HorizontalAlignment="Left" Margin="188,122,0,0" VerticalAlignment="Top"/>
-        <Label Content="Adresa:" HorizontalAlignment="Left" Margin="188,96,0,0" VerticalAlignment="Top"/>
-        <Label Content="Pol:" HorizontalAlignment="Left" Margin="188,44,0,0" VerticalAlignment="Top"/>
-        <Label Content="Datum rođenja:" HorizontalAlignment="Left" Margin="34,122,0,0" VerticalAlignment="Top"/>
-        <Label Content="Krvna grupa:" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top"/>
-        <Label Name="surnameLbl" HorizontalAlignment="Left" Margin="94,81,0,0" VerticalAlignment="Top" Width="67"/>
-        <Label Name="bloodLbl" HorizontalAlignment="Left" Margin="263,70,0,0" VerticalAlignment="Top"/>
-        <Label Name="emailLbl" HorizontalAlignment="Left" Margin="241,122,0,0" VerticalAlignment="Top" Width="81"/>
-        <Label Name="phoneLbl" HorizontalAlignment="Left" Margin="389,44,0,0" VerticalAlignment="Top" Width="53"/>
-        <Label Name="ucinLbl" HorizontalAlignment="Left" Margin="345,70,0,0" VerticalAlignment="Top" Width="97"/>
-        <Label Name="addressLbl" HorizontalAlignment="Left" Margin="237,96,0,0" VerticalAlignment="Top" Width="69"/>
-        <Label Name="dobLbl" HorizontalAlignment="Left" Margin="126,122,0,0" VerticalAlignment="Top" Width="57"/>
-        <Label Name="idLbl" HorizontalAlignment="Left" Margin="60,44,0,0" VerticalAlignment="Top"/>
-        <Label Name="nameLbl" HorizontalAlignment="Left" Margin="80,96,0,0" VerticalAlignment="Top" Width="55"/>
-        <Label Name="GenderLbl" HorizontalAlignment="Left" Margin="222,44,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 
 </Page>

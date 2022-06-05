@@ -24,13 +24,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Foreground="Black" Margin="20,0,614,82" >Pacijent:</TextBlock>
+            <TextBlock FontWeight="Bold" Grid.Row="0" Foreground="Black" Margin="20,0,595,82" >Pacijent:</TextBlock>
             <TextBlock Grid.Row="0" Foreground="Black" Margin="120,0,247,82" Text="{Binding PatientBind}" ></TextBlock>
-            <TextBlock Foreground="Black" Margin="20,39,455,48">Datum i vreme pregleda:</TextBlock>
-            <TextBlock Grid.Row="0" Foreground="Black" Margin="280,39,134,48" Text="{Binding DateBind}"></TextBlock>
+            <TextBlock FontWeight="Bold" Foreground="Black" Margin="20,39,424,48">Datum i vreme pregleda:</TextBlock>
+            <TextBlock Grid.Row="0" Foreground="Black" Margin="300,39,134,48" Text="{Binding DateBind}"></TextBlock>
         </Grid>
-        <TextBox Name="textBoxDescription" HorizontalAlignment="Left" Margin="20,126,0,0" FontSize="22" Grid.Row="1" TextWrapping="Wrap" Text="Unesi izvestaj sa pregleda..."  GotKeyboardFocus="TextBox_GotKeyboardFocus" VerticalAlignment="Top" Width="628" Height="149"/>
-        <TextBlock HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Terapija:" VerticalAlignment="Top"/>
+        <TextBox Name="textBoxDescription" HorizontalAlignment="Left" Margin="20,126,0,0" FontSize="22" Grid.Row="1" TextWrapping="Wrap" Text="Unesi izvestaj sa pregleda..."  GotKeyboardFocus="TextBox_GotKeyboardFocus" VerticalAlignment="Top" Width="665" Height="149"/>
+        <TextBlock FontWeight="Bold" HorizontalAlignment="Left" Margin="20,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Terapija:" VerticalAlignment="Center" Width="95"/>
         <DataGrid Name ="dataGridTherapy" ItemsSource="{Binding therapyBind, Mode=TwoWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Grid.Row="4" Margin="20,10,202,90">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Lek" Binding="{Binding Medicine}" Width="*"></DataGridTextColumn>
@@ -40,8 +40,9 @@
                 </DataGridCheckBoxColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name ="add" Content="Dodaj lek" HorizontalAlignment="Left" Margin="536,10,0,0" Grid.Row="4" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Height="49" Width="148" Click="add_Click"/>
+        <Button Name ="add" Content="Dodaj lek" HorizontalAlignment="Left" Margin="532,10,0,0" Grid.Row="4" VerticalAlignment="Top" Template="{StaticResource BasicButton}" Height="49" Width="168" Click="add_Click"/>
         <Button Grid.Row="4" Name="SaveReport" Content="Prosledi" Template="{StaticResource BasicButton}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="200" Click="SaveReport_Click" Height="42" Margin="0,220,0,0"/>
         <Button Grid.Row="4" Name="AddReferral" Content="Izdaj uput" Template="{StaticResource BasicButton}" HorizontalAlignment="Left" Margin="60,206,0,-13" Click="AddReferral_Click"/>
+        <Button Grid.Row="4" Name="AddExcuses" Content="Izdaj opravdanje" Template="{StaticResource BasicButton}" HorizontalAlignment="Center" Margin="0,206,0,-13" Click="AddExcuses_Click" Width="163"/>
     </Grid>
 </Page>
