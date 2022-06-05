@@ -23,9 +23,11 @@
             </ListBox.ItemContainerStyle>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Content}"/>
-                    </StackPanel>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding DateTimeNotification}"/>
+                        <TextBlock Text="            "/>
+                        <TextBlock Text="{Binding ContentTable}"/>
+                    </WrapPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

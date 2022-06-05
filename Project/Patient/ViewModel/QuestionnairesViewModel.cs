@@ -1,4 +1,5 @@
 ﻿using Controller;
+using HospitalMain.Controller;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Patient.ViewModel
     {
         public List<String> HospitalQuestionnary { get; set; }
         public PatientController _patientController;
+        public QuestionnaireController _questionnaireController;
         public String SelectedAnswer { get; set; }
 
         private String groupName;
@@ -117,7 +119,9 @@ namespace Patient.ViewModel
         {
             App app = Application.Current as App;
             _patientController = app.PatientController;
-            HospitalQuestionnary = _patientController.GetHospitalQuestionnaire().Questions;
+            _questionnaireController = app.QuestionnaireController;
+
+            HospitalQuestionnary = _questionnaireController.GetHospitalQuestionnaire().Questions;
             
         }
 

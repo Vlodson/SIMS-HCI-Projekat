@@ -113,7 +113,7 @@
             </Button.Resources>
         </Button>
 
-        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143"/>
+        <Calendar x:Name="MenuCalendar" Style="{StaticResource StyleCalendar}" Margin="306,167,10,143" SelectedDatesChanged="ChangeSelected" SelectionMode="SingleDate"/>
 
 
         <Rectangle HorizontalAlignment="Left" Height="864"  VerticalAlignment="Top" Width="54" Margin="8,-16,0,0">
