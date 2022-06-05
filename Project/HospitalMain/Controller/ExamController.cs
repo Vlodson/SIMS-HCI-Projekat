@@ -44,6 +44,11 @@ namespace Controller
             return _patientService.getExamByTime (dateTime);
         }
 
+        public bool CheckIfDoctorIsOnVacation(String doctorID, DateTime dateTime)
+        {
+            return _patientService.CheckIfDoctorIsOnVacation (doctorID, dateTime);
+        }
+
         public bool AppointmentDoctorValidation(DateTime dateTime, Doctor doctor)
         {
             return _patientService.AppointmentDoctorValidation(dateTime, doctor);
