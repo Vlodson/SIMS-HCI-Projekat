@@ -30,6 +30,8 @@ namespace Patient.View
     /// </summary>
     public partial class PatientMenu : Page
     {
+        private int counter = 0;
+
         private PatientController _patientController;
         private MedicalRecordController _medicalRecordController;
         private ExamController _examinationController;
@@ -221,6 +223,43 @@ namespace Patient.View
             CalendarDayButton button = (CalendarDayButton)sender;
             DateTime date = (DateTime)button.DataContext;
             HighlightDay(button, date);
+        }
+
+        private void ChangeSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if(counter != 0)
+            {
+                DateTime selected = (DateTime)MenuCalendar.SelectedDate;
+                ObservableCollection<Examination> examinations = _examinationController.ReadPatientExams(Login.loggedId);
+                DateTime today = DateTime.Now;
+
+                List<Examination> examinationsForDate = new List<Examination>();
+                foreach (Examination exam in examinations)
+                {
+                    if (exam.Date.Date == selected.Date)
+                    {
+                        Doctor doctor = _doctorController.GetDoctor(exam.DoctorId);
+                        if (doctor.Type == DoctorType.Pulmonology)
+                        {
+                            exam.DoctorTypeString = "Pulmologija";
+                        }
+                        else if (doctor.Type == DoctorType.Cardiology)
+                        {
+                            exam.DoctorTypeString = "Kardiologija";
+                        }
+                        //ovde dodati neurologiju i dermatologiju
+                        else
+                        {
+                            exam.DoctorTypeString = "Opšta praksa";
+                        }
+                        examinationsForDate.Add(exam);
+                    }
+                }
+                ShowExaminations showExaminations = new ShowExaminations(examinationsForDate);
+                showExaminations.ShowDialog();
+            }
+
+            ++counter;
         }
 
         private void GradingsClick(object sender, RoutedEventArgs e)
