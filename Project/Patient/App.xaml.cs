@@ -74,6 +74,7 @@ namespace Patient
             var equipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, roomRepo, equipmentRepo);
             var renovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, roomRepo);
             var medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
+            var freeDaysRequestsRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             ReferralRepo referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
             PersonalNotificationRepo personalNotificationRepo = new PersonalNotificationRepo(GlobalPaths.PersonalNotificationDBPath);
             
@@ -81,7 +82,8 @@ namespace Patient
             DoctorRepo doctorRepository = new DoctorRepo(GlobalPaths.DoctorsDBPath);
             DoctorRepo = doctorRepository;
 
-            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo);
+            FreeDaysRequestService requestService = new FreeDaysRequestService(freeDaysRequestsRepo, DoctorRepo);
+            PatientService patientService = new PatientService(patientRepository, examinationRepo, doctorRepository, roomRepo, questionnaireRepo, requestService);
             PatientAccountService patientAccountService = new PatientAccountService(patientRepository);
             DoctorService doctorService = new DoctorService(doctorRepository, examinationRepo, roomRepo, patientRepository);
             RoomService roomService = new RoomService(roomRepo);

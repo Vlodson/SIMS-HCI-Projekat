@@ -66,7 +66,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
-            return _examController.AppointmentDoctorEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Doctor) && _examController.AppointmentPatientEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Room.Id)  && !string.IsNullOrEmpty(_editAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_editAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
+            return _examController.CheckIfDoctorIsOnVacation(_editAppointmentViewModel.Doctor.Id, _editAppointmentViewModel.Date) && _examController.AppointmentDoctorEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Doctor) && _examController.AppointmentPatientEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomEditValidation(_editAppointmentViewModel.ExamID, _editAppointmentViewModel.Date, _editAppointmentViewModel.Room.Id)  && !string.IsNullOrEmpty(_editAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_editAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
         }
     
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

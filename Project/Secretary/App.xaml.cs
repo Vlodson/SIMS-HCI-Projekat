@@ -94,9 +94,6 @@ namespace Secretary
             MedicalRecordService medicalRecordService = new MedicalRecordService(MedicalRecordRepo);
             MedicalRecordController = new MedicalRecordController(medicalRecordService);
 
-            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo, QuestionnaireRepo);
-            ExamController = new ExamController(patientService, doctorService);
-
             UserAccountRepo = new UserAccountRepo(GlobalPaths.UserDBPath);
             UserAccountService userAccountService = new UserAccountService(UserAccountRepo);
             UserAccountController = new UserAccountController(userAccountService);
@@ -105,6 +102,10 @@ namespace Secretary
             FreeDaysRequestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
             FreeDaysController = new FreeDaysRequestController(FreeDaysRequestService);
 
+            FreeDaysRequestService requestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
+            PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo, QuestionnaireRepo, FreeDaysRequestService);
+            ExamController = new ExamController(patientService, doctorService);
+
             RenovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, RoomRepo);
             EquipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, RoomRepo, EquipmentRepo);
 
@@ -112,21 +113,26 @@ namespace Secretary
             MeetingsService = new MeetingsService(MeetingsRepo, DoctorRepo, RoomRepo, doctorService, RenovationRepo, EquipmentTransferRepo, FreeDaysRequestService);
             MeetingController = new MeetingController(MeetingsService);
 
-            for(int i = 1; i <= 15; i++)
+            for(int i = 1; i <= 20; i++)
             {
-                if(i % 3 == 0)
+                if(i % 4 == 0)
                 {
                     Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Meeting_Room, RoomTypeEnum.Meeting_Room);
                     RoomController.CreateRoom(room);
                 } 
-                else if(i % 3 == 1)
+                else if(i % 4 == 1)
                 {
                     Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Patient_Room, RoomTypeEnum.Patient_Room);
                     RoomController.CreateRoom(room);
                 } 
-                else if(i % 3 == 2)
+                else if(i % 4 == 2)
                 {
                     Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Operation_Room, RoomTypeEnum.Operation_Room);
+                    RoomController.CreateRoom(room);
+                }
+                else if(i % 4 == 3)
+                {
+                    Room room = new Room(i.ToString(), 1, i, false, RoomTypeEnum.Storage_Room, RoomTypeEnum.Storage_Room);
                     RoomController.CreateRoom(room);
                 }
             }

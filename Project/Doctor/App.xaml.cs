@@ -44,6 +44,7 @@ namespace Doctor
         public ReferralRepo referralRepo { get; set; }
         public MedicineRepo medicineRepo { get; set; }
         public QuestionnaireRepo questionnaireRepo { get; set; }
+        public FreeDaysRequestRepo FreeDaysRequestRepo { get; set; }
         public UserAccountController userAccountController { get; set; }
         public UserAccountRepo userAccountRepo { get; set; }
         public EquipmentController equipmentController { get; set; }
@@ -70,9 +71,12 @@ namespace Doctor
             requestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
             referralRepo = new ReferralRepo(GlobalPaths.ReferralDBPath);
             medicineRepo = new MedicineRepo(GlobalPaths.MedicineDBPath);
-            
+            FreeDaysRequestRepo = new FreeDaysRequestRepo(GlobalPaths.RequestDBPath);
+            questionnaireRepo = new QuestionnaireRepo(GlobalPaths.QuestionnaireDBPath);
 
-            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo);
+
+            var freeDaysRequestsService = new FreeDaysRequestService(requestRepo, doctorRepo);
+            var patientService = new PatientService(patientRepo, examRepo, doctorRepo, roomRepo, questionnaireRepo, freeDaysRequestsService);
             var therapyService = new TherapyService(therapyRepo);
             var doctorService = new DoctorService(doctorRepo, examRepo, roomRepo, patientRepo);
             var roomService = new RoomService(roomRepo);

@@ -18,6 +18,7 @@ namespace Secretary.ViewModel
 
         public String ExamRoomID => _examination.ExamRoomId;
         public DateTime StartDate => _examination.Date;
+        public String DateForEmergency => _examination.Date.ToString("g");
         public String ID => _examination.Id;
         public int Duration => _examination.Duration;
         public ExaminationTypeEnum Type => _examination.EType;
@@ -27,6 +28,8 @@ namespace Secretary.ViewModel
 
         public ExaminationViewModel(Examination examination)
         {
+            var app = System.Windows.Application.Current as App;
+            _doctorController = app.DoctorController;
             _examination = examination;
         }
 
