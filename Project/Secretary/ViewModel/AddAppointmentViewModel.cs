@@ -13,6 +13,7 @@ using Secretary.View;
 using System.Windows;
 using Secretary.ViewUtils;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Secretary.ViewModel
 {

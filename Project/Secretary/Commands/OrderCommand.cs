@@ -15,12 +15,14 @@ namespace Secretary.Commands
         private readonly OrderDynamicEquipmentViewModel _orderDynamicEq;
         private readonly DynamicEquipmentController _dynamicController;
         private readonly MainViewModel _mainViewModel;
+        private readonly EquipmentViewModel _equipment;
 
-        public OrderCommand(OrderDynamicEquipmentViewModel orderDynamicEquipmentViewModel, DynamicEquipmentController dynamicEquipmentController, MainViewModel mainViewModel)
+        public OrderCommand(OrderDynamicEquipmentViewModel orderDynamicEquipmentViewModel, DynamicEquipmentController dynamicEquipmentController, MainViewModel mainViewModel, EquipmentViewModel equipmentViewModel)
         {
             _orderDynamicEq = orderDynamicEquipmentViewModel;
             _dynamicController = dynamicEquipmentController;
             _mainViewModel = mainViewModel;
+            _equipment = equipmentViewModel;
 
             _orderDynamicEq.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -40,7 +42,7 @@ namespace Secretary.Commands
             //navigacija
             if (parameter.ToString() == "NewOrder")
             {
-                _mainViewModel.CurrentViewModel = new RequestsViewModel(_mainViewModel);
+                _equipment.CurrentEquipmentView = new GraphicViewModel(_equipment, _mainViewModel);
             }
         }
 
