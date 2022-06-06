@@ -3,7 +3,7 @@
 
     <Style TargetType="{x:Type DataGrid}" x:Key="DataGridUsersTheme">
         <Setter Property="Background" Value="#FFF" />
-        <Setter Property="AlternationCount" Value="2" />
+        <!--<Setter Property="AlternationCount" Value="2" />-->
         <!--<Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>

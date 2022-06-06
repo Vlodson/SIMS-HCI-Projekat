@@ -3,13 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:converters="clr-namespace:Secretary.Converter"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ewt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:Secretary.View"
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="White">
     <UserControl.Resources>
         <converters:DoctorFullNameConverter x:Key="DoctorFullNameConverter"/>
         <converters:PatientFullNameConverter x:Key="PatientFullNameConverter"/>
+        <converters:DateTimePickerConverter x:Key="DTPConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -41,13 +43,11 @@
 
                     <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
                         <Label Content="Datum i vreme pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
-                        <DatePicker SelectedDate="{Binding Date}" FontSize="18" Margin="0 5 60 0">
-                            <DatePicker.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="8"/>
-                                </Style>
-                            </DatePicker.Resources>
-                        </DatePicker>
+                        <ewt:DateTimePicker FlowDirection="RightToLeft" Value="{Binding Date}" BorderThickness="1.5" CultureInfo="sr-Latn" AutoCloseCalendar="True" Format="Custom" FormatString="HH:mm dd.MM.yyyy" HorizontalContentAlignment="Left" FontSize="18" Margin="0 5 60 0">
+                            <ewt:DateTimePicker.Resources>
+
+                            </ewt:DateTimePicker.Resources>
+                        </ewt:DateTimePicker>
                     </StackPanel>
 
                     <StackPanel >

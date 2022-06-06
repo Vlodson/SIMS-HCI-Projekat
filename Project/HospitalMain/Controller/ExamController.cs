@@ -1,3 +1,4 @@
+using HospitalMain.Service;
 using Model;
 using Service;
 using System;
@@ -11,10 +12,12 @@ namespace Controller
 
         private PatientService _patientService;
         private DoctorService _doctorService;
+        private ValidationService _validationService;
 
 
-        public ExamController(PatientService patientService, DoctorService doctorService)
+        public ExamController(PatientService patientService, DoctorService doctorService, ValidationService validationService)
         {
+            this._validationService = validationService;
             this._patientService = patientService;
             this._doctorService = doctorService;
         }
@@ -51,32 +54,32 @@ namespace Controller
 
         public bool AppointmentDoctorValidation(DateTime dateTime, Doctor doctor)
         {
-            return _patientService.AppointmentDoctorValidation(dateTime, doctor);
+            return _validationService.AppointmentDoctorValidation(dateTime, doctor);
         }
            
         public bool AppointmentPatientValidation(DateTime dateTime, String PatientID)
         {
-            return _patientService.AppointmentPatientValidation(dateTime, PatientID);
+            return _validationService.AppointmentPatientValidation(dateTime, PatientID);
         }
 
         public bool AppointmentRoomValidation(DateTime dateTime, String RoomID)
         {
-            return _patientService.AppointmentRoomValidation(dateTime, RoomID);
+            return _validationService.AppointmentRoomValidation(dateTime, RoomID);
         }
 
         public bool AppointmentDoctorEditValidation(String ExamID, DateTime dateTime, Doctor doctor)
         {
-            return _patientService.AppointmentDoctorEditValidation(ExamID, dateTime, doctor);
+            return _validationService.AppointmentDoctorEditValidation(ExamID, dateTime, doctor);
         }
 
         public bool AppointmentPatientEditValidation(String ExamID, DateTime dateTime, String PatientID)
         {
-            return _patientService.AppointmentPatientEditValidation(ExamID, dateTime, PatientID);
+            return _validationService.AppointmentPatientEditValidation(ExamID, dateTime, PatientID);
         }
 
         public bool AppointmentRoomEditValidation(String ExamID, DateTime dateTime, String RoomID)
         {
-            return _patientService.AppointmentRoomEditValidation(ExamID, dateTime, RoomID);
+            return _validationService.AppointmentRoomEditValidation(ExamID, dateTime, RoomID);
         }
       
         public bool PatientCreateExam(Examination examination, DateTime newDate)

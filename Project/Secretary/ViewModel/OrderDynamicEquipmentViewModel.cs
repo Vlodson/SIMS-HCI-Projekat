@@ -74,7 +74,7 @@ namespace Secretary.ViewModel
 
             FillEquipmentTypeComboBoxData();
 
-            OrderCommand = new OrderCommand(this, _dynamicEquipmentController, mainViewModel);
+            OrderCommand = new OrderCommand(this, _dynamicEquipmentController, mainViewModel, equipmentViewModel);
             ShowGraphicCommand = new ShowGraphicCommand(equipmentViewModel, mainViewModel);
         }
     }
