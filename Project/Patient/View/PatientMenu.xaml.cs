@@ -216,6 +216,43 @@ namespace Patient.View
                 button.Background = Brushes.LightBlue;
             else
                 button.Background = Brushes.White;
+            if(date.Date == DateTime.Now.Date)
+            {
+                button.Background = Brushes.CadetBlue;
+            }
+            StackPanel stackPanel = new StackPanel();
+            stackPanel.Orientation = Orientation.Vertical;
+            TextBlock textBlock1 = new TextBlock();
+            TextBlock textBlock2 = new TextBlock();
+            textBlock1.Text = date.Day.ToString();
+
+            int counterExaminations = 0;
+            foreach(Examination examination in Examinations)
+            {
+                if(date.Date == examination.Date.Date)
+                {
+                    counterExaminations++;
+                }
+            }
+            if(counterExaminations > 0)
+            {
+                textBlock2.Text = counterExaminations.ToString();
+                textBlock2.Foreground = Brushes.DarkBlue;
+            }
+            else
+            {
+                textBlock2.Text = "  ";
+            }
+            textBlock1.FontSize = 15;
+            stackPanel.Children.Add(textBlock1);
+            StackPanel stackPanel2 = new StackPanel();
+            stackPanel2.Orientation = Orientation.Horizontal;
+            TextBlock textBlock3 = new TextBlock();
+            textBlock3.Text = "                   ";
+            stackPanel2.Children.Add(textBlock3);
+            stackPanel2.Children.Add(textBlock2);
+            stackPanel.Children.Add(stackPanel2);
+            button.Content = stackPanel;
         }
 
         private void calendarButton_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
