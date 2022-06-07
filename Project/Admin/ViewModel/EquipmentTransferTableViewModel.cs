@@ -5,6 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using System.ComponentModel;
+using System.Drawing;
+using Syncfusion.Pdf.Grid;
+
 using Model;
 using Controller;
 using Utility;
@@ -19,6 +25,7 @@ namespace Admin.ViewModel
         public ICommandTemplate<String> NavigationCommand { get; private set; }
         public ICommandTemplate RemoveCommand { get; private set; }
         public ICommandTemplate QueryCommand { get; private set; }
+        public ICommandTemplate ExportCommand { get; private set; }
 
         private EquipmentTransferController equipmentTransferController;
         private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
@@ -71,6 +78,7 @@ namespace Admin.ViewModel
             NavigationCommand = new ICommandTemplate<String>(OnNavigation);
             RemoveCommand = new ICommandTemplate(OnRemove, CanRemove);
             QueryCommand = new ICommandTemplate(OnQuery);
+            ExportCommand = new ICommandTemplate(OnExport, CanExport);
 
             var app = Application.Current as App;
             equipmentTransferController = app.equipmentTransferController;
@@ -82,6 +90,53 @@ namespace Admin.ViewModel
                 EquipmentTransfers.Add(new FriendlyEquipmentTransfer(equipmentTransfer));
 
             Search = "Enter Query";
+        }
+
+        public void OnExport()
+        {
+            MessageBox.Show("PDF Exported");
+
+            //Create a new PDF document.
+            PdfDocument pdfDocument = new PdfDocument();
+            PdfPage pdfPage = pdfDocument.Pages.Add();
+
+            //Create a new PdfGrid.
+            PdfGrid pdfGrid = new PdfGrid();
+
+            //Add three columns.
+            pdfGrid.Columns.Add(4);
+
+            //Add header.
+            pdfGrid.Headers.Add(1);
+            PdfGridRow pdfGridHeader = pdfGrid.Headers[0];
+            pdfGridHeader.Cells[0].Value = " Origin";
+            pdfGridHeader.Cells[1].Value = " Destination";
+            pdfGridHeader.Cells[2].Value = " Equipment";
+            pdfGridHeader.Cells[3].Value = " End Date";
+
+            //Add rows.
+            foreach (FriendlyEquipmentTransfer e in EquipmentTransfers)
+            {
+                PdfGridRow pdfGridRow = pdfGrid.Rows.Add();
+                pdfGridRow.Cells[0].Value = " " + e.OriginRoom;
+                pdfGridRow.Cells[1].Value = " " + e.DestinationRoom;
+                pdfGridRow.Cells[2].Value = " " + e.Equipment;
+                pdfGridRow.Cells[2].Value = " " + e.EndDate;
+            }
+
+            //Draw the PdfGrid.
+            pdfGrid.Draw(pdfPage, PointF.Empty);
+
+            //Save the document.
+            pdfDocument.Save(@"../../../../HospitalMain/PDFs/EquipmentTransferTable.pdf");
+
+            //Close the document
+            pdfDocument.Close(true);
+        }
+
+        public bool CanExport()
+        {
+            return EquipmentTransfers.Count > 0;
         }
 
         public void OnRemove()

@@ -79,6 +79,8 @@
 
   <ItemGroup>
 
+    <PackageReference Include="PDFsharp" Version="1.50.5147" />
+
     <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
     <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
