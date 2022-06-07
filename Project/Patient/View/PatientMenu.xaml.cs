@@ -332,5 +332,11 @@ namespace Patient.View
             Page reportPage = new ReportPage();
             this.NavService.Navigate(reportPage);
         }
+
+        private void ProfileClick(object sender, RoutedEventArgs e)
+        {
+            Profile profile = new Profile();
+            profile.ShowDialog();
+        }
     }
 }

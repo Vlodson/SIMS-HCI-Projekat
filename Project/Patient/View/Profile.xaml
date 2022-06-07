@@ -5,8 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Patient.View"
         mc:Ignorable="d"
-        Title="Profile" Height="450" Width="800">
+        Title="Profile" Height="200" Width="632">
     <Grid>
-        
+        <Grid.Background>
+            <SolidColorBrush Color="#b2d8d8"/>
+        </Grid.Background>
+        <Label Content="Korisničko ime" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ime" HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top"/>
+        <Label Content="Prezime" HorizontalAlignment="Left" Margin="10,118,0,0" VerticalAlignment="Top"/>
+        <Label Content="Stara lozinka" HorizontalAlignment="Left" Margin="319,56,0,0" VerticalAlignment="Top"/>
+        <Label Content="Nova lozinka" HorizontalAlignment="Left" Margin="318,87,0,0" VerticalAlignment="Top"/>
+
+        <Label x:Name="Username" Content="Label" HorizontalAlignment="Left" Margin="128,56,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Name" HorizontalAlignment="Left" Margin="128,87,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Surname" HorizontalAlignment="Left" Margin="128,118,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="oldPassword" HorizontalAlignment="Left" Margin="478,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <TextBox x:Name="newPassword" HorizontalAlignment="Left" Margin="478,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120">
+            <TextBox.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <Button Content="Potvrdi" Width="100" HorizontalAlignment="Left" Margin="498,129,0,0" VerticalAlignment="Top" Click="ValidateClick" >
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="6"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Label x:Name="error" Foreground="Red" HorizontalAlignment="Left" Margin="478,109,0,0" VerticalAlignment="Top"/>
+        <Label Content="Korisnički podaci" FontSize="32" HorizontalAlignment="Left" Margin="0,-2,0,0" VerticalAlignment="Top"/>
+
+
+
     </Grid>
 </Window>
