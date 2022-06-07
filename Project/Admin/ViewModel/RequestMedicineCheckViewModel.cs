@@ -124,7 +124,7 @@ namespace Admin.ViewModel
         {
             RequestMedicineCheckClipboard.ClipboardRequestMedicineCheck = new RequestMedicineCheckUtility(Ingredients, Type, SelectedMedicine, ArrivalDate, Comment, SelectedDoctor);
             // TODO: send to doctor
-            MessageBox.Show("Request sent");
+            MessageBox.Show(mainWindow, "Request sent");
             mainWindow.Width = 750;
             mainWindow.Height = 430;
             mainWindow.CurrentView = new MainMenuView();

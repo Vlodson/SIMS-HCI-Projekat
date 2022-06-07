@@ -79,7 +79,7 @@ namespace Admin.ViewModel
 
         public void OnExport()
         {
-            MessageBox.Show("PDF Exported");
+            MessageBox.Show(mainWindow, "PDF Exported");
 
             //Create a new PDF document.
             PdfDocument pdfDocument = new PdfDocument();
