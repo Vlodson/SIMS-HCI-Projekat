@@ -179,7 +179,7 @@
         </Grid>
         <Button Height="75" Style="{StaticResource MenuBarButtons}" ToolTip="Meni" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Click="MenuClick">
             <StackPanel Orientation="Vertical">
-                <Image Width="35" Source="/Images/icons8-menu-24.png"/>
+                <Image Width="29" Source="/Images/menu1.png" Height="30"/>
                 <TextBlock>Meni</TextBlock>
             </StackPanel>
         </Button>
