@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new EquipmentTableViewModel();
         }
+
+        public EquipmentTableView(EquipmentTableViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

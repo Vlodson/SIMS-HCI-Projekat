@@ -47,7 +47,7 @@
                 <Image Source="..\Icons\buy-16.png" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="3" Margin="10, 0">
+            <Button Style="{StaticResource ButtonWithIcon}" Command="{Binding NavigationCommand}" CommandParameter="demo" Grid.Column="3" Margin="10, 0">
                 <Image Source="..\Icons\demow-16.png" />
             </Button>
 

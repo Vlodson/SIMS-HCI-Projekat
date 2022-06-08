@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new RecordEquipmentTransferViewModel();
         }
+
+        public RecordEquipmentTransferView(RecordEquipmentTransferViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

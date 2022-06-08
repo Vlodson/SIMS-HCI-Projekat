@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Admin.ViewModel;
+
 namespace Admin.Views
 {
     /// <summary>
@@ -23,6 +25,13 @@ namespace Admin.Views
         public RenovationTableView()
         {
             InitializeComponent();
+            this.DataContext = new RenovationTableViewModel();
+        }
+
+        public RenovationTableView(RenovationTableViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
         }
     }
 }

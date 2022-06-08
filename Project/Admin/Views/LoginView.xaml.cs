@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new LoginViewModel();
         }
+
+        public LoginView(LoginViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }
