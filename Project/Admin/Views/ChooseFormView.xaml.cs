@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new ChooseFormViewModel();
         }
+
+        public ChooseFormView(ChooseFormViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

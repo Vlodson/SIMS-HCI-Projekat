@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Admin.ViewModel;
+
 namespace Admin.Views
 {
     /// <summary>
@@ -23,6 +25,13 @@ namespace Admin.Views
         public RatingsView()
         {
             InitializeComponent();
+            this.DataContext = new RatingsViewModel();
+        }
+
+        public RatingsView(RatingsViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
         }
     }
 }
