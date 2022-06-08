@@ -28,13 +28,13 @@ namespace Admin.ViewModel
         private String ingredients;
         private String type;
         private Medicine selectedMedicine;
+        private Doctor selectedDoctor;
         private DateTime arrivalDate;
         private String comment;
 
         public List<Medicine> MedicineList { get; set; }
         public ObservableCollection<Medicine> Medicines { get; set; }
         public ObservableCollection<Doctor> Doctors { get; set; }
-        public Doctor SelectedDoctor { get; set; }
 
         public String Ingredients
         {
@@ -71,6 +71,7 @@ namespace Admin.ViewModel
                 {
                     selectedMedicine = value;
                     OnPropertyChanged("SelectedMedicine");
+                    SendCommand.RaiseCanExecuteChanged();
 
                     Type = selectedMedicine.Type.ToString();
                     Ingredients = "";
@@ -82,6 +83,21 @@ namespace Admin.ViewModel
                 }
             }
         }
+
+        public Doctor SelectedDoctor
+        {
+            get { return selectedDoctor; }
+            set
+            {
+                if(selectedDoctor != value)
+                {
+                    selectedDoctor = value;
+                    OnPropertyChanged("SelectedDoctor");
+                    SendCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
 
         public DateTime ArrivalDate
         {
