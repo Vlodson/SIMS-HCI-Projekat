@@ -37,6 +37,11 @@ namespace Controller
             _patientService.setValidationCounter(value);
         }
 
+        public ObservableCollection<Examination> GetAllExamsInWeek(DateTime dateTime)
+        {
+            return _patientService.GetAllExamsInWeek(dateTime);
+        }
+
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _patientService.generateID(examinations);

@@ -83,6 +83,19 @@ namespace Service
             return _examinationRepo.Examinations;
         }
 
+        public ObservableCollection<Examination> GetAllExamsInWeek(DateTime dateTime)
+        {
+            ObservableCollection<Examination> examinations = new ObservableCollection<Examination>(_examinationRepo.Examinations);
+            foreach(Examination exam in examinations.ToList())
+            {
+                if(exam.Date < dateTime || exam.Date > dateTime.AddDays(7))
+                {
+                    examinations.Remove(exam);
+                }
+            }
+            return examinations;
+        }
+
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();

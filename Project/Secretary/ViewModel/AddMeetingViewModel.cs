@@ -25,6 +25,7 @@ namespace Secretary.ViewModel
             set { _meetingTopic = value; OnPropertyChanged(nameof(MeetingTopic)); }
         }
 
+        //datum
         private DateTime _dateTime = DateTime.Now;
         public DateTime DateTime
         {
@@ -36,6 +37,14 @@ namespace Secretary.ViewModel
                 FillDoctorComboBoxData();
                 FillRoomComboBoxData();
             }
+        }
+
+        //vreme
+        private String time = "12:00";
+        public String Time
+        {
+            get { return time; }
+            set { time = value; OnPropertyChanged(nameof(Time)); addTimeToDate(); }
         }
 
         private List<ComboBoxData<Room>> roomComboBox = new List<ComboBoxData<Room>>();
@@ -106,5 +115,10 @@ namespace Secretary.ViewModel
 
         }
 
+
+        private void addTimeToDate()
+        {
+            DateTime = DateTime.Add(TimeSpan.Parse(Time));
+        }
     }
 }
