@@ -102,9 +102,11 @@ namespace Secretary
             FreeDaysRequestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
             FreeDaysController = new FreeDaysRequestController(FreeDaysRequestService);
 
+            ValidationService validationService = new ValidationService(ExaminationRepo);
+
             FreeDaysRequestService requestService = new FreeDaysRequestService(FreeDaysRequestRepo, DoctorRepo);
             PatientService patientService = new PatientService(PatientRepo, ExaminationRepo, DoctorRepo, RoomRepo, QuestionnaireRepo, FreeDaysRequestService);
-            ExamController = new ExamController(patientService, doctorService);
+            ExamController = new ExamController(patientService, doctorService, validationService);
 
             RenovationRepo = new RenovationRepo(GlobalPaths.RenovationDBPath, RoomRepo);
             EquipmentTransferRepo = new EquipmentTransferRepo(GlobalPaths.EquipmentTransfersDBPath, RoomRepo, EquipmentRepo);
