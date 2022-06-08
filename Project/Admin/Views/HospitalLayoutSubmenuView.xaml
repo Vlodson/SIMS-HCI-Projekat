@@ -57,7 +57,9 @@
             </StackPanel>
         </Grid>
 
-        <StackPanel x:Name="floorButtons" Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-        </StackPanel>
+        <ScrollViewer Grid.Row="3" Grid.Column="1" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden">
+            <StackPanel x:Name="floorButtons" Orientation="Horizontal" >
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

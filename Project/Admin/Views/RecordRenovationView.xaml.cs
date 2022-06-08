@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new RecordRenovationViewModel();
         }
+
+        public RecordRenovationView(RecordRenovationViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

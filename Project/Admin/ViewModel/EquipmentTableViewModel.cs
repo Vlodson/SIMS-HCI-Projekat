@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
+
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using System.ComponentModel;
+using System.Drawing;
+using Syncfusion.Pdf.Grid;
 
 using Model;
 using Controller;
@@ -19,6 +26,7 @@ namespace Admin.ViewModel
         public ICommandTemplate<String> NavigationCommand { get; private set; }
         public ICommandTemplate RemoveCommand { get; private set; }
         public ICommandTemplate QueryCommand { get; private set; }
+        public ICommandTemplate ExportCommand { get; private set; }
 
         private EquipmentController equipmentController;
         private MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
@@ -66,6 +74,7 @@ namespace Admin.ViewModel
             NavigationCommand = new ICommandTemplate<String>(OnNavigation);
             RemoveCommand = new ICommandTemplate(OnRemove, CanRemove);
             QueryCommand = new ICommandTemplate(OnQuery);
+            ExportCommand = new ICommandTemplate(OnExport, CanExport);
 
             var app = Application.Current as App;
             equipmentController = app.equipmentController;
@@ -78,6 +87,51 @@ namespace Admin.ViewModel
                 Equipment.Add(new FriendlyEquipment(equipmentItem));
 
             Search = "Enter Query";
+        }
+
+        public void OnExport()
+        {
+            MessageBox.Show(mainWindow, "PDF Exported");
+
+            //Create a new PDF document.
+            PdfDocument pdfDocument = new PdfDocument();
+            PdfPage pdfPage = pdfDocument.Pages.Add();
+
+            //Create a new PdfGrid.
+            PdfGrid pdfGrid = new PdfGrid();
+
+            //Add three columns.
+            pdfGrid.Columns.Add(3);
+
+            //Add header.
+            pdfGrid.Headers.Add(1);
+            PdfGridRow pdfGridHeader = pdfGrid.Headers[0];
+            pdfGridHeader.Cells[0].Value = " ID";
+            pdfGridHeader.Cells[1].Value = " Room Number";
+            pdfGridHeader.Cells[2].Value = " Type";
+
+            //Add rows.
+            foreach (FriendlyEquipment e in Equipment)
+            {
+                PdfGridRow pdfGridRow = pdfGrid.Rows.Add();
+                pdfGridRow.Cells[0].Value = " " + e.Id;
+                pdfGridRow.Cells[1].Value = " " + e.RoomNb;
+                pdfGridRow.Cells[2].Value = " " + e.Type;
+            }
+
+            //Draw the PdfGrid.
+            pdfGrid.Draw(pdfPage, PointF.Empty);
+
+            //Save the document.
+            pdfDocument.Save(@"../../../../HospitalMain/PDFs/EquipmentTable.pdf");
+
+            //Close the document
+            pdfDocument.Close(true);
+        }
+
+        public bool CanExport()
+        {
+            return Equipment.Count > 0;
         }
 
         public void OnRemove()

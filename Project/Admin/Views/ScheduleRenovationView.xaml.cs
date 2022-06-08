@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new ScheduleRenovationViewModel();
         }
+
+        public ScheduleRenovationView(ScheduleRenovationViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

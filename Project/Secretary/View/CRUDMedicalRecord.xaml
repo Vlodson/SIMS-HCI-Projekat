@@ -70,12 +70,24 @@
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
 
-                <DataGrid x:Name="dataGridPatientRecords" HorizontalContentAlignment="Center" VerticalGridLinesBrush="Transparent" MinRowHeight="30" HorizontalGridLinesBrush="LightGray" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
+                <DataGrid x:Name="dataGridPatientRecords" HorizontalContentAlignment="Center" VerticalGridLinesBrush="LightBlue" MinRowHeight="25" HorizontalGridLinesBrush="LightBlue" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>
                         </Style>
                     </DataGrid.Resources>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Foreground" Value="Black" />
+                                    <Setter Property="Background" Value="LightBlue" />
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.CellStyle>
 
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">

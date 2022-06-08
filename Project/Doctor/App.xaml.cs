@@ -90,8 +90,9 @@ namespace Doctor
             var referralService = new ReferralService(referralRepo);
             var medicineService = new MedicineService(medicineRepo);
             var emergencyService = new EmergencyService(examRepo, doctorRepo);
+            var validationSevice = new ValidationService(examRepo);
 
-            examController = new ExamController(patientService, doctorService);
+            examController = new ExamController(patientService, doctorService, validationSevice);
             doctorController = new DoctorController(doctorService, emergencyService);
             patientController = new PatientController(patientService, patientAccountService);
             therapyController = new TherapyController(therapyService);

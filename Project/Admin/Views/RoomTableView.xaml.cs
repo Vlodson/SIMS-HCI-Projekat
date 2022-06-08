@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new RoomTableViewModel();
         }
+
+        public RoomTableView(RoomTableViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

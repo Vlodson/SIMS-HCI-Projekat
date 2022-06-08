@@ -27,5 +27,11 @@ namespace Admin.Views
             InitializeComponent();
             this.DataContext = new RequestMedicineCheckViewModel();
         }
+
+        public RequestMedicineCheckView(RequestMedicineCheckViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
     }
 }

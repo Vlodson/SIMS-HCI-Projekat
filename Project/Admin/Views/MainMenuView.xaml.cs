@@ -74,10 +74,13 @@ namespace Admin.Views
                     mainWindow.Height = 750;
                     mainWindow.CurrentView = new OrderProductsView();
                     break;
+                case "demo":
+                    Demo.DoDemo();
+                    break;
             }
         }
 
-        private void makeBlueprint()
+        public void makeBlueprint()
         {
             upperRooms.Children.Clear();
             lowerRooms.Children.Clear();

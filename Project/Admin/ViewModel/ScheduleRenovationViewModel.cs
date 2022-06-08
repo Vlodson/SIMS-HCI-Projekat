@@ -187,7 +187,7 @@ namespace Admin.ViewModel
                     break;
             }
 
-            MessageBox.Show("Renovation successfully scheduled");
+            MessageBox.Show(mainWindow, "Renovation successfully scheduled");
             mainWindow.CurrentView = new RecordRenovationView();
         }
 
