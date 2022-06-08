@@ -49,6 +49,9 @@ namespace Secretary.Commands
             } else if(parameter.ToString() == "HomePage")
             {
                 _mainViewModel.CurrentViewModel = new HomeViewModel();
+            } else if(parameter.ToString() == "Izvestaj")
+            {
+                _mainViewModel.CurrentViewModel = new RoomOccupancyReportViewModel(_mainViewModel);
             }
         }
     }

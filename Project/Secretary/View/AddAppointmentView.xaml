@@ -4,19 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:converters="clr-namespace:Secretary.Converter"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ewt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:Secretary.View"
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="White">
     <UserControl.Resources>
         <converters:DoctorFullNameConverter x:Key="DoctorFullNameConverter"/>
         <converters:PatientFullNameConverter x:Key="PatientFullNameConverter"/>
-        <converters:DateTimePickerConverter x:Key="DTPConverter"/>
     </UserControl.Resources>
 
     <Grid>
         <GroupBox Margin="20" Header="Zakazivanje novog pregleda" Style="{StaticResource GroupBoxTheme2}">
-            <Grid Margin="20">
+            <Grid Margin="20 10 20 20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -31,25 +29,38 @@
 
                 <DockPanel Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" Margin="20">
 
-                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 0">
                         <Label Content="Tip pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
                         <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=ExamTypeComboBox}" SelectedValue="{Binding Path=ExaminationTypeEnum }"></ComboBox>
                     </StackPanel>
 
-                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 0">
                         <Label Content="Specijalizacija" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
                         <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=DoctorTypeComboBox}" SelectedValue="{Binding Path=DoctorType }"></ComboBox>
                     </StackPanel>
 
-                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 10">
-                        <Label Content="Datum i vreme pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
-                        <ewt:DateTimePicker FlowDirection="RightToLeft" Value="{Binding Date}" BorderThickness="1.5" CultureInfo="sr-Latn" AutoCloseCalendar="True" Format="Custom" FormatString="HH:mm dd.MM.yyyy" HorizontalContentAlignment="Left" FontSize="18" Margin="0 5 60 0">
-                            <ewt:DateTimePicker.Resources>
-
-                            </ewt:DateTimePicker.Resources>
-                        </ewt:DateTimePicker>
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 0">
+                        <Label Content="Datum pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <DatePicker SelectedDate="{Binding Date}" BorderThickness="2.5" FontSize="18" Margin="0 5 60 0">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
                     </StackPanel>
 
+                    <StackPanel DockPanel.Dock="Top">
+                        <Label Content="Vreme pregleda" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding Time}" BorderThickness="2.5" Height="30" FontSize="18" Margin="0 5 60 0">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </StackPanel>    
+                    
                     <StackPanel >
                         <Label Content="Broj sobe" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
                         <ComboBox FontSize="18" Margin="0 5 60 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=RoomComboBox}" SelectedValue="{Binding Path=Room}"></ComboBox>
@@ -106,7 +117,7 @@
                     </ListBox>
                 </Grid>
 
-                <StackPanel HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.Row="3" Margin="0 30 25 0">
+                <StackPanel HorizontalAlignment="Right" Grid.ColumnSpan="2" Grid.Row="3" Margin="0 0 25 0">
                     <Button Width="150" Height="30" Command="{Binding AddCommand}" CommandParameter="Add" FontSize="18" Content="Zakaži">
                         <Button.Resources>
                             <Style TargetType="Border">

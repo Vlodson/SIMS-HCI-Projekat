@@ -126,8 +126,8 @@
 
                 </RadioButton>
 
-                <RadioButton Grid.Row="7" Foreground="Black" Content="Pomoć" FontSize="18"
-                             Style="{StaticResource MenuButtonTheme}" >
+                <RadioButton Grid.Row="7" Foreground="Black" Content="Izveštaj" FontSize="18"
+                             Style="{StaticResource MenuButtonTheme}" Command="{Binding UpdateViewCommand}" CommandParameter="Izvestaj" >
 
                 </RadioButton>
 
