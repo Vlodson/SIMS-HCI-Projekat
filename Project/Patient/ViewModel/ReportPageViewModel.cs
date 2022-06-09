@@ -96,7 +96,7 @@ namespace Patient.ViewModel
 
             GeneratePdfCommand = new MyICommand(OnGeneratePdfCommand);
 
-            StartDate = DateTime.Now;
+            StartDate = DateTime.Now.AddDays(1);
             EndDate = DateTime.Now.AddDays(5);
 
             Examinations = new List<Examination>();

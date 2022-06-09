@@ -37,6 +37,7 @@ namespace Patient.View
         private List<Examination> examinations;
 
         private ExamController _examinationController;
+        private PatientController _patientController;
 
         public String Start
         {
@@ -81,6 +82,7 @@ namespace Patient.View
             InitializeComponent();
             App app = Application.Current as App;
             _examinationController = app.ExamController;
+            _patientController = app.PatientController;
 
             Examinations = new List<Examination>();
             List<Examination> allExmainations = _examinationController.ReadPatientExams(Login.loggedId).ToList();
@@ -93,6 +95,8 @@ namespace Patient.View
                 }
             }
 
+            Model.Patient patient = _patientController.ReadPatient(Login.loggedId);
+
             Examinations.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
 
             Start = startDate.ToString("dd.mm.yyyy.");
@@ -101,6 +105,9 @@ namespace Patient.View
             stratLabel.Content = Start;
             endLabel.Content = End;
             examinationsTable.ItemsSource = Examinations;
+            patientLabel.Content = patient.NameSurname;
+            dateLabel.Content = DateTime.Now.ToString("dd.MM.yyyy.");
+
         }
     }
 }

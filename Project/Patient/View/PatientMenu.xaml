@@ -179,7 +179,7 @@
         </Grid>
         <Button Height="75" Style="{StaticResource MenuBarButtons}" ToolTip="Meni" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Click="MenuClick">
             <StackPanel Orientation="Vertical">
-                <Image Width="35" Source="/Images/icons8-menu-24.png"/>
+                <Image Width="29" Source="/Images/menu1.png" Height="30"/>
                 <TextBlock>Meni</TextBlock>
             </StackPanel>
         </Button>
@@ -222,14 +222,20 @@
 
         <Image Source="/Images/logo2.png"  Margin="-6,0,918,668"></Image>
         <Label Content="Bolnica" FontFamily="TimesNewRoman" FontSize="40" HorizontalAlignment="Left" Margin="100,2,0,0" VerticalAlignment="Top"/>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="972,16,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="982,18,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Back_Click">
             <StackPanel>
                 <Image Source="/Images/sign-out-alt.png"/>
             </StackPanel>
         </Button>
-        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="927,16,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
+
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="896,18,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="Notifications_Click">
             <StackPanel>
                 <Image Source="/Images/bell.png"/>
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Style="{StaticResource Buttons}" Margin="939,18,0,0" VerticalAlignment="Top" Width="26" Height="26" Click="ProfileClick">
+            <StackPanel>
+                <Image Source="/Images/user.png"/>
             </StackPanel>
         </Button>
 
