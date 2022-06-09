@@ -99,6 +99,23 @@ namespace Admin.ViewModel
             //Create a new PDF document.
             PdfDocument pdfDocument = new PdfDocument();
             PdfPage pdfPage = pdfDocument.Pages.Add();
+            pdfDocument.DocumentInformation.Title = "Equipment Transfers Table";
+            pdfDocument.DocumentInformation.Author = "Hospital administration";
+            pdfDocument.DocumentInformation.CreationDate = DateTime.Now;
+
+            //Create a text element
+            string text = "Equipment Transfers Table";
+            PdfTextElement element = new PdfTextElement(text);
+            element.Brush = new PdfSolidBrush(Color.Black);
+            element.Font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
+            element.StringFormat = new PdfStringFormat(PdfTextAlignment.Center, PdfVerticalAlignment.Top);
+            //Set the properties to paginate the text
+            PdfLayoutFormat layoutFormat = new PdfLayoutFormat();
+            layoutFormat.Break = PdfLayoutBreakType.FitPage;
+            //Set bounds to draw multiline text
+            RectangleF bounds = new RectangleF(PointF.Empty, pdfPage.Graphics.ClientSize);
+            //Draw the text element with the properties and formats set
+            element.Draw(pdfPage, bounds, layoutFormat);
 
             //Create a new PdfGrid.
             PdfGrid pdfGrid = new PdfGrid();
