@@ -96,7 +96,7 @@
                 </ControlTemplate>
             </Validation.ErrorTemplate>
         </DatePicker>
-        <Label Content="Izveštaji za period" FontSize="24" HorizontalAlignment="Left" Margin="56,139,0,0" VerticalAlignment="Top"/>
+        <Label Content="Zakazani pregledi za period" FontSize="24" HorizontalAlignment="Left" Margin="56,139,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="ExaminationTable" ItemsSource="{Binding Examinations}" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="56,253,70,132">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type Border}">

@@ -41,16 +41,16 @@ namespace Patient.View
 
         private void ValidateClick(object sender, RoutedEventArgs e)
         {
-            if (oldPassword == null)
+            if (oldPassword.Text == "")
             {
                 error.Content = "Morate uneti staru lozinku";
                 error.Visibility = Visibility.Visible;
-            }else if (!oldPassword.Equals(_userAccountController.ReadUserAccount(Login.loggedId)))
+            }else if (_userAccountController.LogIn(Login.loggedId, oldPassword.Text, HospitalMain.Enums.UserType.Patient) == false)
             {
                 error.Content = "Neispravna stara lozinka";
                 error.Visibility = Visibility.Visible;
             }
-            else if(newPassword == null)
+            else if(newPassword.Text == "")
             {
                 error.Content = "Morate uneti novu lozinku";
                 error.Visibility = Visibility.Visible;
