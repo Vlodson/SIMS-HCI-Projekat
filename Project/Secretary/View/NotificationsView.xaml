@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="Secretary.View.NotificationsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Secretary.View"
+             xmlns:converters="clr-namespace:Secretary.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
+    <UserControl.Resources>
+        <converters:DateTimePickerConverter x:Key="dateConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Label FontSize="28" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Margin="0 20 0 0" HorizontalContentAlignment="Center" Content="Notifikacije" FontWeight="SemiBold" ></Label>
+
+        <DockPanel Margin="0 30 0 0" Grid.Column="0" Grid.Row="1">
+            <Label DockPanel.Dock="Top" Content="Opis" Margin="25 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding SelectedNotification.Content}" BorderBrush="CornflowerBlue" BorderThickness="2" FontSize="16" Margin="30 0 10 20">
+                <TextBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+        </DockPanel>
+
+
+        <ListView Grid.Row="1" BorderBrush="CornflowerBlue" Width="380" BorderThickness="2" Grid.Column="1" Margin="50 64 30 20" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItem="{Binding SelectedNotification}" ItemsSource="{Binding Notifications}" ScrollViewer.CanContentScroll="False">
+            <ListView.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="GridViewColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            <Setter Property="FontSize" Value="18"/>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+
+                    <GridViewColumn Header="Naslov" Width="170" DisplayMemberBinding="{Binding Topic}"/>
+                    <GridViewColumn Header="Datum i vreme" Width="190" DisplayMemberBinding="{Binding Date, Converter={StaticResource dateConverter}}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Height="120" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Width="150" Height="30" Margin="0 0 30 0" Command="{Binding ReadNotificationCommand}" CommandParameter="Procitaj" Content="Pročitano" FontSize="18">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="8"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
