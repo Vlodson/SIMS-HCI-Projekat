@@ -48,6 +48,11 @@ namespace HospitalMain.Controller
             return _meetingsService.GetAllMeetings();
         }
 
+        public ObservableCollection<Meeting> GetAllMeetingsInWeek(DateTime dateTime)
+        {
+            return _meetingsService.GetAllMeetingInWeek(dateTime);
+        }
+
         public ObservableCollection<Room> GetFreeRooms(DateTime dateTime)
         {
             return _meetingsService.GetFreeRooms(dateTime);

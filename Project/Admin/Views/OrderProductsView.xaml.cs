@@ -29,6 +29,12 @@ namespace Admin.Views
             this.DataContext = new OrderProductsViewModel();
         }
 
+        public OrderProductsView(OrderProductsViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+        }
+
         private void AmountTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex(@"[^0-9]+");

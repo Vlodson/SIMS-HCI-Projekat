@@ -105,7 +105,7 @@ namespace Secretary.ViewModel
                 _freeDaysRequestsList.Add(new FreeRequestViewModel(request));
             }
 
-            FreeDaysRequest = _freeDaysRequestsList[0];
+            FreeDaysRequest = null;
         }
 
     }

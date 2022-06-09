@@ -40,6 +40,8 @@ namespace Admin.ViewModel
         private String selectedRoomNb;
         private DateTime startDate;
         private DateTime endDate;
+        private String startTime;
+        private String endTime;
 
 
         // properties
@@ -135,6 +137,35 @@ namespace Admin.ViewModel
             }
         }
 
+        public String StartTime
+        {
+            get { return startTime; }
+            set
+            {
+                if(startTime != value)
+                {
+                    startTime = value;
+                    OnPropertyChanged("StartTime");
+                    RecordCommand.RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+        public String EndTime
+        {
+            get { return endTime; }
+            set
+            {
+                if (endTime != value)
+                {
+                    endTime = value;
+                    OnPropertyChanged("EndTime");
+                    RecordCommand.RaiseCanExecuteChanged();
+                    SaveCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
         // constructor and methods
         public ScheduleEquipmentTransferViewModel()
         {
@@ -161,6 +192,9 @@ namespace Admin.ViewModel
             AvailableEquipment = new ObservableCollection<FriendlyEquipment>();
             foreach (Equipment equipment in originRoom.Equipment)
                 AvailableEquipment.Add(new FriendlyEquipment(equipment));
+
+            StartTime = "HH:MM";
+            EndTime = "HH:MM";
         }
 
         public void OnNavigation(String view)
@@ -183,7 +217,7 @@ namespace Admin.ViewModel
                     mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "record":
-                    MessageBox.Show("Transfer successfully scheduled");
+                    MessageBox.Show(mainWindow, "Transfer successfully scheduled");
                     mainWindow.CurrentView = new RecordEquipmentTransferView();
                     break;
             }
@@ -199,7 +233,9 @@ namespace Admin.ViewModel
             DestinationRoom = roomController.ReadRoom(equipmentTransfer.Id) is not null ? equipmentTransfer.DestinationRoom : null;
 
             StartDate = equipmentTransfer.StartDate;
+            StartTime = StartDate.TimeOfDay.ToString();
             EndDate = equipmentTransfer.EndDate;
+            EndTime = EndDate.TimeOfDay.ToString();
         }
 
         public void OnSelect()
@@ -215,7 +251,9 @@ namespace Admin.ViewModel
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
             DestinationRoom = roomController.GetSelectedRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, StartDate, EndDate);
+            DateTime start = ChangeTime(StartDate, TimeOnly.Parse(StartTime));
+            DateTime end = ChangeTime(EndDate, TimeOnly.Parse(EndTime));
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, start, end);
             equipmentTransferController.ScheduleTransfer(equipmentTransfer);
             OnNavigation("record"); 
         }
@@ -226,7 +264,9 @@ namespace Admin.ViewModel
             Equipment equipment = equipmentController.ReadEquipment(SelectedEquipment.Id);
             Room originRoom = roomController.GetClipboardRoom();
             DestinationRoom = roomController.GetSelectedRoom();
-            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, StartDate, EndDate);
+            DateTime start = ChangeTime(StartDate, TimeOnly.Parse(StartTime));
+            DateTime end = ChangeTime(EndDate, TimeOnly.Parse(EndTime));
+            EquipmentTransfer equipmentTransfer = new EquipmentTransfer(equipmentTransferController.GenerateID(), originRoom, DestinationRoom, equipment, start, end);
             equipmentTransferController.SetClipboardEquipmentTransfer(equipmentTransfer);
             // dont turn off
         }
@@ -243,7 +283,19 @@ namespace Admin.ViewModel
             }
 
             // can_record &&
-            return StartDate >= DateTime.Now.Date && EndDate >= StartDate;
+            return StartDate >= DateTime.Now.Date && EndDate >= StartDate && !String.IsNullOrEmpty(StartTime) && !String.IsNullOrEmpty(EndTime);
+        }
+
+        private DateTime ChangeTime(DateTime date, TimeOnly time)
+        {
+            return new DateTime(
+                date.Year,
+                date.Month,
+                date.Day,
+                time.Hour,
+                time.Minute,
+                time.Second
+                );
         }
     }
 }

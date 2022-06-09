@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
@@ -65,6 +66,8 @@ namespace Admin
             doctorController = new DoctorController(doctorService, emergencyService);
             answerController = new AnswerController(answerService);
 
+            var finishRenovations = new Timer(state => renovationController.FinishRenovation(), null, 0, 6000);
+            
             if(File.Exists(GlobalPaths.EquipmentDBPath))
                 equipmentController.LoadEquipment();
             
@@ -80,31 +83,27 @@ namespace Admin
             if(File.Exists(GlobalPaths.MedicineDBPath))
                 medicineController.LoadMedicine();
 
-            for (int i = 0; i < 20; i++)
+            int f = 0;
+            for(int i = 1; i < 40; i++)
             {
-                int floor = 1;
-                if (i > 10)
-                    floor = 2;
-
-                String r_id = roomController.GenerateID();
-                Room r = new Room(r_id, floor, i % 11 + 10 * (floor - 1), false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5));
-                roomController.CreateRoom(r);
-
-                String e_id = equipmentController.GenerateID();
-                Equipment e = new Equipment(e_id, r_id, (EquipmentTypeEnum)(i % 10));
-                equipmentController.CreateEquipment(e);
-                roomController.AddEquipment(r_id, equipmentController.ReadEquipment(e_id));
+                Room r = new Room(i.ToString(), f + 1, 10 * f + i % 10, false, (RoomTypeEnum)(i % 5), (RoomTypeEnum)(i % 5 + 1));
+                Equipment e = new Equipment(i.ToString(), i.ToString(), (EquipmentTypeEnum)(i % 10));
 
                 ObservableCollection<IngredientEnum> ingredients = new ObservableCollection<IngredientEnum>();
-                for(int j = 0; j < 4; j++)
-                    ingredients.Add( (IngredientEnum)((j+i)%5) );
+                for(int j = 0; j < 3; j++)
+                {
+                    ingredients.Add((IngredientEnum)((i + j) % 5));
+                }
+                MedicineTypeEnum t = (MedicineTypeEnum)(i % 8);
+                Medicine m = new Medicine(medicineController.GenerateID(), MedicineController.GenerateName(t), t, ingredients, StatusEnum.Pending, i.ToString(), DateTime.Now, "");
 
-                String id = medicineController.GenerateID();
-                MedicineTypeEnum type = (MedicineTypeEnum)(i % 5);
-                medicineController.NewMedicine(new Medicine(id, MedicineController.GenerateName(type), type, ingredients, StatusEnum.Pending, "d1", new DateTime(2020, 5, 5, 11, 11, 11), "No comment"));
+                roomController.CreateRoom(r);
+                equipmentController.CreateEquipment(e);
+                roomController.AddEquipment(r.Id, e);
+                medicineController.NewMedicine(m);
+
+                f = (i % 10) == 0 ? ++f : f;
             }
-
-            var finishRenovations = new Timer(state => renovationController.FinishRenovation(), null, 0, 6000);
         }
 
         public static Window GetSpecificWindowType<T>()

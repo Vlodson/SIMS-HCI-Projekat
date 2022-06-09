@@ -83,6 +83,19 @@ namespace Service
             return _examinationRepo.Examinations;
         }
 
+        public ObservableCollection<Examination> GetAllExamsInWeek(DateTime dateTime)
+        {
+            ObservableCollection<Examination> examinations = new ObservableCollection<Examination>(_examinationRepo.Examinations);
+            foreach(Examination exam in examinations.ToList())
+            {
+                if(exam.Date < dateTime || exam.Date > dateTime.AddDays(7))
+                {
+                    examinations.Remove(exam);
+                }
+            }
+            return examinations;
+        }
+
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();
@@ -94,113 +107,12 @@ namespace Service
         }
 
         public bool CheckIfDoctorIsOnVacation(String doctorID, DateTime dateTime)
+
         {
             ObservableCollection<FreeDaysRequest> requests = _freeDaysRequestService.GetAllAcceptedRequests();
             foreach(FreeDaysRequest freeDaysRequest in requests)
             {
                 if(freeDaysRequest.DoctorId.Equals(doctorID) && dateTime >= freeDaysRequest.StartDate && dateTime <= freeDaysRequest.EndDate)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentRoomValidation(DateTime date, String RoomID)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach(Examination exam in examinationsFromBase)
-            {
-                //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
-                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && RoomID.Equals(exam.ExamRoomId))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentDoctorValidation(DateTime date, Doctor doctor)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach (Examination exam in examinationsFromBase)
-            {
-                //ne moze jedan doktor da ima dva pregleda u isto vreme
-                if (doctor.Id.Equals(exam.DoctorId) && date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentPatientValidation(DateTime date, String PatientID)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach (Examination exam in examinationsFromBase)
-            {
-                //ne moze jedan pacijent da ima dva pregleda u isto vreme
-                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && PatientID.Equals(exam.PatientId))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentRoomEditValidation(String ExamID, DateTime date, String RoomID)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach (Examination exam in examinationsFromBase)
-            {
-                if (exam.Id.Equals(ExamID))
-                {
-                    continue;
-                }
-                //ne mogu se odvijati dva pregleda u jednoj sobi u isto vreme
-                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && RoomID.Equals(exam.ExamRoomId))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentDoctorEditValidation(String ExamID, DateTime date, Doctor doctor)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach (Examination exam in examinationsFromBase)
-            {
-                if (exam.Id.Equals(ExamID))
-                {
-                    continue;
-                }
-                //ne moze jedan doktor da ima dva pregleda u isto vreme
-                if (doctor.Id.Equals(exam.DoctorId) && date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public bool AppointmentPatientEditValidation(String ExamID, DateTime date, String PatientID)
-        {
-            ObservableCollection<Examination> examinationsFromBase = _examinationRepo.Examinations;
-
-            foreach (Examination exam in examinationsFromBase)
-            {
-                if (exam.Id.Equals(ExamID))
-                {
-                    continue;
-                }
-                //ne moze jedan pacijent da ima dva pregleda u isto vreme
-                if (date > exam.Date.AddMinutes(-30) && date < exam.Date.AddMinutes(30) && PatientID.Equals(exam.PatientId))
                 {
                     return false;
                 }

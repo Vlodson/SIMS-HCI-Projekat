@@ -56,7 +56,7 @@
                 <Image Source="..\Icons\back-16.png" />
             </Button>
 
-            <Button Style="{StaticResource ButtonWithIcon}" Grid.Column="1" Margin="10, 0">
+            <Button Style="{StaticResource ButtonWithIcon}" Command="{Binding ExportCommand}" Grid.Column="1" Margin="10, 0">
                 <Image Source="..\Icons\export-pdf-16.png" />
             </Button>
 

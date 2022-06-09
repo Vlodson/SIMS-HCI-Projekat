@@ -54,19 +54,19 @@ namespace Admin.ViewModel
         {
             if (_userAccountController.ReadUserAccount(UID) == null)
             {
-                MessageBox.Show("User ID does not exist");
+                MessageBox.Show(mainWindow, "User ID does not exist");
                 return;
             }
 
             if (_userAccountController.CheckUserType(UID) != UserType.Admin)
             {
-                MessageBox.Show("Access not allowed for this user type");
+                MessageBox.Show(mainWindow, "Access not allowed for this user type");
                 return;
             }
 
             if (!_userAccountController.LogIn(UID, password, UserType.Admin))
             {
-                MessageBox.Show("User ID or password incorrect");
+                MessageBox.Show(mainWindow, "User ID or password incorrect");
                 return;
             }
             else
@@ -89,7 +89,7 @@ namespace Admin.ViewModel
         {
             if (!_userAccountController.Register(UID, password, UserType.Admin))
             {
-                MessageBox.Show("Registration failed. Try different user ID");
+                MessageBox.Show(mainWindow, "Registration failed. Try different user ID");
                 // change view
                 return;
             }

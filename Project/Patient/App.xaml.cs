@@ -94,6 +94,7 @@ namespace Patient
             var renovationService = new RenovationService(renovationRepo, roomRepo, examinationRepo);
             var medicineService = new MedicineService(medicineRepo);
             ReferralService referralService = new ReferralService(referralRepo);
+            var validationService = new ValidationService(examinationRepo);
 
             PersonalNotificationService personalNotificationService = new PersonalNotificationService(personalNotificationRepo);
             QuestionnaireService questionnaireService = new QuestionnaireService(questionnaireRepo, PatientRepo);
@@ -102,7 +103,7 @@ namespace Patient
             EmergencyService emergencyService = new EmergencyService(examinationRepo, DoctorRepo);
 
 
-            ExamController = new ExamController(patientService, doctorService);
+            ExamController = new ExamController(patientService, doctorService, validationService);
             DoctorController = new DoctorController(doctorService, emergencyService);
             PatientController = new PatientController(patientService, patientAccountService);
             RoomController = new RoomController(roomService);

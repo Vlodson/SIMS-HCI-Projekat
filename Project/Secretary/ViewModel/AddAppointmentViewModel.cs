@@ -13,6 +13,7 @@ using Secretary.View;
 using System.Windows;
 using Secretary.ViewUtils;
 using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Secretary.ViewModel
 {
@@ -72,12 +73,21 @@ namespace Secretary.ViewModel
             Room = rooms.First();
         }
 
+        //datum
         private DateTime date = DateTime.Now;
 
         public DateTime Date
         {
             get { return date; }
             set { date = value; OnPropertyChanged(nameof(Date)); }
+        }
+
+        //vreme
+        private String time = "12:00";
+        public String Time
+        {
+            get { return time; }
+            set { time = value; OnPropertyChanged(nameof(Time)); addTimeToDate(); }
         }
 
         public ICommand AddCommand { get; }
@@ -186,6 +196,11 @@ namespace Secretary.ViewModel
 
             //this treba kao param
             AddCommand = new AddAppointmentCommand(this, _mainViewModel, examController, doctorController);
+        }
+
+        private void addTimeToDate()
+        {
+            Date = Date.Add(TimeSpan.Parse(Time));
         }
     }
 }

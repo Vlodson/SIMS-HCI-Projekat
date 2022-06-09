@@ -132,7 +132,7 @@ namespace Admin.ViewModel
             if (SelectedOrderType == "Medicine")
             {
                 AddMedicine();
-                MessageBox.Show("Medicine successfully ordered");
+                MessageBox.Show(mainWindow, "Medicine successfully ordered");
                 mainWindow.Width = 750;
                 mainWindow.Height = 430;
                 mainWindow.CurrentView = new MainMenuView();
@@ -141,7 +141,7 @@ namespace Admin.ViewModel
             else if(SelectedOrderType == "Equipment")
             {
                 AddEquipment();
-                MessageBox.Show("Equipment successfully ordered");
+                MessageBox.Show(mainWindow, "Equipment successfully ordered");
                 mainWindow.Width = 750;
                 mainWindow.Height = 430;
                 mainWindow.CurrentView = new MainMenuView();

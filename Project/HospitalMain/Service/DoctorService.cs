@@ -26,6 +26,7 @@ namespace Service
         }
 
         public DoctorType GetDoctorsType(string doctorID)
+
         {
             foreach (Doctor doctor in _doctorRepo.Doctors)
             {
@@ -38,6 +39,7 @@ namespace Service
         }
 
         public void SubstractDoctorsFreeDays(string doctorID, double days)
+
         {
             ObservableCollection<Doctor> doctors = _doctorRepo.Doctors;
             foreach(Doctor doctor in doctors)
