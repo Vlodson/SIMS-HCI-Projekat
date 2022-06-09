@@ -12,11 +12,11 @@
         <Grid.Background>
             <SolidColorBrush Color="white"/>
         </Grid.Background>
-        <Label Content="Zakazani pregledi" HorizontalAlignment="Center" FontSize="32" Margin="0,138,0,0" VerticalAlignment="Top"/>
-        <Label Content="Od:" FontSize="24" HorizontalAlignment="Left" Margin="35,223,0,0" VerticalAlignment="Top"/>
-        <Label Content="Do:" FontSize="24" HorizontalAlignment="Left" Margin="35,284,0,0" VerticalAlignment="Top"/>
-        <Label Name="stratLabel" Content="{Binding Start}" FontSize="24" HorizontalAlignment="Left" Margin="124,223,0,0" VerticalAlignment="Top"/>
-        <Label Name="endLabel" Content="{Binding End}" FontSize="24" HorizontalAlignment="Left" Margin="124,284,0,0" VerticalAlignment="Top"/>
+        <Label Content="Zakazani pregledi" HorizontalAlignment="Center" FontSize="32" Margin="0,174,0,0" VerticalAlignment="Top"/>
+        <Label Content="Od:" FontSize="24" HorizontalAlignment="Left" Margin="19,258,0,0" VerticalAlignment="Top"/>
+        <Label Content="Do:" FontSize="24" HorizontalAlignment="Left" Margin="20,305,0,0" VerticalAlignment="Top"/>
+        <Label Name="stratLabel" Content="{Binding Start}" FontSize="24" HorizontalAlignment="Left" Margin="121,258,0,0" VerticalAlignment="Top"/>
+        <Label Name="endLabel" Content="{Binding End}" FontSize="24" HorizontalAlignment="Left" Margin="121,305,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="examinationsTable" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Width="780" IsReadOnly="True" CanUserAddRows="False" Margin="10,394,10,113">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -30,9 +30,22 @@
                 <DataGridTextColumn Header="Soba" FontSize="18" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}" Width="195"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="20,19,0,0" VerticalAlignment="Top"/>
-        <Label Content="Na dan:" HorizontalAlignment="Left" Margin="646,19,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="patientLabel" Content="Label" HorizontalAlignment="Left" Margin="79,19,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="dateLabel" Content="Label" HorizontalAlignment="Left" Margin="702,19,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pacijent:" HorizontalAlignment="Left" Margin="10,119,0,0" VerticalAlignment="Top"/>
+        <Label Content="Na dan:" HorizontalAlignment="Left" Margin="659,119,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="patientLabel" Content="Label" HorizontalAlignment="Left" Margin="69,119,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="dateLabel" Content="Label" HorizontalAlignment="Left" Margin="715,119,0,0" VerticalAlignment="Top"/>
+        <Rectangle HorizontalAlignment="Left" Height="5" Margin="-7,111,0,0" Stroke="Black" VerticalAlignment="Top" Width="839">
+            <Rectangle.Fill>
+                <SolidColorBrush Color="Black"></SolidColorBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Image Source="/Images/logo2.png" HorizontalAlignment="Left" Height="100" Margin="0,6,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Opšta bolnica" FontSize="24" HorizontalAlignment="Left" Margin="110,14,0,0" VerticalAlignment="Top"/>
+        <Label Content="Novi Sad" FontSize="24" HorizontalAlignment="Left" Margin="110,56,0,0" VerticalAlignment="Top"/>
+        <Label Content="21000 Novi Sad, ul. Dosteja Obradovića br.125" HorizontalAlignment="Left" Margin="535,6,0,0" VerticalAlignment="Top"/>
+        <Label Content="Info pult: 065/123-456; faks:016/3654-505" HorizontalAlignment="Left" Margin="535,27,0,0" VerticalAlignment="Top"/>
+        <Label Content="website: www.bolnica.org" HorizontalAlignment="Left" Margin="535,49,0,0" VerticalAlignment="Top"/>
+        <Label Content="email: uprava.bolnice@bolnica.org" HorizontalAlignment="Left" Margin="535,72,0,0" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>
