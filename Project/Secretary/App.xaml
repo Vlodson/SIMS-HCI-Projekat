@@ -122,6 +122,10 @@
             <DataTemplate DataType="{x:Type viewmodels:RoomOccupancyReportViewModel}">
                 <view:ReportView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:NotificationViewModel}">
+                <view:NotificationsView/>
+            </DataTemplate>
             
         </ResourceDictionary>
     </Application.Resources>

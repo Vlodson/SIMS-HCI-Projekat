@@ -36,22 +36,30 @@ namespace Secretary.Commands
             else if (parameter.ToString() == "Emergency")
             {
                 _mainViewModel.CurrentViewModel = new EmergencyGeneralViewModel();
-            } else if(parameter.ToString() == "Requests")
+            }
+            else if(parameter.ToString() == "Requests")
             {
                 _mainViewModel.CurrentViewModel = new RequestsViewModel(_mainViewModel);
-            } else if(parameter.ToString() == "Logout")
+            }
+            else if(parameter.ToString() == "Logout")
             {
                 LogInWindow _loginWindow = new LogInWindow();
                 Application.Current.MainWindow = _loginWindow;
                 _loginWindow.Show();
 
                 _mainWindow.Close();
-            } else if(parameter.ToString() == "HomePage")
+            }
+            else if(parameter.ToString() == "HomePage")
             {
                 _mainViewModel.CurrentViewModel = new HomeViewModel();
-            } else if(parameter.ToString() == "Izvestaj")
+            }
+            else if(parameter.ToString() == "Izvestaj")
             {
                 _mainViewModel.CurrentViewModel = new RoomOccupancyReportViewModel(_mainViewModel);
+            }
+            else if(parameter.ToString() == "Obavestenje")
+            {
+                _mainViewModel.CurrentViewModel = new NotificationViewModel(_mainViewModel);
             }
         }
     }
