@@ -127,6 +127,7 @@ namespace Admin.ViewModel
                     mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "logout":
+                    mainWindow.CurrentView = new LoginView();
                     break;
                 case "discard":
                     renovationController.DeleteRenovation(renovation.Id);

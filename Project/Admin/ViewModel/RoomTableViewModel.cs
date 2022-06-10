@@ -178,6 +178,7 @@ namespace Admin.ViewModel
                     mainWindow.CurrentView = new MainMenuView();
                     break;
                 case "logout":
+                    mainWindow.CurrentView = new LoginView();
                     break;
                 case "equipment":
                     mainWindow.CurrentView = new EquipmentTableView();

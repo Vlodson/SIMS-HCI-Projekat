@@ -52,6 +52,7 @@ namespace Admin.ViewModel
                 case "help":
                     break;
                 case "logout":
+                    mainWindow.CurrentView = new LoginView();
                     break;
                 case "equipmentTransfer":
                     mainWindow.CurrentView = new ScheduleEquipmentTransferView();

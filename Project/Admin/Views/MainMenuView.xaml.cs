@@ -77,6 +77,11 @@ namespace Admin.Views
                 case "demo":
                     Demo.DoDemo();
                     break;
+                case "logout":
+                    mainWindow.Height = 750;
+                    mainWindow.Width = 430;
+                    mainWindow.CurrentView = new LoginView();
+                    break;
             }
         }
 
