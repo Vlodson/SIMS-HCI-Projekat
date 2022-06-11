@@ -91,9 +91,9 @@ namespace Patient.View
         {
             InitializeComponent();
             this.DataContext = this;
-            
+
             App app = Application.Current as App;
-           //_examinationRepo = app.ExaminationRepo;
+            //_examinationRepo = app.ExaminationRepo;
             _examinationController = app.ExamController;
             _doctorController = app.DoctorController;
             _patientController = app.PatientController;
@@ -103,7 +103,7 @@ namespace Patient.View
 
             examinations = new ObservableCollection<Examination>();
             examinations = _examinationController.ReadPatientExams(Login.loggedId);
-            foreach(Examination exam in examinations)
+            foreach (Examination exam in examinations)
             {
                 exam.DoctorNameSurname = _doctorController.GetDoctor(exam.DoctorId).NameSurname;
             }
@@ -113,7 +113,7 @@ namespace Patient.View
             examinationsForDate = new List<Examination>();
             datesExaminations = new List<DateOnly>();
             Calendar.SelectedDate = DateTime.Now;
-            Calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990, 1, 1),DateTime.Now.AddDays(-1)));
+            Calendar.BlackoutDates.Add(new CalendarDateRange(new DateTime(1990, 1, 1), DateTime.Now.AddDays(-1)));
             //foreach(Examination exam in examinations)
             //{
             //    if(exam.Date.Date == today.Date)
@@ -153,7 +153,7 @@ namespace Patient.View
         {
             Message.Visibility = Visibility.Hidden;
             DateTime selected = (DateTime)Calendar.SelectedDate;
-            if (selected == null){
+            if (selected == null || selected.Date == DateTime.Now.Date){
                 selected = DateTime.Now.AddDays(1);
             }
 
@@ -231,8 +231,8 @@ namespace Patient.View
             {
                 if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
-                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
-                    //if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month<DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
+                    //if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                    if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month<DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
                     {
                         Message.Visibility = Visibility.Hidden;
                         //EditExamination editExamination = new EditExamination();
@@ -312,8 +312,8 @@ namespace Patient.View
             {
                 if (_patientController.CheckStatusCancelled(Login.loggedId))
                 {
-                    //if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month < DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
-                    if (selected.Date.CompareTo(DateTime.Now) >= 0)
+                    if (selected.Date.Year == DateTime.Now.Year && (selected.Date.Month < DateTime.Now.Month || (selected.Date.Month == DateTime.Now.Month && selected.Date.Day < DateTime.Now.Day)))
+                    //if (selected.Date.CompareTo(DateTime.Now) >= 0)
                     {
                         Message.Visibility = Visibility.Hidden;
                         WesNowRemove yesNoRemove = new WesNowRemove();

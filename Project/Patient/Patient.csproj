@@ -26,10 +26,13 @@
     <None Remove="Images\icons8-menu-24.png" />
     <None Remove="Images\login.jpg" />
     <None Remove="Images\logo2.png" />
+    <None Remove="Images\menu.png" />
+    <None Remove="Images\menu1.png" />
     <None Remove="Images\reportPdf.png" />
     <None Remove="Images\sign-out-alt.png" />
     <None Remove="Images\survey.png" />
     <None Remove="Images\tutorial.png" />
+    <None Remove="Images\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -104,6 +107,12 @@
     <Resource Include="Images\logo2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\menu1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\reportPdf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -114,6 +123,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\tutorial.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
