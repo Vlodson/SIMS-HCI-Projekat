@@ -11,6 +11,22 @@
         <converters:DateTimePickerConverter x:Key="dateConverter"/>
     </UserControl.Resources>
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
@@ -26,7 +42,7 @@
 
         <DockPanel Margin="0 30 0 0" Grid.Column="0" Grid.Row="1">
             <Label DockPanel.Dock="Top" Content="Opis" Margin="25 0 0 0" FontSize="20" FontWeight="SemiBold"/>
-            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding SelectedNotification.Content}" BorderBrush="CornflowerBlue" BorderThickness="2" FontSize="16" Margin="30 0 10 20">
+            <TextBox TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" Text="{Binding SelectedNotification.Content}" BorderBrush="CornflowerBlue" BorderThickness="2" FontSize="16" Margin="30 0 10 20">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -59,7 +75,7 @@
         </ListView>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Height="120" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Width="150" Height="30" Margin="0 0 30 0" Command="{Binding ReadNotificationCommand}" CommandParameter="Procitaj" Content="Pročitano" FontSize="18">
+            <Button Width="150" Height="30" Margin="0 0 30 0" x:Name="stack" Command="{Binding ReadNotificationCommand}" CommandParameter="Procitaj" Content="Pročitano" FontSize="18">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="8"/>

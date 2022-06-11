@@ -134,7 +134,7 @@ namespace Secretary.ViewModel
 
             FillGenderTypeComboBoxData();
 
-            //inicijalizacija komande i binding u xamlu
+            //inicijalizacija komande i binding u xaml
             EditCommand = new EditAccountCommand(this, cRUDAccountOptionsViewModel, _patientController, accountsViewModel);
             CancelCommand = new CancelAccountCommand(accountsViewModel);
         }

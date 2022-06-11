@@ -22,7 +22,7 @@ namespace Repository
             this.DBPath = dbPath;
             Examinations = new ObservableCollection<Examination>();
 
-            Examination exam1 = new Examination("1", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "1", "d1");
+            Examination exam1 = new Examination("1", new DateTime(2022, 6, 5, 12, 00, 00), "1", 30, ExaminationTypeEnum.OrdinaryExamination, "3", "d1");
             Examination exam2 = new Examination("1", new DateTime(2022, 6, 5, 12, 30, 00), "2", 30, ExaminationTypeEnum.OrdinaryExamination, "2", "d11");
             Examination exam3 = new Examination("2", new DateTime(2022, 6, 5, 11, 00, 00), "3", 30, ExaminationTypeEnum.Surgery, "3", "d13");
             Examination exam4 = new Examination("5", new DateTime(2022, 6, 5, 15, 00, 00), "4", 30, ExaminationTypeEnum.Surgery, "2", "d13");

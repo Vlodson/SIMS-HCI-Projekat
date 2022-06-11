@@ -215,6 +215,17 @@ namespace Service
             _examinationRepo.SetExamination(examId, examination);
         }
 
+        public void DeletePatientExams(String id)
+        {
+            foreach(Examination exam in _examinationRepo.Examinations.ToList())
+            {
+                if (exam.PatientId.Equals(id))
+                {
+                    _examinationRepo.Examinations.Remove(exam);
+                }
+            }
+        }
+
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
             ObservableCollection<Examination> patientExaminations = new ObservableCollection<Examination>();

@@ -8,6 +8,7 @@ namespace Secretary.ViewModel
 {
     public class AccountsViewModel : ViewModelBase
     {
+
         private ViewModelBase _currentCRUDAccView;
         public ViewModelBase CurrentCRUDAccView
         {

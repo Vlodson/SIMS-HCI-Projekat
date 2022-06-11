@@ -21,6 +21,8 @@ namespace Secretary.ViewModel
     {
 
         private readonly PatientController _patientController;
+        private readonly MedicalRecordController _medicalRecordController;
+        private readonly ExamController _examController;
         private ObservableCollection<PatientViewModel> _patientList;
         private ICollectionView _dataGridCollection;
         private String _filter;
@@ -65,12 +67,14 @@ namespace Secretary.ViewModel
             
             var app = System.Windows.Application.Current as App;
             _patientController = app.PatientController;
+            _examController = app.ExamController;
+            _medicalRecordController = app.MedicalRecordController;
 
             _patientList = new ObservableCollection<PatientViewModel>();
             DataGridCollection = CollectionViewSource.GetDefaultView(PatientList);
 
             AddAccountCommand = new GoToAddAccountCommand(this, accountsViewModel);
-            DeleteAccountCommand = new DeleteAccountCommand(this, _patientController);
+            DeleteAccountCommand = new DeleteAccountCommand(this, _patientController, _medicalRecordController, _examController);
             EditAccountCommand = new GoToEditAccountCommand(this, accountsViewModel);
 
             ObservableCollection<Patient> patientsFromBase = _patientController.ReadAllPatients();

@@ -34,9 +34,6 @@ namespace Secretary.Commands
                 _accountsViewModel.CurrentCRUDAccView = new EditAccountViewModel(_cRUDAccountOptionsViewModel, _accountsViewModel);
             }
 
-            //EditAccount editAccount = new EditAccount();
-            //editAccount.DataContext = new EditAccountViewModel(_cRUDAccountOptionsViewModel, editAccount);
-            //editAccount.ShowDialog();
         }
 
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

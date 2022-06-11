@@ -89,7 +89,7 @@ namespace Secretary.Commands
 
             //stilizovanje celija
             PdfGridCellStyle cellStyle = new PdfGridCellStyle();
-            cellStyle.Font = new PdfStandardFont(PdfFontFamily.TimesRoman, 10f);
+            cellStyle.Font = new PdfStandardFont(PdfFontFamily.TimesRoman, 12f);
 
             //stilizovanje naslova tabele
             PdfGridCellStyle headerStyle = new PdfGridCellStyle();
@@ -140,6 +140,14 @@ namespace Secretary.Commands
                 row.Cells[2].Value = " " + room.RoomNb;
                 row.Cells[3].Value = " " + room.Floor;
                 row.Cells[4].Value = " Soba za sastanke";
+            }
+
+            for(int i = 0; i < pdfGrid.Rows.Count; i++)
+            {
+                for(int j = 0; j < pdfGrid.Rows[i].Cells.Count; j++)
+                {
+                    pdfGrid.Rows[i].Cells[j].StringFormat = new PdfStringFormat(PdfTextAlignment.Left, PdfVerticalAlignment.Middle);
+                }
             }
 
             //Draw the PdfGrid.
