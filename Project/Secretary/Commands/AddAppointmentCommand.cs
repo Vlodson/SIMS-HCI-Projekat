@@ -32,6 +32,7 @@ namespace Secretary.Commands
 
         public override bool CanExecute(object? parameter)
         {
+            changeSelectedDoctor();
             DateTime dt = _addAppointmentViewModel.Date;
             return _examController.CheckIfDoctorIsOnVacation(_addAppointmentViewModel.Doctor.Id, dt.Add(TimeSpan.Parse(_addAppointmentViewModel.Time))) && _examController.AppointmentDoctorValidation(dt.Add(TimeSpan.Parse(_addAppointmentViewModel.Time)), _addAppointmentViewModel.Doctor) && _examController.AppointmentPatientValidation(dt.Add(TimeSpan.Parse(_addAppointmentViewModel.Time)), _addAppointmentViewModel.Patient.ID) && _examController.AppointmentRoomValidation(dt.Add(TimeSpan.Parse(_addAppointmentViewModel.Time)), _addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Room.Id) && !string.IsNullOrEmpty(_addAppointmentViewModel.Patient.ID) && base.CanExecute(parameter);
         }
@@ -73,7 +74,7 @@ namespace Secretary.Commands
         private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //changeSelectedDoctor();
-            if (e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Time) || e.PropertyName == nameof(AddAppointmentViewModel.Doctor) || e.PropertyName == nameof(AddAppointmentViewModel.DoctorListBox))
+            if (e.PropertyName == nameof(AddAppointmentViewModel.Date) || e.PropertyName == nameof(AddAppointmentViewModel.Time) || e.PropertyName == nameof(AddAppointmentViewModel.DoctorListBox))
             {
                 OnCanExecutedChanged();
             }

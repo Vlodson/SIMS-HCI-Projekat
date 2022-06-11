@@ -51,6 +51,11 @@ namespace Controller
             return medRecordService.GetAllMedicalRecords();
         }
 
+        public void DeletePatientMedicalRecord(String id)
+        {
+            medRecordService.DeletePatientMedicalRecord(id);
+        }
+
         public void AddNewReport(string id, Report report)
         {
             medRecordService.AddNewReport(id, report);

@@ -116,6 +116,11 @@ namespace Controller
             _doctorService.RemoveExam(examID);
         }
 
+        public void DeletePatientExams(String id)
+        {
+            _patientService.DeletePatientExams(id);
+        }
+
         public ObservableCollection<Examination> ReadPatientExams(string id)
         {
             return _patientService.ReadPatientExams(id);

@@ -10,9 +10,25 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation  Duration="0:0:0.2" Storyboard.TargetName="stack" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#FF64A8ED" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="stack" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="CornflowerBlue" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
                         <StackPanel Orientation="Horizontal"
                               HorizontalAlignment="Stretch"
-                              Background="{TemplateBinding Background}">
+                              Background="{TemplateBinding Background}" x:Name="stack">
 
                             <Image Margin="10,0,0,0" Source="/Images/chevronRight.png" Width="24"  Height="24" />
                             <TextBlock Text="{TemplateBinding Property=Content}"

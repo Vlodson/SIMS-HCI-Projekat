@@ -7,6 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -26,7 +42,7 @@
                         </DatePicker.Resources>
                     </DatePicker>
 
-                    <Button Content="Napravi izveštaj" Width="200" Command="{Binding ExportPdfCommand}" CommandParameter="ExportPDF" >
+                    <Button Height="25" Content="Napravi izveštaj" Width="200" Command="{Binding ExportPdfCommand}" FontSize="14" CommandParameter="ExportPDF" >
                         <Button.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="8"/>

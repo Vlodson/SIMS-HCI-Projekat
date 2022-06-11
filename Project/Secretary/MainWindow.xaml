@@ -23,7 +23,7 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Border BorderBrush="DarkGray" Background="CornflowerBlue" BorderThickness="0 0 0 1.5" Grid.Row="0" Grid.ColumnSpan="2" >
+            <Border BorderBrush="LightBlue" Background="CornflowerBlue" BorderThickness="0 0 0 1.5" Grid.Row="0" Grid.ColumnSpan="2" >
                 <Grid HorizontalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Images/hospitalCar.png" Margin="0,5,10,5"/>
@@ -63,7 +63,7 @@
                 </Grid>
             </Border>-->
 
-            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="DarkGray" BorderThickness="0 0 0 1.5">
+            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="CornflowerBlue" BorderThickness="0 0 0 1.5">
                 <Grid Background="CornflowerBlue" >
 
                     <DockPanel>
@@ -91,7 +91,7 @@
                 </Grid.RowDefinitions>
 
                 <RadioButton Grid.Row="0" Foreground="Black" Content="Početna strana" Command="{Binding UpdateViewCommand}" CommandParameter="HomePage" FontSize="18"
-                             Style="{StaticResource MenuButtonTheme}" IsChecked="True">
+                             Style="{StaticResource MenuButtonTheme}">
 
                 </RadioButton>
 

@@ -40,15 +40,15 @@ namespace Secretary.ViewModel
 
             Notifications = new ObservableCollection<NotificationDTO>();
 
-            Notification not1 = new Notification("Content1", false, new DateTime(2022, 6, 7, 12, 30, 00));
-            Notification not2 = new Notification("Content2", false, new DateTime(2022, 6, 7, 14, 30, 00));
-            Notification not3 = new Notification("Content3", false, new DateTime(2022, 6, 8, 8, 00, 00));
-            Notification not4 = new Notification("Content4", false, new DateTime(2022, 6, 9, 11, 30, 00));
+            Notification not1 = new Notification("Od sledeće nedelje, na radno mesto dolazi novi upravnik bolnice, Dr. Kopitović.", false, new DateTime(2022, 6, 7, 12, 30, 00));
+            Notification not2 = new Notification("Na današnji dan, proslavljamo 15. rođendan naše bolnice. Povodom ovog događaja, upravnik Lunić je organizovao u svečanoj sali bolnice proslavu. Na prethodno spomenutom događaju, gostovaće nam proslavljena estradna zvezda Đani!", false, new DateTime(2022, 6, 7, 14, 30, 00));
+            Notification not3 = new Notification("Danas, u jutarnji časovima, desio se kvar na instalacijama u ostavi na 2. spratu. Molim vas, pozovite nadležne da otklone problem.", false, new DateTime(2022, 6, 8, 8, 00, 00));
+            Notification not4 = new Notification("Renoviranje sobe broj 8 će se održati u periodu od 15.8.2022. do 29.8.2022. Molimo sve zaposlene za strpljenje.", false, new DateTime(2022, 6, 9, 11, 30, 00));
 
-            Notifications.Add(new NotificationDTO(not1, "Topic1"));
-            Notifications.Add(new NotificationDTO(not2, "Topic2"));
-            Notifications.Add(new NotificationDTO(not3, "Topic3"));
-            Notifications.Add(new NotificationDTO(not4, "Topic4"));
+            Notifications.Add(new NotificationDTO(not1, "Novi upravnik"));
+            Notifications.Add(new NotificationDTO(not2, "Rođendan bolnice"));
+            Notifications.Add(new NotificationDTO(not3, "Kvar na instalacijama"));
+            Notifications.Add(new NotificationDTO(not4, "Renoviranje sobe 8"));
 
             ReadNotificationCommand = new ReadNotificationCommand(mainViewModel, this);
         }

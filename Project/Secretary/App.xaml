@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="Styles/DataGridRowTheme.xaml"/>
                 <ResourceDictionary Source="Styles/MovementAnimation.xaml"/>
                 <ResourceDictionary Source="Styles/GroupBoxTheme3.xaml"/>
+                <ResourceDictionary Source="Styles/HomePageButtons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:CRUDAccountOptionsViewModel}">

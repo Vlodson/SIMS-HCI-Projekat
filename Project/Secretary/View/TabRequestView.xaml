@@ -25,7 +25,7 @@
             <ColumnDefinition Width="400"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Height="200" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="CornflowerBlue" BorderThickness="2" SelectedItem="{Binding FreeDaysRequest}" ItemsSource="{Binding FreeDaysRequestsList}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
+        <ListView Height="200" Grid.Row="0" Grid.ColumnSpan="2" BorderBrush="LightBlue" BorderThickness="2" SelectedItem="{Binding FreeDaysRequest}" ItemsSource="{Binding FreeDaysRequestsList}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False">
             <ListView.View>
                 <GridView>
                     <GridView.ColumnHeaderContainerStyle>

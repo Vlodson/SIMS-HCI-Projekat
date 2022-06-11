@@ -71,6 +71,17 @@ namespace Service
             return medicalRecordRepo.MedicalRecords;
         }
 
+        public void DeletePatientMedicalRecord(String id)
+        {
+            foreach(MedicalRecord medRecord in medicalRecordRepo.MedicalRecords.ToList())
+            {
+                if (medRecord.ID.Equals(id))
+                {
+                    medicalRecordRepo.MedicalRecords.Remove(medRecord);
+                    break;
+                }
+            }
+        }
 
         public void AddNewReport(string id, Report report)
         {
