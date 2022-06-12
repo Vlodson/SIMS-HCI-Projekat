@@ -13,22 +13,22 @@
             <Button Content="Oprema" Width="150" Command="{Binding EquipmentCommand}"/>
             <Button Content="Promena radnog vremena" Width="267" Command="{Binding WorkHoursCommand}"/>
         </StackPanel>
-        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,26">
+        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,120">
             <Grid>
-                <DatePicker SelectedDate="{Binding Path=EndDate}" Margin="377,143,25,307"/>
-                <Label Content="Broj preostalih dana" HorizontalAlignment="Left" Margin="26,47,0,0" VerticalAlignment="Top"/>
-                <TextBox Margin="271,50,274,398" Text="{Binding Path=FreeDaysLeft}" IsEnabled="False"/>
-                <Label Content="Od" Margin="26,138,500,304"/>
-                <Label Content="Do" Margin="292,143,232,294"/>
-                <DatePicker Margin="74,143,301,304" SelectedDate="{Binding Path=StartDate}"/>
-                <ComboBox ItemsSource="{Binding Reasons}" SelectedValue="{Binding SelectedItem,Mode = TwoWay}" Margin="171,242,264,200"></ComboBox>
-                <Label Content="Razlog" Margin="26,240,456,198"/>
-                <Button Content="Posalji" Template="{StaticResource BasicButton}" Margin="398,355,46,82" Command="{Binding SendRequestCommand}"/>
-                <Button Content="Pogledaj sve" Template="{StaticResource BasicButton}" Margin="74,355,340,82" Command="{Binding ShowAll}"/>
+                <DatePicker SelectedDate="{Binding Path=EndDate}" Margin="377,138,25,212" Height="40"/>
+                <Label Height="40" Content="Broj preostalih dana" HorizontalAlignment="Left" Margin="26,47,0,0" VerticalAlignment="Top"/>
+                <TextBox Height="40" Margin="271,50,264,304" Text="{Binding Path=FreeDaysLeft}" IsEnabled="False"/>
+                <Label Content="Od" Margin="26,138,503,212" Height="40"/>
+                <Label Content="Do" Margin="308,138,216,212" Height="40"/>
+                <DatePicker Margin="90,138,285,212" SelectedDate="{Binding Path=StartDate}" Height="40"/>
+                <ComboBox Height="40" ItemsSource="{Binding Reasons}" SelectedValue="{Binding SelectedItem,Mode = TwoWay}" Margin="137,240,297,104"></ComboBox>
+                <Label Height="40" Content="Razlog" Margin="26,240,456,104"/>
+                
             </Grid>
 
-
         </Border>
+        <Button Content="Posalji" Template="{StaticResource BasicButton}" Margin="434,586,130,51" Command="{Binding SendRequestCommand}"/>
+        <Button Content="Pogledaj sve" Template="{StaticResource BasicButton}" Margin="142,583,420,48" Command="{Binding ShowAll}"/>
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="96" Canvas.Top="11" VerticalAlignment="Top" >ODABERI FORMU ZA ZAHTEV</TextBlock>
         </Canvas>

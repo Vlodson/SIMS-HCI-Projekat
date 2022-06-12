@@ -89,7 +89,7 @@ namespace Doctor.View
             string description = textBoxDescription.Text;
             ObservableCollection<Therapy> therapies = _therapyController.findById(selectedExam.Id);
 
-            Report report = new Report(selectedExam.Id, description, selectedExam.Date, selectedExam.PatientId, selectedExam.DoctorId, therapies, "");
+            Report report = new Report(selectedExam.Id, description, selectedExam.Date, selectedExam.PatientId, MainWindow._uid, therapies, "");
             _reportController.NewReport(report);
             _medicalRecordController.AddNewReport(selectedExam.PatientId, report);
             _reportRepo.SaveReport();

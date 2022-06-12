@@ -1,4 +1,5 @@
 ﻿using Enums;
+using Interfaces;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class FreeDaysRequestRepo
+    public class FreeDaysRequestRepo: IFreeDaysRequestRepo
     {
         public string DBPath { get; set; }
         public ObservableCollection<FreeDaysRequest> Requests { get; set; }

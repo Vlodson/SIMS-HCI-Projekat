@@ -83,10 +83,14 @@ namespace Doctor.View
         {
             Main.Content = new Patients();
         }
+        private void ButtonHelp(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new HelpPage();
+        }
 
         private void ButtonNotifications(object sender, RoutedEventArgs e)
         {
-
+            Main.Content = new NotificationPage();
         }
 
         private void ButtonLogOut(object sender, RoutedEventArgs e)

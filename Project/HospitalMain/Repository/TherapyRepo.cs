@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Interfaces;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class TherapyRepo
+    public class TherapyRepo: ITherapyRepo
     {
         public string DBPath { get; set; }
         public ObservableCollection<Therapy> Therapies { get; set; }

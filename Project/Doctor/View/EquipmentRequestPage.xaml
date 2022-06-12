@@ -15,7 +15,7 @@
             <Button Content="Oprema" Width="150" IsEnabled="False"/>
             <Button Content="Promena radnog vremena" Width="267" Command="{Binding WorkHoursCommand}"/>
         </StackPanel>
-        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,26">
+        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,184">
             <Grid Margin="60,55,88,58">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -43,11 +43,12 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Button Content="Posalji" Grid.Row="3" Template="{StaticResource BasicButton}" Command ="{Binding SendCommand}" Margin="275,116,0,-116"/> 
+
             </Grid>
 
 
         </Border>
+        <Button Content="Posalji" Template="{StaticResource BasicButton}" Command ="{Binding SendCommand}" Margin="280,513,280,118"/>
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="96" Canvas.Top="10" VerticalAlignment="Center" >ODABERI FORMU ZA ZAHTEV</TextBlock>
         </Canvas>

@@ -3,9 +3,10 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:validation="clr-namespace:Doctor.Validation"
       xmlns:local="clr-namespace:Doctor.View"
       mc:Ignorable="d" 
-      d:DesignHeight="395" d:DesignWidth="452"
+      d:DesignHeight="692" d:DesignWidth="710"
       Title="AddExamination">
 
     <Grid>
@@ -14,55 +15,54 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="1" Margin="112,1,181,134" FontSize="20">ZAKAZI PREGLED</TextBlock>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <Grid Margin="113,53,175,-24">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0">Pacijent:</TextBlock>
-                <ComboBox Name ="ComboBoxPacijent" ItemsSource="{Binding Path = PatientsObs}" Grid.Column="1" Grid.Row="0">
+        <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
+            <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="145" Canvas.Top="12" VerticalAlignment="Top" >ZAKAZIVANJE TERMINA</TextBlock>
+        </Canvas>
+        <Border Grid.Row="2" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="38,19,38,-325">
+            <Grid Margin="36,28,127,-112">
+                <TextBlock Grid.Column="0" Grid.Row="0" Margin="0,0,385,463">Pacijent:</TextBlock>
+                <ComboBox Name ="ComboBoxPacijent" ItemsSource="{Binding PatientsObs}" Grid.Row="0" Margin="126,0,197,463">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding ID}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <TextBlock Grid.Column="0" Grid.Row="1">Datum:</TextBlock>
-                <DatePicker Name="datePicker" Grid.Column="1" Grid.Row="1" Width="120"></DatePicker>
-                <TextBlock Grid.Column="0" Grid.Row="2">Vreme:</TextBlock>
-                <ComboBox Name="timePicker" Grid.Column="1" Grid.Row="2">
-                    <ComboBoxItem>07:00:00</ComboBoxItem>
-                    <ComboBoxItem>10:30:10</ComboBoxItem>
-                    <ComboBoxItem>12:15:00</ComboBoxItem>
+                <TextBlock Grid.Column="0" Margin="7,59,385,396">Datum:</TextBlock>
+                <DatePicker Name="datePicker" Margin="126,59,197,396"/>
+                <TextBlock Grid.Column="0" Margin="10,121,385,341">Vreme:</TextBlock>
+                <ComboBox Name="timePicker" Margin="126,121,197,341">
+                    <ComboBoxItem>07:00</ComboBoxItem>
+                    <ComboBoxItem>10:30</ComboBoxItem>
+                    <ComboBoxItem>12:15</ComboBoxItem>
                 </ComboBox>
-                <TextBlock Grid.Column="0" Grid.Row="3">Tip:</TextBlock>
-                <ComboBox Name ="TIP"  Grid.Column="1" Grid.Row="3">
-                    
-                </ComboBox>
-                <TextBlock Grid.Column="0" Grid.Row="4">Soba:</TextBlock>
-                <ComboBox Name ="ComboBoxSoba" ItemsSource="{Binding Path = RoomsObs}" Grid.Column="1" Grid.Row="4">
+                <TextBlock Grid.Column="0" Margin="43,176,390,285">Tip:</TextBlock>
+                <ComboBox Name ="TIP" Margin="126,176,197,285"/>
+                <TextBlock Grid.Column="0" Margin="24,233,385,230">Soba:</TextBlock>
+                <ComboBox Name ="ComboBoxSoba" SelectedValuePath="Content" ItemsSource="{Binding Path = RoomsObs}" Margin="126,230,197,230">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Id}"/>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <TextBlock Grid.Column="0" Grid.Row="5">Trajanje:</TextBlock>
-                <TextBox x:Name ="DUR" Grid.Column="1" Grid.Row="5" Text="{Binding Path=Duration,UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                <TextBlock Grid.Column="0" Margin="-3,287,390,180">Trajanje:</TextBlock>
+                <TextBox Name="textBoxDuration" Margin="126,293,197,180" Validation.ErrorTemplate="{StaticResource errorTemplate}">
+                    <TextBox.Text>
+                    <Binding Path="Dur" ValidatesOnDataErrors="True" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validation:IntValueRule/>
+                        </Binding.ValidationRules>
+
+                    </Binding>
+
+                    </TextBox.Text>
+                </TextBox>
+                <Label Name ="ErrorLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="32" FontSize="8" FontStyle="Normal" Foreground="#FFFF1616" FontFamily="Sitka Subheading" Width="345" Margin="126,341,0,0"/>
             </Grid>
-        </Grid>
-        <Button x:Name="Zakazi" Content="Zakazi " Grid.Row="2" Click="Zakazi_Click" Margin="186,47,186,-16"/>
-        <Label Name ="ErrorLabel" HorizontalAlignment="Left" Margin="280,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="25" FontSize="8" FontStyle="Normal" Foreground="#FFFF1616" FontFamily="Sitka Subheading"/>
+        </Border>
+
+        <Button x:Name="Update" Template="{StaticResource BasicButton}" Content="Sacuvaj" Grid.Row="2" Click="Zakazi_Click" Margin="284,449,284,-389"/>
+
     </Grid>
 </Page>

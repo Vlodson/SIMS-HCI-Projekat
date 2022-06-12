@@ -149,7 +149,7 @@ namespace ViewModel
         }
         public void OnWorkHours()
         {
-            WorkHoursRequest requestPage = new WorkHoursRequest();
+            Doctor.View.WorkHoursRequest requestPage = new Doctor.View.WorkHoursRequest();
             DoctorNavBar.navigation.Navigate(requestPage);
         }
 

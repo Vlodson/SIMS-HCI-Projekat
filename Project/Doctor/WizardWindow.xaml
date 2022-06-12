@@ -1,0 +1,101 @@
+﻿<Window x:Class="Doctor.WizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:Doctor"
+        mc:Ignorable="d"
+        Title="WizardWindow" Height="768" Width="1024">
+    <Grid>
+        <xctk:Wizard FinishButtonClosesWindow="True">
+            <xctk:WizardPage x:Name="IntroPage"
+                             Title= "DOBRODOSLI U APLIKACIJU BOLNICE 'ZDRAVO'"
+                             
+                             Description="Ovaj Wizard ce Vas u nekoliko koraka uputiti kako se koristi aplikacija!"
+                             FontSize="18"
+                             Foreground="DarkBlue"
+                             Background="White">
+                <Grid>
+                    <Image Margin="80,63,65,126" Source="/5eeef15c731cbbe28ed5e79e_mw_features_sec_1.jpg"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page1" PageType="Interior"
+                             Title="MOGUCE OPCIJE U APLIKACIJI"
+                             Description="Sa leve strane aplikacije naci cete spisak svih opcija koje su vam na raspolaganju."
+                             HorizontalAlignment="Stretch"
+                             Foreground="DarkBlue"
+                             Background="White"
+                             FontSize="18"
+                             NextPage="{Binding ElementName= Page2}"
+                             PreviousPage="{Binding ElementName=IntroPage}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.RowSpan="8" VerticalAlignment="Center" Grid.Column="0" Source="/navbar.jpg"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="0"  Text="-> Odabirom ove opcije mozete da vidite sve aktuelne termine u narednom periodu kao i da zakazete novi, izmenite i otkazete postojece" TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="1" Text="-> Odabirom ove opcije mozete da vidite sve zavrsene preglede i da njima unsete izvjestaje u zdravstvene kartone pacijenata" TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="2"  Text="-> Odabirom ove opcije mozete da odaberete formu za zahtev kao sto je zahtev za slobodne dane, opremu ili promenu radnog vremena. " TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="3" Text="-> Odabirom ove opcije mozete da pogledate kartone svih pacijenata i izvestaje sa pregleda " TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="4"  Text="-> Odabirom ove opcije mozete da odobrite ili odbijete lekove koje Vam upravnik salje na verifikaciju." TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="5" Text="-> Odabirom ove opcije mozete u svakom momentu da se podsetite ovih uputstava u toku koriscenja aplikacije." TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="6"  Text="-> Odabirom ove opcije mozete da vidite sva aktuelna obavestenja." TextWrapping="Wrap"/>
+                    <TextBlock FontSize="16" Grid.Column="1" Grid.Row="7" Text="-> Odabirom ove opcije mozete da se odjavite sa svog korisnickog naloga" TextWrapping="Wrap"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page2" PageType="Interior"
+                             Title="FORME"
+                             FontSize="18"
+                             NextPage="{Binding ElementName= Page3}"
+                             PreviousPage="{Binding ElementName=Page1}"
+                             Foreground="DarkBlue"
+                             Background="#FFD8ECEC">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Height="150" Grid.Row="0" Text=" Aplikacija se većinski zasniva na popunjavanju različitih formi. One se obično nalaze u plavom okviru kao naslici ispod kojeg se nalazi odgovarajuće dugme za potvrdu unetih podataka. Ispod Vam je prikazan primer jedne forme." TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Image Height="400" Grid.Row="1" Source="/form.jpg"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page3" PageType="Interior"
+                             Title="ŠTA VAM NAŠA APLIKACIJA OBEZBEĐUJE?"
+                             Foreground="DarkBlue"
+                             Background="White"
+                             FontSize="18">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Text="  Upotrebom ove aplikacije moći ćete na brži i lakši način da obavljate sve funkcije koje bi inače obavljali ručno. Smanjuje se mogućnost za eventualne greške kao i suvišna papirologija. Sve obaveye i zahtevi će se nalaziti na jednom mestu, pa su mogućnosti da nešto zaboravite i propustite smanjene. " TextWrapping="Wrap"/>
+                    <Image Height="450" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Source="/5eeef1030aad897e86dfaf76_mw_features_hero.jpg"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="LastPage" PageType="Interior"
+                             Title="KRAJ UPOZNAVANJA"
+                             Description="Dosli smo do kraja ovog kratkog Wizarda. Nadamo se da su Vam osnove za rad sada jasne i da cete uspeti da ih primenite. U svakom slucaju, ako nesto od ovoga zaboravite ili pozelite ponovo da vidite, to cete moci preko Help opcije u glavnom meniju."
+                             CanFinish="True"
+                             Foreground="DarkBlue"
+                             Background="White"
+                             FontSize="18">
+                <Grid>
+                    <Image Source="/5eeef08570215e1540c42df8_mw_feat_home_3.jpg"/>
+                </Grid>
+            </xctk:WizardPage>
+        </xctk:Wizard>
+    </Grid>
+</Window>

@@ -90,7 +90,7 @@
                                 </DockPanel>
                             </Button>
 
-                            <Button Grid.Row="7" Margin="0,42,0,-77" Grid.ColumnSpan="2">
+                            <Button Grid.Row="7" Click ="ButtonHelp" Margin="0,42,0,-77" Grid.ColumnSpan="2">
                                 <DockPanel Height="56" Width="240">
                                     <Image Source="/Images/help.png" Height="47" Width="55"/>
                                     <TextBlock Height="28" HorizontalAlignment="Center"> Pomoc</TextBlock>

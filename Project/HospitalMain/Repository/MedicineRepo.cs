@@ -10,10 +10,11 @@ using System.IO;
 using Model;
 using Utility;
 using Enums;
+using Interfaces;
 
 namespace Repository
 {
-    public class MedicineRepo
+    public class MedicineRepo: IMedicineRepo
     {
         public String DBPath { get; set; }
         public ObservableCollection<Medicine> Medicine { get; set; }

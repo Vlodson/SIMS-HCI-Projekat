@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
+        <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="76" VerticalAlignment="Center" Width="730">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="180" Canvas.Top="12" >IZDAJ OPRAVDANJE</TextBlock>
         </Canvas>
         <StackPanel Grid.Row="3" Orientation="Horizontal" Margin="35,42,0,-72" >

@@ -83,6 +83,8 @@ namespace Doctor
             {
                 DoctorNavBar doctorNavBar = new DoctorNavBar();
                 doctorNavBar.Show();
+                //var win = new WizardWindow();
+                //win.ShowDialog();
             }
             else
             {

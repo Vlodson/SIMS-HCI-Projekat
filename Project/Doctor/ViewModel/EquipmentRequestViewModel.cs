@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Doctor.View;
 using HospitalMain.Enums;
 using Model;
 using System;
@@ -27,6 +28,8 @@ namespace ViewModel
         private Room selectedRoom;
         private int amount;
         public MyICommand SendCommand { get; set; }
+        public MyICommand WorkHoursCommand { get; set; }
+        public MyICommand FreeDaysCommand { get; set;}
         public ObservableCollection<Room> RoomBind { get => roomBind; set => roomBind = value; }
         public Room SelectedRoom
         {
@@ -74,7 +77,20 @@ namespace ViewModel
             _roomController = app.roomController;
 
             RoomBind = _roomController.ReadAll();
+
             SendCommand = new MyICommand(OnSend);
+            FreeDaysCommand = new MyICommand(OnFreeDays);
+            WorkHoursCommand = new MyICommand(OnWorkHours);
+        }
+        public void OnFreeDays()
+        {
+            FreeDaysRequestPage requestPage = new FreeDaysRequestPage();
+            DoctorNavBar.navigation.Navigate(requestPage);
+        }
+        public void OnWorkHours()
+        {
+            Doctor.View.WorkHoursRequest requestPage = new Doctor.View.WorkHoursRequest();
+            DoctorNavBar.navigation.Navigate(requestPage);
         }
         public void OnSend()
         {

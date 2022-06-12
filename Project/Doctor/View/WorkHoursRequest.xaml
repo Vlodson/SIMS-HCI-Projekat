@@ -10,32 +10,33 @@
 
     <Grid>
         <StackPanel Orientation="Horizontal"  Margin="61,82,61,532">
-            <Button Content="Slobodni dani " Width="170"/>
-            <Button Content="Oprema" Width="150" />
+            <Button Content="Slobodni dani " Width="170" Command="{Binding FreeDaysCommand}"/>
+            <Button Content="Oprema" Width="150" Command="{Binding EquipmentCommand}"/>
             <Button Content="Promena radnog vremena" Width="267" IsEnabled="False"/>
         </StackPanel>
-        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,26">
-            <Grid Margin="42,28,30,28" >
-                <TextBlock FontWeight="Bold" Text="Predlog promene radnog vremena" Margin="10,10,139,385"/>
-                <TextBlock Text="Od" Margin="10,69,460,325" />
+        <Border Background="#FF437182" Opacity="0.7" CornerRadius="30" Margin="61,182,61,94">
+            <Grid Margin="42,28,32,10" >
+                <TextBlock FontWeight="Bold" Text="Predlog promene radnog vremena" Margin="10,10,139,334"/>
+                <TextBlock Text="Od" Margin="10,69,460,265" />
                 <TextBox Margin="304,74,99,330" />
-                <TextBlock Text="Do" Margin="240,69,233,325" />
+                <TextBlock Text="Do" Margin="240,69,233,279" />
                 <TextBox Margin="72,74,338,329" />
-                <TextBlock Text="Slobodni dani u nedelji" Margin="10,136,276,257"/>
-                <CheckBox Content="ponedeljak" Margin="262,143,118,255"/>
-                <CheckBox Content="nedelja" Margin="262,333,118,65"/>
-                <CheckBox Content="subota" Margin="262,303,118,95"/>
-                <CheckBox Content="petak" Margin="262,268,118,130"/>
-                <CheckBox Content="cetvrtak" Margin="262,233,118,165"/>
-                <CheckBox Content="sreda" Margin="262,203,118,195"/>
-                <CheckBox Content="utorak" Margin="262,173,118,225"/>
-                <Button Content="Posalji" Template="{StaticResource BasicButton}" Command ="{Binding SendCommand}" Margin="339,368,40,8" />
+                <TextBlock Text="Slobodni dani u nedelji" Margin="10,136,276,205"/>
+                <CheckBox Content="ponedeljak" IsChecked="{Binding IsSelectedMon}" Margin="262,143,118,205"/>
+                <CheckBox Content="nedelja" IsChecked="{Binding IsSelectedSun}" Margin="262,333,118,10"/>
+                <CheckBox Content="subota" IsChecked="{Binding IsSelectedSat}" Margin="262,303,118,45"/>
+                <CheckBox Content="petak" IsChecked="{Binding IsSelectedFri}" Margin="262,268,118,75"/>
+                <CheckBox Content="cetvrtak" IsChecked="{Binding IsSelectedThu}" Margin="262,233,118,115"/>
+                <CheckBox Content="sreda" IsChecked="{Binding IsSelectedWed}" Margin="262,203,118,145"/>
+                <CheckBox Content="utorak" IsChecked="{Binding IsSelectedTue}" Margin="262,173,118,175"/>
+
             </Grid>
-
-
         </Border>
+        <Button Content="Posalji" Template="{StaticResource BasicButton}" Command ="{Binding SendCommand}" Margin="287,603,287,35" />
         <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="730" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="96" Canvas.Top="10" VerticalAlignment="Center" >ODABERI FORMU ZA ZAHTEV</TextBlock>
         </Canvas>
+        <DatePicker HorizontalAlignment="Left" Margin="161,277,0,0" SelectedDate ="{Binding StartDate }" VerticalAlignment="Top"/>
+        <DatePicker HorizontalAlignment="Left" Margin="393,277,0,0" SelectedDate ="{Binding EndDate }" VerticalAlignment="Top"/>
     </Grid>
 </Page>
