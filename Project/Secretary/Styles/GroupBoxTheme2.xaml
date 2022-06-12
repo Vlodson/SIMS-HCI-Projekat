@@ -17,7 +17,7 @@
                             <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"/>
                         </Border>
 
-                        <Border Grid.Row="1" BorderBrush="CornflowerBlue" BorderThickness="2" CornerRadius="10">
+                        <Border Grid.Row="1" BorderBrush="#44a6c6" BorderThickness="2" CornerRadius="10">
                             <ContentPresenter Margin="5"/>
                         </Border>
                     </Grid>

@@ -22,7 +22,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter TargetName="RadioMark" Property="Visibility" Value="Visible"/>
-                            <Setter TargetName="RadioOuter" Property="BorderBrush" Value="Black" />
+                            <Setter TargetName="RadioOuter" Property="BorderBrush" Value="#44a6c6" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
