@@ -22,6 +22,7 @@
     <None Remove="Images\verification.png" />
     <None Remove="navbar.jpg" />
     <None Remove="View\logo.jpg" />
+    <None Remove="View\pdf.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -79,6 +80,7 @@
     <Resource Include="5eeef1030aad897e86dfaf76_mw_features_hero.jpg" />
     <Resource Include="5eeef15c731cbbe28ed5e79e_mw_features_sec_1.jpg" />
     <Resource Include="View\logo.jpg" />
+    <Resource Include="View\pdf.jpg" />
   </ItemGroup>
 
 </Project>

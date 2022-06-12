@@ -25,7 +25,7 @@
             <TextBlock FontWeight="Bold" Foreground="Black" Height="46" Width="280">Datum i vreme pregleda:</TextBlock>
             <TextBlock Foreground="Black" Text="{Binding DateBind}" Width="343" ></TextBlock>
         </StackPanel>
-        <Border Grid.Row="3" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="35,186,41,-476">
+        <Border Grid.Row="3" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="35,186,41,-383">
             <Grid Margin="29,25,24,27">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -40,7 +40,7 @@
                     <TextBlock Foreground="Black" Width="137">Specijalista:</TextBlock>
                     <ComboBox Foreground="Black" ItemsSource="{Binding Doctors}"  SelectedItem="{Binding SelectedDoctor}" Width="251"/>
                 </StackPanel>
-                <Button Grid.Row="2" Content="Potvrdi" Template="{StaticResource BasicButton}" Command="{Binding ReferralCommand}" Margin="409,151,29,-152"/>
+                <Button Grid.Row="2" Content="Potvrdi" Template="{StaticResource BasicButton}" Command="{Binding ReferralCommand}" Margin="219,166,219,-167"/>
             </Grid>
         </Border>
     </Grid>

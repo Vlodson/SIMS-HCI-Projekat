@@ -17,14 +17,14 @@
         <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="193" Canvas.Top="12" >ODABERI PACIJENTA</TextBlock>
         </Canvas>
-        <DataGrid x:Name="dataGridPatients" ItemsSource="{Binding patients, Mode=OneWay}" Grid.Row="2" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="82,34,87,-345" >
+        <DataGrid Width="600" Style="{DynamicResource DataGridStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="dataGridPatients" ItemsSource="{Binding patients, Mode=OneWay}" Grid.Row="2" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="55,35,55,-346" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ime" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Pol" Binding="{Binding Gender}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DoB}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Ime" Binding="{Binding Name}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Prezime" Binding="{Binding Surname}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Pol" Binding="{Binding Gender}" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum rođenja" Binding="{Binding DoB}" Width="300"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name ="Choose" Grid.Row="2" Content ="Odaberi" Template="{StaticResource BasicButton}" Margin="444,402,87,-402" Click="Choose_Click" />
+        <Button Name ="Choose" Grid.Row="2" Content ="Odaberi" Template="{StaticResource BasicButton}" Margin="266,399,266,-399" Click="Choose_Click" />
     </Grid>
 </Page>

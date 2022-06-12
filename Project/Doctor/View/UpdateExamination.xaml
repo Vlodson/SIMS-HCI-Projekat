@@ -50,7 +50,7 @@
             </Grid>
         </Border>
 
-        <Button x:Name="Update" Template="{StaticResource BasicButton}" Content="Sacuvaj" Grid.Row="2" Click="Update_Click" Margin="529,451,38,-391"/>
+        <Button x:Name="Update" Template="{StaticResource BasicButton}" Content="Sacuvaj" Grid.Row="2" Click="Update_Click" Margin="284,463,284,-403"/>
         <Label Name ="ErrorLabel" HorizontalAlignment="Left" Margin="280,0,0,0" Grid.Row="1" VerticalAlignment="Center" Height="25" FontSize="8" FontStyle="Normal" Foreground="#FFFF1616" FontFamily="Sitka Subheading"/>
     </Grid>
 </Page>

@@ -42,6 +42,17 @@ namespace Doctor.View
         {
             InitializeComponent();
             this.DataContext = this;
+
+            var app = Application.Current as App;
+            _doctorController = app.doctorController;
+            _examController = app.examController;
+            _patientController = app.patientController;
+            _roomController = app.roomController;
+            _examRepo = app.examRepo;
+
+            TIP.ItemsSource = Enum.GetValues(typeof(ExaminationTypeEnum));
+            PatientsObs = _patientController.ReadAllPatients();
+            RoomsObs = _roomController.ReadAll();
         }
         public UpdateExamination(Examination selectedItem, ExaminationSchedule examinationSchedule)
         {
@@ -58,7 +69,6 @@ namespace Doctor.View
             _examRepo = app.examRepo;
 
             ComboBoxPacijent.Text = selectedItem.PatientId;
-            //ComboBoxSoba.SelectedItem
             DUR.Text = selectedItem.Duration.ToString();
             TIP.SelectedItem = selectedItem.EType;
             datePicker.Text = selectedItem.Date.ToString().Split(" ")[0];
@@ -106,9 +116,9 @@ namespace Doctor.View
 
                 ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
 
-                Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, MainWindow._uid);
-                _examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
-                _examRepo.SaveExamination();
+                //Examination newExam = new Examination(room.Id, dt, _selectedExam.Id, duration, type, patient.ID, MainWindow._uid);
+                //_examController.DoctorEditExam(ExaminationSchedule.SelectedItem.Id, newExam);
+                //_examRepo.SaveExamination();
                 _examinationSchedule = new ExaminationSchedule();
                 NavigationService.Navigate(_examinationSchedule);
             }

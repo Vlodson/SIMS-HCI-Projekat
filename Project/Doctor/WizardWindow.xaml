@@ -21,14 +21,30 @@
                 </Grid>
             </xctk:WizardPage>
             <xctk:WizardPage x:Name="Page1" PageType="Interior"
+                             Title="ŠTA VAM NAŠA APLIKACIJA OBEZBEĐUJE?"
+                             Foreground="DarkBlue"
+                             Background="White"
+                             FontSize="18"
+                             NextPage="{Binding ElementName= Page2}"
+                             PreviousPage="{Binding ElementName=IntroPage}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Text="  Upotrebom ove aplikacije moći ćete na brži i lakši način da obavljate sve funkcije koje bi inače obavljali ručno. Smanjuje se mogućnost za eventualne greške kao i suvišna papirologija. Sve obaveye i zahtevi će se nalaziti na jednom mestu, pa su mogućnosti da nešto zaboravite i propustite smanjene. " TextWrapping="Wrap"/>
+                    <Image Height="450" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Source="/5eeef1030aad897e86dfaf76_mw_features_hero.jpg"/>
+                </Grid>
+            </xctk:WizardPage>
+            <xctk:WizardPage x:Name="Page2" PageType="Interior"
                              Title="MOGUCE OPCIJE U APLIKACIJI"
                              Description="Sa leve strane aplikacije naci cete spisak svih opcija koje su vam na raspolaganju."
                              HorizontalAlignment="Stretch"
                              Foreground="DarkBlue"
                              Background="White"
                              FontSize="18"
-                             NextPage="{Binding ElementName= Page2}"
-                             PreviousPage="{Binding ElementName=IntroPage}">
+                             NextPage="{Binding ElementName= Page3}"
+                             PreviousPage="{Binding ElementName=Page1}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -55,11 +71,9 @@
                     <TextBlock FontSize="16" Grid.Column="1" Grid.Row="7" Text="-> Odabirom ove opcije mozete da se odjavite sa svog korisnickog naloga" TextWrapping="Wrap"/>
                 </Grid>
             </xctk:WizardPage>
-            <xctk:WizardPage x:Name="Page2" PageType="Interior"
+            <xctk:WizardPage x:Name="Page3" PageType="Interior"
                              Title="FORME"
                              FontSize="18"
-                             NextPage="{Binding ElementName= Page3}"
-                             PreviousPage="{Binding ElementName=Page1}"
                              Foreground="DarkBlue"
                              Background="#FFD8ECEC">
                 <Grid>
@@ -71,20 +85,7 @@
                     <Image Height="400" Grid.Row="1" Source="/form.jpg"/>
                 </Grid>
             </xctk:WizardPage>
-            <xctk:WizardPage x:Name="Page3" PageType="Interior"
-                             Title="ŠTA VAM NAŠA APLIKACIJA OBEZBEĐUJE?"
-                             Foreground="DarkBlue"
-                             Background="White"
-                             FontSize="18">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Text="  Upotrebom ove aplikacije moći ćete na brži i lakši način da obavljate sve funkcije koje bi inače obavljali ručno. Smanjuje se mogućnost za eventualne greške kao i suvišna papirologija. Sve obaveye i zahtevi će se nalaziti na jednom mestu, pa su mogućnosti da nešto zaboravite i propustite smanjene. " TextWrapping="Wrap"/>
-                    <Image Height="450" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" Source="/5eeef1030aad897e86dfaf76_mw_features_hero.jpg"/>
-                </Grid>
-            </xctk:WizardPage>
+            
             <xctk:WizardPage x:Name="LastPage" PageType="Interior"
                              Title="KRAJ UPOZNAVANJA"
                              Description="Dosli smo do kraja ovog kratkog Wizarda. Nadamo se da su Vam osnove za rad sada jasne i da cete uspeti da ih primenite. U svakom slucaju, ako nesto od ovoga zaboravite ili pozelite ponovo da vidite, to cete moci preko Help opcije u glavnom meniju."

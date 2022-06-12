@@ -30,8 +30,8 @@ namespace Doctor.View
         private MedicalRecordController _medicalRecordController;
         private ExamController _examController;
         public static ObservableCollection<Report> Reports { get; set; }
-        public static DateTime startDate;
-        public static DateTime endDate;
+        public string startDate;
+        public string endDate;
         private Patient patient;
         private PrintDialog _printDialog = new PrintDialog();
         public Model.MedicalRecord _selectedMedicalRecord { get; set; }
@@ -47,7 +47,7 @@ namespace Doctor.View
                 OnPropertyChanged("Patient");
             }
         }
-        public DateTime StartDate
+        public string StartDate
         {
             get
             {
@@ -59,17 +59,20 @@ namespace Doctor.View
                 OnPropertyChanged("StartDate");
                 Reports = new ObservableCollection<Report>();
                 ObservableCollection<Report> allReports = _reportController.findByPatientId(_selectedMedicalRecord.ID);
-                foreach (Report report in allReports)
-                {
-                    if (_examController.GetExamination(report.ExaminationId).Date < endDate && _examController.GetExamination(report.ExaminationId).Date > startDate)
+                if(EndDate != null) {
+                    foreach (Report report in allReports)
                     {
-                        Reports.Add(report);
+                        if (_examController.GetExamination(report.ExaminationId).Date < DateTime.Parse(endDate) && _examController.GetExamination(report.ExaminationId).Date > DateTime.Parse(startDate))
+                        {
+                            Reports.Add(report);
+                        }
                     }
                 }
+                
             }
         }
 
-        public DateTime EndDate
+        public string EndDate
         {
             get
             {
@@ -81,11 +84,14 @@ namespace Doctor.View
                 OnPropertyChanged("EndDate");
                 Reports = new ObservableCollection<Report>();
                 ObservableCollection<Report> allReports = _reportController.findByPatientId(_selectedMedicalRecord.ID);
-                foreach (Report report in allReports)
+                if (EndDate != null)
                 {
-                    if (_examController.GetExamination(report.ExaminationId).Date < endDate && _examController.GetExamination(report.ExaminationId).Date > startDate)
+                    foreach (Report report in allReports)
                     {
-                        Reports.Add(report);
+                        if (_examController.GetExamination(report.ExaminationId).Date < DateTime.Parse(endDate) && _examController.GetExamination(report.ExaminationId).Date > DateTime.Parse(startDate))
+                        {
+                            Reports.Add(report);
+                        }
                     }
                 }
             }
@@ -124,8 +130,12 @@ namespace Doctor.View
 
         private void Generate_Click(object sender, RoutedEventArgs e)
         {
-            GenerateReport generateReport = new GenerateReport(Patient, StartDate, EndDate);
-            _printDialog.PrintVisual(generateReport, "Izvestaj");
+            if(DateTime.Parse(startDate) < DateTime.Parse(endDate))
+            {
+                GenerateReport generateReport = new GenerateReport(Patient, DateTime.Parse(StartDate), DateTime.Parse(EndDate));
+                _printDialog.PrintVisual(generateReport, "Izvestaj");
+            }
+            
         }
     }
 }

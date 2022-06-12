@@ -1,6 +1,7 @@
 ﻿using Commands;
 using Controller;
 using Doctor;
+using Doctor.View;
 using Enums;
 using Model;
 using Repository;
@@ -11,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ViewModel
 {
@@ -110,13 +112,23 @@ namespace ViewModel
         public void OnSend()
         {
             if (IsChecked1)
+            {
                 selectedMedicine.Status = Enums.StatusEnum.Approved;
-            else
+                MessageBox.Show("Uspesno ste izvrsili verifikaciju!");
+            }
+                
+            else if (IsChecked2)
             {
                 selectedMedicine.Status = Enums.StatusEnum.Rejected;
                 selectedMedicine.Comment = Comment;
+                MessageBox.Show("Uspesno ste izvrsili verifikaciju!");
+            } else
+            {
+                MessageBox.Show("Niste verifikovali lek!");
             }
             _medicineRepo.SaveMedicine();
+            VerificationPage page = new VerificationPage();
+            DoctorNavBar.navigation.Navigate(page);
         }
     }
 }

@@ -50,9 +50,16 @@ namespace Doctor.View
         }
         public void Choose_Click(object sender, RoutedEventArgs e)
         {
-            Patient selectedPatient = (Patient)dataGridPatients.SelectedItem;
-            MedicalRecord medicalRecord = new MedicalRecord(selectedPatient);
-            NavigationService.Navigate(medicalRecord);
+            if(dataGridPatients.SelectedItem != null) {
+                Patient selectedPatient = (Patient)dataGridPatients.SelectedItem;
+                MedicalRecord medicalRecord = new MedicalRecord(selectedPatient);
+                NavigationService.Navigate(medicalRecord);
+            }
+            else
+            {
+                MessageBox.Show("Morate odabrati pacijenta iz tabele!");
+            }
+            
         }
     }   
 }

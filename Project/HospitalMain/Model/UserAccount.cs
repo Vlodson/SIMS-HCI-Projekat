@@ -24,9 +24,17 @@ namespace HospitalMain.Model
         private String _username;
         private String _password;
         private UserType _type;
+        private bool _isFirst;
 
         public UserAccount() { }
 
+        public UserAccount(String username, String password, UserType type, bool isFirst)
+        {
+            _username = username;
+            _password = password;
+            _type = type;
+            _isFirst = isFirst;
+        }
         public UserAccount(String username, String password, UserType type)
         {
             _username = username;
@@ -51,6 +59,11 @@ namespace HospitalMain.Model
         {
             get { return _password; }
             set { _password = value; OnPropertyChanged(nameof(Password)); }
+        }
+        public bool IsFirst
+        {
+            get { return _isFirst; }
+            set { _isFirst = value; OnPropertyChanged(nameof(IsFirst)); }
         }
 
         public UserType Type

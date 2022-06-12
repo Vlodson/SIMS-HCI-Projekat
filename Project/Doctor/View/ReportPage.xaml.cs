@@ -98,6 +98,7 @@ namespace Doctor.View
             EndedExaminations.examinations.Remove(SelectedExam);
             ended.dataGridExams.ItemsSource = EndedExaminations.examinations;
             NavigationService.Navigate(ended);
+            MessageBox.Show("Uspesno ste uneli izvestaj o pregledu!");
 
         }
         private void AddReferral_Click(object sender, RoutedEventArgs e)

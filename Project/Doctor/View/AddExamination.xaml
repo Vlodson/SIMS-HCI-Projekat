@@ -37,7 +37,7 @@
                     <ComboBoxItem>12:15</ComboBoxItem>
                 </ComboBox>
                 <TextBlock Grid.Column="0" Margin="43,176,390,285">Tip:</TextBlock>
-                <ComboBox Name ="TIP" Margin="126,176,197,285"/>
+                <ComboBox Name ="TIP" Margin="126,176,197,285" Height="40"/>
                 <TextBlock Grid.Column="0" Margin="24,233,385,230">Soba:</TextBlock>
                 <ComboBox Name ="ComboBoxSoba" SelectedValuePath="Content" ItemsSource="{Binding Path = RoomsObs}" Margin="126,230,197,230">
                     <ComboBox.ItemTemplate>

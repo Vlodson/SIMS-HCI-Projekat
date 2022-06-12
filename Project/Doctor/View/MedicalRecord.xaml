@@ -11,7 +11,6 @@
     <Grid>
         <TextBlock Margin="34,17,646,644" FontWeight="Bold">Id:</TextBlock>
         <TextBlock Margin="377,53,195,608" FontWeight="Bold">Krvna grupa:</TextBlock>
-        <TextBlock Margin="34,232,562,425" FontWeight="Bold">Alergeni:</TextBlock>
         <TextBlock Margin="433,124,196,537" FontWeight="Bold">Telefon:</TextBlock>
         <TextBlock Margin="34,53,627,609" FontWeight="Bold">Ime:</TextBlock>
         <TextBlock Margin="34,88,588,573" FontWeight="Bold">Prezime:</TextBlock>
@@ -32,16 +31,22 @@
         <TextBlock Margin="520,88,10,574" Name="emailLbl"></TextBlock>
         <TextBlock Margin="520,17,76,644" Name="genderLbl"></TextBlock>
         <TextBlock FontWeight="Bold" Margin="215,289,255,372">IZVJESTAJI PACIJENTA</TextBlock>
-        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding Reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,410,34,46" >
+        <DataGrid Style="{DynamicResource DataGridStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="dataGridReports" ItemsSource="{Binding Reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,410,34,46" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <DatePicker  SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="34,359,0,0" VerticalAlignment="Top"/>
-        <DatePicker  SelectedDate="{Binding EndDate}" HorizontalAlignment="Left" Margin="256,359,0,0" VerticalAlignment="Top"/>
-        <Button Content="Generisi" HorizontalAlignment="Left" Margin="488,359,0,0" VerticalAlignment="Top" Height="37" Width="81" Click="Generate_Click"/>
-        <Label Content="-" HorizontalAlignment="Left" Margin="215,358,0,0" VerticalAlignment="Top"/>
+        <DatePicker  SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="34,359,0,0" VerticalAlignment="Top" Width="176"/>
+        <DatePicker  SelectedDate="{Binding EndDate}" HorizontalAlignment="Left" Margin="256,359,0,0" VerticalAlignment="Top" Width="175"/>
+        <Button Template="{StaticResource BasicButton}" HorizontalAlignment="Left" Margin="488,359,0,0" VerticalAlignment="Top" Height="37" Width="146" Click="Generate_Click">
+            <DockPanel>
+                <TextBlock Text="Generisi"/>
+                <Image Source="/View/pdf.jpg" />
+            </DockPanel>
+        </Button>
+
+        <Label Content="-" HorizontalAlignment="Left" Margin="223,358,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

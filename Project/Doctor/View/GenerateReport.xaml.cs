@@ -120,10 +120,8 @@ namespace Doctor.View
                 }
             }
 
-            //Reports.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
-
-            Start = startDate.ToString();
-            End = endDate.ToString();
+            Start = startDate.ToString("dd.MM.yyyy");
+            End = endDate.ToString("dd.MM.yyyy");
 
             dateTimeNow = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
             patientLabel.Content = patient.NameSurname;

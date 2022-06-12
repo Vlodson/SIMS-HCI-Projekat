@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Navigation;
 
 namespace ViewModel
@@ -72,8 +73,10 @@ namespace ViewModel
         public void OnExecute()
         {
             Excuses excuses = new Excuses(selectedExam.Id, DateTime.Parse(selectedFrom) , DateTime.Parse(selectedTo));
+            MessageBox.Show("Uspesno ste izdali opravdanje!");
             ReportPage reportPage = new ReportPage(selectedExam);
             DoctorNavBar.navigation.Navigate(reportPage);
+            
         }
 
 

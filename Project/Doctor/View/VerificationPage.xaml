@@ -36,10 +36,11 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="SASTOJCI" FontWeight="Bold" Margin="270,5,270,-20" Grid.RowSpan="4"/>
                 <TextBlock Grid.Row="1" Text ="{Binding Ingredients}" TextWrapping="Wrap" Margin="10,55,10,-82" />
-                <TextBox Height="Auto" Grid.Row="3" Text="{Binding Comment}" TextWrapping="Wrap" Name="textBoxComment" Margin="10,96,352,-197"/>
+                <TextBox Height="Auto" Grid.Row="3" Text="{Binding Comment}" TextWrapping="Wrap" Name="textBoxComment" Margin="10,127,352,-150"/>
                 <RadioButton Grid.Row="3" Content="Odobri"  Margin="348,130,166,-137" IsChecked="{Binding IsChecked1}" GroupName="Radios"></RadioButton>
                 <RadioButton Grid.Row="3" Content="Zabrani"  Margin="350,172,166,-182" IsChecked="{Binding IsChecked2}" GroupName="Radios"></RadioButton>
-                <Button Content="Posalji" Template="{StaticResource BasicButton}" Grid.Row="3" Margin="476,214,0,-214" Command="{Binding SendCommand}"/>
+                <Button Content="Posalji" Template="{StaticResource BasicButton}" Grid.Row="3" Margin="476,214,30,-150" Command="{Binding SendCommand}"/>
+                <TextBlock FontWeight="DemiBold" HorizontalAlignment="Left" Margin="10,87,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Komentar:" VerticalAlignment="Top"/>
             </Grid>
         </Border>
     </Grid>

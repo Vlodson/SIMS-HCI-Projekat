@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ViewModel
 {
@@ -78,7 +79,7 @@ namespace ViewModel
 
             RoomBind = _roomController.ReadAll();
 
-            SendCommand = new MyICommand(OnSend);
+            SendCommand = new MyICommand(OnSend, CanSend);
             FreeDaysCommand = new MyICommand(OnFreeDays);
             WorkHoursCommand = new MyICommand(OnWorkHours);
         }
@@ -92,9 +93,16 @@ namespace ViewModel
             Doctor.View.WorkHoursRequest requestPage = new Doctor.View.WorkHoursRequest();
             DoctorNavBar.navigation.Navigate(requestPage);
         }
+        public bool CanSend()
+        {
+            return SelectedRoom != null && Amount > 0;
+        }
         public void OnSend()
         {
             EquipmentRequest request = new EquipmentRequest(selectedEquipment, amount, selectedRoom, MainWindow._uid, DateTime.Now);
+            MessageBox.Show("Uspesno ste poslali zahtev za opremu!");
+            EquipmentRequestPage requestPage = new EquipmentRequestPage();
+            DoctorNavBar.navigation.Navigate(requestPage);
         }
     }
 }

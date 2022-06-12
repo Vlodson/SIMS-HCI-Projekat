@@ -16,9 +16,9 @@
         <Label FontWeight="SemiBold" Content="Od" FontSize="24" HorizontalAlignment="Left" Margin="35,306,0,0" VerticalAlignment="Top"/>
         <Label FontWeight="SemiBold" Content="Pacijent" FontSize="24" HorizontalAlignment="Left" Margin="36,260,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.67,-0.522"/>
         <Label FontWeight="SemiBold" Content="Do" FontSize="24" HorizontalAlignment="Left" Margin="36,350,0,0" VerticalAlignment="Top"/>
-        <Label Name="startLabel" Content="{Binding Start}" FontSize="24" HorizontalAlignment="Left" Margin="114,306,0,0" VerticalAlignment="Top" Height="39" Width="233"/>
+        <Label Name="startLabel" Content="{Binding Start}" FontSize="24" HorizontalAlignment="Left" Margin="114,306,0,0" VerticalAlignment="Top" Height="39" Width="355"/>
         <Label Name="patientLabel" Content="{Binding Patient}" FontSize="24" HorizontalAlignment="Left" Margin="150,260,0,0" VerticalAlignment="Top" Height="39" Width="210"/>
-        <Label Name="endLabel" Content="{Binding End}" FontSize="24" HorizontalAlignment="Left" Margin="114,350,0,0" VerticalAlignment="Top" Height="39" Width="233"/>
+        <Label Name="endLabel" Content="{Binding End}" FontSize="24" HorizontalAlignment="Left" Margin="114,350,0,0" VerticalAlignment="Top" Height="39" Width="355"/>
         <DataGrid Background="Transparent" GridLinesVisibility="All" BorderThickness="1" x:Name="reportsTable"  ItemsSource="{Binding Reports}" HorizontalScrollBarVisibility="Hidden" AutoGenerateColumns="False" Width="750" IsReadOnly="True" CanUserAddRows="False" Margin="10,394,10,293">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type Border}">

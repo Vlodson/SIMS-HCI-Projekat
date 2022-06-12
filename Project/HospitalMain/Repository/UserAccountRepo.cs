@@ -22,10 +22,10 @@ namespace Repository
             UserAccCollection = new ObservableCollection<UserAccount>();
 
 
-            UserAccount secretaryUser = new UserAccount("Srbija", "1312", UserType.Secretary);
-            UserAccount adminUser = new UserAccount("Gromina", "69", UserType.Admin);
-            UserAccount patientUser = new UserAccount("Sandra", "123", UserType.Patient);
-            UserAccount doctorUser = new UserAccount("d1", "1234", UserType.Doctor);
+            UserAccount secretaryUser = new UserAccount("Srbija", "1312", UserType.Secretary, true);
+            UserAccount adminUser = new UserAccount("Gromina", "69", UserType.Admin, true);
+            UserAccount patientUser = new UserAccount("Sandra", "123", UserType.Patient, true);
+            UserAccount doctorUser = new UserAccount("d1", "1234", UserType.Doctor, true);
 
             UserAccCollection.Add(doctorUser);
             UserAccCollection.Add(secretaryUser);

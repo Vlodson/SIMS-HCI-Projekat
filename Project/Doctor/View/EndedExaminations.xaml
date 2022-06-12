@@ -20,7 +20,7 @@
                 <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Name ="Choose" Grid.Row="2" Template="{StaticResource BasicButton}" Content ="Odaberi" Margin="448,330,56,-330" Click="Choose_Click" />
+        <Button Name ="Choose" Grid.Row="2" Template="{StaticResource BasicButton}" Content ="Odaberi" Margin="291,390,291,-206" Click="Choose_Click" />
         <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="193" Canvas.Top="12" >ODABERI PREGLED</TextBlock>
         </Canvas>

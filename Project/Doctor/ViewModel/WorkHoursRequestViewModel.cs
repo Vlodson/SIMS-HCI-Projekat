@@ -138,9 +138,18 @@ namespace ViewModel
         }
         public WorkHoursRequestViewModel()
         {
-            SendCommand = new MyICommand(OnSend);
+            SendCommand = new MyICommand(OnSend, CanSend);
             EquipmentCommand = new MyICommand(OnEquipment);
             FreeDaysCommand = new MyICommand(OnFreeDays);
+        }
+        public bool CanSend()
+        {
+            if (endDate != null && startDate != null)
+                return DateTime.Parse(startDate) < DateTime.Parse(endDate)
+                    && DateTime.Parse(startDate) > DateTime.Now
+                    && DateTime.Parse(endDate) > DateTime.Now;
+            else
+                return false;
         }
         public void OnSend()
         {

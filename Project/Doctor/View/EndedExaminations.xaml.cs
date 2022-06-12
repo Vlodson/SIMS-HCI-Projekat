@@ -45,9 +45,16 @@ namespace Doctor.View
 
         private void Choose_Click(object sender, RoutedEventArgs e)
         {
-            Examination selected = (Examination)dataGridExams.SelectedItem;
-            ReportPage reportPage = new ReportPage(selected);
-            NavigationService.Navigate(reportPage);
+            if(dataGridExams.SelectedItem != null)
+            {
+                Examination selected = (Examination)dataGridExams.SelectedItem;
+                ReportPage reportPage = new ReportPage(selected);
+                NavigationService.Navigate(reportPage);
+            } else
+            {
+                MessageBox.Show("Morate odabrati pregled!");
+            }
+            
         }
     }
 }

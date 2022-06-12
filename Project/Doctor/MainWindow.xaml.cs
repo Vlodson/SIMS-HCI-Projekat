@@ -49,7 +49,19 @@ namespace Doctor
                 }
             }
         }
-
+        private bool _isFirst;
+        public bool IsFirst
+        {
+            get { return _isFirst; }
+            set
+            {
+                if (_isFirst != value)
+                {
+                    _isFirst = value;
+                    OnPropertyChanged("IsFirst");
+                }
+            }
+        }
         private String _password;
         public String Password
         {
@@ -72,7 +84,8 @@ namespace Doctor
             var app = Application.Current as App;
             _userAccountController = app.userAccountController;
             _userAccountRepo = app.userAccountRepo;
-           
+
+           UsernameTxt.Focus();
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -81,16 +94,25 @@ namespace Doctor
             Password = PasswordTxt.Password;
             if (_userAccountController.LogIn(UID, Password, HospitalMain.Enums.UserType.Doctor))
             {
-                DoctorNavBar doctorNavBar = new DoctorNavBar();
-                doctorNavBar.Show();
-                //var win = new WizardWindow();
-                //win.ShowDialog();
+                if (_userAccountController.ReadUserAccount(UID).IsFirst)
+                {
+                    var win = new WizardWindow();
+                    win.ShowDialog();
+                    DoctorNavBar doctorNavBar = new DoctorNavBar();
+                    doctorNavBar.Show();
+                } else
+                {
+                    DoctorNavBar doctorNavBar = new DoctorNavBar();
+                    doctorNavBar.Show();
+                }
             }
             else
             {
-                MessageBox.Show("Wrong username or password for doctor type of user!");
+                MessageBox.Show("Pogresno korisnicko ime ili lozinka!");
                 return;
             }
+            _userAccountController.ReadUserAccount(UID).IsFirst = false;
+            _userAccountRepo.SaveUserAccounts();
             this.Close();
             
         }

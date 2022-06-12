@@ -26,7 +26,7 @@
             <TextBlock FontWeight="Bold" Foreground="Black" Height="46" Width="280">Datum i vreme pregleda:</TextBlock>
             <TextBlock Foreground="Black" Text="{Binding DateBind}" Width="343" ></TextBlock>
         </StackPanel>
-        <Border Grid.Row="3" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="35,186,41,-476">
+        <Border Grid.Row="3" Background="#FF437182" Opacity="0.8" CornerRadius="30" Margin="35,186,41,-427">
             <Grid Margin="29,25,24,27">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -50,7 +50,7 @@
                         </TextBlock.Text>
                     </TextBlock>
                 </StackPanel>
-                <Button Grid.Row="2" Command ="{Binding ExecuteCommand}" Content="Potvrdi" Template="{StaticResource BasicButton}" Margin="411,153,27,-76"/>
+                <Button Grid.Row="2" Command ="{Binding ExecuteCommand}" Content="Potvrdi" Template="{StaticResource BasicButton}" Margin="219,198,219,-121"/>
             </Grid>
         </Border>
     </Grid>
