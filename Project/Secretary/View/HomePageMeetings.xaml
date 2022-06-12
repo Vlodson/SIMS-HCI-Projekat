@@ -51,7 +51,7 @@
             </Button>
         </DockPanel>
 
-        <scheduler:SfScheduler x:Name="homeScheduler" Grid.Row="2" AppointmentEditFlag="None" AllowedViewTypes="Week" ViewType="Week" Margin="30 0 30 30" ShowDatePickerButton="True" BorderBrush="Black" BorderThickness="2">
+        <scheduler:SfScheduler x:Name="homeScheduler" Grid.Row="2" AppointmentEditFlag="None" AllowedViewTypes="Week" ViewType="Week" Margin="30 0 30 30" ShowDatePickerButton="True" BorderBrush="#44a6c6" BorderThickness="2">
             <scheduler:SfScheduler.DaysViewSettings>
                 <scheduler:DaysViewSettings StartHour="7" EndHour="15" TimeIntervalHeight="70" TimeIntervalSize="80" TimeRulerSize="50" TimeRulerFormat="HH:mm"/>
             </scheduler:SfScheduler.DaysViewSettings>

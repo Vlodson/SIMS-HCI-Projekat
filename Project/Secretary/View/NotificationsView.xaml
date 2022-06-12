@@ -42,7 +42,7 @@
 
         <DockPanel Margin="0 30 0 0" Grid.Column="0" Grid.Row="1">
             <Label DockPanel.Dock="Top" Content="Opis" Margin="25 0 0 0" FontSize="20" FontWeight="SemiBold"/>
-            <TextBox TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" Text="{Binding SelectedNotification.Content}" BorderBrush="CornflowerBlue" BorderThickness="2" FontSize="16" Margin="30 0 10 20">
+            <TextBox TextWrapping="Wrap" Grid.Column="0" Grid.Row="1" Text="{Binding SelectedNotification.Content}" BorderBrush="#44a6c6" BorderThickness="2" FontSize="16" Margin="30 0 10 20">
                 <TextBox.Resources>
                     <Style TargetType="{x:Type Border}">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -52,7 +52,7 @@
         </DockPanel>
 
 
-        <ListView Grid.Row="1" BorderBrush="CornflowerBlue" Width="380" BorderThickness="2" Grid.Column="1" Margin="50 64 30 20" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItem="{Binding SelectedNotification}" ItemsSource="{Binding Notifications}" ScrollViewer.CanContentScroll="False">
+        <ListView Grid.Row="1" BorderBrush="#44a6c6" Width="380" BorderThickness="2" Grid.Column="1" Margin="50 64 30 20" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItem="{Binding SelectedNotification}" ItemsSource="{Binding Notifications}" ScrollViewer.CanContentScroll="False">
             <ListView.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="10"/>

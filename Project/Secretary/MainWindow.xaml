@@ -8,7 +8,6 @@
         xmlns:vms="clr-namespace:Secretary.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" WindowStartupLocation="CenterScreen" FontSize="14" ResizeMode="NoResize">
-
     <Border>
 
         <Grid>
@@ -23,53 +22,70 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Border BorderBrush="LightBlue" Background="CornflowerBlue" BorderThickness="0 0 0 1.5" Grid.Row="0" Grid.ColumnSpan="2" >
-                <Grid HorizontalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Images/hospitalCar.png" Margin="0,5,10,5"/>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                        <GradientStop Color="#add8e6" Offset="0"/>
+                        <GradientStop Color="#62b4cf" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" >
+                        <Label.Background>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                <GradientStop Color="#add8e6" Offset="0"/>
+                                <GradientStop Color="#62b4cf" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Background>
+                        <Label.BorderBrush>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                <GradientStop Color="#add8e6" Offset="0"/>
+                                <GradientStop Color="#62b4cf" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.BorderBrush>
+                    </Label>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Background="LightBlue">
+                        <Image Source="/Images/hospitalCar.png" Margin="200,5,10,5"/>
                         <TextBlock FontWeight="DemiBold" FontSize="20" VerticalAlignment="Center" Foreground="Black">Hospital</TextBlock>
                         <Image Source="/Images/hospital.png" Margin="10,5,0,5" />
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <!--<Border Grid.Row ="1" Grid.ColumnSpan="2" BorderBrush="DarkGray" BorderThickness="0 0 0 2">
-                <Grid Background="LightBlue">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="10" />
-                                </Style>
-                            </Button.Resources>
-                            Back</Button>
-                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="10" />
-                                </Style>
-                            </Button.Resources>
-                            Forward</Button>
-                        <Separator Margin="15,10,0,10" BorderBrush="DarkGray" BorderThickness="1" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}"/>
-                        <TextBox Margin="15,10,0,10" Width="780" ></TextBox>
-                        <Button Margin="15,10,0,10" Padding="5" BorderBrush="DarkGray">
-                            <Button.Resources>
-                                <Style TargetType="{x:Type Border}">
-                                    <Setter Property="CornerRadius" Value="10" />
-                                </Style>
-                            </Button.Resources>
-                        Refresh</Button>
-                    </StackPanel>
-                </Grid>
-            </Border>-->
-
-            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="CornflowerBlue" BorderThickness="0 0 0 1.5">
-                <Grid Background="CornflowerBlue" >
-
-                    <DockPanel>
+            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                        <GradientStop Color="#add8e6" Offset="0"/>
+                        <GradientStop Color="#62b4cf" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="220"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">
+                        <Label.Background>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                <GradientStop Color="#add8e6" Offset="0"/>
+                                <GradientStop Color="#62b4cf" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.Background>
+                        <Label.BorderBrush>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                                <GradientStop Color="#add8e6" Offset="0"/>
+                                <GradientStop Color="#62b4cf" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Label.BorderBrush>
+                    </Label>
+                    <DockPanel Grid.Column="1" Background="LightBlue">
                         <DockPanel HorizontalAlignment="Right">
                             <Image Source="Images/user.png" Margin="0,2,0,2"></Image>
-                            <Label FontWeight="DemiBold" BorderBrush="CornflowerBlue" Width="auto" VerticalAlignment="Center" FontSize="15" Margin="0,2,5,2" Content="{Binding Username}" Background="CornflowerBlue"></Label>
+                            <Label FontWeight="DemiBold" BorderBrush="Transparent" Width="auto" VerticalAlignment="Center" FontSize="15" Margin="0,2,5,2" Content="{Binding Username}" Background="Transparent"></Label>
                         </DockPanel>
                     </DockPanel>
 
@@ -92,7 +108,6 @@
 
                 <RadioButton Grid.Row="0" Foreground="Black" Content="Početna strana" Command="{Binding UpdateViewCommand}" CommandParameter="HomePage" FontSize="18"
                              Style="{StaticResource MenuButtonTheme}">
-
                 </RadioButton>
 
                 <RadioButton Grid.Row="1" Foreground="Black" Content="Zakazivanja" Command="{Binding UpdateViewCommand}" CommandParameter="Book" FontSize="18"
@@ -138,8 +153,7 @@
 
             </Grid>
 
-            <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="3" Grid.Column="1" Background="LightBlue">
-
+            <ContentControl Content="{Binding CurrentViewModel}" Grid.Row="3" Grid.Column="1">
             </ContentControl>
 
         </Grid>

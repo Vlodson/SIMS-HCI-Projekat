@@ -47,7 +47,7 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Pacijenti" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
-                    <Border BorderBrush="Black" BorderThickness="1.5">
+                    <Border BorderBrush="#44a6c6" BorderThickness="1.5">
                         <ComboBox x:Name="comboBoxAddEmergencyPatients" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=PatientComboBox}" SelectedValue="{Binding Path=SelectedPatient }"/>
                     </Border>
                 </StackPanel>
@@ -64,26 +64,26 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="4" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Datum i vreme" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <DatePicker x:Name="dateAddEmergencyDateTime" SelectedDate="{Binding DateTime}" FontSize="18" BorderBrush="Black" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short"/>
+                    <DatePicker x:Name="dateAddEmergencyDateTime" SelectedDate="{Binding DateTime}" FontSize="18" BorderBrush="#44a6c6" BorderThickness="1.5" IsTodayHighlighted="True" SelectedDateFormat="Short"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="3" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Specijalizacija" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
-                    <Border BorderBrush="Black" BorderThickness="1.5">
+                    <Border BorderBrush="#44a6c6" BorderThickness="1.5">
                         <ComboBox x:Name="comboBoxAddEmergencyDoctorType" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=DoctorTypeComboBox}" SelectedValue="{Binding Path=DoctorType}"/>
                     </Border>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="5" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Vrsta pregleda" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"/>
-                    <Border BorderBrush="Black" BorderThickness="1.5">
+                    <Border BorderBrush="#44a6c6" BorderThickness="1.5">
                         <ComboBox x:Name="comboBoxAddEmergencyExamType" FontSize="18" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=ExamTypeComboBox}" SelectedValue="{Binding Path=SelectedExamType}"/>
                     </Border>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="10,0,10,0">
                     <Label Margin="-3 1 0 0" Content="Soba" FontSize="20" FontWeight="SemiBold" HorizontalAlignment="Left"></Label>
-                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="Black" FontSize="18" Height="30">
+                    <TextBox x:Name="textAddEmergencyRoomID" Text="{Binding RoomID}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" BorderThickness="1.5" BorderBrush="#44a6c6" FontSize="18" Height="30">
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>
@@ -102,8 +102,8 @@
                     </Button>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.RowSpan="5" Grid.Row="1" Margin="35,25,25,25">
-                    <ListView Height="335" BorderBrush="CornflowerBlue" BorderThickness="2" SelectedItem="{Binding SelectedAppointment}" ItemsSource="{Binding SuggestedAppointments}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Background="White">
+                <StackPanel Grid.Column="1" Grid.RowSpan="5" Grid.Row="1" Margin="35,15,25,15">
+                    <ListView Height="335" BorderBrush="#44a6c6" BorderThickness="2" SelectedItem="{Binding SelectedAppointment}" ItemsSource="{Binding SuggestedAppointments}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="False" Background="White">
 
                         <ListView.View>
                             <GridView>
