@@ -24,6 +24,7 @@ namespace ViewModel
         public MyICommand SendCommand { get; set; }
         private bool isChecked1;
         private bool isChecked2;
+        private string comment;
 
         public VerificationViewModel()
         {
@@ -34,6 +35,18 @@ namespace ViewModel
             Medicines = _medicineController.ReadAllPending(MainWindow._uid);
 
             
+        }
+        public string Comment
+        {
+            get { return comment; }
+            set
+            {
+                if (comment != value)
+                {
+                    comment = value;
+                    OnPropertyChanged("Comment");
+                }
+            }
         }
         public bool IsChecked1
         {
@@ -99,7 +112,10 @@ namespace ViewModel
             if (IsChecked1)
                 selectedMedicine.Status = Enums.StatusEnum.Approved;
             else
+            {
                 selectedMedicine.Status = Enums.StatusEnum.Rejected;
+                selectedMedicine.Comment = Comment;
+            }
             _medicineRepo.SaveMedicine();
         }
     }

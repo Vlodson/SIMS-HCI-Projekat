@@ -1,6 +1,7 @@
 ﻿using Controller;
 using Model;
 using Repository;
+using Syncfusion.UI.Xaml.Scheduler;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -32,7 +33,6 @@ namespace Doctor.View
             get;
             set;
         }
-        public static ObservableCollection<Examination> Examinations { get; set; }
         public ExaminationSchedule()
         {
             InitializeComponent();
@@ -42,10 +42,23 @@ namespace Doctor.View
             _examController = app.examController;
             _examRepo = app.examRepo;
 
+            Scheduler.DaysViewSettings.TimeInterval = new System.TimeSpan(0, 30, 0);
+            ScheduleAppointmentCollection sac = new ScheduleAppointmentCollection();
             if (File.Exists(_examRepo.DBPath))
                 _examRepo.LoadExamination();
 
-            Examinations = _examController.ReadDoctorExams(MainWindow._uid);
+            foreach(Examination exam in _examController.ReadDoctorExams(MainWindow._uid))
+            {
+                ScheduleAppointment sa = new ScheduleAppointment();
+
+                sa.Subject = exam.NameSurnamePatient + " | Soba: " + exam.ExamRoomId;
+                sa.StartTime = exam.Date;
+                sa.EndTime = exam.Date.AddMinutes(exam.Duration);
+                sa.IsAllDay = false;
+                sa.AppointmentBackground = new SolidColorBrush(Colors.LightBlue);
+                sac.Add(sa);
+            }
+            Scheduler.ItemsSource = sac;
         }
         private void add_Click(object sender, RoutedEventArgs e)
         {
@@ -56,22 +69,22 @@ namespace Doctor.View
 
         private void update_Click(object sender, RoutedEventArgs e)
         {
-            SelectedItem = (Examination)dataGridExaminations.SelectedItem;
-            UpdateExamination updateExamination = new UpdateExamination(SelectedItem, this);
+            //SelectedItem = (Examination)dataGridExaminations.SelectedItem;
+            //UpdateExamination updateExamination = new UpdateExamination(SelectedItem, this);
+            UpdateExamination updateExamination = new UpdateExamination();
             NavigationService.Navigate(updateExamination);
-            _examRepo.SaveExamination();
         }
 
 
         private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            Examination selectedItem = (Examination)dataGridExaminations.SelectedItem;
-            if (selectedItem != null)
-            {
-                _examController.DoctorRemoveExam(selectedItem);
-                dataGridExaminations.ItemsSource = _examController.ReadDoctorExams(MainWindow._uid);
-                _examRepo.SaveExamination();
-            }
+            //Examination selectedItem = _examController.GetExamByTime((DateTime)Scheduler.SelectedDate);
+            //if (selectedItem != null)
+            //{
+            //    _examController.DoctorRemoveExam(selectedItem);
+            //    dataGridExaminations.ItemsSource = _examController.ReadDoctorExams(MainWindow._uid);
+            //    _examRepo.SaveExamination();
+            //}
 
         }
     }

@@ -38,6 +38,11 @@ namespace Doctor.View
 
         public ObservableCollection<Patient> PatientsObs { get; set; }
         public ObservableCollection<Room> RoomsObs { get; set; }
+        public UpdateExamination()
+        {
+            InitializeComponent();
+            this.DataContext = this;
+        }
         public UpdateExamination(Examination selectedItem, ExaminationSchedule examinationSchedule)
         {
             InitializeComponent();

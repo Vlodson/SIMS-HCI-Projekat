@@ -36,7 +36,7 @@ namespace Doctor.View
 
         private int _duration;
 
-        public int Duration
+        public int Dur
         {
             get
             {
@@ -85,9 +85,9 @@ namespace Doctor.View
         {
             
 
-            if ((Patient)ComboBoxPacijent.SelectedItem == null || (Room)ComboBoxSoba.SelectedItem == null || DUR.Text.Equals("") || timePicker.SelectedItem == null)
+            if ((Patient)ComboBoxPacijent.SelectedItem == null || (Room)ComboBoxSoba.SelectedItem == null || textBoxDuration.Text.Equals("") || timePicker.SelectedItem == null)
             {
-                MessageBox.Show("Molimo popunite sva polja!");
+                ErrorLabel.Content = "Morate popuniti sva polja!";
                 return;
             } else
             {
@@ -112,12 +112,12 @@ namespace Doctor.View
 
                     Patient patient = (Patient)ComboBoxPacijent.SelectedItem;
 
-                    int duration = Int32.Parse(DUR.Text);
+                    int duration = Int32.Parse(textBoxDuration.Text);
 
                     ExaminationTypeEnum type = (ExaminationTypeEnum)this.TIP.SelectedItem;
 
                     Examination newExam = new Examination(room.Id, dt, (new Random()).Next(10000).ToString(), duration, type, patient.ID, MainWindow._uid);
-
+                    newExam.NameSurnamePatient = _patientController.ReadPatient(newExam.PatientId).Name + " " + _patientController.ReadPatient(newExam.PatientId).Surname;
                     _examController.DoctorCreateExam(newExam);
                     _examRepo.SaveExamination();
                     _examinationSchedule = new ExaminationSchedule();

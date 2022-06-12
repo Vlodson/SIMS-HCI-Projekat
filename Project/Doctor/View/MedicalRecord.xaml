@@ -10,41 +10,38 @@
 
     <Grid>
         <TextBlock Margin="34,17,646,644" FontWeight="Bold">Id:</TextBlock>
-        <TextBlock Margin="300,53,284,608" FontWeight="Bold">Krvna grupa:</TextBlock>
-        <TextBlock Margin="519,10,102,651" FontWeight="Bold">Alergeni:</TextBlock>
-        <TextBlock Margin="300,160,329,501" FontWeight="Bold">Telefon:</TextBlock>
-        <TextBlock Margin="34,53,633,609" FontWeight="Bold">Ime:</TextBlock>
-        <TextBlock Margin="34,88,591,573" FontWeight="Bold">Prezime:</TextBlock>
-        <TextBlock Margin="34,124,518,537" FontWeight="Bold">Datum rodjenja:</TextBlock>
-        <TextBlock Margin="34,160,613,501" FontWeight="Bold">JMBG:</TextBlock>
-        <TextBlock Margin="300,88,336,573" FontWeight="Bold">Adresa:</TextBlock>
-        <TextBlock Margin="300,124,343,538" FontWeight="Bold">E-mail:</TextBlock>
-        <TextBlock Margin="300,17,374,644" FontWeight="Bold">Pol:</TextBlock>
+        <TextBlock Margin="377,53,195,608" FontWeight="Bold">Krvna grupa:</TextBlock>
+        <TextBlock Margin="34,232,562,425" FontWeight="Bold">Alergeni:</TextBlock>
+        <TextBlock Margin="433,124,196,537" FontWeight="Bold">Telefon:</TextBlock>
+        <TextBlock Margin="34,53,627,609" FontWeight="Bold">Ime:</TextBlock>
+        <TextBlock Margin="34,88,588,573" FontWeight="Bold">Prezime:</TextBlock>
+        <TextBlock Margin="34,160,510,501" FontWeight="Bold">Datum rodjenja:</TextBlock>
+        <TextBlock Margin="34,124,608,537" FontWeight="Bold">JMBG:</TextBlock>
+        <TextBlock Margin="34,196,596,465" FontWeight="Bold">Adresa:</TextBlock>
+        <TextBlock Margin="440,89,195,573" FontWeight="Bold">E-mail:</TextBlock>
+        <TextBlock Margin="472,17,195,644" FontWeight="Bold">Pol:</TextBlock>
         <TextBlock Margin="69,17,557,644" Name="idLbl"></TextBlock>
-        <TextBlock Margin="431,53,197,608" Name="bloodLbl"></TextBlock>
+        <TextBlock Margin="515,53,32,608" Name="bloodLbl"></TextBlock>
         <TextBlock Margin="611,10,10,651" ></TextBlock>
-        <TextBlock Margin="381,160,178,501" Name="phoneLbl"></TextBlock>
+        <TextBlock Margin="520,124,39,537" Name="phoneLbl"></TextBlock>
         <TextBlock Margin="90,53,495,609" Name="nameLbl"></TextBlock>
-        <TextBlock Margin="124,88,501,573" Name="surnameLbl"></TextBlock>
-        <TextBlock Margin="192,124,415,537" Name="dobLbl"></TextBlock>
-        <TextBlock Margin="102,160,421,501" Name="ucinLbl"></TextBlock>
-        <TextBlock Margin="382,88,203,573" Name="addressLbl"></TextBlock>
-        <TextBlock Margin="372,124,203,538" Name="emailLbl"></TextBlock>
-        <TextBlock Margin="355,17,319,644" Name="genderLbl"></TextBlock>
-        <TextBlock FontWeight="Bold" Margin="246,215,247,446">IZVJESTAJI PACIJENTA</TextBlock>
-        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,277,34,114" >
+        <TextBlock Margin="130,88,444,573" Name="surnameLbl"></TextBlock>
+        <TextBlock Margin="206,160,279,501" Name="dobLbl"></TextBlock>
+        <TextBlock Margin="106,124,416,537" Name="ucinLbl"></TextBlock>
+        <TextBlock Margin="119,196,264,465" Name="addressLbl"></TextBlock>
+        <TextBlock Margin="520,88,10,574" Name="emailLbl"></TextBlock>
+        <TextBlock Margin="520,17,76,644" Name="genderLbl"></TextBlock>
+        <TextBlock FontWeight="Bold" Margin="215,289,255,372">IZVJESTAJI PACIJENTA</TextBlock>
+        <DataGrid x:Name="dataGridReports" ItemsSource="{Binding Reports, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="34,410,34,46" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding ExaminationId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding Description}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum i vreme" Binding="{Binding CreateDate}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lekar" Binding="{Binding DoctorId}" Width="*"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <Grid DataContext="{Binding ElementName=dataGridReports,Path=SelectedItem}" Margin="0,251,0,0" Height="412" VerticalAlignment="Top">
-            <TextBox Name ="txtDescription" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Description, Mode=OneWay}" VerticalAlignment="Center" Width="283" Height="90" Margin="37,0,0,0"/>
-            <Button Name ="Save" Content="Sacuvaj" HorizontalAlignment="Left" Margin="546,354,0,0" VerticalAlignment="Top" Click="Save_Click"/>
-        </Grid>
+        <DatePicker  SelectedDate="{Binding StartDate}" HorizontalAlignment="Left" Margin="34,359,0,0" VerticalAlignment="Top"/>
+        <DatePicker  SelectedDate="{Binding EndDate}" HorizontalAlignment="Left" Margin="256,359,0,0" VerticalAlignment="Top"/>
+        <Button Content="Generisi" HorizontalAlignment="Left" Margin="488,359,0,0" VerticalAlignment="Top" Height="37" Width="81" Click="Generate_Click"/>
+        <Label Content="-" HorizontalAlignment="Left" Margin="215,358,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 

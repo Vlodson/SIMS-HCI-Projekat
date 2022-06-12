@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Interfaces;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ReportRepo
+    public class ReportRepo: IReportRepo
     {
         public string DBPath { get; set; }
         public ObservableCollection<Report> Reports { get; set; }

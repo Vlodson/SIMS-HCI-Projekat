@@ -3,33 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:scheduler="clr-namespace:Syncfusion.UI.Xaml.Scheduler;assembly=Syncfusion.SfScheduler.WPF"
       xmlns:local="clr-namespace:Doctor.View"
       mc:Ignorable="d" 
       d:DesignHeight="692" d:DesignWidth="710"
       Title="ExaminationSchedule">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
+
+        <Canvas Background="#FF437182" HorizontalAlignment="Center" Height="75" VerticalAlignment="Top" Width="710" Margin="0,-15,0,0">
             <TextBlock Style="{StaticResource TitleTextBlock}" HorizontalAlignment="Left" Canvas.Left="254" Canvas.Top="12" VerticalAlignment="Center" >RASPORED</TextBlock>
         </Canvas>
-        <Grid Grid.Row="1">
-            <DataGrid x:Name="dataGridExaminations" ItemsSource="{Binding Examinations, Mode=OneWay}" IsReadOnly="True" Height="250" SelectionMode="Single" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" Margin="45,67,42,-8" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Datum i vreme" Binding="{Binding Date, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Pacijent" Binding="{Binding PatientId, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Tip" Binding="{Binding EType, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Soba" Binding="{Binding ExamRoomId, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Trajanje" Binding="{Binding Duration, UpdateSourceTrigger=PropertyChanged}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>
-        <Button Grid.Row="2" x:Name="add" Content="Zakazi" Click="add_Click" Margin="65,228,501,-237" />
-        <Button Grid.Row="2" x:Name="update" Content="Izmeni" Click="update_Click" Margin="285,212,309,-221" />
-        <Button Grid.Row="2" x:Name="cancel" Content="Otkazi" Click="cancel_Click" Margin="472,227,80,-237" ></Button>
+        <scheduler:SfScheduler ScrollViewer.HorizontalScrollBarVisibility="Visible" x:Name="Scheduler" AppointmentEditFlag="None" AllowedViewTypes="Day" ViewType="Day" Margin="30,65,34,186" ShowDatePickerButton="True" BorderBrush="Black" BorderThickness="2" >
+            <scheduler:SfScheduler.DaysViewSettings>
+                <scheduler:DaysViewSettings StartHour="7" EndHour="15" TimeIntervalHeight="70" TimeIntervalSize="50" TimeRulerSize="55" TimeRulerFormat="HH:mm"/>
+            </scheduler:SfScheduler.DaysViewSettings>
+            
+        </scheduler:SfScheduler>
+        <Button x:Name="add" Template="{StaticResource BasicButton}" Content="Zakazi" Click="add_Click" Margin="89,572,477,54" />
+        <Button x:Name="update" Template="{StaticResource BasicButton}" Content="Izmeni" Click="update_Click" Margin="288,572,288,54" />
+        <Button x:Name="cancel" Template="{StaticResource BasicButton}" Content="Otkazi" Click="cancel_Click" Margin="480,572,96,54" ></Button>
     </Grid>
 </Page>

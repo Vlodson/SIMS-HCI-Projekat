@@ -10,13 +10,13 @@
 
     <Grid Margin="0,0,142,398">
 
-        <DataGrid x:Name="dataGridExams" ItemsSource="{Binding Requests, Mode=OneWay}" Height="350" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="38,118,-107,-174" VerticalScrollBarVisibility="Visible">
+        <DataGrid Style="{DynamicResource DataGridStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="dataGridExams" ItemsSource="{Binding Requests, Mode=OneWay}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" Margin="38,118,-107,-286" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Razlog" Binding="{Binding Reason }" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Pocetak" Binding="{Binding StartDate}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Opis" Binding="{Binding RejectionReason}" Width="250" >
+                <DataGridTextColumn Header="Razlog" Binding="{Binding Reason }" Width="Auto" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Pocetak" Binding="{Binding StartDate}" Width="111" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Kraj" Binding="{Binding EndDate}" Width="116"></DataGridTextColumn>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Opis" Binding="{Binding RejectionReason}" Width="180" >
                     <DataGridTextColumn.ElementStyle>
                         <Style>
                             <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
