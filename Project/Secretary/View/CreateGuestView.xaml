@@ -12,6 +12,15 @@
     </UserControl.Resources>
     
     <Grid>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard Duration="00:00:1.5" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimation From="0" To="1.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <GroupBox Margin="30" Header="Dodavanje guest naloga" Background="White" Style="{StaticResource GroupBoxTheme}">
 
             <Grid Margin="30">

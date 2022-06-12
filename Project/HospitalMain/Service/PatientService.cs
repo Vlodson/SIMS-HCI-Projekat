@@ -83,6 +83,19 @@ namespace Service
             return _examinationRepo.Examinations;
         }
 
+        public ObservableCollection<Examination> GetAllExamsInWeek(DateTime dateTime)
+        {
+            ObservableCollection<Examination> examinations = new ObservableCollection<Examination>(_examinationRepo.Examinations);
+            foreach(Examination exam in examinations.ToList())
+            {
+                if(exam.Date < dateTime || exam.Date > dateTime.AddDays(7))
+                {
+                    examinations.Remove(exam);
+                }
+            }
+            return examinations;
+        }
+
         public void SaveExaminationRepo()
         {
             _examinationRepo.SaveExamination();
@@ -200,6 +213,17 @@ namespace Service
             examination.ExamRoomId = getRoom.Id;
             _patientRepo.GetPatient(examination.PatientId).NumberCanceling += 1;
             _examinationRepo.SetExamination(examId, examination);
+        }
+
+        public void DeletePatientExams(String id)
+        {
+            foreach(Examination exam in _examinationRepo.Examinations.ToList())
+            {
+                if (exam.PatientId.Equals(id))
+                {
+                    _examinationRepo.Examinations.Remove(exam);
+                }
+            }
         }
 
         public ObservableCollection<Examination> ReadPatientExams(string id)

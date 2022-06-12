@@ -37,6 +37,11 @@ namespace Controller
             _patientService.setValidationCounter(value);
         }
 
+        public ObservableCollection<Examination> GetAllExamsInWeek(DateTime dateTime)
+        {
+            return _patientService.GetAllExamsInWeek(dateTime);
+        }
+
         public int generateID (ObservableCollection<Examination> examinations)
         {
             return _patientService.generateID(examinations);
@@ -109,6 +114,11 @@ namespace Controller
         public void DeleteExam(string examID)
         {
             _doctorService.RemoveExam(examID);
+        }
+
+        public void DeletePatientExams(String id)
+        {
+            _patientService.DeletePatientExams(id);
         }
 
         public ObservableCollection<Examination> ReadPatientExams(string id)

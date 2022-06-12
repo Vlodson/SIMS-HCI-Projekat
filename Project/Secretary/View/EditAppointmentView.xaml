@@ -13,6 +13,15 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard Duration="00:00:1.5" Storyboard.TargetProperty="Opacity">
+                        <DoubleAnimation From="0" To="1.5"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <GroupBox Margin="20" Header="Izmena zakazanog pregleda" Style="{StaticResource GroupBoxTheme}">
             <Grid Margin="20">
                 <Grid.RowDefinitions>

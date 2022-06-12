@@ -13,11 +13,11 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row="0" BorderBrush="LightBlue" BorderThickness="1" CornerRadius="0,0,0,0">
+                        <Border Grid.Row="0" BorderBrush="LightBlue" BorderThickness="0" CornerRadius="0,0,0,0">
                             <ContentPresenter ContentSource="Header" RecognizesAccessKey="True"/>
                         </Border>
 
-                        <Border Grid.Row="1" BorderBrush="CornflowerBlue" BorderThickness="2" CornerRadius="10">
+                        <Border Grid.Row="1" BorderBrush="#44a6c6" BorderThickness="2" CornerRadius="10">
                             <ContentPresenter Margin="5"/>
                         </Border>
                     </Grid>

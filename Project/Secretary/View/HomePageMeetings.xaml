@@ -8,6 +8,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
             <RowDefinition Height="auto"/>
@@ -17,8 +33,8 @@
         <Label Grid.Row="0" Margin="0 15 0 0" Content="Kalendar zakazanih sastanaka" HorizontalContentAlignment="Center" FontSize="30" FontWeight="SemiBold"></Label>
 
         <DockPanel VerticalAlignment="Bottom">
-            <RadioButton Content="Pregledi" Command="{Binding ShowAppointmentsCommand}" CommandParameter="Appointments" Height="25" FontSize="16" VerticalContentAlignment="Center" Margin="30 0 0 10"/>
-            <RadioButton Content="Sastanci" Command="{Binding ShowMeetingsCommand}" CommandParameter="Meetings" IsChecked="True" Height="25" FontSize="16" Margin="30 0 0 10" VerticalContentAlignment="Center"/>
+            <RadioButton Content="Pregledi" Style="{StaticResource homePageButton}" Command="{Binding ShowAppointmentsCommand}" CommandParameter="Appointments" Height="25" FontSize="16" VerticalContentAlignment="Center" Margin="30 0 0 10"/>
+            <RadioButton Content="Sastanci" Style="{StaticResource homePageButton}" Command="{Binding ShowMeetingsCommand}" CommandParameter="Meetings" IsChecked="True" Height="25" FontSize="16" Margin="30 0 0 10" VerticalContentAlignment="Center"/>
             <Button DockPanel.Dock="Right" FontSize="16" Height="25" Width="100" Margin="0 0 30 10" Content="Obriši">
                 <Button.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -35,7 +51,7 @@
             </Button>
         </DockPanel>
 
-        <scheduler:SfScheduler x:Name="homeScheduler" Grid.Row="2" AppointmentEditFlag="None" AllowedViewTypes="Week" ViewType="Week" Margin="30 0 30 30" ShowDatePickerButton="True" BorderBrush="Black" BorderThickness="2">
+        <scheduler:SfScheduler x:Name="homeScheduler" Grid.Row="2" AppointmentEditFlag="None" AllowedViewTypes="Week" ViewType="Week" Margin="30 0 30 30" ShowDatePickerButton="True" BorderBrush="#44a6c6" BorderThickness="2">
             <scheduler:SfScheduler.DaysViewSettings>
                 <scheduler:DaysViewSettings StartHour="7" EndHour="15" TimeIntervalHeight="70" TimeIntervalSize="80" TimeRulerSize="50" TimeRulerFormat="HH:mm"/>
             </scheduler:SfScheduler.DaysViewSettings>

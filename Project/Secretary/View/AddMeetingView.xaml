@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:Secretary.Converter"
-             xmlns:ewt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:local="clr-namespace:Secretary.View"
              mc:Ignorable="d" 
              d:DesignHeight="617" d:DesignWidth="754" Background="White">
@@ -13,6 +12,22 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="0:0:0.8" From="-800" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <GroupBox Margin="20" Header="Zakazivanje novog sastanka" Style="{StaticResource GroupBoxTheme2}">
             <Grid Margin="20">
                 <Grid.RowDefinitions>
@@ -27,15 +42,27 @@
                 </Grid.ColumnDefinitions>
 
                 <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="10">
-                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 20">
-                        <Label Content="Datum i vreme sastanka" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"></Label>
-                        <ewt:DateTimePicker FlowDirection="RightToLeft" BorderThickness="1.5" Value="{Binding DateTime}" CultureInfo="sr-Latn" AutoCloseCalendar="True" Format="Custom" AllowSpin="True" FormatString="HH:mm dd.MM.yyyy" HorizontalContentAlignment="Left" FontSize="18" Margin="0 5 40 0">
-                            <ewt:DateTimePicker.Resources>
-
-                            </ewt:DateTimePicker.Resources>
-                        </ewt:DateTimePicker>
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 0">
+                        <Label Content="Datum sastanka" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"></Label>
+                        <DatePicker SelectedDate="{Binding DateTime}" BorderThickness="1.5" Height="30" FontSize="18" Margin="0 5 40 0">
+                            <DatePicker.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
                     </StackPanel>
-                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 20">
+                    <StackPanel DockPanel.Dock="Top">
+                        <Label Content="Vreme sastanka" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"/>
+                        <TextBox Text="{Binding Time}" BorderThickness="2" Height="30" FontSize="18" Margin="0 5 40 0">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Top" Margin="0 0 0 0">
                         <Label Content="Soba za održavanje sastanka" Margin="-5 0 0 0" FontSize="20" FontWeight="SemiBold"></Label>
                         <ComboBox FontSize="18" Margin="0 5 40 0" DisplayMemberPath="Name" SelectedValuePath="Value" ItemsSource="{Binding Path=RoomComboBox}" SelectedValue="{Binding Path=Room }"></ComboBox>
                     </StackPanel>

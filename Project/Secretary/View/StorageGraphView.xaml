@@ -7,7 +7,25 @@
              xmlns:local="clr-namespace:Secretary.View"
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="White">
+
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="0:0:0.8" From="800" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>

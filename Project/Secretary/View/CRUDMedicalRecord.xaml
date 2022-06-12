@@ -6,7 +6,24 @@
         xmlns:local="clr-namespace:Secretary.View"
         mc:Ignorable="d"
         Height="667" Width="804" Background="LightBlue">
+
     <Grid Margin="40">
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="400"/>
@@ -70,7 +87,7 @@
 
             <Grid Grid.Row="1" Grid.ColumnSpan="2">
 
-                <DataGrid x:Name="dataGridPatientRecords" HorizontalContentAlignment="Center" VerticalGridLinesBrush="LightBlue" MinRowHeight="25" HorizontalGridLinesBrush="LightBlue" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="CornflowerBlue" BorderThickness="3">
+                <DataGrid x:Name="dataGridPatientRecords" HorizontalContentAlignment="Center" VerticalGridLinesBrush="LightBlue" MinRowHeight="25" HorizontalGridLinesBrush="LightBlue" AutoGenerateColumns="False" RowStyle="{StaticResource DataGridRowTheme}" ItemsSource="{Binding DataGridCollection}" IsReadOnly="True" CanUserResizeColumns="False" CanUserResizeRows="False" SelectedItem="{Binding MedicalRecordViewModel}" SelectionMode="Single" Style="{StaticResource DataGridUsersTheme}" BorderBrush="#44a6c6" BorderThickness="3">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="5"/>

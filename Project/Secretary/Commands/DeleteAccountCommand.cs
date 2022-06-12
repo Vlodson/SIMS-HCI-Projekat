@@ -14,12 +14,16 @@ namespace Secretary.Commands
     public class DeleteAccountCommand : CommandBase
     {
         private readonly PatientController _patientController;
+        private readonly MedicalRecordController _medicalRecordController;
+        private readonly ExamController _examController;
         private readonly CRUDAccountOptionsViewModel _cruDAccountOptionsViewModel;
 
-        public DeleteAccountCommand(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, PatientController patientController)
+        public DeleteAccountCommand(CRUDAccountOptionsViewModel cRUDAccountOptionsViewModel, PatientController patientController, MedicalRecordController medicalRecordController, ExamController examController)
         {
             _cruDAccountOptionsViewModel = cRUDAccountOptionsViewModel;
             _patientController = patientController;
+            _examController = examController;
+            _medicalRecordController = medicalRecordController;
 
             _cruDAccountOptionsViewModel.PropertyChanged += OnViewModelPropertyChanged;
         }
@@ -31,7 +35,10 @@ namespace Secretary.Commands
 
         public override void Execute(object? parameter)
         {
+            _examController.DeletePatientExams(_cruDAccountOptionsViewModel.PatientViewModel.ID);
+            _medicalRecordController.DeletePatientMedicalRecord(_cruDAccountOptionsViewModel.PatientViewModel.ID);
             _patientController.RemovePatient(_cruDAccountOptionsViewModel.PatientViewModel.ID);
+
             UpdatePatients();
         }
 

@@ -7,9 +7,42 @@
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <TabControl Margin="25" FontSize="18">
             <TabItem Header="Pregledi">
-                <ContentControl Content="{Binding AppointmentsTab}"/>
+                <ContentControl Content="{Binding AppointmentsTab}"  x:Name="appointments">
+                    <ContentControl.RenderTransform>
+                        <TranslateTransform/>
+                    </ContentControl.RenderTransform>
+                    <ContentControl.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                                    <DoubleAnimation Storyboard.TargetName="appointments" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="0:0:0.8" From="800" To="0"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ContentControl.Triggers>
+                </ContentControl>
             </TabItem>
             <TabItem Header="Sastanci">
                 <ContentControl Content="{Binding MeetingsTab}"/>

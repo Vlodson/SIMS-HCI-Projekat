@@ -7,12 +7,62 @@
              mc:Ignorable="d" 
              d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <TabControl Margin="25" FontSize="18">
             <TabItem Header="Godišnji odmori">
-                <ContentControl Content="{Binding AbsenceTab}"/>
+                <ContentControl Content="{Binding AbsenceTab}" x:Name="absence">
+                    <ContentControl.RenderTransform>
+                        <TranslateTransform/>
+                    </ContentControl.RenderTransform>
+                    <ContentControl.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                                    <DoubleAnimation Storyboard.TargetName="absence" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="0:0:0.8" From="800" To="0"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ContentControl.Triggers>
+                </ContentControl>
             </TabItem>
             <TabItem Header="Oprema">
-                <ContentControl Content="{Binding EquipmentTab}"/>
+                <ContentControl Content="{Binding EquipmentTab}" x:Name="equipment">
+                    <!--<ContentControl.RenderTransform>
+                        <TranslateTransform/>
+                    </ContentControl.RenderTransform>
+                    <ContentControl.Triggers>
+                        <EventTrigger RoutedEvent="Loaded">
+                            <BeginStoryboard>
+                                <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                                    <DoubleAnimation Storyboard.TargetName="equipment" Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)" Duration="0:0:0.5" From="-150" To="0"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ContentControl.Triggers>-->
+                </ContentControl>
             </TabItem>
         </TabControl>
     </Grid>

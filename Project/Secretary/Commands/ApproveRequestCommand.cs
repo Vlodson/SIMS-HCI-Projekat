@@ -30,13 +30,9 @@ namespace Secretary.Commands
         }
 
         public override bool CanExecute(object? parameter)
-        { 
-            if(_freeDaysRequestViewModel.FreeDaysRequest == null)
-            {
-                return true;
-            }
-            int days = Convert.ToInt32((_freeDaysRequestViewModel.FreeDaysRequest.EndDate.Date - _freeDaysRequestViewModel.FreeDaysRequest.StartDate.Date).TotalDays);
-            return _freeDaysRequestController.CheckIfDoctorHasFreeDays(_freeDaysRequestViewModel.FreeDaysRequest.DoctorID, days) && (_freeDaysRequestViewModel.FreeDaysRequest != null) && base.CanExecute(parameter);
+        {
+            //int days = Convert.ToInt32((_freeDaysRequestViewModel.FreeDaysRequest.EndDate.Date - _freeDaysRequestViewModel.FreeDaysRequest.StartDate.Date).TotalDays);
+            return (_freeDaysRequestViewModel.FreeDaysRequest != null) && base.CanExecute(parameter);
         }
 
         public override void Execute(object? parameter)

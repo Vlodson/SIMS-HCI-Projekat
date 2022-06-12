@@ -5,14 +5,21 @@
            TargetType="{x:Type RadioButton}"
            x:Key="MenuButtonTheme">
         <Style.Setters>
-            <Setter Property="Background" Value="CornflowerBlue"></Setter>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5">
+                        <GradientStop Color="#add8e6" Offset="0"/>
+                        <GradientStop Color="#53adcb" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
 
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <StackPanel Orientation="Horizontal"
                               HorizontalAlignment="Stretch"
-                              Background="{TemplateBinding Background}">
+                              Background="{TemplateBinding Background}" x:Name="stack">
 
                             <Image Margin="10,0,0,0" Source="/Images/chevronRight.png" Width="24"  Height="24" />
                             <TextBlock Text="{TemplateBinding Property=Content}"
@@ -27,7 +34,10 @@
 
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="#FF64A8ED"/>
+                <Setter Property="Background" Value="#44a6c6"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#44a6c6" />
             </Trigger>
         </Style.Triggers>
 

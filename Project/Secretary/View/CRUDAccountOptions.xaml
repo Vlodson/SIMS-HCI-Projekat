@@ -8,6 +8,22 @@
         Height="667" Width="804" Background="LightBlue" >
 
     <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
         <TabControl Margin="35" TabStripPlacement="Left">
 
             <TabItem Margin="0,20,0,-20" Header="Pacijenti" FontSize="18">
@@ -109,7 +125,9 @@
 
             </TabItem>
 
-            <TabItem Margin="0,20,0,-20" Header="Lekari" FontSize="18"/>
+            <TabItem Margin="0,20,0,-20" Header="Lekari" FontSize="18">
+               
+            </TabItem>
             <TabItem Margin="0,20,0,-20" Header="Sekretari" FontSize="18"/>
             <TabItem Margin="0,20,0,-20" Header="Upravnici" FontSize="18"/>
         </TabControl>

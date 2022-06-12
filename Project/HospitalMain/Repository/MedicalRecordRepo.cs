@@ -94,6 +94,7 @@ namespace Repository
                     }
                 }
             }
+            //SaveMedicalRecord();
             if (File.Exists(dbPath))
                 LoadMedicalRecord();
 

@@ -20,6 +20,8 @@
                 <ResourceDictionary Source="Styles/DataGridUsersTheme.xaml"/>
                 <ResourceDictionary Source="Styles/DataGridRowTheme.xaml"/>
                 <ResourceDictionary Source="Styles/MovementAnimation.xaml"/>
+                <ResourceDictionary Source="Styles/GroupBoxTheme3.xaml"/>
+                <ResourceDictionary Source="Styles/HomePageButtons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type viewmodels:CRUDAccountOptionsViewModel}">
@@ -118,6 +120,14 @@
                 <view:EditMeetingView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewmodels:RoomOccupancyReportViewModel}">
+                <view:ReportView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:NotificationViewModel}">
+                <view:NotificationsView/>
+            </DataTemplate>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Secretary.View.ReportView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Secretary.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="667" d:DesignWidth="804" Background="LightBlue">
+    <Grid>
+        <Grid.RenderTransform>
+            <TranslateTransform/>
+        </Grid.RenderTransform>
+        <Grid.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard
+                                RepeatBehavior="1x"
+                                TargetProperty="RenderTransform.(TranslateTransform.Y)"
+                                AccelerationRatio=".4"
+                                DecelerationRatio=".4">
+                        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.Y)" Duration="0:0:0.8" From="667" To="0"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Content="Nedeljni izveštaj zauzetosti prostorija bolnice" HorizontalContentAlignment="Center" Margin="0 40 0 0" FontSize="30" FontWeight="SemiBold"/>
+
+        <GroupBox Style="{StaticResource GroupBoxTheme3}" Margin="0 0 0 40" Grid.Row="1" Height="250" Width="300">
+            <DockPanel Grid.Row="2" Margin="0 40 0 0" HorizontalAlignment="Center">
+                <StackPanel DockPanel.Dock="Top" Width="200" Margin="0 0 0 40">
+                    <Label Content="Početni datum" Margin="-5 0 0 0" HorizontalContentAlignment="Left" FontSize="18" ></Label>
+                    <DatePicker Width="200" Margin="0 5 0 30" FontSize="16" SelectedDate="{Binding DateTime}" BorderThickness="1.5">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+
+                    <Button Height="25" Content="Napravi izveštaj" Width="200" Command="{Binding ExportPdfCommand}" FontSize="14" CommandParameter="ExportPDF" >
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="8"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>

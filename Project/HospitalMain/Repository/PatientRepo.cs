@@ -32,6 +32,7 @@ namespace Repository
             this.Patients.Add(p3);
             this.Patients.Add(p4);
 
+            //SavePatient();
             if (File.Exists(dbPath))
                 LoadPatient();
         }

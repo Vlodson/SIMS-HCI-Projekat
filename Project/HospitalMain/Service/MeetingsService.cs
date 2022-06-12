@@ -143,6 +143,19 @@ namespace HospitalMain.Service
             return freeMeetingRooms;
         }
 
+        public ObservableCollection<Meeting> GetAllMeetingInWeek(DateTime dateTime)
+        {
+            ObservableCollection<Meeting> meetings = new ObservableCollection<Meeting>(_meetingsRepo.MeetingsList);
+            foreach(Meeting meeting in meetings.ToList())
+            {
+                if(meeting.DateTime < dateTime || meeting.DateTime > dateTime.AddDays(7))
+                {
+                    meetings.Remove(meeting);
+                }
+            }
+            return meetings;
+        }
+
         private void CheckIfRoomIsFree(Room room, DateTime dateTime, ObservableCollection<Room> freeMeetingRooms)
         {
             ObservableCollection<Meeting> meetings = new ObservableCollection<Meeting>(_meetingsRepo.MeetingsList);

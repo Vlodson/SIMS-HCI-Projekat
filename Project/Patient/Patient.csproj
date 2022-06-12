@@ -26,10 +26,13 @@
     <None Remove="Images\icons8-menu-24.png" />
     <None Remove="Images\login.jpg" />
     <None Remove="Images\logo2.png" />
+    <None Remove="Images\menu.png" />
+    <None Remove="Images\menu1.png" />
     <None Remove="Images\reportPdf.png" />
     <None Remove="Images\sign-out-alt.png" />
     <None Remove="Images\survey.png" />
     <None Remove="Images\tutorial.png" />
+    <None Remove="Images\user.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -82,11 +85,15 @@
     <PackageReference Include="PDFsharp" Version="1.50.5147" />
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
 
-    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.58" />
-    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
-    <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.Licensing" Version="20.1.0.59" />
+
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="20.1.0.59" />
+
+    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.1.0.59" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.59" />
+    <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.59" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
-    <PackageReference Include="Syncfusion.Pdf.WinForms" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.Pdf.WinForms" Version="20.1.0.59" />
 
   </ItemGroup>
 
@@ -100,6 +107,12 @@
     <Resource Include="Images\logo2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\menu1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\reportPdf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -110,6 +123,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\tutorial.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\user.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
